@@ -4,3 +4,5 @@ cmake-build-debug/
 vs/x64/Debug/
 
 vs/.vs/
+
+.idea/
