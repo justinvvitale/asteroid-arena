@@ -4,7 +4,7 @@
 
 #include "MeshComponent.h"
 
-MeshComponent::MeshComponent() : Component() {
+MeshComponent::MeshComponent() : Component(ComponentType::Mesh) {
 
 }
 

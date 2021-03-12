@@ -7,7 +7,6 @@
 
 #include <list>
 
-template<class C>
 class System {
 private:
     int priority = 0;

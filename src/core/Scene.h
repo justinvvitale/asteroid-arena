@@ -9,6 +9,7 @@
 #include <string>
 #include <list>
 #include <iostream>
+#include <unordered_map>
 #include "ecs/Entity.h"
 
 class Scene {
@@ -23,25 +24,9 @@ public:
 
 
     // Searching
+    std::list<Component*> findComponentsOfType(ComponentType type);
+    std::unordered_map<ComponentType, std::list<Component*>> getComponentsByType();
 
-    // Gotta throw it here, templates funky
-    template<class C>
-    std::list<C *> findComponentsOfType() {
-        std::list<C *> components = std::list<C *>();
-        std::string target = typeid(C).name();
-
-        for (Entity *entity : sceneEntities) {
-            for (Component *component : entity->getComponents()) {
-
-                C *casted = dynamic_cast<C *>(component);
-                if (casted != 0) {
-                    components.push_back(casted);
-                }
-            }
-        }
-
-        return components;
-    };
 };
 
 
