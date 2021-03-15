@@ -16,8 +16,6 @@ void Game::start(int argc, char **argv) {
     init();
     reshape(500, 500);
 
-    Engine::getInstance().test();
-
     // Callbacks
     glutDisplayFunc(Game::display);
     glutReshapeFunc(Game::reshape);

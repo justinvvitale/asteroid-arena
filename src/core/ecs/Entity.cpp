@@ -36,6 +36,22 @@ std::list<Component *> Entity::getComponents() {
     return components;
 }
 
+Component* Entity::getComponentOfType(ComponentType componentType) {
+    for(Component* component : components){
+        if(component->getType() == componentType){
+            return component;
+        }
+    }
+
+    return nullptr;
+}
+
+Entity* Entity::getParent() {
+    return parent;
+}
+
+
+
 
 
 

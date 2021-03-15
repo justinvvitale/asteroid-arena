@@ -18,10 +18,7 @@ private:
 
 public:
     void addEntity(Entity *entity);
-
     void removeEntity(Entity *entity);
-
-
 
     // Searching
     std::list<Component*> findComponentsOfType(ComponentType type);

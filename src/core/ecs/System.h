@@ -6,22 +6,24 @@
 #define I3D_SYSTEM_H
 
 #include <list>
+#include "Component.h"
 
 class System {
 private:
-    int priority = 0;
+    ComponentType handleType;
+
 public:
-    System(){};
+    explicit System(ComponentType handleType){
+        this->handleType = handleType;
+    };
 
     virtual void init() {};
 
-    virtual void process(std::list<C *> items) = 0;
+    virtual void process(std::list<Component*> items) = 0;
 
-    // 1000 is IMPORTANT | -1000 UNIMPORTANT
-    int getPriority(){
-            return priority;
+    ComponentType getType(){
+        return handleType;
     };
 };
-
 
 #endif //I3D_SYSTEM_H

@@ -9,9 +9,14 @@
 #include "../components/MeshComponent.h"
 #include "../System.h"
 
-class MeshRendererSystem : public System<MeshComponent> {
+class MeshRendererSystem : public System {
 public:
-    void process(std::list<MeshComponent *> items) override;
+    MeshRendererSystem();
+    void process(std::list<Component*> items) override;
+
+private:
+   Entity* getRootEntity(Entity* entity);
+   void renderEntity(Entity* entity);
 };
 
 

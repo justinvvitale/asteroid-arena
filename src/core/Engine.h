@@ -6,10 +6,16 @@
 #define I3D_ENGINE_H
 
 #include "ecs/System.h"
+#include "Scene.h"
 
 class Engine {
 private:
-    Engine() = default;
+    Engine();
+
+    // Variables
+    Scene* scene = nullptr;
+
+    std::list<System*> systems = std::list<System*>();
 
 public:
     static Engine &getInstance() {
@@ -21,7 +27,11 @@ public:
 
     void operator=(Engine const &) = delete;
 
-    void test();
+    void tick();
+    void render();
+
+    void setScene(Scene* sceneIn);
+    Scene* getScene();
 };
 
 

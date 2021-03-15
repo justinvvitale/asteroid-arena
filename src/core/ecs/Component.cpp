@@ -7,12 +7,16 @@
 Component::Component(ComponentType type) : type(type) {
 }
 
+ComponentType Component::getType() {
+    return type;
+}
+
 void Component::setParent(Entity *entity) {
     this->parent = entity;
 }
 
-ComponentType Component::getType() {
-    return type;
+Entity* Component::getParent() {
+    return parent;
 }
 
 

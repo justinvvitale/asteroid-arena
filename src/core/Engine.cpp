@@ -3,23 +3,50 @@
 //
 
 #include "Engine.h"
-#include "Scene.h"
-#include "ecs/components/MeshComponent.h"
-#include "ecs/components/ScriptComponent.h"
+#include "ecs/systems/MeshRendererSystem.h"
 
-void Engine::test() {
+Engine::Engine() {
 
-    Scene scene = Scene();
-
-    Entity *entity = new Entity();
-    Component *component = new MeshComponent();
-    Component *component1 = new ScriptComponent();
+    // Setup systems (Priority)
+    systems.push_back(new MeshRendererSystem());
 
 
-    entity->addComponent(component);
-    entity->addComponent(component1);
-    scene.addEntity(entity);
-
-    auto test = scene.findComponentsOfType<MeshComponent>();
-
+    // Init systems
+    for(System* system : systems){
+        system->init();
+    }
 }
+
+void Engine::tick() {
+    if(scene == nullptr) return;
+
+
+    // System handling
+    auto componentsByType = scene->getComponentsByType();
+    for(System* system : systems){
+
+        auto componentTypeIter = componentsByType.find(system->getType());
+        // If we can't find it, then it probably doesn't exist, don't need to process system.
+        if(componentTypeIter == componentsByType.end()) continue;
+
+        system->process(componentTypeIter->second);
+    }
+}
+
+void Engine::render() {
+    tick();
+}
+
+void Engine::setScene(Scene* sceneIn) {
+    this->scene = sceneIn;
+}
+
+Scene* Engine::getScene() {
+    return scene;
+}
+
+
+
+
+
+

@@ -15,11 +15,12 @@ class Entity;
 class Component {
 private:
     const ComponentType type;
-    Entity *parent = nullptr;
+    Entity* parent = nullptr;
 public:
     explicit Component(ComponentType type);
 
-    void setParent(Entity *entity);
+    void setParent(Entity* entity);
+    Entity* getParent();
 
     virtual void tick() = 0;
 

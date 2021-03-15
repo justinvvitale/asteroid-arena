@@ -11,7 +11,7 @@
 
 class Entity {
 private:
-    //Entity* parent = nullptr;
+    Entity* parent = nullptr;
 
     std::list<Component *> components = std::list<Component *>();
 
@@ -23,14 +23,14 @@ public:
     void addComponent(Component *component);
 
     std::list<Component *> getComponents();
+    Component* getComponentOfType(ComponentType componentType);
+
+    Entity* getParent();
 
     // Transform
     Vector3 getPosition() const;
-
     void setPosition(const Vector3 &pos);
-
     const Quaternion &getRotation() const;
-
     void setRotation(const Quaternion &rotation);
 };
 
