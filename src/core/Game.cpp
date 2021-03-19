@@ -12,7 +12,7 @@ void Game::start(int argc, char **argv) {
 
     glutInitWindowSize(500, 500);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow(argv[0]);
+    glutCreateWindow("I3D Assignment 1 (S3718796)");
     init();
     reshape(500, 500);
 
@@ -44,34 +44,55 @@ void Game::reshape(int w, int h) {
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(65.0, (GLfloat) w / (GLfloat) h, 1.0, 20.0);
+
+    double aspect = (double)w/h;
+    if(w <= h)
+        glOrtho(-1.0, 1.0,-1.0/aspect, 1.0/aspect, -1.0,1.0);
+    else
+        glOrtho(-1.0*aspect, 1.0*aspect,-1.0, 1.0, -1.0, 1.0);
+
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef(0.0, 0.0, -5.0);
+    //glTranslatef(0.0, 0.0, -5.0);
 }
 
 void Game::display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glColor3f(1,1,1);
 
-    glPointSize(10);
-    glBegin(GL_LINE_LOOP);
-        glVertex3f(-0.5, -0.5, -0.5);
-        glVertex3f(0.5, -0.5, -0.5);
-        glVertex3f(0.5, 0.5, -0.5);
-        glVertex3f(-0.5, 0.5, -0.5);
+
+    glColor3ub( 255, 255, 255 );
+    glBegin( GL_LINE_LOOP );
+        glVertex2f( -1, -1 );
+        glVertex2f(  1, -1 );
+        glVertex2f(  1,  1 );
+        glVertex2f( -1,  1 );
+
+//    glVertex2f( -0.9, -0.9 );
+//    glVertex2f(  0.9, -0.9 );
+//    glVertex2f(  0.9,  0.9 );
+//    glVertex2f( -0.9,  0.9 );
+
     glEnd();
-
-    glBegin(GL_QUADS);
-        glColor3f(0,1,0);
-
-        glVertex3f(-0.25, -0.25, -0.75); // 1
-        glVertex3f(0.75, -0.25, -0.75); // 2
-        glVertex3f(0.75, 0.75, -0.75); // 3
-        glVertex3f(-0.25,0.75, -0.75); // 4
-    glEnd();
+//    glColor3f(1,1,1);
+//
+//    glPointSize(10);
+//    glBegin(GL_LINE_LOOP);
+//        glVertex3f(-0.5, -0.5, -0.5);
+//        glVertex3f(0.5, -0.5, -0.5);
+//        glVertex3f(0.5, 0.5, -0.5);
+//        glVertex3f(-0.5, 0.5, -0.5);
+//    glEnd();
+//
+//    glBegin(GL_QUADS);
+//        glColor3f(0,1,0);
+//
+//        glVertex3f(-0.25, -0.25, -0.75); // 1
+//        glVertex3f(0.75, -0.25, -0.75); // 2
+//        glVertex3f(0.75, 0.75, -0.75); // 3
+//        glVertex3f(-0.25,0.75, -0.75); // 4
+//    glEnd();
 
 
     int err;
