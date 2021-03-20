@@ -7,25 +7,19 @@
 
 #include "ecs/System.h"
 #include "Scene.h"
+#include <map>
 
 class Engine {
 private:
-    Engine();
-
     // Variables
     Scene* scene = nullptr;
 
     std::list<System*> systems = std::list<System*>();
+    std::map<ComponentType, System*> manualSystems = std::map<ComponentType, System*>();
+
 
 public:
-    static Engine &getInstance() {
-        static Engine instance;
-        return instance;
-    }
-
-    Engine(Engine const &) = delete;
-
-    void operator=(Engine const &) = delete;
+    Engine();
 
     void tick();
     void render();

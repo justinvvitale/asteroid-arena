@@ -7,11 +7,14 @@
 
 #include <list>
 #include "../shared/engine_math.h"
-#include "Component.h"
+#include "ComponentType.h"
+
+class Component;
 
 class Entity {
 private:
     Entity* parent = nullptr;
+    std::list<Entity *> children = std::list<Entity *>();
 
     std::list<Component *> components = std::list<Component *>();
 
@@ -25,7 +28,9 @@ public:
     std::list<Component *> getComponents();
     Component* getComponentOfType(ComponentType componentType);
 
+    void setParent(Entity* entity);
     Entity* getParent();
+    std::list<Entity *> getChildren();
 
     // Transform
     Vector3 getPosition() const;

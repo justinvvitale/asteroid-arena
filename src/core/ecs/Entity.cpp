@@ -3,6 +3,7 @@
 //
 
 #include "Entity.h"
+#include "Component.h"
 
 void Entity::tick() {
     for (Component *comp : components) {
@@ -10,7 +11,8 @@ void Entity::tick() {
     }
 }
 
-void Entity::addComponent(Component *component) {
+void Entity::addComponent(Component* component) {
+    component->setParent(this);
     this->components.push_back(component);
 }
 
@@ -48,6 +50,15 @@ Component* Entity::getComponentOfType(ComponentType componentType) {
 
 Entity* Entity::getParent() {
     return parent;
+}
+
+void Entity::setParent(Entity* entity) {
+    this->parent = entity;
+    entity->children.push_back(entity);
+}
+
+std::list<Entity*> Entity::getChildren() {
+    return children;
 }
 
 

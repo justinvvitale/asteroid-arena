@@ -55,7 +55,9 @@ void MeshRendererSystem::renderEntity(Entity* entity) {
         meshComponent->render();
     }
 
-    // TODO todo need child entities of this type
+    for(Entity* childEntity : entity->getChildren()){
+        renderEntity(entity);
+    }
 
     glPopMatrix();
 }

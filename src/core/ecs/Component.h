@@ -5,12 +5,8 @@
 #ifndef I3D_COMPONENT_H
 #define I3D_COMPONENT_H
 
-enum ComponentType {
-    Mesh,
-
-};
-
-class Entity;
+#include "ComponentType.h"
+#include "Entity.h"
 
 class Component {
 private:

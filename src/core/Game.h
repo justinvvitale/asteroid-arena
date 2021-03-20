@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include "input/KeyRegistry.h"
+#include "Engine.h"
 #include <iostream>
 
 #if _WIN32
@@ -28,8 +29,17 @@
 #endif
 
 class Game {
+private:
+    static float lastIdleTime;
+    static Engine* engine;
+
 public:
-    static void start(int argc, char **argv);
+    // Key variables (Global)
+    static float dt;
+
+    static void start(int argc, char **argv, const std::string& name, Engine* gEngine);
+
+    static Engine* getEngine();
 
     // GLUT callbacks
     static void init();

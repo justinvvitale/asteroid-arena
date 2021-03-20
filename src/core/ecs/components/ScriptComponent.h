@@ -9,7 +9,18 @@
 #include "../Component.h"
 
 class ScriptComponent : public Component {
+private:
+    bool hasInit = false;
+
+protected:
+    virtual void start() = 0;
+    virtual void update() = 0;
+
+public:
+    ScriptComponent();
     void tick() override;
+
+
 };
 
 

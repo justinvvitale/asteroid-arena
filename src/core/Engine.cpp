@@ -4,16 +4,23 @@
 
 #include "Engine.h"
 #include "ecs/systems/MeshRendererSystem.h"
+#include "ecs/systems/ScriptProcessorSystem.h"
 
 Engine::Engine() {
 
     // Setup systems (Priority)
-    systems.push_back(new MeshRendererSystem());
+    systems.push_back(new ScriptProcessorSystem());
+
+    // Manual systems (Priority)
+    manualSystems.emplace(ComponentType::Mesh, new MeshRendererSystem());
 
 
     // Init systems
     for(System* system : systems){
         system->init();
+    }
+    for (auto const& sys : manualSystems){
+        sys.second->init();
     }
 }
 
@@ -34,7 +41,10 @@ void Engine::tick() {
 }
 
 void Engine::render() {
-    tick();
+    auto componentsByType = scene->getComponentsByType();
+    auto componentTypeIter = componentsByType.find(ComponentType::Mesh);
+    if(componentTypeIter == componentsByType.end()) return;
+    manualSystems[ComponentType::Mesh]->process(componentTypeIter->second);
 }
 
 void Engine::setScene(Scene* sceneIn) {

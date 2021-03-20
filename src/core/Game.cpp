@@ -5,16 +5,21 @@
 #include "Game.h"
 #include "Engine.h"
 
-void Game::start(int argc, char **argv) {
+float Game::lastIdleTime = 0.0;
+float Game::dt = 1;
+Engine* Game::engine = nullptr;
+
+void Game::start(int argc, char **argv, const std::string& name, Engine* gEngine) {
+    Game::engine = gEngine;
+
     glutInit(&argc, argv);
 
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutCreateWindow(name.c_str());
 
-    glutInitWindowSize(500, 500);
-    glutInitWindowPosition(100, 100);
-    glutCreateWindow("I3D Assignment 1 (S3718796)");
+    //glutFullScreen();
+
     init();
-    reshape(500, 500);
 
     // Callbacks
     glutDisplayFunc(Game::display);
@@ -35,65 +40,33 @@ void Game::init() {
 
     glEnable(GL_DEPTH_TEST);
 
+    // Set last idle
+    lastIdleTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
 }
 
 // Callbacks
 
 void Game::reshape(int w, int h) {
-    glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+    glViewport(0, 0, w, h);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    double aspect = (double)w/h;
-    if(w <= h)
-        glOrtho(-1.0, 1.0,-1.0/aspect, 1.0/aspect, -1.0,1.0);
-    else
-        glOrtho(-1.0*aspect, 1.0*aspect,-1.0, 1.0, -1.0, 1.0);
+    float aspectRatio = (GLfloat) w / (GLfloat) h;
 
+    if (w <= h)
+        glOrtho(-1000, 1000, -1000 / aspectRatio, 1000 / aspectRatio, 1.0, -1.0);
+    else
+        glOrtho(-1000 * aspectRatio, 1000 * aspectRatio, -1000, 1000, 1.0, -1.0);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    //glTranslatef(0.0, 0.0, -5.0);
 }
 
 void Game::display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-
-    glColor3ub( 255, 255, 255 );
-    glBegin( GL_LINE_LOOP );
-        glVertex2f( -1, -1 );
-        glVertex2f(  1, -1 );
-        glVertex2f(  1,  1 );
-        glVertex2f( -1,  1 );
-
-//    glVertex2f( -0.9, -0.9 );
-//    glVertex2f(  0.9, -0.9 );
-//    glVertex2f(  0.9,  0.9 );
-//    glVertex2f( -0.9,  0.9 );
-
-    glEnd();
-//    glColor3f(1,1,1);
-//
-//    glPointSize(10);
-//    glBegin(GL_LINE_LOOP);
-//        glVertex3f(-0.5, -0.5, -0.5);
-//        glVertex3f(0.5, -0.5, -0.5);
-//        glVertex3f(0.5, 0.5, -0.5);
-//        glVertex3f(-0.5, 0.5, -0.5);
-//    glEnd();
-//
-//    glBegin(GL_QUADS);
-//        glColor3f(0,1,0);
-//
-//        glVertex3f(-0.25, -0.25, -0.75); // 1
-//        glVertex3f(0.75, -0.25, -0.75); // 2
-//        glVertex3f(0.75, 0.75, -0.75); // 3
-//        glVertex3f(-0.25,0.75, -0.75); // 4
-//    glEnd();
-
+    engine->render();
 
     int err;
     while ((err = glGetError()) != GL_NO_ERROR) {
@@ -104,6 +77,16 @@ void Game::display() {
 }
 
 void Game::idle() {
+    float cur_time = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
+    Game::dt = cur_time - Game::lastIdleTime;
+    Game::lastIdleTime = cur_time;
+
+    engine->tick();
+
     glutPostRedisplay();
+}
+
+Engine* Game::getEngine() {
+    return engine;
 }
 
