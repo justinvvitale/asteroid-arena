@@ -43,6 +43,7 @@ struct Quaternion {
     static Quaternion zero() {
         return {0, 0, 0, 0};
     }
+
 };
 
 // UTIL

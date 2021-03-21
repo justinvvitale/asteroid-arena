@@ -47,7 +47,8 @@ void MeshRendererSystem::renderEntity(Entity* entity) {
     auto rotation = entity->getRotation();
 
     glTranslatef(position.x, position.y, position.z);
-    // TODO rotation?
+    glRotatef(rotation.w, rotation.x, rotation.y, rotation.z);
+
 
     Component* compMesh = entity->getComponentOfType(ComponentType::Mesh);
     if(compMesh != nullptr){

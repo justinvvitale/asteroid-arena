@@ -5,19 +5,26 @@
 #ifndef I3D_SHIPENTITY_H
 #define I3D_SHIPENTITY_H
 
-
-#include "../scripts/randmove.h"
+#include "../CONFIG.h"
+#include "../scripts/PlayerControllerScript.h"
 
 class ShipEntity {
 private:
-    static struct Mesh getModel(){
+    static struct Mesh getModel(GLenum mode, Vector3 colour){
         struct Mesh mesh;
-        mesh.mode = GL_LINE_LOOP;
-        mesh.vertices = {
-                Vector3(-100,-100,0),
-                Vector3(100,-100,0),
-                Vector3(100,100,0),
-                Vector3(-100,100,0)
+
+        float shipSize = SHIP_SIZE;
+        mesh.mode = mode;
+        mesh.data = {
+                MeshData(MeshDataType::colour, colour),
+                MeshData(0,-shipSize/4,0), // Bottom center
+                MeshData(0,shipSize/1,0), // Top center
+                MeshData(-shipSize/2,-shipSize/2,0), // Bottom left
+
+                MeshData(0,-shipSize/4,0), // Bottom center
+                MeshData(0,shipSize,0), // Top center
+                MeshData(shipSize/2,-shipSize/2,0), // Bottom right
+                MeshData(MeshDataType::colour, 1,1,1)
         };
 
         return mesh;
@@ -28,9 +35,12 @@ public:
         Entity* ship = new Entity();
 
         MeshComponent* meshRender = new MeshComponent();
-            meshRender->setMesh(getModel());
+            meshRender->addMesh(getModel(GL_LINE_LOOP, SHIP_COLOUR_OUTLINE));
+            meshRender->addMesh(getModel(GL_TRIANGLE_STRIP, SHIP_COLOUR));
+
+
         ship->addComponent(meshRender);
-        ship->addComponent((Component*)new randmove());
+        ship->addComponent((Component*)new PlayerControllerScript());
 
         ship->setPosition(Vector3(0, 500, 0));
 

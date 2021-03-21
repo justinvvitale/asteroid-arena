@@ -29,7 +29,7 @@ void KeyRegistry::clear() {
 }
 
 bool KeyRegistry::isPressed(unsigned char key) {
-    return keyState->find(key) != keyState->end();;
+    return keyState->find(key) != keyState->end();
 }
 
 std::vector<unsigned char> KeyRegistry::getPressed() {

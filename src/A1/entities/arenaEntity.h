@@ -11,11 +11,11 @@ private:
     static struct Mesh getModel(){
         struct Mesh arenaMesh;
         arenaMesh.mode = GL_LINE_LOOP;
-        arenaMesh.vertices = {
-                Vector3(-995,-995,0),
-                Vector3(995,-995,0),
-                Vector3(995,995,0),
-                Vector3(-995,995,0)
+        arenaMesh.data = {
+                MeshData(-995,-995,0),
+                MeshData(995,-995,0),
+                MeshData(995,995,0),
+                MeshData(-995,995,0)
         };
 
         return arenaMesh;

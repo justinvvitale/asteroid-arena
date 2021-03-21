@@ -13,13 +13,29 @@ void MeshComponent::tick() {
 }
 
 void MeshComponent::render() {
-    glBegin(mesh.mode);
-    for(Vector3 vert : mesh.vertices){
-        glVertex3f(vert.x, vert.y, vert.z);
+    for(const struct Mesh& mesh : data) {
+
+        glBegin(mesh.mode);
+
+        for (MeshData meshData : mesh.data) {
+            switch(meshData.dataType){
+                case primitive:
+                    glVertex3f(meshData.data.x, meshData.data.y, meshData.data.z);
+                    break;
+                case colour:
+                    glColor3f(meshData.data.x, meshData.data.y, meshData.data.z);
+                    break;
+            }
+        }
+        glEnd();
     }
-    glEnd();
 }
 
-void MeshComponent::setMesh(struct Mesh meshIn) {
-    this->mesh = meshIn;
+void MeshComponent::setMesh(const struct Mesh& meshIn) {
+    this->data.clear();
+    this->data.push_back(meshIn);
+}
+
+void MeshComponent::addMesh(const struct Mesh& meshIn) {
+    this->data.push_back(meshIn);
 }

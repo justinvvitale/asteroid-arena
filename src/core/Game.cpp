@@ -20,6 +20,7 @@ void Game::start(int argc, char **argv, const std::string& name, Engine* gEngine
     //glutFullScreen();
 
     init();
+    KeyRegistry::init();
 
     // Callbacks
     glutDisplayFunc(Game::display);
