@@ -2,6 +2,7 @@
 // Created by Dimme on 11/03/2021.
 //
 
+#include <glew.h>
 #include "Game.h"
 #include "Engine.h"
 

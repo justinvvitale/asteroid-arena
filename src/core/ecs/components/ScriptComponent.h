@@ -14,13 +14,13 @@ private:
 
 protected:
     virtual void start() = 0;
-    virtual void update() = 0;
+    virtual void update() = 0;;
 
 public:
     ScriptComponent();
     void tick() override;
 
-
+    virtual void onCollision(Entity* other){}
 };
 
 

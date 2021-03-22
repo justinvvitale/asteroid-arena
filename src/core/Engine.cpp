@@ -5,10 +5,12 @@
 #include "Engine.h"
 #include "ecs/systems/MeshRendererSystem.h"
 #include "ecs/systems/ScriptProcessorSystem.h"
+#include "ecs/systems/CollisionSystem.h"
 
 Engine::Engine() {
 
     // Setup systems (Priority)
+    systems.push_back(new CollisionSystem());
     systems.push_back(new ScriptProcessorSystem());
 
     // Manual systems (Priority)

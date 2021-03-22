@@ -27,6 +27,7 @@ public:
 
     std::list<Component *> getComponents();
     Component* getComponentOfType(ComponentType componentType);
+    std::list<Component *> getComponentsOfType(ComponentType componentType);
 
     void setParent(Entity* entity);
     Entity* getParent();

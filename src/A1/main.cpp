@@ -1,7 +1,8 @@
 #include "../core/Game.h"
 #include "../core/ecs/components/MeshComponent.h"
-#include "entities/arenaEntity.h"
-#include "entities/shipEntity.h"
+#include "entities/ArenaEntity.h"
+#include "entities/ShipEntity.h"
+#include "entities/TestEntity.h"
 
 int main(int argc, char **argv) {
 
@@ -11,6 +12,7 @@ int main(int argc, char **argv) {
     Scene* scene = new Scene();
         scene->addEntity(ArenaEntity::getEntity());
         scene->addEntity(ShipEntity::getEntity());
+        scene->addEntity(TestEntity::getEntity());
     engine->setScene(scene);
 
 

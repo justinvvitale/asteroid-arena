@@ -16,11 +16,12 @@ public:
     explicit Component(ComponentType type);
 
     void setParent(Entity* entity);
-    Entity* getParent();
 
-    virtual void tick() = 0;
+    virtual void tick() {};
 
     ComponentType getType();
+
+    Entity* getParent();
 };
 
 

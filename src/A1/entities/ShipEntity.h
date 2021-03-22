@@ -7,6 +7,7 @@
 
 #include "../CONFIG.h"
 #include "../scripts/PlayerControllerScript.h"
+#include "../../core/ecs/components/ColliderComponent.h"
 
 class ShipEntity {
 private:
@@ -41,6 +42,9 @@ public:
 
         ship->addComponent(meshRender);
         ship->addComponent((Component*)new PlayerControllerScript());
+
+        ship->addComponent((Component*)new ColliderComponent(ColliderType::circlePos, SHIP_SIZE));
+
 
         ship->setPosition(Vector3(0, 500, 0));
 

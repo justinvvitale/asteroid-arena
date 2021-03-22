@@ -20,13 +20,28 @@ void PlayerControllerScript::update() {
     Quaternion rot = player->getRotation();
 
 
-    float playerSpeed = SHIP_SPEED * Game::dt;
-    float forwardXMove = playerSpeed * -sinf(rot.w * (float)M_PI / 180);
-    float forwardYMove = playerSpeed * cosf(rot.w * (float)M_PI / 180);
-
 
     // Forward
     if(KeyRegistry::isPressed(SHIP_FORWARD_KEY)){
+        if(velocity < 1){
+            velocity += SHIP_ACCELERATION;
+        }
+    }else if(velocity > 0){
+        // Reset velocity if not moving
+        velocity -= SHIP_DECELERATION;
+
+        // Set 0 once respectfully no longer useful
+        if(velocity < 0.001){
+            velocity = 0;
+        }
+    }
+
+    // Move if velocity more than 0
+    if(velocity > 0){
+        float shipSpeed = (SHIP_MAX_SPEED * velocity) * Game::dt;
+        float forwardXMove = shipSpeed * -sinf(rot.w * (float)M_PI / 180);
+        float forwardYMove = shipSpeed * cosf(rot.w * (float)M_PI / 180);
+
         pos.x += forwardXMove;
         pos.y += forwardYMove;
     }
@@ -41,9 +56,10 @@ void PlayerControllerScript::update() {
         rot.z += 1;
     }
 
-
-
-
     player->setPosition(pos);
     player->setRotation(rot);
+}
+
+void PlayerControllerScript::onCollision(Entity* other) {
+    std::cout << "I COLLIDE" << std::endl;
 }

@@ -9,9 +9,12 @@
 #include "../../core/ecs/components/ScriptComponent.h"
 
 class PlayerControllerScript : ScriptComponent{
-        void start() override;
+        float velocity = 0;
 
+        void start() override;
         void update() override;
+
+    void onCollision(Entity* other) override;
 };
 
 

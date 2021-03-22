@@ -38,6 +38,18 @@ std::list<Component *> Entity::getComponents() {
     return components;
 }
 
+std::list<Component*> Entity::getComponentsOfType(ComponentType componentType) {
+    std::list<Component*> compList = std::list<Component*>();
+
+    for(Component* component : components){
+        if(component->getType() == componentType){
+            compList.push_back(component);
+        }
+    }
+
+    return compList;
+}
+
 Component* Entity::getComponentOfType(ComponentType componentType) {
     for(Component* component : components){
         if(component->getType() == componentType){
@@ -60,6 +72,8 @@ void Entity::setParent(Entity* entity) {
 std::list<Entity*> Entity::getChildren() {
     return children;
 }
+
+
 
 
 
