@@ -17,14 +17,11 @@
 const float ARENA_SIZE = 995;
 
 
-
-
-
 // Ship
 const int SHIP_SIZE = 80;
 
-const Vector3 SHIP_COLOUR = Vector3(0,0,0);
-const Vector3 SHIP_COLOUR_OUTLINE = Vector3(1,1,1);
+const Vector3 SHIP_COLOUR = Vector3(0, 0, 0);
+const Vector3 SHIP_COLOUR_OUTLINE = Vector3(1, 1, 1);
 
 const float SHIP_MAX_SPEED = 800;
 const float SHIP_ACCELERATION = 0.1; // 0.1 = 10% increase in velocity per tick

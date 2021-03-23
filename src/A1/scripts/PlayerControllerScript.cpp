@@ -22,36 +22,36 @@ void PlayerControllerScript::update() {
 
 
     // Forward
-    if(KeyRegistry::isPressed(SHIP_FORWARD_KEY)){
-        if(velocity < 1){
+    if (KeyRegistry::isPressed(SHIP_FORWARD_KEY)) {
+        if (velocity < 1) {
             velocity += SHIP_ACCELERATION;
         }
-    }else if(velocity > 0){
+    } else if (velocity > 0) {
         // Reset velocity if not moving
         velocity -= SHIP_DECELERATION;
 
         // Set 0 once respectfully no longer useful
-        if(velocity < 0.001){
+        if (velocity < 0.001) {
             velocity = 0;
         }
     }
 
     // Move if velocity more than 0
-    if(velocity > 0){
+    if (velocity > 0) {
         float shipSpeed = (SHIP_MAX_SPEED * velocity) * Game::dt;
-        float forwardXMove = shipSpeed * -sinf(rot.w * (float)M_PI / 180);
-        float forwardYMove = shipSpeed * cosf(rot.w * (float)M_PI / 180);
+        float forwardXMove = shipSpeed * -sinf(rot.w * (float) M_PI / 180);
+        float forwardYMove = shipSpeed * cosf(rot.w * (float) M_PI / 180);
 
         pos.x += forwardXMove;
         pos.y += forwardYMove;
     }
 
     // Left/right movement
-    if(KeyRegistry::isPressed(SHIP_TURN_LEFT_KEY)){
+    if (KeyRegistry::isPressed(SHIP_TURN_LEFT_KEY)) {
         rot.w += SHIP_TURN_SPEED;
         rot.z += 1;
 
-    }else if(KeyRegistry::isPressed(SHIP_TURN_RIGHT_KEY)){
+    } else if (KeyRegistry::isPressed(SHIP_TURN_RIGHT_KEY)) {
         rot.w -= SHIP_TURN_SPEED;
         rot.z += 1;
     }

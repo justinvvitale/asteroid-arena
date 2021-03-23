@@ -10,31 +10,31 @@
 
 class TestEntity {
 private:
-    static struct Mesh getModel(){
+    static struct Mesh getModel() {
         struct Mesh mesh;
         mesh.mode = GL_LINE_LOOP;
         mesh.data = {
-                MeshData(-100,-100,0),
-                MeshData(100,-100,0),
-                MeshData(100,100,0),
-                MeshData(-100,100,0)
+                MeshData(-100, -100, 0),
+                MeshData(100, -100, 0),
+                MeshData(100, 100, 0),
+                MeshData(-100, 100, 0)
         };
 
         return mesh;
     }
 
 public:
-    static Entity* getEntity(){
+    static Entity* getEntity() {
         Entity* entity = new Entity();
 
         MeshComponent* meshRenderer = new MeshComponent();
         meshRenderer->setMesh(getModel());
         entity->addComponent(meshRenderer);
 
-        ColliderComponent* col = new ColliderComponent(100,200);
-        col->setOffset(Vector3(100,0,0));
+        ColliderComponent* col = new ColliderComponent(100, 200);
+        col->setOffset(Vector3(100, 0, 0));
 
-        entity->addComponent((Component*)col);
+        entity->addComponent((Component*) col);
 
         return entity;
     }

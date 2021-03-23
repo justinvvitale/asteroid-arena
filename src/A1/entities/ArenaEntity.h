@@ -11,28 +11,28 @@
 
 class ArenaEntity {
 private:
-    static struct Mesh getModel(){
+    static struct Mesh getModel() {
         struct Mesh arenaMesh;
         arenaMesh.mode = GL_LINE_LOOP;
         arenaMesh.data = {
-                MeshData(-ARENA_SIZE,-ARENA_SIZE,0),
-                MeshData(ARENA_SIZE,-ARENA_SIZE,0),
-                MeshData(ARENA_SIZE,ARENA_SIZE,0),
-                MeshData(-ARENA_SIZE,ARENA_SIZE,0)
+                MeshData(-ARENA_SIZE, -ARENA_SIZE, 0),
+                MeshData(ARENA_SIZE, -ARENA_SIZE, 0),
+                MeshData(ARENA_SIZE, ARENA_SIZE, 0),
+                MeshData(-ARENA_SIZE, ARENA_SIZE, 0)
         };
 
         return arenaMesh;
     }
 
 public:
-    static Entity* getEntity(){
+    static Entity* getEntity() {
         Entity* arena = new Entity();
 
         MeshComponent* arenaMeshRender = new MeshComponent();
-            arenaMeshRender->setMesh(getModel());
+        arenaMeshRender->setMesh(getModel());
         arena->addComponent(arenaMeshRender);
 
-        arena->setPosition(Vector3(0,0,0));
+        arena->setPosition(Vector3(0, 0, 0));
 
         return arena;
     }
