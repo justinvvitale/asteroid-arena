@@ -5,4 +5,9 @@
 #ifndef I3D_ENTITYTAG_H
 #define I3D_ENTITYTAG_H
 
+enum EntityTag{
+    None,
+    Player
+};
+
 #endif //I3D_ENTITYTAG_H
