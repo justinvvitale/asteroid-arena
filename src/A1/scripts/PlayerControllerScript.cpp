@@ -61,5 +61,4 @@ void PlayerControllerScript::update() {
 }
 
 void PlayerControllerScript::onCollision(Entity* other) {
-    std::cout << "I COLLIDE" << std::endl;
 }

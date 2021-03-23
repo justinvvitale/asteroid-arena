@@ -3,7 +3,6 @@
 //
 
 #include "MeshComponent.h"
-#include "gl/GL.h"
 #include "../../Renderer.h"
 
 MeshComponent::MeshComponent() : Component(ComponentType::Mesh) {

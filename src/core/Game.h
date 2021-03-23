@@ -7,7 +7,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include "input/KeyRegistry.h"
 #include "Engine.h"
 #include <iostream>
 
@@ -15,6 +14,11 @@ class Game {
 private:
     static float lastIdleTime;
     static Engine* engine;
+
+    // Kinda greasy using a function pointer but works well
+    typedef Scene* (*defaultScenePointer)();
+    static defaultScenePointer getDefaultScene;
+    static bool restartRequested;
 
 public:
     // Key variables (Global)
@@ -26,9 +30,15 @@ public:
     static long int tick;
 
 
-    static void start(int argc, char **argv, const std::string& name, Engine* gEngine);
+    static void start(int argc, char **argv, const std::string& name, Scene* (*getDefaultScene)());
+
+    static void restart();
+
+    static void stop();
 
     static Engine* getEngine();
+
+    static Entity* getEntity(EntityTag tag);
 
     // GLUT callbacks
     static void init();

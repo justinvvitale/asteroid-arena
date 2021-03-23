@@ -11,6 +11,6 @@ const Vector3 DEFAULT_COLOUR = Vector3(1,1,1);
 
 // Debugging
 const bool DEBUG_DRAW_COLLIDERS = true;
-const Vector3 DEBUG_DRAW_COLLIDERS_COLOUR = Vector3(1,0,0);
+const Vector3 DEBUG_DRAW_COLLIDERS_COLOUR = Vector3(1,0,1);
 
 #endif //I3D_ENGINECONFIG_H

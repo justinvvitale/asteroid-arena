@@ -35,7 +35,11 @@ private:
 
 public:
     static Entity* getEntity() {
-        Entity* ship = new Entity();
+        Entity* ship = new Entity(EntityTag::Player);
+
+        // Setting position to bottom left, aiming towards top right
+        ship->setPosition(Vector3(-(ARENA_WIDTH/2) + SHIP_SIZE + ARENA_WARN_DIST, -(ARENA_HEIGHT/2) + SHIP_SIZE + ARENA_WARN_DIST, 0));
+        ship->setRotation(Quaternion(0,0,1, -50));
 
         MeshComponent* meshRender = new MeshComponent();
         meshRender->addMesh(getModel(GL_LINE_LOOP, SHIP_COLOUR_OUTLINE));
@@ -46,9 +50,6 @@ public:
         ship->addComponent((Component*) new PlayerControllerScript());
 
         ship->addComponent((Component*) new ColliderComponent(SHIP_SIZE));
-
-
-        ship->setPosition(Vector3(0, 500, 0));
 
         return ship;
     }

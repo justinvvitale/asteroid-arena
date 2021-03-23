@@ -82,6 +82,17 @@ std::list<Entity*> Entity::getChildren() {
     return children;
 }
 
+Entity::~Entity() {
+    for(Component* component : components){
+        delete component;
+    }
+
+    for(Entity* childEntity : children){
+        delete childEntity;
+    }
+
+}
+
 
 
 

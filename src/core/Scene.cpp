@@ -99,3 +99,9 @@ Entity* Scene::getEntity(EntityTag tag) {
     return this->taggedEntities[tag];
 }
 
+Scene::~Scene() {
+    for (Entity* entity : sceneEntities) {
+        delete entity;
+    }
+}
+

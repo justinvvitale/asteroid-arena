@@ -64,7 +64,10 @@ struct Quaternion {
 
 class VectorUtil {
 
+public:
     // Core functions
+
+    // Distance between two vectors
     static float Distance(Vector3 vert1, Vector3 vert2) {
         float diffX = vert1.x - vert2.x;
         float diffY = vert1.y - vert2.y;
@@ -72,6 +75,18 @@ class VectorUtil {
         return (float) std::sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
     }
 
+    // Distance from a line to a vector target
+    static float DistanceFromLine(Vector3 point1, Vector3 point2, Vector3 target) {
+        float lineDist = VectorUtil::Distance(point1, point2);
+        float p1TargetDist = VectorUtil::Distance(point1, target);
+        float p2TargetDist = VectorUtil::Distance(point2, target);
+
+        float sumDist = (lineDist + p1TargetDist + p2TargetDist) / 2;
+
+        return 2 * sqrt(sumDist * (sumDist - lineDist) * (sumDist - p1TargetDist) * (sumDist - p2TargetDist)) / lineDist;
+    }
+
+    // Dot product of vector
     static float Dot(Vector3 l, Vector3 r) {
         return l.x * r.x + l.y * r.y + l.z * r.z;
     }

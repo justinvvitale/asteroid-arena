@@ -18,6 +18,7 @@ protected:
 
 public:
     ScriptComponent();
+
     void tick() override;
 
     virtual void onCollision(Entity* other){}

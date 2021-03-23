@@ -25,7 +25,7 @@ private:
     Quaternion rotation = Quaternion::zero();
 public:
     Entity() = default;
-    Entity(EntityTag entityTag);
+    explicit Entity(EntityTag entityTag);
 
     void tick();
 
@@ -46,6 +46,9 @@ public:
     Vector3 getPosition() const;
     void setPosition(const Vector3 &pos);
     const Quaternion &getRotation() const;
+
+    virtual ~Entity();
+
     void setRotation(const Quaternion &rotation);
 };
 

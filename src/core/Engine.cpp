@@ -50,6 +50,8 @@ void Engine::render() {
 }
 
 void Engine::setScene(Scene* sceneIn) {
+    delete scene;
+
     this->scene = sceneIn;
 }
 

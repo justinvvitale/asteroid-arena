@@ -25,6 +25,8 @@ private:
     std::list<Entity*> getAllEntities(Entity* entity = nullptr);
 
 public:
+    virtual ~Scene();
+
     void addEntity(Entity *entity);
     void removeEntity(Entity *entity);
 

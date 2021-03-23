@@ -23,6 +23,11 @@ struct MeshData{
         data = Vector3(x,y,z);
     }
 
+    MeshData(Vector3 position){
+        this->dataType = MeshDataType::primitive;
+        data = position;
+    }
+
     MeshData(MeshDataType dataType, float v1, float v2, float v3){
         this->dataType = dataType;
         data = Vector3(v1,v2,v3);

@@ -60,27 +60,29 @@ Entity* MeshRendererSystem::getRootEntity(Entity* entity) {
 void MeshRendererSystem::debugRender(Entity* entity) {
     // Colliders
     if(DEBUG_DRAW_COLLIDERS){
-        Component* colComp = entity->getComponentOfType(ComponentType::Collider);
+        auto colCompList = entity->getComponentsOfType(ComponentType::Collider);
         Renderer::setColour(DEBUG_DRAW_COLLIDERS_COLOUR);
 
-        if(colComp != nullptr){
-            auto* collider = dynamic_cast<ColliderComponent*>(colComp);
-            Vector3 offset = collider->getOffset();
+        for(Component* colComp : colCompList) {
+            if (colComp != nullptr) {
+                auto* collider = dynamic_cast<ColliderComponent*>(colComp);
+                Vector3 offset = collider->getOffset();
 
-            Renderer::move(offset);
+                Renderer::move(offset);
 
-            switch (collider->getCollisionType()) {
-                case circlePos:
+                switch (collider->getCollisionType()) {
+                    case circlePos:
                         Renderer::drawCircle(collider->getCircleRadius());
-                    break;
-                case square:
-                    std::tuple<float,float> dims = collider->getSquareDimension();
-                    Renderer::drawRect(std::get<0>(dims), std::get<1>(dims));
-                    break;
-            }
+                        break;
+                    case square:
+                        std::tuple<float, float> dims = collider->getSquareDimension();
+                        Renderer::drawRect(std::get<0>(dims), std::get<1>(dims));
+                        break;
+                }
 
-            // Move to origin
-            Renderer::move(offset.opposite());
+                // Move to origin
+                Renderer::move(offset.opposite());
+            }
         }
 
         Renderer::setColour(DEFAULT_COLOUR);
