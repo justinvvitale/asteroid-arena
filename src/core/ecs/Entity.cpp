@@ -5,6 +5,15 @@
 #include "Entity.h"
 #include "Component.h"
 
+Entity::Entity(EntityTag entityTag) {
+    this->tag = entityTag;
+}
+
+EntityTag Entity::getTag() {
+    return tag;
+}
+
+
 void Entity::tick() {
     for (Component *comp : components) {
         comp->tick();
@@ -72,7 +81,6 @@ void Entity::setParent(Entity* entity) {
 std::list<Entity*> Entity::getChildren() {
     return children;
 }
-
 
 
 

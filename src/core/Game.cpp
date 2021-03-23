@@ -4,10 +4,27 @@
 
 #include <glew.h>
 #include "Game.h"
-#include "Engine.h"
+
+#if _WIN32
+
+#   include <Windows.h>
+
+#endif
+#if __APPLE__
+#   include <OpenGL/gl.h>
+#   include <OpenGL/glu.h>
+#   include <GLUT/glut.h>
+#else
+
+#   include <GL/gl.h>
+#   include <GL/glu.h>
+#   include <GL/glut.h>
+
+#endif
 
 float Game::lastIdleTime = 0.0;
 float Game::dt = 1;
+long int Game::tick = 0;
 Engine* Game::engine = nullptr;
 
 void Game::start(int argc, char **argv, const std::string& name, Engine* gEngine) {
@@ -80,9 +97,10 @@ void Game::display() {
 
 void Game::idle() {
     float cur_time = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
-    Game::dt = cur_time - Game::lastIdleTime;
-    Game::lastIdleTime = cur_time;
+    dt = cur_time - Game::lastIdleTime;
+    lastIdleTime = cur_time;
 
+    tick++;
     engine->tick();
 
     glutPostRedisplay();

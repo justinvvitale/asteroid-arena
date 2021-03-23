@@ -7,7 +7,7 @@
 #include "PlayerControllerScript.h"
 #include "../../core/input/KeyRegistry.h"
 #include "../../core/Game.h"
-#include "../CONFIG.h"
+#include "../GAMECONFIG.h"
 
 
 void PlayerControllerScript::start() {

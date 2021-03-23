@@ -7,10 +7,20 @@
 
 void Scene::addEntity(Entity* entity) {
     sceneEntities.push_back(entity);
+
+    EntityTag tag = entity->getTag();
+    if(tag != EntityTag::None){
+        this->taggedEntities[tag] = entity;
+    }
 }
 
 void Scene::removeEntity(Entity* entity) {
     sceneEntities.remove(entity);
+
+    EntityTag tag = entity->getTag();
+    if(tag != EntityTag::None && this->taggedEntities[tag] == entity){
+        this->taggedEntities[tag] = nullptr;
+    }
 }
 
 std::list<Component*> Scene::findComponentsOfType(ComponentType type) {
@@ -22,7 +32,6 @@ std::list<Component*> Scene::findComponentsOfType(ComponentType type) {
 
     return components;
 }
-
 
 std::unordered_map<ComponentType, std::list<Component*>> Scene::getComponentsByType() {
     std::unordered_map<ComponentType, std::list<Component*>> componentMap = std::unordered_map<ComponentType, std::list<Component*>>();
@@ -84,5 +93,9 @@ std::list<Entity*> Scene::getAllEntities(Entity* entity) {
     }
 
     return entities;
+}
+
+Entity* Scene::getEntity(EntityTag tag) {
+    return this->taggedEntities[tag];
 }
 

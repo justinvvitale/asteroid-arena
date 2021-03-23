@@ -5,6 +5,9 @@
 #ifndef I3D_ARENAENTITY_H
 #define I3D_ARENAENTITY_H
 
+#include <freeglut.h>
+#include "../GAMECONFIG.h"
+#include "../../core/ecs/components/MeshComponent.h"
 
 class ArenaEntity {
 private:
@@ -12,10 +15,10 @@ private:
         struct Mesh arenaMesh;
         arenaMesh.mode = GL_LINE_LOOP;
         arenaMesh.data = {
-                MeshData(-995,-995,0),
-                MeshData(995,-995,0),
-                MeshData(995,995,0),
-                MeshData(-995,995,0)
+                MeshData(-ARENA_SIZE,-ARENA_SIZE,0),
+                MeshData(ARENA_SIZE,-ARENA_SIZE,0),
+                MeshData(ARENA_SIZE,ARENA_SIZE,0),
+                MeshData(-ARENA_SIZE,ARENA_SIZE,0)
         };
 
         return arenaMesh;

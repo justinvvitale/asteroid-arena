@@ -6,6 +6,8 @@
 #define I3D_TESTENTITY_H
 
 
+#include "../../core/ecs/components/ColliderComponent.h"
+
 class TestEntity {
 private:
     static struct Mesh getModel(){
@@ -29,7 +31,10 @@ public:
         meshRenderer->setMesh(getModel());
         entity->addComponent(meshRenderer);
 
-        entity->addComponent((Component*)new ColliderComponent(100));
+        ColliderComponent* col = new ColliderComponent(100,200);
+        col->setOffset(Vector3(100,0,0));
+
+        entity->addComponent((Component*)col);
 
         return entity;
     }

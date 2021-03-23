@@ -5,9 +5,11 @@
 #ifndef I3D_SHIPENTITY_H
 #define I3D_SHIPENTITY_H
 
-#include "../CONFIG.h"
+#include <freeglut.h>
+#include "../GAMECONFIG.h"
 #include "../scripts/PlayerControllerScript.h"
 #include "../../core/ecs/components/ColliderComponent.h"
+#include "../../core/Renderer.h"
 
 class ShipEntity {
 private:
@@ -43,7 +45,7 @@ public:
         ship->addComponent(meshRender);
         ship->addComponent((Component*)new PlayerControllerScript());
 
-        ship->addComponent((Component*)new ColliderComponent(ColliderType::circlePos, SHIP_SIZE));
+        ship->addComponent((Component*)new ColliderComponent(SHIP_SIZE));
 
 
         ship->setPosition(Vector3(0, 500, 0));

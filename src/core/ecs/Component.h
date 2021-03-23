@@ -5,7 +5,7 @@
 #ifndef I3D_COMPONENT_H
 #define I3D_COMPONENT_H
 
-#include "ComponentType.h"
+#include "enums/ComponentType.h"
 #include "Entity.h"
 
 class Component {

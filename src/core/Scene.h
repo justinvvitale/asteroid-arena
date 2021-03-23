@@ -8,13 +8,16 @@
 #include <typeinfo>
 #include <string>
 #include <list>
+#include <map>
 #include <iostream>
 #include <unordered_map>
 #include "ecs/Entity.h"
+#include "ecs/enums/EntityTag.h"
 
 class Scene {
 private:
     std::list<Entity *> sceneEntities = std::list<Entity *>();
+    std::unordered_map <EntityTag, Entity*> taggedEntities = std::unordered_map <EntityTag, Entity*>();
 
 
     // Recursive helper functions
@@ -24,6 +27,8 @@ private:
 public:
     void addEntity(Entity *entity);
     void removeEntity(Entity *entity);
+
+    Entity* getEntity(EntityTag tag);
 
     // Searching
     // Fetches every component of a single type

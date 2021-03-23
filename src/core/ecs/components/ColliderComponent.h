@@ -18,6 +18,8 @@ class ColliderComponent : public Component {
     private:
         ColliderType type;
 
+        Vector3 offset = Vector3::zero();
+
         float radius = 0;
 
         float width = 0;
@@ -27,6 +29,9 @@ class ColliderComponent : public Component {
         ColliderComponent(float width, float height);
 
         ColliderType getCollisionType();
+
+        void setOffset(Vector3 offsetIn);
+        Vector3 getOffset();
 
         float getCircleRadius() const;
         std::tuple<float, float> getSquareDimension();

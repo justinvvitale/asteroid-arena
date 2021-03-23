@@ -4,24 +4,9 @@
 
 #include <set>
 #include "MeshRendererSystem.h"
-#include "../Entity.h"
-
-#if _WIN32
-
-#   include <Windows.h>
-
-#endif
-#if __APPLE__
-#   include <OpenGL/gl.h>
-#   include <OpenGL/glu.h>
-#   include <GLUT/glut.h>
-#else
-
-#   include <GL/gl.h>
-#   include <GL/glu.h>
-#   include <GL/glut.h>
-
-#endif
+#include "../../ENGINECONFIG.h"
+#include "../components/ColliderComponent.h"
+#include "../../Renderer.h"
 
 
 MeshRendererSystem::MeshRendererSystem() : System(ComponentType::Mesh) {
@@ -41,14 +26,15 @@ void MeshRendererSystem::process(std::list<Component*> items) {
 }
 
 void MeshRendererSystem::renderEntity(Entity* entity) {
-    glPushMatrix();
+    Renderer::push();
 
     auto position = entity->getPosition();
     auto rotation = entity->getRotation();
 
-    glTranslatef(position.x, position.y, position.z);
-    glRotatef(rotation.w, rotation.x, rotation.y, rotation.z);
+    Renderer::move(position);
+    Renderer::rotate(rotation);
 
+    debugRender(entity);
 
     Component* compMesh = entity->getComponentOfType(ComponentType::Mesh);
     if(compMesh != nullptr){
@@ -57,10 +43,10 @@ void MeshRendererSystem::renderEntity(Entity* entity) {
     }
 
     for(Entity* childEntity : entity->getChildren()){
-        renderEntity(entity);
+        renderEntity(childEntity);
     }
 
-    glPopMatrix();
+    Renderer::pop();
 }
 
 Entity* MeshRendererSystem::getRootEntity(Entity* entity) {
@@ -70,6 +56,38 @@ Entity* MeshRendererSystem::getRootEntity(Entity* entity) {
 
     return getRootEntity(entity);
 }
+
+void MeshRendererSystem::debugRender(Entity* entity) {
+    // Colliders
+    if(DEBUG_DRAW_COLLIDERS){
+        Component* colComp = entity->getComponentOfType(ComponentType::Collider);
+        Renderer::setColour(DEBUG_DRAW_COLLIDERS_COLOUR);
+
+        if(colComp != nullptr){
+            auto* collider = dynamic_cast<ColliderComponent*>(colComp);
+            Vector3 offset = collider->getOffset();
+
+            Renderer::move(offset);
+
+            switch (collider->getCollisionType()) {
+                case circlePos:
+                        Renderer::drawCircle(collider->getCircleRadius());
+                    break;
+                case square:
+                    std::tuple<float,float> dims = collider->getSquareDimension();
+                    Renderer::drawRect(std::get<0>(dims), std::get<1>(dims));
+                    break;
+            }
+
+            // Move to origin
+            Renderer::move(offset.opposite());
+        }
+
+        Renderer::setColour(DEFAULT_COLOUR);
+    }
+}
+
+
 
 
 

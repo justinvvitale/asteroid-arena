@@ -1,8 +1,7 @@
 #include "../core/Game.h"
-#include "../core/ecs/components/MeshComponent.h"
 #include "entities/ArenaEntity.h"
-#include "entities/ShipEntity.h"
 #include "entities/TestEntity.h"
+#include "entities/ShipEntity.h"
 
 int main(int argc, char **argv) {
 

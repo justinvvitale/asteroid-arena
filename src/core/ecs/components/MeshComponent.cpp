@@ -4,6 +4,8 @@
 
 #include "MeshComponent.h"
 #include "gl/GL.h"
+#include "../../Renderer.h"
+
 MeshComponent::MeshComponent() : Component(ComponentType::Mesh) {
 
 }
@@ -14,20 +16,7 @@ void MeshComponent::tick() {
 
 void MeshComponent::render() {
     for(const struct Mesh& mesh : data) {
-
-        glBegin(mesh.mode);
-
-        for (MeshData meshData : mesh.data) {
-            switch(meshData.dataType){
-                case primitive:
-                    glVertex3f(meshData.data.x, meshData.data.y, meshData.data.z);
-                    break;
-                case colour:
-                    glColor3f(meshData.data.x, meshData.data.y, meshData.data.z);
-                    break;
-            }
-        }
-        glEnd();
+        Renderer::renderMeshData(mesh);
     }
 }
 

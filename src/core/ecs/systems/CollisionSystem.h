@@ -14,6 +14,7 @@ private:
 
 public:
     CollisionSystem();
+    Vector3 offset;
 
 private:
     void init() override;

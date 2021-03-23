@@ -20,8 +20,22 @@ struct Vector3 {
         this->z = z;
     }
 
+    Vector3 opposite(){
+        return {-x, -y, -z};
+    }
+
     static Vector3 zero() {
         return {0, 0, 0};
+    }
+
+    Vector3 operator+ (const Vector3& other) const
+    {
+        return {x + other.x, y + other.y, z + other.z};
+    }
+
+    Vector3 operator* (const Vector3& other) const
+    {
+        return {x * other.x, y * other.y, z * other.z};
     }
 };
 

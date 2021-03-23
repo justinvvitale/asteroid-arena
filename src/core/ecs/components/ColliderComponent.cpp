@@ -30,3 +30,11 @@ float ColliderComponent::getCircleRadius() const {
     return radius;
 }
 
+void ColliderComponent::setOffset(Vector3 offsetIn) {
+    this->offset = offsetIn;
+}
+
+Vector3 ColliderComponent::getOffset() {
+    return this->offset;
+}
+

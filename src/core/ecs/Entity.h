@@ -7,7 +7,8 @@
 
 #include <list>
 #include "../shared/engine_math.h"
-#include "ComponentType.h"
+#include "enums/ComponentType.h"
+#include "enums/EntityTag.h"
 
 class Component;
 
@@ -16,11 +17,16 @@ private:
     Entity* parent = nullptr;
     std::list<Entity *> children = std::list<Entity *>();
 
+    EntityTag tag = EntityTag::None;
+
     std::list<Component *> components = std::list<Component *>();
 
     Vector3 position = Vector3::zero();
     Quaternion rotation = Quaternion::zero();
 public:
+    Entity() = default;
+    Entity(EntityTag entityTag);
+
     void tick();
 
     void addComponent(Component *component);
@@ -28,6 +34,9 @@ public:
     std::list<Component *> getComponents();
     Component* getComponentOfType(ComponentType componentType);
     std::list<Component *> getComponentsOfType(ComponentType componentType);
+
+    // Sets the tag, can be used for lookups
+    EntityTag getTag();
 
     void setParent(Entity* entity);
     Entity* getParent();

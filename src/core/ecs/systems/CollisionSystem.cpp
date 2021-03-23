@@ -42,8 +42,8 @@ void CollisionSystem::process(std::list<Component*> items) {
 }
 
 bool CollisionSystem::isCollided(ColliderComponent col1, ColliderComponent col2) {
-    Vector3 col1Pos = col1.getParent()->getPosition();
-    Vector3 col2Pos = col2.getParent()->getPosition();
+    Vector3 col1Pos = col1.getParent()->getPosition() + col1.getOffset();
+    Vector3 col2Pos = col2.getParent()->getPosition() + col2.getOffset();
 
     // Square collision check:
     if(col1.getCollisionType() == ColliderType::square && col2.getCollisionType() == ColliderType::square){
@@ -88,8 +88,8 @@ bool CollisionSystem::isCollided(ColliderComponent col1, ColliderComponent col2)
     }
 
     // We've split which is square and circlePos, now we do the check
-    Vector3 squarePos = squareColliderRef->getParent()->getPosition();
-    Vector3 circlePos = circleColliderRef->getParent()->getPosition();
+    Vector3 squarePos = squareColliderRef->getParent()->getPosition() + squareColliderRef->getOffset();
+    Vector3 circlePos = circleColliderRef->getParent()->getPosition() + circleColliderRef->getOffset();
 
     float circleRadius = circleColliderRef->getCircleRadius();
     std::tuple<float,float> squareDims = squareColliderRef->getSquareDimension();

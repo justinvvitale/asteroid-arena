@@ -17,6 +17,7 @@ public:
 private:
    Entity* getRootEntity(Entity* entity);
    void renderEntity(Entity* entity);
+   void debugRender(Entity* entity);
 };
 
 
