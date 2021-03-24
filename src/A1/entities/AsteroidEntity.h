@@ -20,10 +20,10 @@ private:
 
         // TODO: Randomized appearance and make it not a circle (Part of later sections)
 
-        for (int i = 0; i < 360; i += 360 / ASTEROID_SEGMENTS){
+        for (int i = 0; i < 360; i += 360 / sections){
                 double degInRad = i * 3.14159/180;
 
-                float pointRadius = radius + (rand() % static_cast<int>(radius + ASTEROID_RADIUS_VARIATION_RANGE - radius + 1));
+                float pointRadius = getRandomNumber(radius, radius + randRange);
 
                 mesh.data.emplace_back(cos(degInRad)*pointRadius,sin(degInRad)*pointRadius, 0);
         }
@@ -38,10 +38,10 @@ public:
         float radius = ASTEROID_MIN_RADIUS + (rand() % static_cast<int>(ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS + 1));
 
         MeshComponent* meshRenderer = new MeshComponent();
-        meshRenderer->setMesh(getAsteroidModel(radius,1,1));
+        meshRenderer->setMesh(getAsteroidModel(radius,ASTEROID_SEGMENTS,ASTEROID_RADIUS_VARIATION_RANGE));
         entity->addComponent(meshRenderer);
 
-        AsteroidScript* scriptComponent = new AsteroidScript(radius, 5);
+        AsteroidScript* scriptComponent = new AsteroidScript(radius, getRandomNumber(ASTEROID_MIN_SPEED, ASTEROID_MAX_SPEED));
         entity->addComponent((Component*) scriptComponent);
 
         ColliderComponent* col = new ColliderComponent(radius);

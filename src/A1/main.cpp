@@ -17,7 +17,7 @@ Scene* getScene(){
 }
 
 int main(int argc, char** argv) {
-    srand (time(nullptr));
+    //srand((unsigned) time(0));
 
     // Run Game
     Game::start(argc, argv, "I3D Assignment 1 - S3718796", getScene);

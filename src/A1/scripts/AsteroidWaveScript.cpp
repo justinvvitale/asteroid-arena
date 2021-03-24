@@ -5,7 +5,6 @@
 #include "AsteroidWaveScript.h"
 #include "../entities/AsteroidEntity.h"
 #include "../../core/Game.h"
-#include "../GAMECONFIG.h"
 
 void AsteroidWaveScript::start() {
     launchRadius = (float)sqrt(pow(ARENA_WIDTH/2,2) + pow(ARENA_HEIGHT/2,2));

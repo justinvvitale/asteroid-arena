@@ -81,6 +81,15 @@ struct Quaternion {
 
 // UTIL
 
+// Inclusive random helpers
+inline int getRandomNumber(int min, int max){
+    return min + (rand() % max);
+}
+
+inline float getRandomNumber(float min, float max){
+    return min + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(max-min)));
+}
+
 class VectorUtil {
 
 public:

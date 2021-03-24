@@ -45,8 +45,10 @@ const int ASTEROID_MAX = 50; // How many asteroids can be in the game at any one
 
 // Asteroids
 const float ASTEROID_SEGMENTS = 10; // How many points an asteroid should have. 360 = full circle
-const float ASTEROID_MIN_RADIUS = 100; // Min size of asteroid
+const float ASTEROID_MIN_RADIUS = 100; // Min size of asteroid  (All these are inclusive)
 const float ASTEROID_MAX_RADIUS = 100; // Max size of asteroid
+const float ASTEROID_MIN_SPEED = 5; // Min speed of asteroid
+const float ASTEROID_MAX_SPEED = 15; // Max speed of asteroid
 const float ASTEROID_RADIUS_VARIATION_RANGE = 30; // The range += the that radius can vary per point
 
 // Debug (Not directly related to engine)
