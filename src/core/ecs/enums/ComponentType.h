@@ -9,7 +9,8 @@
 enum ComponentType {
     Mesh,
     Script,
-    Collider
+    Collider,
+    Rigidbody
 };
 
 

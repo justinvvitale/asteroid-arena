@@ -16,8 +16,6 @@ private:
 
     std::list<System*> systems = std::list<System*>();
     std::map<ComponentType, System*> manualSystems = std::map<ComponentType, System*>();
-
-
 public:
     Engine();
 

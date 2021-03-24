@@ -28,14 +28,33 @@ struct Vector3 {
         return {0, 0, 0};
     }
 
+    static Vector3 identity() {
+        return {1, 1, 1};
+    }
+
     Vector3 operator+ (const Vector3& other) const
     {
         return {x + other.x, y + other.y, z + other.z};
     }
 
+    Vector3 operator- (const Vector3& other) const
+    {
+        return {x - other.x, y - other.y, z - other.z};
+    }
+
     Vector3 operator* (const Vector3& other) const
     {
         return {x * other.x, y * other.y, z * other.z};
+    }
+
+    Vector3 operator* (const float& value) const
+    {
+        return {x * value, y * value, z * value};
+    }
+
+    Vector3 operator/ (const float& value) const
+    {
+        return {x / value, y / value, z / value};
     }
 };
 
@@ -84,6 +103,19 @@ public:
         float sumDist = (lineDist + p1TargetDist + p2TargetDist) / 2;
 
         return 2 * sqrt(sumDist * (sumDist - lineDist) * (sumDist - p1TargetDist) * (sumDist - p2TargetDist)) / lineDist;
+    }
+
+    static float Magnitude(Vector3 vector) {
+        return (float)sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
+    }
+
+    static Vector3 Normalize(Vector3 vector) {
+        float magnitude = Magnitude(vector);
+        if (magnitude > 0.00001F){
+            return vector / magnitude;
+        }else{
+            return Vector3::zero();
+        }
     }
 
     // Dot product of vector

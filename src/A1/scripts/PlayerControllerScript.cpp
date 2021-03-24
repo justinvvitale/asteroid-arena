@@ -38,7 +38,7 @@ void PlayerControllerScript::update() {
 
     // Move if velocity more than 0
     if (velocity > 0) {
-        float shipSpeed = (SHIP_MAX_SPEED * velocity) * Game::dt;
+        float shipSpeed = (SHIP_MAX_SPEED * velocity) * (1 + Game::dt);
         float forwardXMove = shipSpeed * -sinf(rot.w * (float) M_PI / 180);
         float forwardYMove = shipSpeed * cosf(rot.w * (float) M_PI / 180);
 
@@ -61,4 +61,5 @@ void PlayerControllerScript::update() {
 }
 
 void PlayerControllerScript::onCollision(Entity* other) {
+    Game::restart();
 }

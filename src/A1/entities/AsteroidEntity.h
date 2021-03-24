@@ -6,15 +6,27 @@
 #define I3D_ASTEROIDENTITY_H
 
 
+#include "../../core/ecs/components/RigidbodyComponent.h"
+#include "../scripts/AsteroidScript.h"
+#include "../../core/ecs/components/MeshComponent.h"
+#include "../../core/ecs/components/ColliderComponent.h"
+#include "../GAMECONFIG.h"
+
 class AsteroidEntity {
 private:
-    static struct Mesh getModel() {
+    static struct Mesh getAsteroidModel(float radius, float sections, float randRange) {
         struct Mesh mesh;
-        mesh.mode = GL_TRIANGLE;
-        mesh.data = {
-                MeshData(-100, -100, 0),
-                MeshData(100, -100, 0),
-        };
+        mesh.mode = GL_LINE_LOOP;
+
+        // TODO: Randomized appearance and make it not a circle (Part of later sections)
+
+        for (int i = 0; i < 360; i += 360 / ASTEROID_SEGMENTS){
+                double degInRad = i * 3.14159/180;
+
+                float pointRadius = radius + (rand() % static_cast<int>(radius + ASTEROID_RADIUS_VARIATION_RANGE - radius + 1));
+
+                mesh.data.emplace_back(cos(degInRad)*pointRadius,sin(degInRad)*pointRadius, 0);
+        }
 
         return mesh;
     }
@@ -23,14 +35,20 @@ public:
     static Entity* getEntity() {
         Entity* entity = new Entity();
 
+        float radius = ASTEROID_MIN_RADIUS + (rand() % static_cast<int>(ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS + 1));
+
         MeshComponent* meshRenderer = new MeshComponent();
-        meshRenderer->setMesh(getModel());
+        meshRenderer->setMesh(getAsteroidModel(radius,1,1));
         entity->addComponent(meshRenderer);
 
-        ColliderComponent* col = new ColliderComponent(100, 200);
-        col->setOffset(Vector3(100, 0, 0));
+        AsteroidScript* scriptComponent = new AsteroidScript(radius, 5);
+        entity->addComponent((Component*) scriptComponent);
 
+        ColliderComponent* col = new ColliderComponent(radius);
         entity->addComponent((Component*) col);
+
+        RigidbodyComponent* rb = new RigidbodyComponent();
+        entity->addComponent((Component*) rb);
 
         return entity;
     }

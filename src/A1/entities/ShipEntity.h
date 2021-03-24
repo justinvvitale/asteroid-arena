@@ -49,7 +49,10 @@ public:
         ship->addComponent(meshRender);
         ship->addComponent((Component*) new PlayerControllerScript());
 
-        ship->addComponent((Component*) new ColliderComponent(SHIP_SIZE));
+        // Add some relaxed colliders, circle doesn't do it justice.
+        ColliderComponent* col = new ColliderComponent(SHIP_SIZE * SHIP_COLLIDER_RELAX);
+        col->setOffset(Vector3(0, SHIP_SIZE/8, 0)); // Adjust it a little for better fit.
+        ship->addComponent((Component*) col);
 
         return ship;
     }

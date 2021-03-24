@@ -17,8 +17,6 @@ private:
 
     void start() override;
 
-    void onCollision(Entity* other) override;
-
     void refreshMeshData();
 
     MeshComponent* meshComponent;

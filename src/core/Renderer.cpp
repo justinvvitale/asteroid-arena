@@ -22,6 +22,8 @@
 #endif
 
 void Renderer::renderMeshData(const struct Mesh& mesh) {
+    setColour(mesh.colour);
+
     glBegin(mesh.mode);
 
     for (MeshData meshData : mesh.data) {
@@ -35,6 +37,8 @@ void Renderer::renderMeshData(const struct Mesh& mesh) {
         }
     }
     glEnd();
+
+    setColour(DEFAULT_COLOUR);
 }
 
 void Renderer::drawRect(float width, float height) {

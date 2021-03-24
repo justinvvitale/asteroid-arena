@@ -9,6 +9,7 @@
 #include <cstdio>
 #include "Engine.h"
 #include <iostream>
+#include <queue>
 
 class Game {
 private:
@@ -20,6 +21,8 @@ private:
     static defaultScenePointer getDefaultScene;
     static bool restartRequested;
 
+    static void performEntityCleanup();
+    static std::queue<Entity*> toDelete;
 public:
     // Key variables (Global)
 
@@ -39,6 +42,8 @@ public:
     static Engine* getEngine();
 
     static Entity* getEntity(EntityTag tag);
+
+    static void queueCleanup(Entity* item);
 
     // GLUT callbacks
     static void init();

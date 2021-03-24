@@ -29,7 +29,6 @@ Engine::Engine() {
 void Engine::tick() {
     if(scene == nullptr) return;
 
-
     // System handling
     auto componentsByType = scene->getComponentsByType();
     for(System* system : systems){
@@ -39,6 +38,16 @@ void Engine::tick() {
         if(componentTypeIter == componentsByType.end()) continue;
 
         system->process(componentTypeIter->second);
+
+        // Remove processed type
+        componentsByType.erase(system->getType());
+    }
+
+    // Tick any components which don't have a system directly managing them
+    for (auto& compType: componentsByType) {
+        for(Component* comp : compType.second){
+            comp->tick();
+        }
     }
 }
 
@@ -58,7 +67,6 @@ void Engine::setScene(Scene* sceneIn) {
 Scene* Engine::getScene() {
     return scene;
 }
-
 
 
 

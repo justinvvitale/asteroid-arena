@@ -31,6 +31,7 @@ bool Game::restartRequested = false;
 
 Engine* Game::engine = nullptr;
 Game::defaultScenePointer Game::getDefaultScene = nullptr;
+std::queue<Entity*> Game::toDelete = std::queue<Entity*>();
 
 void Game::start(int argc, char **argv, const std::string& name, Scene* (*defaultScene)()) {
     engine = new Engine();
@@ -136,5 +137,16 @@ void Game::restart() {
 
 void Game::stop() {
     exit(0);
+}
+
+void Game::queueCleanup(Entity* item) {
+    toDelete.push(item);
+}
+
+void Game::performEntityCleanup() {
+    while(!toDelete.empty()){
+        delete toDelete.front();
+        toDelete.pop();
+    }
 }
 

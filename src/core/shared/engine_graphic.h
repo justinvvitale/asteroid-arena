@@ -6,6 +6,7 @@
 #define I3D_ENGINE_GRAPHIC_H
 
 #include "engine_math.h"
+#include "../ENGINECONFIG.h"
 #include <freeglut.h>
 #include <list>
 
@@ -41,7 +42,25 @@ struct MeshData{
 
 struct Mesh {
     GLenum mode = GL_TRIANGLES;
+    Vector3 colour = DEFAULT_COLOUR;
     std::list<MeshData> data = std::list<MeshData>();
+};
+
+class MeshHelper {
+public:
+    static struct Mesh getCircleMesh(float radius, Vector3 colour = Vector3::identity()){
+        struct Mesh mesh;
+        mesh.mode = GL_LINE_LOOP;
+        mesh.colour = colour;
+
+        for (int i = 0; i < 360; i++){
+            double degInRad = i * 3.14159/180;
+            mesh.data.emplace_back(MeshData(cos(degInRad)*radius,sin(degInRad)*radius, 0));
+        }
+
+        return mesh;
+    }
+
 };
 
 #endif //I3D_ENGINE_GRAPHIC_H

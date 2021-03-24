@@ -40,12 +40,6 @@ void WallScript::update() {
     }
 }
 
-void WallScript::onCollision(Entity* other) {
-    if(other->getTag() == EntityTag::Player){
-        Game::restart();
-    }
-}
-
 void WallScript::refreshMeshData() {
     struct Mesh arenaMesh;
     arenaMesh.mode = GL_LINE_STRIP;
