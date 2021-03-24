@@ -15,7 +15,7 @@ void PlayerControllerScript::start() {
 void PlayerControllerScript::update() {
     Entity* player = this->getParent();
     Vector3 pos = player->getPosition();
-    Quaternion rot = player->getRotation();
+    Rotation rot = player->getRotation();
 
 
     // Forward
@@ -24,7 +24,7 @@ void PlayerControllerScript::update() {
             velocity += SHIP_ACCELERATION;
         }
 
-        emitter->Emit(new Particle(getForwardVector(rot).opposite() * 10, 20, MeshHelper::getPointMesh(10)));
+        emitter->Emit(new Particle(VectorUtil::GetForwardVector(rot).opposite() * 10, 20, MeshHelper::getPointMesh(10)));
     } else if (velocity > 0) {
         // Reset velocity if not moving
         velocity -= SHIP_DECELERATION;
@@ -37,27 +37,23 @@ void PlayerControllerScript::update() {
 
     // Left/right movement (ROTATE)
     if (KeyRegistry::isPressed(SHIP_TURN_LEFT_KEY)) {
-        rot.w += SHIP_TURN_SPEED;
+        rot.angle += SHIP_TURN_SPEED;
         rot.z += 1;
         player->setRotation(rot);
 
     } else if (KeyRegistry::isPressed(SHIP_TURN_RIGHT_KEY)) {
-        rot.w -= SHIP_TURN_SPEED;
+        rot.angle -= SHIP_TURN_SPEED;
         rot.z += 1;
         player->setRotation(rot);
     }
 
     // Move if velocity more than 0 (MOVE)
     if (velocity > 0) {
-        player->setPosition(pos + getForwardVector(rot) * (SHIP_MAX_SPEED * velocity) * (1 + Game::dt));
+        player->setPosition(pos + VectorUtil::GetForwardVector(rot) * (SHIP_MAX_SPEED * velocity) * (1 + Game::dt));
     }
 
 }
 
 void PlayerControllerScript::onCollision(Entity* other) {
     Game::restart();
-}
-
-Vector3 PlayerControllerScript::getForwardVector(Quaternion rotation) {
-    return {(-sinf(rotation.w * (float) PI / 180)),(cosf(rotation.w * (float) PI / 180)), 0};
 }

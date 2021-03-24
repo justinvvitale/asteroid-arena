@@ -77,8 +77,8 @@ void Renderer::move(Vector3 move) {
     glTranslatef(move.x, move.y, move.z);
 }
 
-void Renderer::rotate(Quaternion rotation) {
-    glRotatef(rotation.w, rotation.x, rotation.y, rotation.z);
+void Renderer::rotate(Rotation rotation) {
+    glRotatef(rotation.angle, rotation.x, rotation.y, rotation.z);
 }
 
 void Renderer::push() {

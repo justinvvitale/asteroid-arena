@@ -19,8 +19,6 @@ class PlayerControllerScript : ScriptComponent {
     void update() override;
 
     void onCollision(Entity* other) override;
-
-    Vector3 getForwardVector(Quaternion rotation);
 };
 
 

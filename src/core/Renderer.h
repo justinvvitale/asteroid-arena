@@ -17,7 +17,7 @@ public:
     static void setColour(Vector3 colour);
 
     static void move(Vector3 move);
-    static void rotate(Quaternion rotation);
+    static void rotate(Rotation rotation);
 
     static void push();
     static void pop();

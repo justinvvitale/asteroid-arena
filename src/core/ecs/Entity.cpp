@@ -35,11 +35,11 @@ void Entity::setPosition(const Vector3 &pos) {
     Entity::position = pos;
 }
 
-const Quaternion &Entity::getRotation() const {
+const Rotation &Entity::getRotation() const {
     return rotation;
 }
 
-void Entity::setRotation(const Quaternion &rot) {
+void Entity::setRotation(const Rotation &rot) {
     Entity::rotation = rot;
 }
 

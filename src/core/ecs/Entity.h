@@ -22,7 +22,7 @@ private:
     std::list<Component *> components = std::list<Component *>();
 
     Vector3 position = Vector3::zero();
-    Quaternion rotation = Quaternion::zero();
+    Rotation rotation = Rotation::Rotation();
 public:
     Entity() = default;
     explicit Entity(EntityTag entityTag);
@@ -46,11 +46,11 @@ public:
     Vector3 getPosition() const;
     Vector3 getWorldPosition();
     void setPosition(const Vector3 &pos);
-    const Quaternion &getRotation() const;
+    const Rotation &getRotation() const;
 
     virtual ~Entity();
 
-    void setRotation(const Quaternion &rotation);
+    void setRotation(const Rotation &rotation);
 };
 
 

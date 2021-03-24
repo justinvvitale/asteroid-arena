@@ -61,22 +61,22 @@ struct Vector3 {
     }
 };
 
-struct Quaternion {
+struct Rotation {
     float x = 0;
     float y = 0;
     float z = 0;
-    float w = 0;
+    float angle = 0;
 
-    Quaternion() = default;
+    Rotation() = default;
 
-    Quaternion(float x, float y, float z, float w) {
+    Rotation(float x, float y, float z, float w) {
         this->x = x;
         this->y = y;
         this->z = z;
-        this->w = w;
+        this->angle = w;
     }
 
-    static Quaternion zero() {
+    static Rotation zero() {
         return {0, 0, 0, 0};
     }
 
@@ -130,6 +130,10 @@ public:
         }
     }
 
+    static Vector3 GetForwardVector(Rotation rotation) {
+        return {(-sinf(rotation.angle * DEG_TO_RAD)), (cosf(rotation.angle * DEG_TO_RAD)), 0};
+    }
+    
     // Dot product of vector
     static float Dot(Vector3 l, Vector3 r) {
         return l.x * r.x + l.y * r.y + l.z * r.z;
