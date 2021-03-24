@@ -9,7 +9,7 @@ ParticleEmitterComponent::ParticleEmitterComponent(Vector3 emitPosition) : Compo
 }
 
 void ParticleEmitterComponent::Emit(Particle* particle) {
-    particle->position = getParent()->getWorldPosition() + emitPosition;
+    particle->position = getParent()->getWorldPosition() + getEmitOffset();
     particleBuffer.push_back(particle);
 }
 

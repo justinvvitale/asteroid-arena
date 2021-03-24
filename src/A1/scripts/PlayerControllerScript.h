@@ -11,6 +11,7 @@
 
 class PlayerControllerScript : ScriptComponent {
     float velocity = 0;
+
     ParticleEmitterComponent* emitter;
 
     void start() override;
@@ -18,6 +19,8 @@ class PlayerControllerScript : ScriptComponent {
     void update() override;
 
     void onCollision(Entity* other) override;
+
+    Vector3 getForwardVector(Quaternion rotation);
 };
 
 

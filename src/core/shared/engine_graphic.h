@@ -54,8 +54,7 @@ public:
         mesh.colour = colour;
 
         for (int i = 0; i < 360; i++){
-            double degInRad = i * PI/180;
-            mesh.data.emplace_back(MeshData(cos(degInRad)*radius,sin(degInRad)*radius, 0));
+            mesh.data.emplace_back(MeshData(cos(i * DEG_TO_RAD)*radius,sin(i * DEG_TO_RAD)*radius, 0));
         }
 
         return mesh;

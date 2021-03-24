@@ -64,8 +64,7 @@ void Renderer::drawRect(float width, float height) {
 void Renderer::drawCircle(float radius) {
     glBegin(GL_LINE_LOOP);
         for (int i=0; i < 360; i++){
-            double degInRad = i * PI/180;
-            glVertex2f(cos(degInRad)*radius,sin(degInRad)*radius);
+            glVertex2f(cos(i * DEG_TO_RAD)*radius,sin(i * DEG_TO_RAD)*radius);
         }
     glEnd();
 }

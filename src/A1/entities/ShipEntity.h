@@ -25,7 +25,8 @@ public:
         meshRender->addMesh(getModel(GL_LINE_LOOP, SHIP_COLOUR_OUTLINE));
         meshRender->addMesh(getModel(GL_TRIANGLE_STRIP, SHIP_COLOUR));
 
-        ParticleEmitterComponent* emitter = new ParticleEmitterComponent();
+        // Define the particle emitter and move it into the exhaust area
+        ParticleEmitterComponent* emitter = new ParticleEmitterComponent(Vector3(0,-SHIP_SIZE*0.3f,0));
 
 
         ship->addComponent(meshRender);

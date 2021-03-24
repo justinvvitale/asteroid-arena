@@ -21,11 +21,9 @@ private:
         // TODO: Randomized appearance and make it not a circle (Part of later sections)
 
         for (int i = 0; i < 360; i += 360 / sections){
-                double degInRad = i * PI/180;
-
                 float pointRadius = getRandomNumber(radius, radius + randRange);
 
-                mesh.data.emplace_back(cos(degInRad)*pointRadius,sin(degInRad)*pointRadius, 0);
+                mesh.data.emplace_back(cos(i * DEG_TO_RAD)*pointRadius,sin(i * DEG_TO_RAD)*pointRadius, 0);
         }
 
         return mesh;

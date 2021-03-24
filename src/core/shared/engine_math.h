@@ -7,7 +7,8 @@
 
 #include <cmath>
 
-#define PI 3.14159
+#define PI 3.14
+#define DEG_TO_RAD (PI/180)
 
 struct Vector3 {
     float x = 0;
