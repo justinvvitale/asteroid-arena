@@ -12,9 +12,36 @@
 #include "../../core/Renderer.h"
 
 class ShipEntity {
-private:
-    static struct Mesh getModel(GLenum mode, Vector3 colour) {
-        struct Mesh mesh;
+
+public:
+    static Entity* getEntity() {
+        Entity* ship = new Entity(EntityTag::Player);
+
+        // Setting emitPosition to bottom left, aiming towards top right
+        ship->setPosition(Vector3(-(ARENA_WIDTH/2) + SHIP_SIZE + ARENA_WARN_DIST, -(ARENA_HEIGHT/2) + SHIP_SIZE + ARENA_WARN_DIST, 0));
+        ship->setRotation(Quaternion(0,0,1, -50));
+
+        MeshComponent* meshRender = new MeshComponent();
+        meshRender->addMesh(getModel(GL_LINE_LOOP, SHIP_COLOUR_OUTLINE));
+        meshRender->addMesh(getModel(GL_TRIANGLE_STRIP, SHIP_COLOUR));
+
+        ParticleEmitterComponent* emitter = new ParticleEmitterComponent();
+
+
+        ship->addComponent(meshRender);
+        ship->addComponent((Component*) new PlayerControllerScript());
+
+        // Add some relaxed colliders, circle doesn't do it justice.
+        ColliderComponent* col = new ColliderComponent(SHIP_SIZE * SHIP_COLLIDER_RELAX);
+        col->setOffset(Vector3(0, SHIP_SIZE/8, 0)); // Adjust it a little for better fit.
+        ship->addComponent((Component*) col);
+        ship->addComponent((Component*) emitter);
+
+        return ship;
+    }
+
+    static Mesh getModel(GLenum mode, Vector3 colour) {
+        Mesh mesh;
 
         float shipSize = SHIP_SIZE;
         mesh.mode = mode;
@@ -32,31 +59,6 @@ private:
 
         return mesh;
     }
-
-public:
-    static Entity* getEntity() {
-        Entity* ship = new Entity(EntityTag::Player);
-
-        // Setting position to bottom left, aiming towards top right
-        ship->setPosition(Vector3(-(ARENA_WIDTH/2) + SHIP_SIZE + ARENA_WARN_DIST, -(ARENA_HEIGHT/2) + SHIP_SIZE + ARENA_WARN_DIST, 0));
-        ship->setRotation(Quaternion(0,0,1, -50));
-
-        MeshComponent* meshRender = new MeshComponent();
-        meshRender->addMesh(getModel(GL_LINE_LOOP, SHIP_COLOUR_OUTLINE));
-        meshRender->addMesh(getModel(GL_TRIANGLE_STRIP, SHIP_COLOUR));
-
-
-        ship->addComponent(meshRender);
-        ship->addComponent((Component*) new PlayerControllerScript());
-
-        // Add some relaxed colliders, circle doesn't do it justice.
-        ColliderComponent* col = new ColliderComponent(SHIP_SIZE * SHIP_COLLIDER_RELAX);
-        col->setOffset(Vector3(0, SHIP_SIZE/8, 0)); // Adjust it a little for better fit.
-        ship->addComponent((Component*) col);
-
-        return ship;
-    }
-
 };
 
 

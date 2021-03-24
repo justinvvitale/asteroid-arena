@@ -20,10 +20,13 @@ public:
     virtual void init() {};
 
     virtual void process(std::list<Component*> items) = 0;
+    virtual void render() {};
 
     ComponentType getType(){
         return handleType;
     };
+
+    virtual void cleanup() {}
 };
 
 #endif //I3D_SYSTEM_H

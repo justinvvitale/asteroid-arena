@@ -22,7 +22,7 @@ private:
     static bool restartRequested;
 
     static void performEntityCleanup();
-    static std::queue<Entity*> toDelete;
+    static std::queue<Entity*>* toDelete;
 public:
     // Key variables (Global)
 

@@ -4,14 +4,14 @@
 
 #include "ColliderComponent.h"
 
-ColliderComponent::ColliderComponent(float radius) : Component(ComponentType::Collider) {
+ColliderComponent::ColliderComponent(float radius) : Component(ComponentType::CCollider) {
     this->type = ColliderType::circlePos;
 
     this->radius = radius;
 
 }
 
-ColliderComponent::ColliderComponent(float width, float height) : Component(ComponentType::Collider) {
+ColliderComponent::ColliderComponent(float width, float height) : Component(ComponentType::CCollider) {
     this->type = ColliderType::square;
 
     this->width = width;

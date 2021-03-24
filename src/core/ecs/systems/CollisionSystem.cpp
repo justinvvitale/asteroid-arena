@@ -5,7 +5,7 @@
 #include "CollisionSystem.h"
 #include "../components/ScriptComponent.h"
 
-CollisionSystem::CollisionSystem() : System(ComponentType::Collider) {
+CollisionSystem::CollisionSystem() : System(ComponentType::CCollider) {
 
 }
 
@@ -30,7 +30,7 @@ void CollisionSystem::process(std::list<Component*> items) {
             }
 
             if(isCollided(*collider, *otherCollider)){
-                for(Component* component : collider->getParent()->getComponentsOfType(ComponentType::Script)){
+                for(Component* component : collider->getParent()->getComponentsOfType(ComponentType::CScript)){
                     ScriptComponent* script = dynamic_cast<ScriptComponent*>(component);
 
                     // Trigger callback

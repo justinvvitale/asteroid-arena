@@ -6,6 +6,7 @@
 #include "ecs/systems/MeshRendererSystem.h"
 #include "ecs/systems/ScriptProcessorSystem.h"
 #include "ecs/systems/CollisionSystem.h"
+#include "ecs/systems/ParticleSystem.h"
 
 Engine::Engine() {
 
@@ -14,8 +15,8 @@ Engine::Engine() {
     systems.push_back(new ScriptProcessorSystem());
 
     // Manual systems (Priority)
-    manualSystems.emplace(ComponentType::Mesh, new MeshRendererSystem());
-
+    manualSystems.emplace(ComponentType::CMesh, new MeshRendererSystem());
+    manualSystems.emplace(ComponentType::CParticle, new ParticleSystem());
 
     // Init systems
     for(System* system : systems){
@@ -29,33 +30,52 @@ Engine::Engine() {
 void Engine::tick() {
     if(scene == nullptr) return;
 
+    bufferComponentTypes = scene->getComponentsByType();
+
     // System handling
-    auto componentsByType = scene->getComponentsByType();
     for(System* system : systems){
 
-        auto componentTypeIter = componentsByType.find(system->getType());
+        auto componentTypeIter = bufferComponentTypes.find(system->getType());
         // If we can't find it, then it probably doesn't exist, don't need to process system.
-        if(componentTypeIter == componentsByType.end()) continue;
+        if(componentTypeIter == bufferComponentTypes.end()) continue;
 
         system->process(componentTypeIter->second);
 
         // Remove processed type
-        componentsByType.erase(system->getType());
+        bufferComponentTypes.erase(system->getType());
     }
 
-    // Tick any components which don't have a system directly managing them
-    for (auto& compType: componentsByType) {
-        for(Component* comp : compType.second){
-            comp->tick();
+    // Tick any components which don't have a system directly managing them (Or manual)
+    for (auto& compType: bufferComponentTypes) {
+        if(manualSystems[compType.first] == nullptr){
+            for(Component* comp : compType.second){
+                comp->tick();
+            }
         }
+    }
+
+    // Particle rendering (Tick)
+    auto componentTypesParticle = bufferComponentTypes.find(ComponentType::CParticle);
+    if(componentTypesParticle != bufferComponentTypes.end()){
+        // Run particle renders then mesh rendering
+        manualSystems[ComponentType::CParticle]->process(componentTypesParticle->second);
     }
 }
 
 void Engine::render() {
-    auto componentsByType = scene->getComponentsByType();
-    auto componentTypeIter = componentsByType.find(ComponentType::Mesh);
-    if(componentTypeIter == componentsByType.end()) return;
-    manualSystems[ComponentType::Mesh]->process(componentTypeIter->second);
+
+    // Particle rendering (Render)
+    auto componentTypesParticle = bufferComponentTypes.find(ComponentType::CParticle);
+    if(componentTypesParticle != bufferComponentTypes.end()){
+        // Run particle renders then mesh rendering
+        manualSystems[ComponentType::CParticle]->render();
+    }
+
+    // Core rendering
+    auto componentTypesMesh = bufferComponentTypes.find(ComponentType::CMesh);
+    if(componentTypesMesh != bufferComponentTypes.end()){
+        manualSystems[ComponentType::CMesh]->process(componentTypesMesh->second);
+    }
 }
 
 void Engine::setScene(Scene* sceneIn) {
@@ -66,6 +86,11 @@ void Engine::setScene(Scene* sceneIn) {
 
 Scene* Engine::getScene() {
     return scene;
+}
+
+void Engine::ResetSystems() {
+    manualSystems[ComponentType::CParticle]->cleanup();
+
 }
 
 

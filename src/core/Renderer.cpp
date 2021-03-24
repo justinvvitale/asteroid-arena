@@ -21,7 +21,7 @@
 
 #endif
 
-void Renderer::renderMeshData(const struct Mesh& mesh) {
+void Renderer::renderMeshData(const Mesh& mesh) {
     setColour(mesh.colour);
 
     glBegin(mesh.mode);
@@ -41,6 +41,14 @@ void Renderer::renderMeshData(const struct Mesh& mesh) {
     setColour(DEFAULT_COLOUR);
 }
 
+void Renderer::renderParticle(const Particle* particle) {
+    Vector3 pos = particle->position;
+
+    move(pos);
+    renderMeshData(particle->mesh);
+    move(pos.opposite());
+}
+
 void Renderer::drawRect(float width, float height) {
     float heightHalf = height/2;
     float widthHalf = width/2;
@@ -56,7 +64,7 @@ void Renderer::drawRect(float width, float height) {
 void Renderer::drawCircle(float radius) {
     glBegin(GL_LINE_LOOP);
         for (int i=0; i < 360; i++){
-            double degInRad = i * 3.14159/180;
+            double degInRad = i * PI/180;
             glVertex2f(cos(degInRad)*radius,sin(degInRad)*radius);
         }
     glEnd();
@@ -81,5 +89,6 @@ void Renderer::push() {
 void Renderer::pop() {
     glPopMatrix();
 }
+
 
 

@@ -21,7 +21,6 @@ void AsteroidWaveScript::start() {
 void AsteroidWaveScript::update() {
     // Spawning
     if(Game::tick % ASTEROID_SPAWN_RATE == 0 && asteroids.size() < ASTEROID_MAX){
-        std::cout << asteroids.size() << std::endl;
         spawnAsteroid();
     }
 
@@ -46,7 +45,7 @@ void AsteroidWaveScript::update() {
 }
 
 Vector3 AsteroidWaveScript::getPositionOutOfArena(float payloadSize) const {
-    float angle = rand() * 3.14 * 2;
+    float angle = rand() * PI * 2;
     return {cos(angle) * (launchRadius + payloadSize), sin(angle) * (launchRadius + payloadSize), 0};
 }
 
@@ -55,11 +54,11 @@ void AsteroidWaveScript::spawnAsteroid() {
 
     // Spawn initial test asteroid
     Entity* ast = AsteroidEntity::getEntity();
-    AsteroidScript* asteroidScript = dynamic_cast<AsteroidScript*>(ast->getComponentOfType(ComponentType::Script));
+    AsteroidScript* asteroidScript = dynamic_cast<AsteroidScript*>(ast->getComponentOfType(ComponentType::CScript));
 
     ast->setPosition(getPositionOutOfArena(asteroidScript->getRadius()));
 
-    RigidbodyComponent* rb = dynamic_cast<RigidbodyComponent*>(ast->getComponentOfType(ComponentType::Rigidbody));
+    RigidbodyComponent* rb = dynamic_cast<RigidbodyComponent*>(ast->getComponentOfType(ComponentType::CRigidbody));
 
     // Add force to move to player
     rb->addForce(VectorUtil::Normalize(playerPos - ast->getPosition()) * asteroidScript->getSpeed());

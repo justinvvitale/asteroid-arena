@@ -44,6 +44,7 @@ public:
 
     // Transform
     Vector3 getPosition() const;
+    Vector3 getWorldPosition();
     void setPosition(const Vector3 &pos);
     const Quaternion &getRotation() const;
 

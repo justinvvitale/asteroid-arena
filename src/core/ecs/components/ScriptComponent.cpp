@@ -13,6 +13,6 @@ void ScriptComponent::tick() {
     update();
 }
 
-ScriptComponent::ScriptComponent() : Component(ComponentType::Script) {
+ScriptComponent::ScriptComponent() : Component(ComponentType::CScript) {
 
 }

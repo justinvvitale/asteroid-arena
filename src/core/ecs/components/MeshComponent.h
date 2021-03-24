@@ -15,11 +15,11 @@ public:
     MeshComponent();
     void render();
 
-    void setMesh(const struct Mesh& meshIn);
-    void addMesh(const struct Mesh& meshIn);
+    void setMesh(const Mesh& meshIn);
+    void addMesh(const Mesh& meshIn);
 
 private:
-    std::list<struct Mesh> data = std::list<struct Mesh>();
+    std::list<Mesh> data = std::list<Mesh>();
 
     void tick() override;
 };

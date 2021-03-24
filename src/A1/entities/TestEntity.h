@@ -10,8 +10,8 @@
 
 class TestEntity {
 private:
-    static struct Mesh getModel() {
-        struct Mesh mesh;
+    static Mesh getModel() {
+        Mesh mesh;
         mesh.mode = GL_LINE_LOOP;
         mesh.data = {
                 MeshData(-100, -100, 0),

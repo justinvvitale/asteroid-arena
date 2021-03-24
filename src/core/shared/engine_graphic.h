@@ -15,7 +15,7 @@ enum MeshDataType{
     colour
 };
 
-struct MeshData{
+typedef struct MeshData {
     MeshDataType dataType;
     Vector3 data;
 
@@ -38,25 +38,33 @@ struct MeshData{
         this->dataType = dataType;
         data = inVec;
     }
-};
+} MeshData;
 
-struct Mesh {
+typedef struct Mesh{
     GLenum mode = GL_TRIANGLES;
     Vector3 colour = DEFAULT_COLOUR;
     std::list<MeshData> data = std::list<MeshData>();
-};
+} Mesh;
 
 class MeshHelper {
 public:
-    static struct Mesh getCircleMesh(float radius, Vector3 colour = Vector3::identity()){
-        struct Mesh mesh;
+    static Mesh getCircleMesh(float radius, Vector3 colour = Vector3::identity()){
+        Mesh mesh;
         mesh.mode = GL_LINE_LOOP;
         mesh.colour = colour;
 
         for (int i = 0; i < 360; i++){
-            double degInRad = i * 3.14159/180;
+            double degInRad = i * PI/180;
             mesh.data.emplace_back(MeshData(cos(degInRad)*radius,sin(degInRad)*radius, 0));
         }
+
+        return mesh;
+    }
+
+    static Mesh getPointMesh(float size){
+        Mesh mesh;
+        mesh.mode = GL_POINTS;
+        mesh.data.emplace_back(MeshData(0,0,0));
 
         return mesh;
     }

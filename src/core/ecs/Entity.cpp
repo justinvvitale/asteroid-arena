@@ -93,6 +93,32 @@ Entity::~Entity() {
 
 }
 
+Vector3 Entity::getWorldPosition() {
+    if(parent == nullptr){
+        return position;
+    }
+
+    Vector3 pos = Vector3::zero();
+
+    std::list<Vector3> vectorModifications = std::list<Vector3>();
+
+    vectorModifications.push_back(this->getPosition());
+
+    Entity* parentEnt = getParent();
+
+    // Traverse the chain and store emitPosition changes
+    while(parentEnt != nullptr){
+        vectorModifications.push_front(parentEnt->getPosition());
+        parentEnt = parentEnt->getParent();
+    }
+
+    for(Vector3 vecMod : vectorModifications){
+        pos = pos + vecMod;
+    }
+
+    return pos;
+}
+
 
 
 

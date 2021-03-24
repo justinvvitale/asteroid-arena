@@ -14,14 +14,14 @@
 
 class AsteroidEntity {
 private:
-    static struct Mesh getAsteroidModel(float radius, float sections, float randRange) {
-        struct Mesh mesh;
+    static Mesh getAsteroidModel(float radius, float sections, float randRange) {
+        Mesh mesh;
         mesh.mode = GL_LINE_LOOP;
 
         // TODO: Randomized appearance and make it not a circle (Part of later sections)
 
         for (int i = 0; i < 360; i += 360 / sections){
-                double degInRad = i * 3.14159/180;
+                double degInRad = i * PI/180;
 
                 float pointRadius = getRandomNumber(radius, radius + randRange);
 

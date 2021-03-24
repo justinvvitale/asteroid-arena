@@ -8,7 +8,7 @@
 #include "../../core/Game.h"
 
 void WallScript::start() {
-    this->meshComponent = dynamic_cast<MeshComponent*>(this->getParent()->getComponentOfType(ComponentType::Mesh));
+    this->meshComponent = dynamic_cast<MeshComponent*>(this->getParent()->getComponentOfType(ComponentType::CMesh));
 
     // Setup cords
     float halfWidth = ARENA_WIDTH / 2;
@@ -41,7 +41,7 @@ void WallScript::update() {
 }
 
 void WallScript::refreshMeshData() {
-    struct Mesh arenaMesh;
+    Mesh arenaMesh;
     arenaMesh.mode = GL_LINE_STRIP;
     arenaMesh.data = {
             MeshData(MeshDataType::colour, bottomWarn ? ARENA_WARN_COLOUR : ARENA_COLOUR),

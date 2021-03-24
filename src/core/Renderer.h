@@ -6,10 +6,12 @@
 #define I3D_RENDERER_H
 
 #include "shared/engine_graphic.h"
+#include "ecs/components/ParticleEmitterComponent.h"
 
 class Renderer {
 public:
-    static void renderMeshData(const struct Mesh& mesh);
+    static void renderMeshData(const Mesh& mesh);
+    static void renderParticle(const Particle* particle);
 
     // State
     static void setColour(Vector3 colour);

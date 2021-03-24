@@ -5,7 +5,7 @@
 #include "RigidbodyComponent.h"
 #include "../../Game.h"
 
-RigidbodyComponent::RigidbodyComponent() : Component(ComponentType::Rigidbody) {
+RigidbodyComponent::RigidbodyComponent() : Component(ComponentType::CRigidbody) {
 
 }
 

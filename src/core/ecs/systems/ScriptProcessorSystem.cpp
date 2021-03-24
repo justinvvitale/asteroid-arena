@@ -18,6 +18,6 @@ void ScriptProcessorSystem::process(std::list<Component*> items) {
 
 }
 
-ScriptProcessorSystem::ScriptProcessorSystem() : System(ComponentType::Script){
+ScriptProcessorSystem::ScriptProcessorSystem() : System(ComponentType::CScript){
 
 }

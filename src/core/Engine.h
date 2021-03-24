@@ -16,6 +16,8 @@ private:
 
     std::list<System*> systems = std::list<System*>();
     std::map<ComponentType, System*> manualSystems = std::map<ComponentType, System*>();
+
+    std::unordered_map<ComponentType, std::list<Component*>> bufferComponentTypes = std::unordered_map<ComponentType, std::list<Component*>>();
 public:
     Engine();
 
@@ -24,6 +26,8 @@ public:
 
     void setScene(Scene* sceneIn);
     Scene* getScene();
+
+    void ResetSystems();
 };
 
 

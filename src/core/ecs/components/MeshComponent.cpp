@@ -5,7 +5,7 @@
 #include "MeshComponent.h"
 #include "../../Renderer.h"
 
-MeshComponent::MeshComponent() : Component(ComponentType::Mesh) {
+MeshComponent::MeshComponent() : Component(ComponentType::CMesh) {
 
 }
 
@@ -14,16 +14,16 @@ void MeshComponent::tick() {
 }
 
 void MeshComponent::render() {
-    for(const struct Mesh& mesh : data) {
+    for(const Mesh& mesh : data) {
         Renderer::renderMeshData(mesh);
     }
 }
 
-void MeshComponent::setMesh(const struct Mesh& meshIn) {
+void MeshComponent::setMesh(const Mesh& meshIn) {
     this->data.clear();
     this->data.push_back(meshIn);
 }
 
-void MeshComponent::addMesh(const struct Mesh& meshIn) {
+void MeshComponent::addMesh(const Mesh& meshIn) {
     this->data.push_back(meshIn);
 }

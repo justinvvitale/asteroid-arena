@@ -31,10 +31,11 @@ bool Game::restartRequested = false;
 
 Engine* Game::engine = nullptr;
 Game::defaultScenePointer Game::getDefaultScene = nullptr;
-std::queue<Entity*> Game::toDelete = std::queue<Entity*>();
+std::queue<Entity*>* Game::toDelete;
 
 void Game::start(int argc, char **argv, const std::string& name, Scene* (*defaultScene)()) {
     engine = new Engine();
+    toDelete = new std::queue<Entity*>();
     getDefaultScene = defaultScene;
     engine->setScene(getDefaultScene());
 
@@ -71,7 +72,7 @@ void Game::init() {
     glEnable(GL_DEPTH_TEST);
 
     // Set last idle
-    lastIdleTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
+    lastIdleTime = (float)glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
 }
 
 // Callbacks
@@ -108,17 +109,23 @@ void Game::display() {
 
 void Game::idle() {
     if(restartRequested){
+        performEntityCleanup();
+        engine->ResetSystems();
         engine->setScene(getDefaultScene());
-
         restartRequested = false;
     }
 
-    float cur_time = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
+    float cur_time = (float)glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
     dt = cur_time - Game::lastIdleTime;
     lastIdleTime = cur_time;
 
     tick++;
     engine->tick();
+
+    // Perform costly operation that aren't crucial
+    if(Game::tick % 100){
+        performEntityCleanup();
+    }
 
     glutPostRedisplay();
 }
@@ -140,13 +147,13 @@ void Game::stop() {
 }
 
 void Game::queueCleanup(Entity* item) {
-    toDelete.push(item);
+    toDelete->push(item);
 }
 
 void Game::performEntityCleanup() {
-    while(!toDelete.empty()){
-        delete toDelete.front();
-        toDelete.pop();
+    while(!toDelete->empty()){
+        delete toDelete->front();
+        toDelete->pop();
     }
 }
 

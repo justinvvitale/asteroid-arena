@@ -7,6 +7,8 @@
 
 #include <cmath>
 
+#define PI 3.14159
+
 struct Vector3 {
     float x = 0;
     float y = 0;

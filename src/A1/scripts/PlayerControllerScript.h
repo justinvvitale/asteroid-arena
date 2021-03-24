@@ -7,9 +7,11 @@
 
 
 #include "../../core/ecs/components/ScriptComponent.h"
+#include "../../core/ecs/components/ParticleEmitterComponent.h"
 
 class PlayerControllerScript : ScriptComponent {
     float velocity = 0;
+    ParticleEmitterComponent* emitter;
 
     void start() override;
 

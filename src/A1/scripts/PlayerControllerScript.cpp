@@ -1,9 +1,6 @@
 //
 // Created by dim on 22/03/2021.
 //
-
-#define _USE_MATH_DEFINES
-
 #include "PlayerControllerScript.h"
 #include "../../core/input/KeyRegistry.h"
 #include "../../core/Game.h"
@@ -11,6 +8,7 @@
 
 
 void PlayerControllerScript::start() {
+    emitter = dynamic_cast<ParticleEmitterComponent*>(this->getParent()->getComponentOfType(ComponentType::CParticle));
 
 }
 
@@ -26,6 +24,8 @@ void PlayerControllerScript::update() {
         if (velocity < 1) {
             velocity += SHIP_ACCELERATION;
         }
+
+        emitter->Emit(new Particle(Vector3(0,0,0), 60, MeshHelper::getPointMesh(10)));
     } else if (velocity > 0) {
         // Reset velocity if not moving
         velocity -= SHIP_DECELERATION;
@@ -39,8 +39,8 @@ void PlayerControllerScript::update() {
     // Move if velocity more than 0
     if (velocity > 0) {
         float shipSpeed = (SHIP_MAX_SPEED * velocity) * (1 + Game::dt);
-        float forwardXMove = shipSpeed * -sinf(rot.w * (float) M_PI / 180);
-        float forwardYMove = shipSpeed * cosf(rot.w * (float) M_PI / 180);
+        float forwardXMove = shipSpeed * -sinf(rot.w * (float) PI / 180);
+        float forwardYMove = shipSpeed * cosf(rot.w * (float) PI / 180);
 
         pos.x += forwardXMove;
         pos.y += forwardYMove;

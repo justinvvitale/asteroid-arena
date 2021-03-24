@@ -9,7 +9,7 @@
 #include "../../Renderer.h"
 
 
-MeshRendererSystem::MeshRendererSystem() : System(ComponentType::Mesh) {
+MeshRendererSystem::MeshRendererSystem() : System(ComponentType::CMesh) {
 }
 
 void MeshRendererSystem::process(std::list<Component*> items) {
@@ -36,7 +36,7 @@ void MeshRendererSystem::renderEntity(Entity* entity) {
 
     debugRender(entity);
 
-    Component* compMesh = entity->getComponentOfType(ComponentType::Mesh);
+    Component* compMesh = entity->getComponentOfType(ComponentType::CMesh);
     if(compMesh != nullptr){
         auto* meshComponent = dynamic_cast<MeshComponent*>(compMesh);
         meshComponent->render();
@@ -58,9 +58,33 @@ Entity* MeshRendererSystem::getRootEntity(Entity* entity) {
 }
 
 void MeshRendererSystem::debugRender(Entity* entity) {
+
+    // Particle Emitters
+    if(DEBUG_DRAW_PARTICLE_EMITTERS){
+        auto colCompList = entity->getComponentsOfType(ComponentType::CParticle);
+        Renderer::setColour(DEBUG_DRAW_PARTICLE_EMITTERS_COLOUR);
+
+        for(Component* colComp : colCompList) {
+            if (colComp != nullptr) {
+                auto* emitter = dynamic_cast<ParticleEmitterComponent*>(colComp);
+                Vector3 offset = emitter->getEmitOffset();
+
+                Renderer::move(offset);
+
+                Renderer::drawRect(10,10);
+
+                // Move to origin
+                Renderer::move(offset.opposite());
+            }
+        }
+
+        Renderer::setColour(DEFAULT_COLOUR);
+    }
+
+
     // Colliders
     if(DEBUG_DRAW_COLLIDERS){
-        auto colCompList = entity->getComponentsOfType(ComponentType::Collider);
+        auto colCompList = entity->getComponentsOfType(ComponentType::CCollider);
         Renderer::setColour(DEBUG_DRAW_COLLIDERS_COLOUR);
 
         for(Component* colComp : colCompList) {

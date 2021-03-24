@@ -5,12 +5,13 @@
 #ifndef I3D_COMPONENTTYPE_H
 #define I3D_COMPONENTTYPE_H
 
-
+// Component type C<name> to prevent conflicts with structs
 enum ComponentType {
-    Mesh,
-    Script,
-    Collider,
-    Rigidbody
+    CMesh,
+    CScript,
+    CCollider,
+    CRigidbody,
+    CParticle
 };
 
 
