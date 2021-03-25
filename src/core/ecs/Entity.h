@@ -22,7 +22,7 @@ private:
     std::list<Component *> components = std::list<Component *>();
 
     Vector3 position = Vector3::zero();
-    Rotation rotation = Rotation::Rotation();
+    Rotation rotation = Rotation::zero();
 public:
     Entity() = default;
     explicit Entity(EntityTag entityTag);
@@ -33,6 +33,7 @@ public:
 
     std::list<Component *> getComponents();
     Component* getComponentOfType(ComponentType componentType);
+    Component* getComponentOfTypeInChildren(ComponentType componentType);
     std::list<Component *> getComponentsOfType(ComponentType componentType);
 
     // Sets the tag, can be used for lookups
@@ -41,6 +42,8 @@ public:
     void setParent(Entity* entity);
     Entity* getParent();
     std::list<Entity *> getChildren();
+    void addChild(Entity* entity);
+    void removeChild(Entity* entity);
 
     // Transform
     Vector3 getPosition() const;

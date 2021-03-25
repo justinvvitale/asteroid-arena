@@ -84,6 +84,11 @@ struct Rotation {
 
 // UTIL
 
+static float Lerp(float v1, float v2, float t)
+{
+    return v1 + (v2 - v1) * t;
+}
+
 // Inclusive random helpers
 inline int getRandomNumber(int min, int max){
     return min + (rand() % max);
@@ -133,7 +138,7 @@ public:
     static Vector3 GetForwardVector(Rotation rotation) {
         return {(-sinf(rotation.angle * DEG_TO_RAD)), (cosf(rotation.angle * DEG_TO_RAD)), 0};
     }
-    
+
     // Dot product of vector
     static float Dot(Vector3 l, Vector3 r) {
         return l.x * r.x + l.y * r.y + l.z * r.z;

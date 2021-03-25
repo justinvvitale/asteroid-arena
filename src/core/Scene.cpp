@@ -4,6 +4,7 @@
 
 #include "Scene.h"
 #include "ecs/Component.h"
+#include "Game.h"
 
 void Scene::addEntity(Entity* entity) {
     sceneEntities.push_back(entity);
@@ -15,12 +16,19 @@ void Scene::addEntity(Entity* entity) {
 }
 
 void Scene::removeEntity(Entity* entity) {
-    sceneEntities.remove(entity);
+    // If root entity, just remove, otherwise we gotta cleanup child entity
+    if(entity->getParent() == nullptr){
+        sceneEntities.remove(entity);
+    }else{
+        entity->getParent()->removeChild(entity);
+    }
 
     EntityTag tag = entity->getTag();
     if(tag != EntityTag::None && this->taggedEntities[tag] == entity){
         this->taggedEntities[tag] = nullptr;
     }
+
+    Game::getEngine()->flagDirty();
 }
 
 std::list<Component*> Scene::findComponentsOfType(ComponentType type) {

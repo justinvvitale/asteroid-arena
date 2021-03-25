@@ -11,7 +11,7 @@ RigidbodyComponent::RigidbodyComponent() : Component(ComponentType::CRigidbody) 
 
 void RigidbodyComponent::tick() {
     // Apply velocity
-    Entity* parent = this->getParent();
+    Entity* parent = this->getEntity();
     Vector3 curPosition = parent->getPosition();
 
     parent->setPosition(curPosition + (velocity *  (1 + Game::dt)));

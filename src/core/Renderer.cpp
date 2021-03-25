@@ -42,11 +42,11 @@ void Renderer::renderMeshData(const Mesh& mesh) {
 }
 
 void Renderer::renderParticle(const Particle* particle) {
-    Vector3 pos = particle->position;
-
-    move(pos);
-    renderMeshData(particle->mesh);
-    move(pos.opposite());
+    glPushMatrix();
+        move(particle->position);
+        scale(particle->scale);
+        renderMeshData(particle->mesh);
+    glPopMatrix();
 }
 
 void Renderer::drawRect(float width, float height) {
@@ -87,6 +87,14 @@ void Renderer::push() {
 
 void Renderer::pop() {
     glPopMatrix();
+}
+
+void Renderer::scale(Vector3 scale) {
+    glScalef(scale.x, scale.y, scale.z);
+}
+
+void Renderer::scale(float scale) {
+    Renderer::scale(Vector3(scale, scale, scale));
 }
 
 

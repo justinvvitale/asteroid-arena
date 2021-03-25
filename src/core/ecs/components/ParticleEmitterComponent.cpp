@@ -4,12 +4,16 @@
 
 #include "ParticleEmitterComponent.h"
 
-ParticleEmitterComponent::ParticleEmitterComponent(Vector3 emitPosition) : Component(ComponentType::CParticle) {
-    this->emitPosition = emitPosition;
+ParticleEmitterComponent::ParticleEmitterComponent() : Component(ComponentType::CParticle) {
+
+}
+
+ParticleEmitterComponent::ParticleEmitterComponent(float offset) : Component(ComponentType::CParticle) {
+    this->offset = offset;
 }
 
 void ParticleEmitterComponent::Emit(Particle* particle) {
-    particle->position = getParent()->getWorldPosition() + getEmitOffset();
+    particle->position = getEntity()->getWorldPosition() + getEmitOffset();
     particleBuffer.push_back(particle);
 }
 
@@ -25,7 +29,17 @@ bool ParticleEmitterComponent::hasBufferedParticles() {
     return !particleBuffer.empty();
 }
 
+float ParticleEmitterComponent::getOffset() const {
+    return offset;
+}
+
 Vector3 ParticleEmitterComponent::getEmitOffset() {
-    return emitPosition;
+    Vector3 offsetVec = Vector3::zero();
+
+    if(offset != 0){
+        offsetVec = (VectorUtil::GetForwardVector(this->getEntity()->getRotation()) * offset);
+    }
+
+    return offsetVec;
 }
 

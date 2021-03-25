@@ -17,6 +17,8 @@ public:
     static void setColour(Vector3 colour);
 
     static void move(Vector3 move);
+    static void scale(Vector3 scale);
+    static void scale(float scale);
     static void rotate(Rotation rotation);
 
     static void push();

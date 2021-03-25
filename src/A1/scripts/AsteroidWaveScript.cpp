@@ -13,7 +13,7 @@ void AsteroidWaveScript::start() {
     if(DEBUG_DRAW_LAUNCH_CIRCLE){
         MeshComponent* meshComponent = new MeshComponent();
         meshComponent->setMesh(MeshHelper::getCircleMesh(launchRadius, DEBUG_DRAW_LAUNCH_CIRCLE_COLOUR));
-        this->getParent()->addComponent(meshComponent);
+        this->getEntity()->addComponent(meshComponent);
     }
 
 }
@@ -27,7 +27,7 @@ void AsteroidWaveScript::update() {
     // Cleanup when off screen
     if(Game::tick % ASTEROID_CLEAR_RATE == 0){
 
-        std::list<Entity*>::iterator entityIter = asteroids.begin();
+        std::set<Entity*>::iterator entityIter = asteroids.begin();
         while (entityIter != asteroids.end()){
             Entity* ast = *entityIter;
 
@@ -35,7 +35,7 @@ void AsteroidWaveScript::update() {
 
             if(dist > launchRadius + ASTEROID_MAX_RADIUS){
                 Game::getEngine()->getScene()->removeEntity(ast);
-                Game::queueCleanup(ast);
+                Game::queueEntityCleanup(ast);
                 asteroids.erase(entityIter++);
             }else{
                 ++entityIter;
@@ -53,7 +53,7 @@ void AsteroidWaveScript::spawnAsteroid() {
     Vector3 playerPos = playerRef->getPosition();
 
     // Spawn initial test asteroid
-    Entity* ast = AsteroidEntity::getEntity();
+    Entity* ast = AsteroidEntity::getEntity(this);
     AsteroidScript* asteroidScript = dynamic_cast<AsteroidScript*>(ast->getComponentOfType(ComponentType::CScript));
 
     ast->setPosition(getPositionOutOfArena(asteroidScript->getRadius()));
@@ -65,6 +65,14 @@ void AsteroidWaveScript::spawnAsteroid() {
 
     Game::getEngine()->getScene()->addEntity(ast);
 
-    asteroids.push_back(ast);
+    asteroids.emplace(ast);
+}
+
+void AsteroidWaveScript::despawnAsteroid(Entity* asteroid) {
+    if (asteroids.find(asteroid) != asteroids.end()){
+        Game::getEngine()->getScene()->removeEntity(asteroid);
+        Game::queueEntityCleanup(asteroid);
+        asteroids.erase(asteroid);
+    }
 }
 

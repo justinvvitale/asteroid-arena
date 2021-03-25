@@ -17,6 +17,7 @@ private:
     std::list<System*> systems = std::list<System*>();
     std::map<ComponentType, System*> manualSystems = std::map<ComponentType, System*>();
 
+    bool bufferDirty = true;
     std::unordered_map<ComponentType, std::list<Component*>> bufferComponentTypes = std::unordered_map<ComponentType, std::list<Component*>>();
 public:
     Engine();
@@ -28,6 +29,8 @@ public:
     Scene* getScene();
 
     void ResetSystems();
+
+    void flagDirty();
 };
 
 

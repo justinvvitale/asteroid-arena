@@ -43,7 +43,7 @@ public:
 
     static Entity* getEntity(EntityTag tag);
 
-    static void queueCleanup(Entity* item);
+    static void queueEntityCleanup(Entity* item);
 
     // GLUT callbacks
     static void init();

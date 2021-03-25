@@ -15,7 +15,7 @@ void Component::setParent(Entity *entity) {
     this->parent = entity;
 }
 
-Entity* Component::getParent() {
+Entity* Component::getEntity() {
     return parent;
 }
 

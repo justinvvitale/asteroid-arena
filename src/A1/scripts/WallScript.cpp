@@ -8,7 +8,7 @@
 #include "../../core/Game.h"
 
 void WallScript::start() {
-    this->meshComponent = dynamic_cast<MeshComponent*>(this->getParent()->getComponentOfType(ComponentType::CMesh));
+    this->meshComponent = dynamic_cast<MeshComponent*>(this->getEntity()->getComponentOfType(ComponentType::CMesh));
 
     // Setup cords
     float halfWidth = ARENA_WIDTH / 2;

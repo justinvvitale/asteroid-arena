@@ -17,7 +17,7 @@ void MeshRendererSystem::process(std::list<Component*> items) {
 
     // Get root entities
     for(Component* component : items){
-        rootEntities.emplace(getRootEntity(component->getParent()));
+        rootEntities.emplace(getRootEntity(component->getEntity()));
     }
 
     for(Entity* entity : rootEntities){
@@ -61,20 +61,17 @@ void MeshRendererSystem::debugRender(Entity* entity) {
 
     // Particle Emitters
     if(DEBUG_DRAW_PARTICLE_EMITTERS){
-        auto colCompList = entity->getComponentsOfType(ComponentType::CParticle);
+        auto emitterCompList = entity->getComponentsOfType(ComponentType::CParticle);
         Renderer::setColour(DEBUG_DRAW_PARTICLE_EMITTERS_COLOUR);
 
-        for(Component* colComp : colCompList) {
-            if (colComp != nullptr) {
-                auto* emitter = dynamic_cast<ParticleEmitterComponent*>(colComp);
-                Vector3 offset = emitter->getEmitOffset();
+        for(Component* emitComp : emitterCompList) {
+            if (emitComp != nullptr) {
+                float offset = dynamic_cast<ParticleEmitterComponent*>(emitComp)->getOffset();
+                Vector3 offsetVec = Vector3(0, offset, 0);
 
-                Renderer::move(offset);
-
-                Renderer::drawRect(10,10);
-
-                // Move to origin
-                Renderer::move(offset.opposite());
+                Renderer::move(offsetVec);
+                Renderer::drawRect(5,5);
+                Renderer::move(offsetVec.opposite());
             }
         }
 

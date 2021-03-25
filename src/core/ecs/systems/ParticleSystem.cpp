@@ -40,6 +40,9 @@ void ParticleSystem::process(std::list<Component*> items) {
 
         // Apply velocity
         particle->position = (particle->position + (particle->velocity *  (1 + Game::dt)));
+
+        float percentLifeSpan = particle->life / particle->lifeSpan;
+        particle->scale = Lerp(particle->endScale, particle->startScale, percentLifeSpan);
     }
 }
 

@@ -4,6 +4,7 @@
 
 #include "Entity.h"
 #include "Component.h"
+#include "../Game.h"
 
 Entity::Entity(EntityTag entityTag) {
     this->tag = entityTag;
@@ -23,6 +24,8 @@ void Entity::tick() {
 void Entity::addComponent(Component* component) {
     component->setParent(this);
     this->components.push_back(component);
+
+    Game::getEngine()->flagDirty();
 }
 
 // Getter/Setter (s)
@@ -75,7 +78,6 @@ Entity* Entity::getParent() {
 
 void Entity::setParent(Entity* entity) {
     this->parent = entity;
-    entity->children.push_back(entity);
 }
 
 std::list<Entity*> Entity::getChildren() {
@@ -117,6 +119,31 @@ Vector3 Entity::getWorldPosition() {
     }
 
     return pos;
+}
+
+Component* Entity::getComponentOfTypeInChildren(ComponentType componentType) {
+    Component* comp = nullptr;
+    for(Entity* childEntity: children){
+        comp = childEntity->getComponentOfType(componentType);
+
+        if(comp != nullptr){
+            return comp;
+        }
+    }
+
+    return comp;
+}
+
+void Entity::addChild(Entity* entity) {
+    this->children.push_back(entity);
+    entity->setParent(this);
+
+    Game::getEngine()->flagDirty();
+}
+
+void Entity::removeChild(Entity* entity) {
+    // Should only be called by scene remove func (Sets dirty)
+    this->children.remove(entity);
 }
 
 

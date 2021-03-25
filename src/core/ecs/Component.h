@@ -21,7 +21,7 @@ public:
 
     ComponentType getType();
 
-    Entity* getParent();
+    Entity* getEntity();
 };
 
 

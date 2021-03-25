@@ -7,11 +7,14 @@
 
 
 #include "../../core/ecs/components/ScriptComponent.h"
+#include "AsteroidWaveScript.h"
 
 class AsteroidScript : public ScriptComponent {
 private:
     float radius;
     float speed;
+
+    AsteroidWaveScript* mgr;
 public:
     float getRadius() const;
 
@@ -23,9 +26,7 @@ protected:
     void update() override;
 
 public:
-    AsteroidScript(float radius, float speed);
-
-
+    AsteroidScript(AsteroidWaveScript* mgr, float radius, float speed);
 };
 
 

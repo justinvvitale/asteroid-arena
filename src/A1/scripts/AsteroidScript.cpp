@@ -3,8 +3,10 @@
 //
 
 #include "AsteroidScript.h"
+#include "../../core/Game.h"
 
-AsteroidScript::AsteroidScript(float radius, float speed) {
+AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float radius, float speed) {
+    this->mgr = mgr;
     this->radius = radius;
     this->speed = speed;
 }
@@ -25,3 +27,6 @@ float AsteroidScript::getSpeed() const {
     return speed;
 }
 
+//void AsteroidScript::onCollision(Entity* other) {
+//    mgr->despawnAsteroid(other);
+//}

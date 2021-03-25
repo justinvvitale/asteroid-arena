@@ -8,12 +8,12 @@
 
 
 void PlayerControllerScript::start() {
-    emitter = dynamic_cast<ParticleEmitterComponent*>(this->getParent()->getComponentOfType(ComponentType::CParticle));
+    emitter = dynamic_cast<ParticleEmitterComponent*>(this->getEntity()->getComponentOfType(ComponentType::CParticle));
 
 }
 
 void PlayerControllerScript::update() {
-    Entity* player = this->getParent();
+    Entity* player = this->getEntity();
     Vector3 pos = player->getPosition();
     Rotation rot = player->getRotation();
 
@@ -24,7 +24,7 @@ void PlayerControllerScript::update() {
             velocity += SHIP_ACCELERATION;
         }
 
-        emitter->Emit(new Particle(VectorUtil::GetForwardVector(rot).opposite() * 10, 20, MeshHelper::getPointMesh(10)));
+        emitter->Emit(new Particle(VectorUtil::GetForwardVector(rot).opposite() * 2, 5, 3,1, MeshHelper::getHexagonMesh(SHIP_SIZE/8, Vector3(1,0.3,0))));
     } else if (velocity > 0) {
         // Reset velocity if not moving
         velocity -= SHIP_DECELERATION;

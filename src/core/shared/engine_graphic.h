@@ -10,7 +10,7 @@
 #include <freeglut.h>
 #include <list>
 
-enum MeshDataType{
+enum MeshDataType {
     primitive,
     colour
 };
@@ -19,28 +19,28 @@ typedef struct MeshData {
     MeshDataType dataType;
     Vector3 data;
 
-    MeshData(float x, float y, float z){
+    MeshData(float x, float y, float z) {
         this->dataType = MeshDataType::primitive;
-        data = Vector3(x,y,z);
+        data = Vector3(x, y, z);
     }
 
-    MeshData(Vector3 position){
+    MeshData(Vector3 position) {
         this->dataType = MeshDataType::primitive;
         data = position;
     }
 
-    MeshData(MeshDataType dataType, float v1, float v2, float v3){
+    MeshData(MeshDataType dataType, float v1, float v2, float v3) {
         this->dataType = dataType;
-        data = Vector3(v1,v2,v3);
+        data = Vector3(v1, v2, v3);
     }
 
-    MeshData(MeshDataType dataType, Vector3 inVec){
+    MeshData(MeshDataType dataType, Vector3 inVec) {
         this->dataType = dataType;
         data = inVec;
     }
 } MeshData;
 
-typedef struct Mesh{
+typedef struct Mesh {
     GLenum mode = GL_TRIANGLES;
     Vector3 colour = DEFAULT_COLOUR;
     std::list<MeshData> data = std::list<MeshData>();
@@ -48,22 +48,50 @@ typedef struct Mesh{
 
 class MeshHelper {
 public:
-    static Mesh getCircleMesh(float radius, Vector3 colour = Vector3::identity()){
+    static Mesh getCircleMesh(float radius, Vector3 colour = Vector3::identity()) {
         Mesh mesh;
         mesh.mode = GL_LINE_LOOP;
         mesh.colour = colour;
 
-        for (int i = 0; i < 360; i++){
-            mesh.data.emplace_back(MeshData(cos(i * DEG_TO_RAD)*radius,sin(i * DEG_TO_RAD)*radius, 0));
+        for (int i = 0; i < 360; i++) {
+            mesh.data.emplace_back(MeshData(cos(i * DEG_TO_RAD) * radius, sin(i * DEG_TO_RAD) * radius, 0));
         }
 
         return mesh;
     }
 
-    static Mesh getPointMesh(float size){
+    static Mesh getHexagonMesh(float size, Vector3 colour = Vector3::identity()) {
+        Mesh mesh;
+        mesh.mode = GL_LINE_LOOP;
+        mesh.colour = colour;
+
+        mesh.data.emplace_back(MeshData(-size / 2, size, 0));
+        mesh.data.emplace_back(MeshData(size / 2, size, 0));
+        mesh.data.emplace_back(MeshData(size, 0, 0));
+        mesh.data.emplace_back(MeshData(size / 2, -size, 0));
+        mesh.data.emplace_back(MeshData(-size / 2, -size, 0));
+        mesh.data.emplace_back(MeshData(-size, 0, 0));
+
+        return mesh;
+    }
+
+    static Mesh getTriangleMesh(float size, Vector3 colour = Vector3::identity()) {
+        Mesh mesh;
+        mesh.mode = GL_LINE_LOOP;
+        mesh.colour = colour;
+
+        mesh.data.emplace_back(MeshData(0, size, 0));
+        mesh.data.emplace_back(MeshData(-size, -size, 0));
+        mesh.data.emplace_back(MeshData(size, -size, 0));
+
+
+        return mesh;
+    }
+
+    static Mesh getPointMesh(float size) {
         Mesh mesh;
         mesh.mode = GL_POINTS;
-        mesh.data.emplace_back(MeshData(0,0,0));
+        mesh.data.emplace_back(MeshData(0, 0, 0));
 
         return mesh;
     }

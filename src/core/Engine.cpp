@@ -30,7 +30,10 @@ Engine::Engine() {
 void Engine::tick() {
     if(scene == nullptr) return;
 
-    bufferComponentTypes = scene->getComponentsByType();
+    if(bufferDirty) {
+        bufferComponentTypes = scene->getComponentsByType();
+        bufferDirty = false;
+    }
 
     // System handling
     for(System* system : systems){
@@ -40,9 +43,6 @@ void Engine::tick() {
         if(componentTypeIter == bufferComponentTypes.end()) continue;
 
         system->process(componentTypeIter->second);
-
-        // Remove processed type
-        bufferComponentTypes.erase(system->getType());
     }
 
     // Tick any components which don't have a system directly managing them (Or manual)
@@ -63,6 +63,10 @@ void Engine::tick() {
 }
 
 void Engine::render() {
+    if(bufferDirty) {
+        bufferComponentTypes = scene->getComponentsByType();
+        bufferDirty = false;
+    }
 
     // Particle rendering (Render)
     auto componentTypesParticle = bufferComponentTypes.find(ComponentType::CParticle);
@@ -91,6 +95,10 @@ Scene* Engine::getScene() {
 void Engine::ResetSystems() {
     manualSystems[ComponentType::CParticle]->cleanup();
 
+}
+
+void Engine::flagDirty() {
+    this->bufferDirty = true;
 }
 
 

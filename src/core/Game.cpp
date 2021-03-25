@@ -146,7 +146,7 @@ void Game::stop() {
     exit(0);
 }
 
-void Game::queueCleanup(Entity* item) {
+void Game::queueEntityCleanup(Entity* item) {
     toDelete->push(item);
 }
 

@@ -16,7 +16,8 @@ class AsteroidEntity {
 private:
     static Mesh getAsteroidModel(float radius, float sections, float randRange) {
         Mesh mesh;
-        mesh.mode = GL_LINE_LOOP;
+        mesh.mode = GL_POLYGON;
+        mesh.colour = Vector3(0.3,0.3,0.3);
 
         // TODO: Randomized appearance and make it not a circle (Part of later sections)
 
@@ -30,7 +31,7 @@ private:
     }
 
 public:
-    static Entity* getEntity() {
+    static Entity* getEntity(AsteroidWaveScript* waveMgr) {
         Entity* entity = new Entity();
 
         float radius = ASTEROID_MIN_RADIUS + (rand() % static_cast<int>(ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS + 1));
@@ -39,7 +40,7 @@ public:
         meshRenderer->setMesh(getAsteroidModel(radius,ASTEROID_SEGMENTS,ASTEROID_RADIUS_VARIATION_RANGE));
         entity->addComponent(meshRenderer);
 
-        AsteroidScript* scriptComponent = new AsteroidScript(radius, getRandomNumber(ASTEROID_MIN_SPEED, ASTEROID_MAX_SPEED));
+        AsteroidScript* scriptComponent = new AsteroidScript(waveMgr, radius, getRandomNumber(ASTEROID_MIN_SPEED, ASTEROID_MAX_SPEED));
         entity->addComponent((Component*) scriptComponent);
 
         ColliderComponent* col = new ColliderComponent(radius);

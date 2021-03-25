@@ -6,11 +6,12 @@
 #define I3D_ASTEROIDWAVESCRIPT_H
 
 
+#include <set>
 #include "../../core/ecs/components/ScriptComponent.h"
 
 class AsteroidWaveScript : public ScriptComponent {
 private:
-    std::list<Entity*> asteroids = std::list<Entity*>();
+    std::set<Entity*> asteroids = std::set<Entity*>();
 
     float launchRadius;
 
@@ -24,6 +25,8 @@ protected:
 
     void start() override;
 
+public:
+    void despawnAsteroid(Entity* asteroid);
 };
 
 
