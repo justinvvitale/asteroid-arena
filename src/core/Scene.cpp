@@ -10,21 +10,21 @@ void Scene::addEntity(Entity* entity) {
     sceneEntities.push_back(entity);
 
     EntityTag tag = entity->getTag();
-    if(tag != EntityTag::None){
+    if (tag != EntityTag::None) {
         this->taggedEntities[tag] = entity;
     }
 }
 
 void Scene::removeEntity(Entity* entity) {
     // If root entity, just remove, otherwise we gotta cleanup child entity
-    if(entity->getParent() == nullptr){
+    if (entity->getParent() == nullptr) {
         sceneEntities.remove(entity);
-    }else{
+    } else {
         entity->getParent()->removeChild(entity);
     }
 
     EntityTag tag = entity->getTag();
-    if(tag != EntityTag::None && this->taggedEntities[tag] == entity){
+    if (tag != EntityTag::None && this->taggedEntities[tag] == entity) {
         this->taggedEntities[tag] = nullptr;
     }
 
@@ -51,10 +51,10 @@ std::unordered_map<ComponentType, std::list<Component*>> Scene::getComponentsByT
             auto iter = componentMap.find(type);
 
             // If iter has value, key exists and we'll update list, otherwise we make new entry.
-            if(iter != componentMap.end()){
+            if (iter != componentMap.end()) {
                 std::list<Component*>& componentList = iter->second;
                 componentList.push_back(component);
-            }else{
+            } else {
                 std::list<Component*> componentList = std::list<Component*>();
                 componentList.push_back(component);
                 componentMap[type] = componentList;
@@ -76,7 +76,7 @@ std::list<Component*> Scene::findComponentsOfType(Entity* entity, ComponentType 
         }
     }
 
-    for (Entity* child : entity->getChildren()){
+    for (Entity* child : entity->getChildren()) {
         components.splice(components.end(), this->findComponentsOfType(child, type));
     }
 
@@ -86,8 +86,8 @@ std::list<Component*> Scene::findComponentsOfType(Entity* entity, ComponentType 
 std::list<Entity*> Scene::getAllEntities(Entity* entity) {
     std::list<Entity*> entities = std::list<Entity*>();
 
-    if(entity == nullptr){
-        for(Entity* sceneEntity : this->sceneEntities){
+    if (entity == nullptr) {
+        for (Entity* sceneEntity : this->sceneEntities) {
             entities.splice(entities.end(), this->getAllEntities(sceneEntity));
         }
 
@@ -96,7 +96,7 @@ std::list<Entity*> Scene::getAllEntities(Entity* entity) {
 
     entities.push_back(entity);
 
-    for (Entity* child : entity->getChildren()){
+    for (Entity* child : entity->getChildren()) {
         entities.splice(entities.end(), this->getAllEntities(child));
     }
 

@@ -14,6 +14,7 @@ private:
 
 protected:
     virtual void start() = 0;
+
     virtual void update() = 0;;
 
 public:
@@ -21,7 +22,7 @@ public:
 
     void tick() override;
 
-    virtual void onCollision(Entity* other){}
+    virtual void onCollision(Entity* other) {}
 };
 
 

@@ -17,11 +17,13 @@ private:
     static Engine* engine;
 
     // Kinda greasy using a function pointer but works well
-    typedef Scene* (*defaultScenePointer)();
+    typedef Scene* (* defaultScenePointer)();
+
     static defaultScenePointer getDefaultScene;
     static bool restartRequested;
 
     static void performEntityCleanup();
+
     static std::queue<Entity*>* toDelete;
 public:
     // Key variables (Global)
@@ -33,7 +35,7 @@ public:
     static long int tick;
 
 
-    static void start(int argc, char **argv, const std::string& name, Scene* (*getDefaultScene)());
+    static void start(int argc, char** argv, const std::string& name, Scene* (* getDefaultScene)());
 
     static void restart();
 

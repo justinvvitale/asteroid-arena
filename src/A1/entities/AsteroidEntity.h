@@ -17,14 +17,14 @@ private:
     static Mesh getAsteroidModel(float radius, float sections, float randRange) {
         Mesh mesh;
         mesh.mode = GL_POLYGON;
-        mesh.colour = Vector3(0.3,0.3,0.3);
+        mesh.colour = Vector3(0.3, 0.3, 0.3);
 
         // TODO: Randomized appearance and make it not a circle (Part of later sections)
 
-        for (int i = 0; i < 360; i += 360 / sections){
-                float pointRadius = getRandomNumber(radius, radius + randRange);
+        for (int i = 0; i < 360; i += 360 / sections) {
+            float pointRadius = getRandomNumber(radius, radius + randRange);
 
-                mesh.data.emplace_back(cos(i * DEG_TO_RAD)*pointRadius,sin(i * DEG_TO_RAD)*pointRadius, 0);
+            mesh.data.emplace_back(cos(i * DEG_TO_RAD) * pointRadius, sin(i * DEG_TO_RAD) * pointRadius, 0);
         }
 
         return mesh;
@@ -37,10 +37,11 @@ public:
         float radius = ASTEROID_MIN_RADIUS + (rand() % static_cast<int>(ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS + 1));
 
         MeshComponent* meshRenderer = new MeshComponent();
-        meshRenderer->setMesh(getAsteroidModel(radius,ASTEROID_SEGMENTS,ASTEROID_RADIUS_VARIATION_RANGE));
+        meshRenderer->setMesh(getAsteroidModel(radius, ASTEROID_SEGMENTS, ASTEROID_RADIUS_VARIATION_RANGE));
         entity->addComponent(meshRenderer);
 
-        AsteroidScript* scriptComponent = new AsteroidScript(waveMgr, radius, getRandomNumber(ASTEROID_MIN_SPEED, ASTEROID_MAX_SPEED));
+        AsteroidScript* scriptComponent = new AsteroidScript(waveMgr, radius,
+                                                             getRandomNumber(ASTEROID_MIN_SPEED, ASTEROID_MAX_SPEED));
         entity->addComponent((Component*) scriptComponent);
 
         ColliderComponent* col = new ColliderComponent(radius);

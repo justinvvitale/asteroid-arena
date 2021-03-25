@@ -9,7 +9,7 @@
 #include "../Component.h"
 #include "MeshComponent.h"
 
-typedef struct Particle{
+typedef struct Particle {
     // State
     Vector3 position;
     Vector3 velocity;
@@ -22,7 +22,7 @@ typedef struct Particle{
     float endScale;
     Mesh mesh;
 
-    Particle(Vector3 vel, float lifeSpan, float startScale, float endScale, Mesh meshIn){
+    Particle(Vector3 vel, float lifeSpan, float startScale, float endScale, Mesh meshIn) {
         this->velocity = vel;
         this->life = lifeSpan;
         this->scale = startScale;
@@ -45,12 +45,15 @@ private:
 
 public:
     ParticleEmitterComponent();
+
     ParticleEmitterComponent(float offset);
+
     void Emit(Particle* particle);
 
     Vector3 getEmitOffset();
 
     bool hasBufferedParticles();
+
     std::list<Particle*> TakeParticles();
 
     float getOffset() const;

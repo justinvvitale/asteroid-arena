@@ -5,7 +5,7 @@
 #include "KeyRegistry.h"
 
 // Initialize to nothing, should be set by init
-std::set<unsigned char> *KeyRegistry::keyState = nullptr;
+std::set<unsigned char>* KeyRegistry::keyState = nullptr;
 
 
 void KeyRegistry::init() {

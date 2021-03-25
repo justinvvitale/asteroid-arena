@@ -24,7 +24,8 @@ void PlayerControllerScript::update() {
             velocity += SHIP_ACCELERATION;
         }
 
-        emitter->Emit(new Particle(VectorUtil::GetForwardVector(rot).opposite() * 2, 5, 3,1, MeshHelper::getHexagonMesh(SHIP_SIZE/8, Vector3(1,0.3,0))));
+        emitter->Emit(new Particle(VectorUtil::GetForwardVector(rot).opposite() * 2, 5, 3, 1,
+                                   MeshHelper::getHexagonMesh(SHIP_SIZE / 8, Vector3(1, 0.3, 0))));
     } else if (velocity > 0) {
         // Reset velocity if not moving
         velocity -= SHIP_DECELERATION;

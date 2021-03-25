@@ -15,9 +15,9 @@ void ParticleSystem::init() {
 }
 
 void ParticleSystem::process(std::list<Component*> items) {
-    for(Component* component : items){
+    for (Component* component : items) {
         ParticleEmitterComponent* emitter = dynamic_cast<ParticleEmitterComponent*>(component);
-        if(emitter->hasBufferedParticles()){
+        if (emitter->hasBufferedParticles()) {
             auto bufferedParticles = emitter->TakeParticles();
             particles.insert(particles.end(), bufferedParticles.begin(), bufferedParticles.end());
         }
@@ -25,21 +25,21 @@ void ParticleSystem::process(std::list<Component*> items) {
 
     // Churn existing particles (Move, tick life, remove finished)
     auto particleIter = particles.begin();
-    while (particleIter != particles.end()){
+    while (particleIter != particles.end()) {
         Particle* particle = *particleIter;
         particle->life--;
 
         // If end of life, destroy. Increment iter for next loop
-        if(particle->life <= 0){
+        if (particle->life <= 0) {
             delete particle;
             particles.erase(particleIter++);
             continue;
-        }else{
+        } else {
             ++particleIter;
         }
 
         // Apply velocity
-        particle->position = (particle->position + (particle->velocity *  (1 + Game::dt)));
+        particle->position = (particle->position + (particle->velocity * (1 + Game::dt)));
 
         float percentLifeSpan = particle->life / particle->lifeSpan;
         particle->scale = Lerp(particle->endScale, particle->startScale, percentLifeSpan);
@@ -47,14 +47,14 @@ void ParticleSystem::process(std::list<Component*> items) {
 }
 
 void ParticleSystem::render() {
-    for(Particle* particle : particles){
+    for (Particle* particle : particles) {
         Renderer::renderParticle(particle);
     }
 }
 
 void ParticleSystem::cleanup() {
     auto particleIter = particles.begin();
-    while (particleIter != particles.end()){
+    while (particleIter != particles.end()) {
         Particle* particle = *particleIter;
         delete particle;
         particles.erase(particleIter++);

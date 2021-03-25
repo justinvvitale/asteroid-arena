@@ -19,6 +19,7 @@ public:
     void init() override;
 
     void process(std::list<Component*> items) override;
+
     void render();
 
     // Cleanup particles and delete

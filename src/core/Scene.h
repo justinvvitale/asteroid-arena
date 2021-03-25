@@ -16,19 +16,21 @@
 
 class Scene {
 private:
-    std::list<Entity *> sceneEntities = std::list<Entity *>();
-    std::unordered_map <EntityTag, Entity*> taggedEntities = std::unordered_map <EntityTag, Entity*>();
+    std::list<Entity*> sceneEntities = std::list<Entity*>();
+    std::unordered_map<EntityTag, Entity*> taggedEntities = std::unordered_map<EntityTag, Entity*>();
 
 
     // Recursive helper functions
     std::list<Component*> findComponentsOfType(Entity* entity, ComponentType type);
+
     std::list<Entity*> getAllEntities(Entity* entity = nullptr);
 
 public:
     virtual ~Scene();
 
-    void addEntity(Entity *entity);
-    void removeEntity(Entity *entity);
+    void addEntity(Entity* entity);
+
+    void removeEntity(Entity* entity);
 
     Entity* getEntity(EntityTag tag);
 

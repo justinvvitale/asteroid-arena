@@ -10,7 +10,7 @@ void ScriptProcessorSystem::init() {
 }
 
 void ScriptProcessorSystem::process(std::list<Component*> items) {
-    for(Component* component : items){
+    for (Component* component : items) {
         ScriptComponent* script = dynamic_cast<ScriptComponent*>(component);
 
         script->tick();
@@ -18,6 +18,6 @@ void ScriptProcessorSystem::process(std::list<Component*> items) {
 
 }
 
-ScriptProcessorSystem::ScriptProcessorSystem() : System(ComponentType::CScript){
+ScriptProcessorSystem::ScriptProcessorSystem() : System(ComponentType::CScript) {
 
 }

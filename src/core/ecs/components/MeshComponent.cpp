@@ -14,7 +14,7 @@ void MeshComponent::tick() {
 }
 
 void MeshComponent::render() {
-    for(const Mesh& mesh : data) {
+    for (const Mesh& mesh : data) {
         Renderer::renderMeshData(mesh);
     }
 }

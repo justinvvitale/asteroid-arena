@@ -8,33 +8,36 @@
 #include <tuple>
 #include "../Component.h"
 
-enum ColliderType{
+enum ColliderType {
     circlePos,
     square
 };
 
 
 class ColliderComponent : public Component {
-    private:
-        ColliderType type;
+private:
+    ColliderType type;
 
-        Vector3 offset = Vector3::zero();
+    Vector3 offset = Vector3::zero();
 
-        float radius = 0;
+    float radius = 0;
 
-        float width = 0;
-        float height = 0;
-    public:
-        explicit ColliderComponent(float radius);
-        ColliderComponent(float width, float height);
+    float width = 0;
+    float height = 0;
+public:
+    explicit ColliderComponent(float radius);
 
-        ColliderType getCollisionType();
+    ColliderComponent(float width, float height);
 
-        void setOffset(Vector3 offsetIn);
-        Vector3 getOffset();
+    ColliderType getCollisionType();
 
-        float getCircleRadius() const;
-        std::tuple<float, float> getSquareDimension();
+    void setOffset(Vector3 offsetIn);
+
+    Vector3 getOffset();
+
+    float getCircleRadius() const;
+
+    std::tuple<float, float> getSquareDimension();
 };
 
 

@@ -16,7 +16,7 @@ EntityTag Entity::getTag() {
 
 
 void Entity::tick() {
-    for (Component *comp : components) {
+    for (Component* comp : components) {
         comp->tick();
     }
 }
@@ -34,27 +34,27 @@ Vector3 Entity::getPosition() const {
     return position;
 }
 
-void Entity::setPosition(const Vector3 &pos) {
+void Entity::setPosition(const Vector3& pos) {
     Entity::position = pos;
 }
 
-const Rotation &Entity::getRotation() const {
+const Rotation& Entity::getRotation() const {
     return rotation;
 }
 
-void Entity::setRotation(const Rotation &rot) {
+void Entity::setRotation(const Rotation& rot) {
     Entity::rotation = rot;
 }
 
-std::list<Component *> Entity::getComponents() {
+std::list<Component*> Entity::getComponents() {
     return components;
 }
 
 std::list<Component*> Entity::getComponentsOfType(ComponentType componentType) {
     std::list<Component*> compList = std::list<Component*>();
 
-    for(Component* component : components){
-        if(component->getType() == componentType){
+    for (Component* component : components) {
+        if (component->getType() == componentType) {
             compList.push_back(component);
         }
     }
@@ -63,8 +63,8 @@ std::list<Component*> Entity::getComponentsOfType(ComponentType componentType) {
 }
 
 Component* Entity::getComponentOfType(ComponentType componentType) {
-    for(Component* component : components){
-        if(component->getType() == componentType){
+    for (Component* component : components) {
+        if (component->getType() == componentType) {
             return component;
         }
     }
@@ -85,18 +85,18 @@ std::list<Entity*> Entity::getChildren() {
 }
 
 Entity::~Entity() {
-    for(Component* component : components){
+    for (Component* component : components) {
         delete component;
     }
 
-    for(Entity* childEntity : children){
+    for (Entity* childEntity : children) {
         delete childEntity;
     }
 
 }
 
 Vector3 Entity::getWorldPosition() {
-    if(parent == nullptr){
+    if (parent == nullptr) {
         return position;
     }
 
@@ -109,12 +109,12 @@ Vector3 Entity::getWorldPosition() {
     Entity* parentEnt = getParent();
 
     // Traverse the chain and store emitPosition changes
-    while(parentEnt != nullptr){
+    while (parentEnt != nullptr) {
         vectorModifications.push_front(parentEnt->getPosition());
         parentEnt = parentEnt->getParent();
     }
 
-    for(Vector3 vecMod : vectorModifications){
+    for (Vector3 vecMod : vectorModifications) {
         pos = pos + vecMod;
     }
 
@@ -123,10 +123,10 @@ Vector3 Entity::getWorldPosition() {
 
 Component* Entity::getComponentOfTypeInChildren(ComponentType componentType) {
     Component* comp = nullptr;
-    for(Entity* childEntity: children){
+    for (Entity* childEntity: children) {
         comp = childEntity->getComponentOfType(componentType);
 
-        if(comp != nullptr){
+        if (comp != nullptr) {
             return comp;
         }
     }

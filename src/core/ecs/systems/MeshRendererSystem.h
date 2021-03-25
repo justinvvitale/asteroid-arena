@@ -12,12 +12,15 @@
 class MeshRendererSystem : public System {
 public:
     MeshRendererSystem();
+
     void process(std::list<Component*> items) override;
 
 private:
-   Entity* getRootEntity(Entity* entity);
-   void renderEntity(Entity* entity);
-   void debugRender(Entity* entity);
+    Entity* getRootEntity(Entity* entity);
+
+    void renderEntity(Entity* entity);
+
+    void debugRender(Entity* entity);
 };
 
 

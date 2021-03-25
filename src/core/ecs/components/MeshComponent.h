@@ -13,9 +13,11 @@
 class MeshComponent : public Component {
 public:
     MeshComponent();
+
     void render();
 
     void setMesh(const Mesh& meshIn);
+
     void addMesh(const Mesh& meshIn);
 
 private:

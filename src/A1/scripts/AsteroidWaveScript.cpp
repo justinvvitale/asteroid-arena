@@ -7,10 +7,10 @@
 #include "../../core/Game.h"
 
 void AsteroidWaveScript::start() {
-    launchRadius = (float)sqrt(pow(ARENA_WIDTH/2,2) + pow(ARENA_HEIGHT/2,2));
+    launchRadius = (float) sqrt(pow(ARENA_WIDTH / 2, 2) + pow(ARENA_HEIGHT / 2, 2));
     playerRef = Game::getEntity(EntityTag::Player);
 
-    if(DEBUG_DRAW_LAUNCH_CIRCLE){
+    if (DEBUG_DRAW_LAUNCH_CIRCLE) {
         MeshComponent* meshComponent = new MeshComponent();
         meshComponent->setMesh(MeshHelper::getCircleMesh(launchRadius, DEBUG_DRAW_LAUNCH_CIRCLE_COLOUR));
         this->getEntity()->addComponent(meshComponent);
@@ -20,24 +20,24 @@ void AsteroidWaveScript::start() {
 
 void AsteroidWaveScript::update() {
     // Spawning
-    if(Game::tick % ASTEROID_SPAWN_RATE == 0 && asteroids.size() < ASTEROID_MAX){
+    if (Game::tick % ASTEROID_SPAWN_RATE == 0 && asteroids.size() < ASTEROID_MAX) {
         spawnAsteroid();
     }
 
     // Cleanup when off screen
-    if(Game::tick % ASTEROID_CLEAR_RATE == 0){
+    if (Game::tick % ASTEROID_CLEAR_RATE == 0) {
 
         std::set<Entity*>::iterator entityIter = asteroids.begin();
-        while (entityIter != asteroids.end()){
+        while (entityIter != asteroids.end()) {
             Entity* ast = *entityIter;
 
             float dist = VectorUtil::Distance(ast->getPosition(), Vector3::zero());
 
-            if(dist > launchRadius + ASTEROID_MAX_RADIUS){
+            if (dist > launchRadius + ASTEROID_MAX_RADIUS) {
                 Game::getEngine()->getScene()->removeEntity(ast);
                 Game::queueEntityCleanup(ast);
                 asteroids.erase(entityIter++);
-            }else{
+            } else {
                 ++entityIter;
             }
         }
@@ -69,7 +69,7 @@ void AsteroidWaveScript::spawnAsteroid() {
 }
 
 void AsteroidWaveScript::despawnAsteroid(Entity* asteroid) {
-    if (asteroids.find(asteroid) != asteroids.end()){
+    if (asteroids.find(asteroid) != asteroids.end()) {
         Game::getEngine()->getScene()->removeEntity(asteroid);
         Game::queueEntityCleanup(asteroid);
         asteroids.erase(asteroid);

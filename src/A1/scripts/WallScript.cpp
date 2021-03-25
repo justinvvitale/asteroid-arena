@@ -35,7 +35,7 @@ void WallScript::update() {
     int currentWarns = topWarn + bottomWarn + leftWarn + rightWarn;
 
     // Only redraw (probably costly) if something has changed
-    if(prevWarns != currentWarns){
+    if (prevWarns != currentWarns) {
         refreshMeshData();
     }
 }

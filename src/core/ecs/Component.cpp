@@ -11,7 +11,7 @@ ComponentType Component::getType() {
     return type;
 }
 
-void Component::setParent(Entity *entity) {
+void Component::setParent(Entity* entity) {
     this->parent = entity;
 }
 

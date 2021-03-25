@@ -23,7 +23,7 @@ struct Vector3 {
         this->z = z;
     }
 
-    Vector3 opposite(){
+    Vector3 opposite() {
         return {-x, -y, -z};
     }
 
@@ -35,28 +35,23 @@ struct Vector3 {
         return {1, 1, 1};
     }
 
-    Vector3 operator+ (const Vector3& other) const
-    {
+    Vector3 operator+(const Vector3& other) const {
         return {x + other.x, y + other.y, z + other.z};
     }
 
-    Vector3 operator- (const Vector3& other) const
-    {
+    Vector3 operator-(const Vector3& other) const {
         return {x - other.x, y - other.y, z - other.z};
     }
 
-    Vector3 operator* (const Vector3& other) const
-    {
+    Vector3 operator*(const Vector3& other) const {
         return {x * other.x, y * other.y, z * other.z};
     }
 
-    Vector3 operator* (const float& value) const
-    {
+    Vector3 operator*(const float& value) const {
         return {x * value, y * value, z * value};
     }
 
-    Vector3 operator/ (const float& value) const
-    {
+    Vector3 operator/(const float& value) const {
         return {x / value, y / value, z / value};
     }
 };
@@ -84,18 +79,17 @@ struct Rotation {
 
 // UTIL
 
-static float Lerp(float v1, float v2, float t)
-{
+static float Lerp(float v1, float v2, float t) {
     return v1 + (v2 - v1) * t;
 }
 
 // Inclusive random helpers
-inline int getRandomNumber(int min, int max){
+inline int getRandomNumber(int min, int max) {
     return min + (rand() % max);
 }
 
-inline float getRandomNumber(float min, float max){
-    return min + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(max-min)));
+inline float getRandomNumber(float min, float max) {
+    return min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (max - min)));
 }
 
 class VectorUtil {
@@ -119,18 +113,19 @@ public:
 
         float sumDist = (lineDist + p1TargetDist + p2TargetDist) / 2;
 
-        return 2 * sqrt(sumDist * (sumDist - lineDist) * (sumDist - p1TargetDist) * (sumDist - p2TargetDist)) / lineDist;
+        return 2 * sqrt(sumDist * (sumDist - lineDist) * (sumDist - p1TargetDist) * (sumDist - p2TargetDist)) /
+               lineDist;
     }
 
     static float Magnitude(Vector3 vector) {
-        return (float)sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
+        return (float) sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
     }
 
     static Vector3 Normalize(Vector3 vector) {
         float magnitude = Magnitude(vector);
-        if (magnitude > 0.00001F){
+        if (magnitude > 0.00001F) {
             return vector / magnitude;
-        }else{
+        } else {
             return Vector3::zero();
         }
     }

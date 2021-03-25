@@ -18,7 +18,8 @@ public:
         Entity* ship = new Entity(EntityTag::Player);
 
         // Setting emitPosition to bottom left, aiming towards top right
-        ship->setPosition(Vector3(-(ARENA_WIDTH/2) + SHIP_SIZE + ARENA_WARN_DIST, -(ARENA_HEIGHT/2) + SHIP_SIZE + ARENA_WARN_DIST, 0));
+        ship->setPosition(Vector3(-(ARENA_WIDTH / 2) + SHIP_SIZE + ARENA_WARN_DIST,
+                                  -(ARENA_HEIGHT / 2) + SHIP_SIZE + ARENA_WARN_DIST, 0));
         ship->setRotation(Rotation(0, 0, 1, -50));
 
         MeshComponent* meshRender = new MeshComponent();
@@ -26,7 +27,7 @@ public:
         meshRender->addMesh(getModel(GL_TRIANGLE_STRIP, SHIP_COLOUR));
 
         // Define the particle emitter and move it into the exhaust area
-        ParticleEmitterComponent* emitter = new ParticleEmitterComponent(-SHIP_SIZE/4);
+        ParticleEmitterComponent* emitter = new ParticleEmitterComponent(-SHIP_SIZE / 4);
 
 
         ship->addComponent(meshRender);
@@ -34,7 +35,7 @@ public:
 
         // Add some relaxed colliders, circle doesn't do it justice.
         ColliderComponent* col = new ColliderComponent(SHIP_SIZE * SHIP_COLLIDER_RELAX);
-        col->setOffset(Vector3(0, SHIP_SIZE/8, 0)); // Adjust it a little for better fit.
+        col->setOffset(Vector3(0, SHIP_SIZE / 8, 0)); // Adjust it a little for better fit.
 
         ship->addComponent((Component*) col);
         ship->addComponent((Component*) emitter);

@@ -9,11 +9,12 @@
 #include "../System.h"
 #include "../components/ColliderComponent.h"
 
-class CollisionSystem : public System  {
+class CollisionSystem : public System {
 private:
 
 public:
     CollisionSystem();
+
     Vector3 offset;
 
 private:

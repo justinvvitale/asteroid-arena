@@ -11,6 +11,7 @@
 class ScriptProcessorSystem : public System {
 
     void init() override;
+
     void process(std::list<Component*> items) override;
 
 public:

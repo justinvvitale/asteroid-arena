@@ -13,7 +13,7 @@ class KeyRegistry {
 private:
     KeyRegistry() = default;
 
-    static std::set<unsigned char> *keyState;
+    static std::set<unsigned char>* keyState;
 public:
     static void init();
 

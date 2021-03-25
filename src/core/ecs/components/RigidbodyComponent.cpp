@@ -14,7 +14,7 @@ void RigidbodyComponent::tick() {
     Entity* parent = this->getEntity();
     Vector3 curPosition = parent->getPosition();
 
-    parent->setPosition(curPosition + (velocity *  (1 + Game::dt)));
+    parent->setPosition(curPosition + (velocity * (1 + Game::dt)));
 }
 
 void RigidbodyComponent::addForce(float x, float y, float z) {

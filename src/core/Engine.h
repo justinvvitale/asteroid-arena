@@ -23,9 +23,11 @@ public:
     Engine();
 
     void tick();
+
     void render();
 
     void setScene(Scene* sceneIn);
+
     Scene* getScene();
 
     void ResetSystems();

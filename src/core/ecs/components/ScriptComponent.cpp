@@ -5,7 +5,7 @@
 #include "ScriptComponent.h"
 
 void ScriptComponent::tick() {
-    if(!hasInit){
+    if (!hasInit) {
         start();
         hasInit = true;
     }

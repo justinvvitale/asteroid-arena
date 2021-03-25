@@ -18,6 +18,7 @@ public:
     void tick() override;
 
     void addForce(float x, float y, float z);
+
     void addForce(Vector3 force);
 
     void clearVelocity();

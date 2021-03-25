@@ -13,16 +13,17 @@ private:
     ComponentType handleType;
 
 public:
-    explicit System(ComponentType handleType){
+    explicit System(ComponentType handleType) {
         this->handleType = handleType;
     };
 
     virtual void init() {};
 
     virtual void process(std::list<Component*> items) = 0;
+
     virtual void render() {};
 
-    ComponentType getType(){
+    ComponentType getType() {
         return handleType;
     };
 

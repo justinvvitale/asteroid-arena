@@ -16,6 +16,7 @@ private:
     float launchRadius;
 
     Vector3 getPositionOutOfArena(float payloadSize) const;
+
     void spawnAsteroid();
 
     Entity* playerRef;

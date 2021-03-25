@@ -15,32 +15,32 @@ class ArenaEntity {
 private:
 
 public:
-    static void addColliders(Entity* entity){
-    // We'll add one for each side
+    static void addColliders(Entity* entity) {
+        // We'll add one for each side
 
-    float bufferSize = 500;
-    float halfWidth = ARENA_WIDTH / 2;
-    float halfHeight = ARENA_HEIGHT / 2;
+        float bufferSize = 500;
+        float halfWidth = ARENA_WIDTH / 2;
+        float halfHeight = ARENA_HEIGHT / 2;
 
-    // This could be improved with a loop
+        // This could be improved with a loop
 
-    // Left
-    ColliderComponent* leftCol = new ColliderComponent(bufferSize, ARENA_HEIGHT);
-    leftCol->setOffset(Vector3(-halfWidth - bufferSize/2, 0, 0));
-    // Right
-    ColliderComponent* rightCol = new ColliderComponent(bufferSize, ARENA_HEIGHT);
-    rightCol->setOffset(Vector3(halfWidth + bufferSize/2, 0, 0));
-    // Top
-    ColliderComponent* topCol = new ColliderComponent(ARENA_HEIGHT, bufferSize);
-    topCol->setOffset(Vector3(0, halfHeight + bufferSize/2, 0));
-    // Bottom
-    ColliderComponent* bottomCol = new ColliderComponent(ARENA_HEIGHT, bufferSize);
-    bottomCol->setOffset(Vector3(0, -halfHeight - bufferSize/2, 0));
+        // Left
+        ColliderComponent* leftCol = new ColliderComponent(bufferSize, ARENA_HEIGHT);
+        leftCol->setOffset(Vector3(-halfWidth - bufferSize / 2, 0, 0));
+        // Right
+        ColliderComponent* rightCol = new ColliderComponent(bufferSize, ARENA_HEIGHT);
+        rightCol->setOffset(Vector3(halfWidth + bufferSize / 2, 0, 0));
+        // Top
+        ColliderComponent* topCol = new ColliderComponent(ARENA_HEIGHT, bufferSize);
+        topCol->setOffset(Vector3(0, halfHeight + bufferSize / 2, 0));
+        // Bottom
+        ColliderComponent* bottomCol = new ColliderComponent(ARENA_HEIGHT, bufferSize);
+        bottomCol->setOffset(Vector3(0, -halfHeight - bufferSize / 2, 0));
 
-    entity->addComponent(leftCol);
-    entity->addComponent(rightCol);
-    entity->addComponent(topCol);
-    entity->addComponent(bottomCol);
+        entity->addComponent(leftCol);
+        entity->addComponent(rightCol);
+        entity->addComponent(topCol);
+        entity->addComponent(bottomCol);
 
     }
 

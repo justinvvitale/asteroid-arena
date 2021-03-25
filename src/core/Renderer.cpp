@@ -27,7 +27,7 @@ void Renderer::renderMeshData(const Mesh& mesh) {
     glBegin(mesh.mode);
 
     for (MeshData meshData : mesh.data) {
-        switch(meshData.dataType){
+        switch (meshData.dataType) {
             case primitive:
                 glVertex3f(meshData.data.x, meshData.data.y, meshData.data.z);
                 break;
@@ -43,29 +43,29 @@ void Renderer::renderMeshData(const Mesh& mesh) {
 
 void Renderer::renderParticle(const Particle* particle) {
     glPushMatrix();
-        move(particle->position);
-        scale(particle->scale);
-        renderMeshData(particle->mesh);
+    move(particle->position);
+    scale(particle->scale);
+    renderMeshData(particle->mesh);
     glPopMatrix();
 }
 
 void Renderer::drawRect(float width, float height) {
-    float heightHalf = height/2;
-    float widthHalf = width/2;
+    float heightHalf = height / 2;
+    float widthHalf = width / 2;
 
     glBegin(GL_LINE_LOOP);
-        glVertex2f(widthHalf, heightHalf);
-        glVertex2f(-widthHalf, heightHalf);
-        glVertex2f(-widthHalf, -heightHalf);
-        glVertex2f(widthHalf, -heightHalf);
+    glVertex2f(widthHalf, heightHalf);
+    glVertex2f(-widthHalf, heightHalf);
+    glVertex2f(-widthHalf, -heightHalf);
+    glVertex2f(widthHalf, -heightHalf);
     glEnd();
 }
 
 void Renderer::drawCircle(float radius) {
     glBegin(GL_LINE_LOOP);
-        for (int i=0; i < 360; i++){
-            glVertex2f(cos(i * DEG_TO_RAD)*radius,sin(i * DEG_TO_RAD)*radius);
-        }
+    for (int i = 0; i < 360; i++) {
+        glVertex2f(cos(i * DEG_TO_RAD) * radius, sin(i * DEG_TO_RAD) * radius);
+    }
     glEnd();
 }
 

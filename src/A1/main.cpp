@@ -3,14 +3,14 @@
 #include "entities/ShipEntity.h"
 #include "scripts/AsteroidWaveScript.h"
 
-Scene* getScene(){
+Scene* getScene() {
     Scene* scene = new Scene();
-        scene->addEntity(ArenaEntity::getEntity());
-        scene->addEntity(ShipEntity::getEntity());
+    scene->addEntity(ArenaEntity::getEntity());
+    scene->addEntity(ShipEntity::getEntity());
 
-        Entity* waveManagerEntity = new Entity();
-            waveManagerEntity->addComponent(new AsteroidWaveScript());
-        scene->addEntity(waveManagerEntity);
+    Entity* waveManagerEntity = new Entity();
+    waveManagerEntity->addComponent(new AsteroidWaveScript());
+    scene->addEntity(waveManagerEntity);
 
 
     return scene;
