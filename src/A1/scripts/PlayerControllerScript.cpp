@@ -31,7 +31,7 @@ void PlayerControllerScript::update() {
     // Forward
     if (KeyRegistry::isPressed(SHIP_FORWARD_KEY)) {
         if (velocity < 1) {
-            velocity += SHIP_ACCELERATION;
+            velocity += SHIP_ACCELERATION * Game::dt;
         }
 
         // Particle for moving
@@ -46,7 +46,7 @@ void PlayerControllerScript::update() {
 
     } else if (velocity > 0) {
         // Reset velocity if not moving
-        velocity -= SHIP_DECELERATION;
+        velocity -= SHIP_DECELERATION * Game::dt;
 
         // Set 0 once respectfully no longer useful
         if (velocity < 0.001) {

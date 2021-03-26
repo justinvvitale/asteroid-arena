@@ -29,8 +29,8 @@ const Vector3 SHIP_COLOUR = Vector3(0, 0, 0);
 const Vector3 SHIP_COLOUR_OUTLINE = Vector3(1, 1, 1);
 
 const float SHIP_MAX_SPEED = 400;
-const float SHIP_ACCELERATION = 0.1f; // 0.1 = 10% increase in velocity per tick
-const float SHIP_DECELERATION = 0.07f; // 0.1 = 10% decrease in velocity per tick
+const float SHIP_ACCELERATION = 0.7f; // % increase * dt
+const float SHIP_DECELERATION = 0.5f; // % decrease * dt
 const float SHIP_TURN_SPEED = 200;
 
 const char SHIP_FORWARD_KEY = 'w';
