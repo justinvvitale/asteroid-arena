@@ -11,6 +11,7 @@
 
 class PlayerControllerScript : ScriptComponent {
     float velocity = 0;
+    int lastParticleEmit = -1;
 
     ParticleEmitterComponent* emitter;
 

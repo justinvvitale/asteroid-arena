@@ -20,12 +20,14 @@ void AsteroidWaveScript::start() {
 
 void AsteroidWaveScript::update() {
     // Spawning
-    if (Game::tick % ASTEROID_SPAWN_RATE == 0 && asteroids.size() < ASTEROID_MAX) {
+    int elapsed = Game::elapsed;
+    if (elapsed - lastSpawnTime >= ASTEROID_SPAWN_RATE && asteroids.size() < ASTEROID_MAX) {
         spawnAsteroid();
+        lastSpawnTime = elapsed;
     }
 
     // Cleanup when off screen
-    if (Game::tick % ASTEROID_CLEAR_RATE == 0) {
+    if (elapsed - lastClearTime >= ASTEROID_CLEAR_RATE) {
 
         std::set<Entity*>::iterator entityIter = asteroids.begin();
         while (entityIter != asteroids.end()) {
@@ -41,7 +43,10 @@ void AsteroidWaveScript::update() {
                 ++entityIter;
             }
         }
+
+        lastClearTime = elapsed;
     }
+
 }
 
 Vector3 AsteroidWaveScript::getPositionOutOfArena(float payloadSize) const {
@@ -78,4 +83,3 @@ void AsteroidWaveScript::despawnAsteroid(Entity* asteroid) {
         asteroids.erase(asteroid);
     }
 }
-

@@ -15,6 +15,9 @@ private:
 
     float launchRadius;
 
+    int lastSpawnTime = -1;
+    int lastClearTime = -1;
+
     Vector3 getPositionOutOfArena(float payloadSize) const;
 
     void spawnAsteroid();
@@ -23,7 +26,6 @@ private:
 
 protected:
     void update() override;
-
     void start() override;
 
 public:

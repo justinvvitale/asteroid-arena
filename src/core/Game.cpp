@@ -27,6 +27,9 @@ float Game::lastIdleTime = 0.0;
 float Game::dt = 1;
 long int Game::tick = 0;
 
+long int Game::elapsed = 0;
+long int Game::elapsedSeconds = 0;
+
 bool Game::restartRequested = false;
 
 Engine* Game::engine = nullptr;
@@ -115,15 +118,22 @@ void Game::idle() {
         restartRequested = false;
     }
 
-    float cur_time = (float) glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
-    dt = cur_time - Game::lastIdleTime;
-    lastIdleTime = cur_time;
+    // State variables
+    float timeMS = (float) glutGet(GLUT_ELAPSED_TIME);
+    float elapsedTimeSeconds = timeMS/1000;
+    dt = elapsedTimeSeconds - Game::lastIdleTime;
+    lastIdleTime = elapsedTimeSeconds;
 
+    elapsedSeconds = (int)elapsedTimeSeconds;
+    elapsed = (int)timeMS;
+
+    // Management
     tick++;
+
     engine->tick();
 
     // Perform costly operation that aren't crucial
-    if (Game::tick % 100) {
+    if (Game::elapsedSeconds % 1 == 0) {
         performEntityCleanup();
     }
 

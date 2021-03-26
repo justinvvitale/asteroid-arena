@@ -13,6 +13,8 @@
 class ParticleSystem : public System {
 private:
     std::list<Particle*> particles = std::list<Particle*>();
+
+    long int lastLifeDecrement = -1;
 public:
     ParticleSystem();
 

@@ -28,15 +28,22 @@ void PlayerControllerScript::update() {
         }
     }
 
-
     // Forward
     if (KeyRegistry::isPressed(SHIP_FORWARD_KEY)) {
         if (velocity < 1) {
             velocity += SHIP_ACCELERATION;
         }
 
-        emitter->Emit(new Particle(VectorUtil::GetForwardVector(rot).opposite() * 2, 5, 3, 1,
-                                   MeshHelper::getHexagonMesh(SHIP_SIZE / 8, Vector3(1, 0.3, 0))));
+        // Particle for moving
+        int elapsed = Game::elapsed;
+        if(elapsed - lastParticleEmit >= 60) {
+            emitter->Emit(
+                    new Particle(VectorUtil::GetForwardVector(this->getEntity()->getRotation()).opposite() * 200, 150,
+                                 2.5, 0.5,
+                                 MeshHelper::getHexagonMesh((float)SHIP_SIZE / 8, Vector3(1, 0.3, 0))));
+            lastParticleEmit = elapsed;
+        }
+
     } else if (velocity > 0) {
         // Reset velocity if not moving
         velocity -= SHIP_DECELERATION;
@@ -49,19 +56,19 @@ void PlayerControllerScript::update() {
 
     // Left/right movement (ROTATE)
     if (KeyRegistry::isPressed(SHIP_TURN_LEFT_KEY)) {
-        rot.angle += SHIP_TURN_SPEED;
+        rot.angle += SHIP_TURN_SPEED * (Game::dt);
         rot.z += 1;
         player->setRotation(rot);
 
     } else if (KeyRegistry::isPressed(SHIP_TURN_RIGHT_KEY)) {
-        rot.angle -= SHIP_TURN_SPEED;
+        rot.angle -= SHIP_TURN_SPEED * (Game::dt);
         rot.z += 1;
         player->setRotation(rot);
     }
 
     // Move if velocity more than 0 (MOVE)
     if (velocity > 0) {
-        player->setPosition(pos + VectorUtil::GetForwardVector(rot) * (SHIP_MAX_SPEED * velocity) * (1 + Game::dt));
+        player->setPosition(pos + VectorUtil::GetForwardVector(rot) * (SHIP_MAX_SPEED * velocity) * (Game::dt));
     }
 
 }

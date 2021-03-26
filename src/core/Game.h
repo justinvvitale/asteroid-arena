@@ -32,6 +32,9 @@ public:
     // Time difference since last tick (Used for smooth animations)
     static float dt;
 
+    static long int elapsed; // MS
+    static long int elapsedSeconds; // S
+
     // Current tick
     static long int tick;
 

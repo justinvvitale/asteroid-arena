@@ -7,7 +7,10 @@
 
 
 #include "../Component.h"
+
+#include <utility>
 #include "MeshComponent.h"
+#include "../../Game.h"
 
 typedef struct Particle {
     // State
@@ -22,16 +25,16 @@ typedef struct Particle {
     float endScale;
     Mesh mesh;
 
-    Particle(Vector3 vel, float lifeSpan, float startScale, float endScale, Mesh meshIn) {
+    Particle(Vector3 vel, float lifeSpanMs, float startScale, float endScale, Mesh meshIn) {
         this->velocity = vel;
-        this->life = lifeSpan;
+        this->life = lifeSpanMs;
         this->scale = startScale;
 
-        this->lifeSpan = lifeSpan;
+        this->lifeSpan = lifeSpanMs;
         this->startScale = startScale;
         this->endScale = endScale;
 
-        this->mesh = meshIn;
+        this->mesh = std::move(meshIn);
     }
 } Particle;
 

@@ -23,27 +23,36 @@ void ParticleSystem::process(std::list<Component*> items) {
         }
     }
 
+    long int elapsedMs = Game::elapsed;
+    int elapsedDiffMS = elapsedMs - lastLifeDecrement;
+    bool decrementLife = elapsedDiffMS >= 1;
+
     // Churn existing particles (Move, tick life, remove finished)
     auto particleIter = particles.begin();
     while (particleIter != particles.end()) {
         Particle* particle = *particleIter;
-        particle->life--;
 
-        // If end of life, destroy. Increment iter for next loop
-        if (particle->life <= 0) {
-            delete particle;
-            particles.erase(particleIter++);
-            continue;
-        } else {
-            ++particleIter;
+        if(decrementLife) {
+            particle->life -= elapsedDiffMS;
+
+            // If end of life, destroy. Increment iter for next loop
+            if (particle->life <= 0) {
+                delete particle;
+                particles.erase(particleIter++);
+                continue;
+            }
         }
 
         // Apply velocity
-        particle->position = (particle->position + (particle->velocity * (1 + Game::dt)));
+        particle->position = (particle->position + (particle->velocity * Game::dt));
 
         float percentLifeSpan = particle->life / particle->lifeSpan;
         particle->scale = Lerp(particle->endScale, particle->startScale, percentLifeSpan);
+
+        ++particleIter;
     }
+
+    lastLifeDecrement = elapsedMs; // Move our ms counter
 }
 
 void ParticleSystem::render() {

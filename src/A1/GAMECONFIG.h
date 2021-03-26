@@ -28,18 +28,18 @@ const float SHIP_COLLIDER_RELAX = 0.4f; // How much % smaller collider should be
 const Vector3 SHIP_COLOUR = Vector3(0, 0, 0);
 const Vector3 SHIP_COLOUR_OUTLINE = Vector3(1, 1, 1);
 
-const float SHIP_MAX_SPEED = 10;
+const float SHIP_MAX_SPEED = 400;
 const float SHIP_ACCELERATION = 0.1f; // 0.1 = 10% increase in velocity per tick
 const float SHIP_DECELERATION = 0.07f; // 0.1 = 10% decrease in velocity per tick
-const float SHIP_TURN_SPEED = 3.5f;
+const float SHIP_TURN_SPEED = 200;
 
 const char SHIP_FORWARD_KEY = 'w';
 const char SHIP_TURN_LEFT_KEY = 'a';
 const char SHIP_TURN_RIGHT_KEY = 'd';
 
 // WaveManagement
-const int ASTEROID_SPAWN_RATE = 70; // Number from 1-inf, higher the number, the less frequent they spawn (TEMP)
-const int ASTEROID_CLEAR_RATE = 100; // Number from 1-inf, higher the number, the less frequent clearing check runs.
+const int ASTEROID_SPAWN_RATE = 500; // Spawn asteroid every X ms
+const int ASTEROID_CLEAR_RATE = 1000; // Clear asteroids out of range every X ms
 const int ASTEROID_MAX = 50; // How many asteroids can be in the game at any one point (Prevent spawn).
 
 
@@ -48,8 +48,8 @@ const float ASTEROID_SEGMENTS_MIN = 6; // How many points an asteroid should hav
 const float ASTEROID_SEGMENTS_MAX = 20; // How many points an asteroid should have MAX. 360 = full circle
 const float ASTEROID_MIN_RADIUS = 100; // Min size of asteroid  (All these are inclusive)
 const float ASTEROID_MAX_RADIUS = 100; // Max size of asteroid
-const float ASTEROID_MIN_SPEED = 2; // Min speed of asteroid
-const float ASTEROID_MAX_SPEED = 10; // Max speed of asteroid
+const float ASTEROID_MIN_SPEED = 200; // Min speed of asteroid
+const float ASTEROID_MAX_SPEED = 700; // Max speed of asteroid
 const float ASTEROID_MIN_ROTATION = 0; // Min speed of asteroid rotation
 const float ASTEROID_MAX_ROTATION = 4; // Max speed of asteroid rotation
 const float ASTEROID_RADIUS_VARIATION_RANGE = 30; // The range += the that radius can vary per point
