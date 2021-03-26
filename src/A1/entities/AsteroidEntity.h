@@ -19,8 +19,6 @@ private:
         mesh.mode = GL_POLYGON;
         mesh.colour = Vector3(0.3, 0.3, 0.3);
 
-        // TODO: Randomized appearance and make it not a circle (Part of later sections)
-
         for (int i = 0; i < 360; i += 360 / sections) {
             float pointRadius = getRandomNumber(radius, radius + randRange);
 
@@ -37,7 +35,7 @@ public:
         float radius = ASTEROID_MIN_RADIUS + (rand() % static_cast<int>(ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS + 1));
 
         MeshComponent* meshRenderer = new MeshComponent();
-        meshRenderer->setMesh(getAsteroidModel(radius, ASTEROID_SEGMENTS, ASTEROID_RADIUS_VARIATION_RANGE));
+        meshRenderer->setMesh(getAsteroidModel(radius, getRandomNumber(ASTEROID_SEGMENTS_MIN, ASTEROID_SEGMENTS_MAX), ASTEROID_RADIUS_VARIATION_RANGE));
         entity->addComponent(meshRenderer);
 
         AsteroidScript* scriptComponent = new AsteroidScript(waveMgr, radius,

@@ -27,6 +27,9 @@ float AsteroidScript::getSpeed() const {
     return speed;
 }
 
-//void AsteroidScript::onCollision(Entity* other) {
-//    mgr->despawnAsteroid(other);
-//}
+void AsteroidScript::onCollision(Entity* other) {
+    if(other->getTag() == EntityTag::Projectile){
+        other->destroy();
+        mgr->despawnAsteroid(this->getEntity());
+    }
+}

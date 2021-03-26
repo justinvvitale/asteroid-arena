@@ -60,7 +60,9 @@ public:
 
     void setPosition(const Vector3& pos);
 
-    const Rotation& getRotation() const;
+    Rotation getRotation() const;
+
+    void destroy();
 
     virtual ~Entity();
 

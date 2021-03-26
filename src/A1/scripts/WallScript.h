@@ -19,6 +19,11 @@ private:
 
     void refreshMeshData();
 
+public:
+    void onCollision(Entity* other) override;
+
+private:
+
     MeshComponent* meshComponent;
 
     Vector3 topLeftVert;

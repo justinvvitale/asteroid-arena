@@ -27,6 +27,8 @@ protected:
 
 public:
     AsteroidScript(AsteroidWaveScript* mgr, float radius, float speed);
+
+    void onCollision(Entity* other) override;
 };
 
 

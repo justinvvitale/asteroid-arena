@@ -7,7 +7,8 @@
 
 enum EntityTag {
     None,
-    Player
+    Player,
+    Projectile
 };
 
 #endif //I3D_ENTITYTAG_H

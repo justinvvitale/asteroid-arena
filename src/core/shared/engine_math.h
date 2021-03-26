@@ -64,16 +64,33 @@ struct Rotation {
 
     Rotation() = default;
 
-    Rotation(float x, float y, float z, float w) {
+    Rotation(float angle) {
+        this->z = 1;
+        this->angle = angle;
+    }
+
+    Rotation(float x, float y, float z, float angle) {
         this->x = x;
         this->y = y;
         this->z = z;
-        this->angle = w;
+        this->angle = angle;
     }
 
     static Rotation zero() {
         return {0, 0, 0, 0};
     }
+
+
+    void modifyAngle(float inc){
+        this->angle += inc;
+    }
+
+    float getAngle(){
+        return angle;
+    };
+    void setAngle(float angleIn){
+        this->angle = angleIn;
+    };
 
 };
 

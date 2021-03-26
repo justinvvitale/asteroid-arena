@@ -11,6 +11,7 @@
 class RigidbodyComponent : public Component {
 private:
     Vector3 velocity = Vector3::zero();
+    float velRot = 0;
 
 public:
     RigidbodyComponent();
@@ -19,11 +20,11 @@ public:
 
     void addForce(float x, float y, float z);
 
+    void setForceRot(float rot);
+
     void addForce(Vector3 force);
 
     void clearVelocity();
-
-
 };
 
 

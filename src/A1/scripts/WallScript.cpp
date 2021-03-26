@@ -59,6 +59,10 @@ void WallScript::refreshMeshData() {
     };
 
     this->meshComponent->setMesh(arenaMesh);
+}
 
-
+void WallScript::onCollision(Entity* other) {
+    if(other->getTag() == EntityTag::Projectile){
+        other->destroy();
+    }
 }

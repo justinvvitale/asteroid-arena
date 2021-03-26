@@ -13,8 +13,10 @@ void RigidbodyComponent::tick() {
     // Apply velocity
     Entity* parent = this->getEntity();
     Vector3 curPosition = parent->getPosition();
+    Rotation curRotation = parent->getRotation();
 
     parent->setPosition(curPosition + (velocity * (1 + Game::dt)));
+    parent->setRotation(Rotation(0,0,1, curRotation.angle + this->velRot));
 }
 
 void RigidbodyComponent::addForce(float x, float y, float z) {
@@ -27,4 +29,9 @@ void RigidbodyComponent::addForce(Vector3 force) {
 
 void RigidbodyComponent::clearVelocity() {
     this->velocity = Vector3::zero();
+    this->velRot = 0;
+}
+
+void RigidbodyComponent::setForceRot(float rot) {
+    this->velRot = rot;
 }

@@ -38,7 +38,7 @@ void Entity::setPosition(const Vector3& pos) {
     Entity::position = pos;
 }
 
-const Rotation& Entity::getRotation() const {
+Rotation Entity::getRotation() const  {
     return rotation;
 }
 
@@ -144,6 +144,14 @@ void Entity::addChild(Entity* entity) {
 void Entity::removeChild(Entity* entity) {
     // Should only be called by scene remove func (Sets dirty)
     this->children.remove(entity);
+}
+
+void Entity::destroy() {
+    Engine* engine = Game::getEngine();
+    engine->getScene()->removeEntity(this);
+    engine->flagDirty();
+
+    Game::queueEntityCleanup(this);
 }
 
 

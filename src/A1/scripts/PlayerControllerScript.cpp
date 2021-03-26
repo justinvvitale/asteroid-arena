@@ -5,6 +5,7 @@
 #include "../../core/input/KeyRegistry.h"
 #include "../../core/Game.h"
 #include "../GAMECONFIG.h"
+#include "../entities/BulletEntity.h"
 
 
 void PlayerControllerScript::start() {
@@ -16,6 +17,16 @@ void PlayerControllerScript::update() {
     Entity* player = this->getEntity();
     Vector3 pos = player->getPosition();
     Rotation rot = player->getRotation();
+
+
+    // Shooting..
+    if(Game::tick % 10 == 0) {
+        if (KeyRegistry::isPressed(32)) {
+            Game::getEngine()->getScene()->addEntity(BulletEntity::getEntity(player->getWorldPosition(),
+                                                                             VectorUtil::GetForwardVector(rot) *
+                                                                             SHIP_MAX_SPEED * 5));
+        }
+    }
 
 
     // Forward
@@ -56,5 +67,9 @@ void PlayerControllerScript::update() {
 }
 
 void PlayerControllerScript::onCollision(Entity* other) {
+    if(other->getTag() == Projectile){
+        return;
+    }
+
     Game::restart();
 }

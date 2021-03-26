@@ -63,6 +63,10 @@ void AsteroidWaveScript::spawnAsteroid() {
     // Add force to move to player
     rb->addForce(VectorUtil::Normalize(playerPos - ast->getPosition()) * asteroidScript->getSpeed());
 
+    // Set rotation to either left/right and to config values
+    float rotVel = getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION);
+    rb->setForceRot(rand() % 2 ? rotVel : -rotVel);
+
     Game::getEngine()->getScene()->addEntity(ast);
 
     asteroids.emplace(ast);
@@ -70,8 +74,7 @@ void AsteroidWaveScript::spawnAsteroid() {
 
 void AsteroidWaveScript::despawnAsteroid(Entity* asteroid) {
     if (asteroids.find(asteroid) != asteroids.end()) {
-        Game::getEngine()->getScene()->removeEntity(asteroid);
-        Game::queueEntityCleanup(asteroid);
+        asteroid->destroy();
         asteroids.erase(asteroid);
     }
 }

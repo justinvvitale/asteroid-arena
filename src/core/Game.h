@@ -10,6 +10,7 @@
 #include "Engine.h"
 #include <iostream>
 #include <queue>
+#include <set>
 
 class Game {
 private:
@@ -24,7 +25,7 @@ private:
 
     static void performEntityCleanup();
 
-    static std::queue<Entity*>* toDelete;
+    static std::set<Entity*> toDelete;
 public:
     // Key variables (Global)
 

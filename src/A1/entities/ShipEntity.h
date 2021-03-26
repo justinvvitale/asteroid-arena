@@ -10,6 +10,7 @@
 #include "../scripts/PlayerControllerScript.h"
 #include "../../core/ecs/components/ColliderComponent.h"
 #include "../../core/Renderer.h"
+#include "BulletEntity.h"
 
 class ShipEntity {
 
@@ -17,7 +18,7 @@ public:
     static Entity* getEntity() {
         Entity* ship = new Entity(EntityTag::Player);
 
-        // Setting emitPosition to bottom left, aiming towards top right
+        // Setting ship to bottom left, aiming towards top right
         ship->setPosition(Vector3(-(ARENA_WIDTH / 2) + SHIP_SIZE + ARENA_WARN_DIST,
                                   -(ARENA_HEIGHT / 2) + SHIP_SIZE + ARENA_WARN_DIST, 0));
         ship->setRotation(Rotation(0, 0, 1, -50));
@@ -28,6 +29,10 @@ public:
 
         // Define the particle emitter and move it into the exhaust area
         ParticleEmitterComponent* emitter = new ParticleEmitterComponent(-SHIP_SIZE / 4);
+
+        // WEAPON SYSTEM
+        Entity* test = BulletEntity::getEntity(Vector3::zero(), Vector3::zero());
+
 
 
         ship->addComponent(meshRender);

@@ -8,6 +8,8 @@
 #include "ecs/systems/CollisionSystem.h"
 #include "ecs/systems/ParticleSystem.h"
 
+#include <unordered_set>
+
 Engine::Engine() {
 
     // Setup systems (Priority)
@@ -21,9 +23,11 @@ Engine::Engine() {
     // Init systems
     for (System* system : systems) {
         system->init();
+        processedSystemTypes.emplace(system->getType());
     }
     for (auto const& sys : manualSystems) {
         sys.second->init();
+        processedSystemTypes.emplace(sys.first);
     }
 }
 
@@ -37,7 +41,6 @@ void Engine::tick() {
 
     // System handling
     for (System* system : systems) {
-
         auto componentTypeIter = bufferComponentTypes.find(system->getType());
         // If we can't find it, then it probably doesn't exist, don't need to process system.
         if (componentTypeIter == bufferComponentTypes.end()) continue;
@@ -47,11 +50,11 @@ void Engine::tick() {
 
     // Tick any components which don't have a system directly managing them (Or manual)
     for (auto& compType: bufferComponentTypes) {
-        if (manualSystems[compType.first] == nullptr) {
+//        if (processedSystemTypes.count(compType.first) == 0) { // TODO make it only call once cheaply
             for (Component* comp : compType.second) {
                 comp->tick();
             }
-        }
+//        }
     }
 
     // Particle rendering (Tick)
