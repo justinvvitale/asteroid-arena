@@ -29,13 +29,15 @@ const Vector3 SHIP_COLOUR = Vector3(0, 0, 0);
 const Vector3 SHIP_COLOUR_OUTLINE = Vector3(1, 1, 1);
 
 const float SHIP_MAX_SPEED = 400;
-const float SHIP_ACCELERATION = 0.7f; // % increase * dt
-const float SHIP_DECELERATION = 0.5f; // % decrease * dt
+const int SHIP_SHOOT_COOLDOWN = 500 ; // MS seconds between shooting
+const float SHIP_ACCELERATION = 0.8f; // % increase * dt
+const float SHIP_DECELERATION = 0.6f; // % decrease * dt
 const float SHIP_TURN_SPEED = 200;
 
 const char SHIP_FORWARD_KEY = 'w';
 const char SHIP_TURN_LEFT_KEY = 'a';
 const char SHIP_TURN_RIGHT_KEY = 'd';
+const char SHIP_SHOOT_KEY = 32;
 
 // WaveManagement
 const int ASTEROID_SPAWN_RATE = 500; // Spawn asteroid every X ms

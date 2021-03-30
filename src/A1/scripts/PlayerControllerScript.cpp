@@ -18,13 +18,16 @@ void PlayerControllerScript::update() {
     Vector3 pos = player->getPosition();
     Rotation rot = player->getRotation();
 
+    // Particle for moving
+    int elapsed = Game::elapsed;
 
     // Shooting..
-    if(Game::tick % 10 == 0) {
-        if (KeyRegistry::isPressed(32)) {
+    if(elapsed - lastShoot >= SHIP_SHOOT_COOLDOWN) {
+        if (KeyRegistry::isPressed(SHIP_SHOOT_KEY)) {
             Game::getEngine()->getScene()->addEntity(BulletEntity::getEntity(player->getWorldPosition(),
                                                                              VectorUtil::GetForwardVector(rot) *
                                                                              SHIP_MAX_SPEED * 5));
+            lastShoot = elapsed;
         }
     }
 
@@ -34,8 +37,7 @@ void PlayerControllerScript::update() {
             velocity += SHIP_ACCELERATION * Game::dt;
         }
 
-        // Particle for moving
-        int elapsed = Game::elapsed;
+
         if(elapsed - lastParticleEmit >= 60) {
             emitter->Emit(
                     new Particle(VectorUtil::GetForwardVector(this->getEntity()->getRotation()).opposite() * 200, 150,
