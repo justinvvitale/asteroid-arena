@@ -23,13 +23,14 @@ const float ARENA_WARN_DIST = 250;
 
 // Ship
 const int SHIP_SIZE = 70;
-const float SHIP_COLLIDER_RELAX = 0.4f; // How much % smaller collider should be, allows more friendly collision detection.
+const float SHIP_COLLIDER_RELAX = 0.5f; // How much % smaller collider should be, allows more friendly collision detection.
 
 const Vector3 SHIP_COLOUR = Vector3(0, 0, 0);
 const Vector3 SHIP_COLOUR_OUTLINE = Vector3(1, 1, 1);
 
 const float SHIP_MAX_SPEED = 400;
-const int SHIP_SHOOT_COOLDOWN = 500 ; // MS seconds between shooting
+const float SHIP_SHOOT_VELOCITY = 5 ; // Speed which bullets shoot
+const int SHIP_SHOOT_COOLDOWN = 150 ; // MS seconds between shooting
 const float SHIP_ACCELERATION = 0.8f; // % increase * dt
 const float SHIP_DECELERATION = 0.6f; // % decrease * dt
 const float SHIP_TURN_SPEED = 200;
@@ -53,7 +54,7 @@ const float ASTEROID_MAX_RADIUS = 100; // Max size of asteroid
 const float ASTEROID_MIN_SPEED = 200; // Min speed of asteroid
 const float ASTEROID_MAX_SPEED = 700; // Max speed of asteroid
 const float ASTEROID_MIN_ROTATION = 0; // Min speed of asteroid rotation
-const float ASTEROID_MAX_ROTATION = 4; // Max speed of asteroid rotation
+const float ASTEROID_MAX_ROTATION = 50; // Max speed of asteroid rotation
 const float ASTEROID_RADIUS_VARIATION_RANGE = 30; // The range += the that radius can vary per point
 
 // Debug (Not directly related to engine)

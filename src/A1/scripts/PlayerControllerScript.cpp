@@ -26,7 +26,7 @@ void PlayerControllerScript::update() {
         if (KeyRegistry::isPressed(SHIP_SHOOT_KEY)) {
             Game::getEngine()->getScene()->addEntity(BulletEntity::getEntity(player->getWorldPosition(),
                                                                              VectorUtil::GetForwardVector(rot) *
-                                                                             SHIP_MAX_SPEED * 5));
+                                                                             SHIP_MAX_SPEED * SHIP_SHOOT_VELOCITY));
             lastShoot = elapsed;
         }
     }
