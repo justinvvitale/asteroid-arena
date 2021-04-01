@@ -2,11 +2,13 @@
 #include "entities/ArenaEntity.h"
 #include "entities/ShipEntity.h"
 #include "scripts/AsteroidWaveScript.h"
+#include "entities/ScoreManagerEntity.h"
 
 Scene* getScene() {
     Scene* scene = new Scene();
     scene->addEntity(ArenaEntity::getEntity());
     scene->addEntity(ShipEntity::getEntity());
+    scene->addEntity(ScoreManagerEntity::getEntity());
 
     Entity* waveManagerEntity = new Entity();
     waveManagerEntity->addComponent(new AsteroidWaveScript());

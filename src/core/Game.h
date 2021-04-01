@@ -47,7 +47,7 @@ public:
 
     static Engine* getEngine();
 
-    static Entity* getEntity(EntityTag tag);
+    static Entity* getEntity(const std::string& tag);
 
     static void queueEntityCleanup(Entity* item);
 

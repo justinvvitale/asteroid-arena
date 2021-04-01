@@ -27,7 +27,7 @@ private:
 
 public:
     static Entity* getEntity(Vector3 initialPosition, Vector3 force) {
-        Entity* entity = new Entity(EntityTag::Projectile);
+        Entity* entity = new Entity("bullet");
 
         entity->setPosition(initialPosition);
 

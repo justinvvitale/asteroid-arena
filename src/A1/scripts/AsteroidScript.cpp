@@ -3,10 +3,11 @@
 //
 
 #include "AsteroidScript.h"
-#include "../../core/Game.h"
+#include "../GAMECONFIG.h"
 
-AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float radius, float speed) {
+AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed) {
     this->mgr = mgr;
+    this->health = health;
     this->radius = radius;
     this->speed = speed;
 }
@@ -28,8 +29,12 @@ float AsteroidScript::getSpeed() const {
 }
 
 void AsteroidScript::onCollision(Entity* other) {
-    if(other->getTag() == EntityTag::Projectile){
+    if(other->getTag() == "bullet"){
         other->destroy();
-        mgr->despawnAsteroid(this->getEntity());
+        health -= SHIP_BULLET_DAMAGE;
+
+        if(health <= 0){
+            mgr->destroyAsteroid(this->getEntity(), true);
+        }
     }
 }

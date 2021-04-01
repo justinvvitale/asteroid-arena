@@ -119,7 +119,7 @@ void Game::idle() {
     }
 
     // State variables
-    float timeMS = (float) glutGet(GLUT_ELAPSED_TIME);
+    auto timeMS = (float) glutGet(GLUT_ELAPSED_TIME);
     float elapsedTimeSeconds = timeMS/1000;
     dt = elapsedTimeSeconds - Game::lastIdleTime;
     lastIdleTime = elapsedTimeSeconds;
@@ -144,7 +144,7 @@ Engine* Game::getEngine() {
     return engine;
 }
 
-Entity* Game::getEntity(EntityTag tag) {
+Entity* Game::getEntity(const std::string& tag) {
     return engine->getScene()->getEntity(tag);
 }
 

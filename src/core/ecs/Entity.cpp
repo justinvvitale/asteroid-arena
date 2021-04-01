@@ -3,14 +3,16 @@
 //
 
 #include "Entity.h"
+
+#include <utility>
 #include "Component.h"
 #include "../Game.h"
 
-Entity::Entity(EntityTag entityTag) {
-    this->tag = entityTag;
+Entity::Entity(std::string tag) {
+    this->tag = std::move(tag);
 }
 
-EntityTag Entity::getTag() {
+std::string Entity::getTag() {
     return tag;
 }
 
@@ -153,6 +155,7 @@ void Entity::destroy() {
 
     Game::queueEntityCleanup(this);
 }
+
 
 
 

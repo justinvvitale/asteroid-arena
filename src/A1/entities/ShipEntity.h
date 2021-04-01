@@ -16,7 +16,7 @@ class ShipEntity {
 
 public:
     static Entity* getEntity() {
-        Entity* ship = new Entity(EntityTag::Player);
+        Entity* ship = new Entity("player");
 
         // Setting ship to bottom left, aiming towards top right
         ship->setPosition(Vector3(-(ARENA_WIDTH / 2) + SHIP_SIZE + ARENA_WARN_DIST,

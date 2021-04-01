@@ -9,8 +9,8 @@
 void Scene::addEntity(Entity* entity) {
     sceneEntities.push_back(entity);
 
-    EntityTag tag = entity->getTag();
-    if (tag != EntityTag::None) {
+    std::string tag = entity->getTag();
+    if (!tag.empty()) {
         this->taggedEntities[tag] = entity;
     }
 }
@@ -23,8 +23,8 @@ void Scene::removeEntity(Entity* entity) {
         entity->getParent()->removeChild(entity);
     }
 
-    EntityTag tag = entity->getTag();
-    if (tag != EntityTag::None && this->taggedEntities[tag] == entity) {
+    std::string tag = entity->getTag();
+    if (!tag.empty() && this->taggedEntities[tag] == entity) {
         this->taggedEntities[tag] = nullptr;
     }
 
@@ -103,7 +103,7 @@ std::list<Entity*> Scene::getAllEntities(Entity* entity) {
     return entities;
 }
 
-Entity* Scene::getEntity(EntityTag tag) {
+Entity* Scene::getEntity(const std::string& tag) {
     return this->taggedEntities[tag];
 }
 

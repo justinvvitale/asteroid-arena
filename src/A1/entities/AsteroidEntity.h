@@ -38,7 +38,7 @@ public:
         meshRenderer->setMesh(getAsteroidModel(radius, getRandomNumber(ASTEROID_SEGMENTS_MIN, ASTEROID_SEGMENTS_MAX), ASTEROID_RADIUS_VARIATION_RANGE));
         entity->addComponent(meshRenderer);
 
-        AsteroidScript* scriptComponent = new AsteroidScript(waveMgr, radius,
+        AsteroidScript* scriptComponent = new AsteroidScript(waveMgr, ASTEROID_HEALTH, radius,
                                                              getRandomNumber(ASTEROID_MIN_SPEED, ASTEROID_MAX_SPEED));
         entity->addComponent((Component*) scriptComponent);
 

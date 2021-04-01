@@ -29,8 +29,9 @@ const Vector3 SHIP_COLOUR = Vector3(0, 0, 0);
 const Vector3 SHIP_COLOUR_OUTLINE = Vector3(1, 1, 1);
 
 const float SHIP_MAX_SPEED = 400;
-const float SHIP_SHOOT_VELOCITY = 5 ; // Speed which bullets shoot
-const int SHIP_SHOOT_COOLDOWN = 150 ; // MS seconds between shooting
+const float SHIP_BULLET_DAMAGE = 5; // How much damage each bullet does to thins it hit (with health)
+const float SHIP_SHOOT_VELOCITY = 5; // Speed which bullets shoot
+const int SHIP_SHOOT_COOLDOWN = 150; // MS seconds between shooting
 const float SHIP_ACCELERATION = 0.8f; // % increase * dt
 const float SHIP_DECELERATION = 0.6f; // % decrease * dt
 const float SHIP_TURN_SPEED = 200;
@@ -45,8 +46,12 @@ const int ASTEROID_SPAWN_RATE = 500; // Spawn asteroid every X ms
 const int ASTEROID_CLEAR_RATE = 1000; // Clear asteroids out of range every X ms
 const int ASTEROID_MAX = 50; // How many asteroids can be in the game at any one point (Prevent spawn).
 
+// Scoring
+const int SCORE_AMOUNT_ASTEROID_KILL = 10;
+
 
 // Asteroids
+const float ASTEROID_HEALTH = 10;
 const float ASTEROID_SEGMENTS_MIN = 6; // How many points an asteroid should have MIN. 360 = full circle
 const float ASTEROID_SEGMENTS_MAX = 20; // How many points an asteroid should have MAX. 360 = full circle
 const float ASTEROID_MIN_RADIUS = 100; // Min size of asteroid  (All these are inclusive)

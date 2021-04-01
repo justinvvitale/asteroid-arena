@@ -11,6 +11,8 @@
 
 class AsteroidScript : public ScriptComponent {
 private:
+    float health;
+
     float radius;
     float speed;
 
@@ -26,7 +28,7 @@ protected:
     void update() override;
 
 public:
-    AsteroidScript(AsteroidWaveScript* mgr, float radius, float speed);
+    AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed);
 
     void onCollision(Entity* other) override;
 };

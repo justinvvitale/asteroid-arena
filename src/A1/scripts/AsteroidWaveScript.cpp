@@ -7,8 +7,9 @@
 #include "../../core/Game.h"
 
 void AsteroidWaveScript::start() {
+    scoreScript = dynamic_cast<ScoreScript*>(Game::getEntity("score")->getComponentOfType(ComponentType::CScript));
     launchRadius = (float) sqrt(pow(ARENA_WIDTH / 2, 2) + pow(ARENA_HEIGHT / 2, 2));
-    playerRef = Game::getEntity(EntityTag::Player);
+    playerRef = Game::getEntity("player");
 
     if (DEBUG_DRAW_LAUNCH_CIRCLE) {
         MeshComponent* meshComponent = new MeshComponent();
@@ -77,9 +78,13 @@ void AsteroidWaveScript::spawnAsteroid() {
     asteroids.emplace(ast);
 }
 
-void AsteroidWaveScript::despawnAsteroid(Entity* asteroid) {
+void AsteroidWaveScript::destroyAsteroid(Entity* asteroid, bool scored) {
     if (asteroids.find(asteroid) != asteroids.end()) {
         asteroid->destroy();
         asteroids.erase(asteroid);
+    }
+
+    if(scored){
+        this->scoreScript->addScore(SCORE_AMOUNT_ASTEROID_KILL);
     }
 }

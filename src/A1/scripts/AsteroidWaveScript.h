@@ -8,10 +8,12 @@
 
 #include <set>
 #include "../../core/ecs/components/ScriptComponent.h"
+#include "ScoreScript.h"
 
 class AsteroidWaveScript : public ScriptComponent {
 private:
     std::set<Entity*> asteroids = std::set<Entity*>();
+    ScoreScript* scoreScript;
 
     float launchRadius;
 
@@ -29,7 +31,7 @@ protected:
     void start() override;
 
 public:
-    void despawnAsteroid(Entity* asteroid);
+    void destroyAsteroid(Entity* asteroid, bool scored);
 };
 
 

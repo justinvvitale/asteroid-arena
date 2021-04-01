@@ -23,7 +23,7 @@ void WallScript::start() {
 }
 
 void WallScript::update() {
-    Vector3 playerPos = Game::getEntity(EntityTag::Player)->getPosition();
+    Vector3 playerPos = Game::getEntity("player")->getPosition();
 
     int prevWarns = topWarn + bottomWarn + leftWarn + rightWarn;
 
@@ -62,7 +62,7 @@ void WallScript::refreshMeshData() {
 }
 
 void WallScript::onCollision(Entity* other) {
-    if(other->getTag() == EntityTag::Projectile){
+    if(other->getTag() == "bullet"){
         other->destroy();
     }
 }

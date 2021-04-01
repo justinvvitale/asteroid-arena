@@ -6,9 +6,9 @@
 #define I3D_ENTITY_H
 
 #include <list>
+#include <string>
 #include "../shared/engine_math.h"
 #include "enums/ComponentType.h"
-#include "enums/EntityTag.h"
 
 class Component;
 
@@ -17,7 +17,7 @@ private:
     Entity* parent = nullptr;
     std::list<Entity*> children = std::list<Entity*>();
 
-    EntityTag tag = EntityTag::None;
+    std::string tag;
 
     std::list<Component*> components = std::list<Component*>();
 
@@ -26,7 +26,7 @@ private:
 public:
     Entity() = default;
 
-    explicit Entity(EntityTag entityTag);
+    explicit Entity(std::string tag);
 
     void tick();
 
@@ -41,7 +41,7 @@ public:
     std::list<Component*> getComponentsOfType(ComponentType componentType);
 
     // Sets the tag, can be used for lookups
-    EntityTag getTag();
+    std::string getTag();
 
     void setParent(Entity* entity);
 

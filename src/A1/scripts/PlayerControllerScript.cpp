@@ -76,7 +76,7 @@ void PlayerControllerScript::update() {
 }
 
 void PlayerControllerScript::onCollision(Entity* other) {
-    if(other->getTag() == Projectile){
+    if(other->getTag() == "bullet"){
         return;
     }
 
