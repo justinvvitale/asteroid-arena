@@ -7,10 +7,20 @@
 
 
 #include "../../core/ecs/components/ScriptComponent.h"
+#include "../../core/ecs/components/TextComponent.h"
 
 class ScoreScript : public ScriptComponent {
 private:
     int score;
+
+    TextComponent* uiRefKill;
+    TextComponent* uiRefTime;
+
+    int lastSecondCheck = -1;
+
+    int elapsedSeconds = 0;
+    int elapsedMinutes = 0;
+    bool dirtyScore = true;
 
 protected:
     void update() override;

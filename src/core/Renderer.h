@@ -14,6 +14,8 @@ public:
 
     static void renderParticle(const Particle* particle);
 
+    static void renderText(const std::string& text, float scale = 1);
+
     // State
     static void setColour(Vector3 colour);
 
@@ -33,6 +35,8 @@ public:
 
 
     // Helpers (Drawing)
+    static void drawCharacter(char chr);
+
     static void drawCircle(float radius);
 
     static void drawRect(float height, float width);

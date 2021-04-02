@@ -7,6 +7,7 @@
 #include "ecs/systems/ScriptProcessorSystem.h"
 #include "ecs/systems/CollisionSystem.h"
 #include "ecs/systems/ParticleSystem.h"
+#include "ecs/systems/TextRendererSystem.h"
 
 #include <unordered_set>
 
@@ -17,6 +18,7 @@ Engine::Engine() {
     systems.push_back(new ScriptProcessorSystem());
 
     // Manual systems (Priority)
+    manualSystems.emplace(ComponentType::CText, new TextRendererSystem());
     manualSystems.emplace(ComponentType::CMesh, new MeshRendererSystem());
     manualSystems.emplace(ComponentType::CParticle, new ParticleSystem());
 
@@ -71,6 +73,12 @@ void Engine::render() {
         bufferDirty = false;
     }
 
+    // Text rendering
+    auto componentTypesText = bufferComponentTypes.find(ComponentType::CText);
+    if (componentTypesText != bufferComponentTypes.end()) {
+        manualSystems[ComponentType::CText]->process(componentTypesText->second);
+    }
+
     // Particle rendering (Render)
     auto componentTypesParticle = bufferComponentTypes.find(ComponentType::CParticle);
     if (componentTypesParticle != bufferComponentTypes.end()) {
@@ -83,6 +91,8 @@ void Engine::render() {
     if (componentTypesMesh != bufferComponentTypes.end()) {
         manualSystems[ComponentType::CMesh]->process(componentTypesMesh->second);
     }
+
+
 }
 
 void Engine::setScene(Scene* sceneIn) {

@@ -11,7 +11,8 @@ enum ComponentType {
     CScript,
     CCollider,
     CRigidbody,
-    CParticle
+    CParticle,
+    CText
 };
 
 

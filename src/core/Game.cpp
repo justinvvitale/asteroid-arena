@@ -4,6 +4,7 @@
 
 #include "Game.h"
 #include "input/KeyRegistry.h"
+#include "ENGINECONFIG.h"
 
 #if _WIN32
 
@@ -73,6 +74,8 @@ void Game::init() {
     glCullFace(GL_BACK);
 
     glEnable(GL_DEPTH_TEST);
+
+    glPointSize(POINT_SIZE);
 
     // Set last idle
     lastIdleTime = (float) glutGet(GLUT_ELAPSED_TIME) / 1000.0f;

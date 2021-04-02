@@ -3,6 +3,7 @@
 #include "entities/ShipEntity.h"
 #include "scripts/AsteroidWaveScript.h"
 #include "entities/ScoreManagerEntity.h"
+#include "../core/ecs/components/TextComponent.h"
 
 Scene* getScene() {
     Scene* scene = new Scene();
@@ -12,6 +13,7 @@ Scene* getScene() {
 
     Entity* waveManagerEntity = new Entity();
     waveManagerEntity->addComponent(new AsteroidWaveScript());
+
     scene->addEntity(waveManagerEntity);
 
 

@@ -61,6 +61,20 @@ void Renderer::drawRect(float width, float height) {
     glEnd();
 }
 
+void Renderer::renderText(const std::string& text, float scale) {
+    Renderer::scale(scale);
+
+    Renderer::push();
+    for (char c : text){
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, c);
+    }
+    Renderer::pop();
+}
+
+void Renderer::drawCharacter(char chr) {
+    glutStrokeCharacter(GLUT_STROKE_ROMAN, chr);
+}
+
 void Renderer::drawCircle(float radius) {
     glBegin(GL_LINE_LOOP);
     for (int i = 0; i < 360; i++) {
@@ -96,6 +110,7 @@ void Renderer::scale(Vector3 scale) {
 void Renderer::scale(float scale) {
     Renderer::scale(Vector3(scale, scale, scale));
 }
+
 
 
 

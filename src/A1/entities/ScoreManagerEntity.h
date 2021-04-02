@@ -6,6 +6,7 @@
 #define I3D_SCOREMANAGERENTITY_H
 
 #include "../scripts/ScoreScript.h"
+#include "../../core/ecs/components/TextComponent.h"
 
 class ScoreManagerEntity {
 private:
@@ -27,6 +28,8 @@ public:
         auto* entity = new Entity("score");
 
         entity->addComponent((Component*)new ScoreScript());
+        entity->addComponent((Component*)new TextComponent("", Vector3(-980, 880,0), 0.5));
+        entity->addComponent((Component*)new TextComponent("", Vector3(700,880,0), 0.5));
 
         return entity;
     }

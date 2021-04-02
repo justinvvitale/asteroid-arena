@@ -11,18 +11,14 @@
 class BulletEntity {
 private:
     static Mesh getModel() {
+//        return MeshHelper::getHexagonMesh(10);
+        Mesh mesh;
+        mesh.mode = GL_POINTS;
+        mesh.data = {
+                MeshData(0, 0, 0),
+        };
 
-        return MeshHelper::getHexagonMesh(10);
-//        Mesh mesh;
-//        mesh.mode = GL_LINE_LOOP;
-//        mesh.data = {
-//                MeshData(-100, -100, 0),
-//                MeshData(100, -100, 0),
-//                MeshData(100, 100, 0),
-//                MeshData(-100, 100, 0)
-//        };
-//
-//        return mesh;
+        return mesh;
     }
 
 public:
@@ -35,7 +31,7 @@ public:
         meshRenderer->setMesh(getModel());
         entity->addComponent(meshRenderer);
 
-        ColliderComponent* col = new ColliderComponent(10);
+        ColliderComponent* col = new ColliderComponent(POINT_SIZE);
 
         RigidbodyComponent* rb = new RigidbodyComponent();
         rb->addForce(force);

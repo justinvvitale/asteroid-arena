@@ -47,7 +47,7 @@ const int ASTEROID_CLEAR_RATE = 1000; // Clear asteroids out of range every X ms
 const int ASTEROID_MAX = 50; // How many asteroids can be in the game at any one point (Prevent spawn).
 
 // Scoring
-const int SCORE_AMOUNT_ASTEROID_KILL = 10;
+const int SCORE_AMOUNT_ASTEROID_KILL = 1;
 
 
 // Asteroids
