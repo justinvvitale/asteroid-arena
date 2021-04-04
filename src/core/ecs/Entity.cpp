@@ -156,6 +156,20 @@ void Entity::destroy() {
     Game::queueEntityCleanup(this);
 }
 
+void Entity::removeComponent(Component* component) {
+    auto compIter = components.begin();
+
+    while(compIter != components.end()){
+        Component* curComp = *compIter;
+        if(curComp == component){
+            components.erase(compIter);
+            return;
+        }
+
+        ++compIter;
+    }
+}
+
 
 
 

@@ -6,6 +6,7 @@
 #include "../../core/Game.h"
 #include "../GAMECONFIG.h"
 #include "../entities/BulletEntity.h"
+#include "../global.h"
 
 
 void PlayerControllerScript::start() {
@@ -14,6 +15,11 @@ void PlayerControllerScript::start() {
 }
 
 void PlayerControllerScript::update() {
+
+    if(STATE_GLOBAL != STATE_PLAY){
+        return;
+    }
+
     Entity* player = this->getEntity();
     Vector3 pos = player->getPosition();
     Rotation rot = player->getRotation();

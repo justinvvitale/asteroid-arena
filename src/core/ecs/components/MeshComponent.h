@@ -20,6 +20,8 @@ public:
 
     void addMesh(const Mesh& meshIn);
 
+    void reset();
+
 private:
     std::list<Mesh> data = std::list<Mesh>();
 

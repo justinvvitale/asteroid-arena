@@ -42,7 +42,7 @@ const char SHIP_TURN_RIGHT_KEY = 'd';
 const char SHIP_SHOOT_KEY = 32;
 
 // WaveManagement
-const int ASTEROID_SPAWN_RATE = 500; // Spawn asteroid every X ms
+const int ASTEROID_SPAWN_RATE = 800; // Spawn asteroid every X ms
 const int ASTEROID_CLEAR_RATE = 1000; // Clear asteroids out of range every X ms
 const int ASTEROID_MAX = 50; // How many asteroids can be in the game at any one point (Prevent spawn).
 

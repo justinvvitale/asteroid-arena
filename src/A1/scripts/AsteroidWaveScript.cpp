@@ -5,6 +5,7 @@
 #include "AsteroidWaveScript.h"
 #include "../entities/AsteroidEntity.h"
 #include "../../core/Game.h"
+#include "../global.h"
 
 void AsteroidWaveScript::start() {
     scoreScript = dynamic_cast<ScoreScript*>(Game::getEntity("score")->getComponentOfType(ComponentType::CScript));
@@ -20,6 +21,9 @@ void AsteroidWaveScript::start() {
 }
 
 void AsteroidWaveScript::update() {
+
+    if(STATE_GLOBAL != STATE_PLAY) return;
+
     // Spawning
     int elapsed = Game::elapsed;
     if (elapsed - lastSpawnTime >= ASTEROID_SPAWN_RATE && asteroids.size() < ASTEROID_MAX) {

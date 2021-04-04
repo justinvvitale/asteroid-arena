@@ -27,3 +27,7 @@ void MeshComponent::setMesh(const Mesh& meshIn) {
 void MeshComponent::addMesh(const Mesh& meshIn) {
     this->data.push_back(meshIn);
 }
+
+void MeshComponent::reset() {
+this->data.clear();
+}

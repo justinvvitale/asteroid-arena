@@ -32,6 +32,8 @@ public:
 
     void addComponent(Component* component);
 
+    void removeComponent(Component* component);
+
     std::list<Component*> getComponents();
 
     Component* getComponentOfType(ComponentType componentType);
