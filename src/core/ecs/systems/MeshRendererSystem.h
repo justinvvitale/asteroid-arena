@@ -15,7 +15,11 @@ public:
 
     void process(std::list<Component*> items) override;
 
+    static void setEnabled(bool flag);
+
 private:
+    static bool enabled;
+
     Entity* getRootEntity(Entity* entity);
 
     void renderEntity(Entity* entity);

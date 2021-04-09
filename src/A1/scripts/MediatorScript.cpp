@@ -4,52 +4,60 @@
 
 #include "MediatorScript.h"
 #include "../../core/input/KeyRegistry.h"
-#include "../global.h"
-
+#include "../GameState.h"
+#include "../../core/Game.h"
+#include "../../core/ecs/systems/MeshRendererSystem.h"
 
 void MediatorScript::start() {
-    blackout = Mesh();
-    blackout.mode = GL_QUADS;
-    blackout.colour = Vector3(0,0,0);
-    blackout.data = {
-            MeshData(1000, -1000, 0),
-            MeshData(1000, 1000, 0),
-            MeshData(-1000, 1000, 0),
-            MeshData(-1000, -1000, 0)
-    };
-
-    message = new TextComponent("Welcome to star");
-    anyKey = new TextComponent("Press any key to continue");
-
-    mesh = dynamic_cast<MeshComponent*>(getEntity()->getComponentOfType(CMesh));
+    message = new TextComponent("X");
+    anyKey = new TextComponent("Press any key to continue", Vector3(-500,-200,0), 0.6);
  }
 
 void MediatorScript::update() {
-    if(STATE_GLOBAL != lastState){
-        lastState = STATE_GLOBAL;
+    int curState = Game::state;
+    if(curState != lastState){
+        lastState = curState;
 
-        switch (lastState) {
-            case STATE_BEGIN: // Initial
-            mesh->setMesh(blackout);
+        switch (curState) {
+            case GameState::Initial: // Initial
+            MeshRendererSystem::setEnabled(false);
+            message->setText("Welcome to Space Wars");
+            message->setPosition(Vector3(-800,0,0));
+
             getEntity()->addComponent(message);
             getEntity()->addComponent(anyKey);
 
                 break;
-            case STATE_PLAY: // Playing (Hide everything)
-                mesh->reset();
+            case GameState::Playing: // Playing (Hide everything)
+                MeshRendererSystem::setEnabled(true);
                 getEntity()->removeComponent(message);
                 getEntity()->removeComponent(anyKey);
                 break;
-            case STATE_DEAD: // Game over, man
+            case GameState::Dead: // Game over, man
+                MeshRendererSystem::setEnabled(false);
 
+                message->setText("You Died");
+                message->setPosition(Vector3(-270,0,0));
+
+                getEntity()->addComponent(message);
+                getEntity()->addComponent(anyKey);
                 break;
         }
+
+        registeredEmpty = false;
     }
 
     // Await input
-    if(lastState != STATE_PLAY){
-        if(!KeyRegistry::getPressed().empty()){
-            STATE_GLOBAL = STATE_PLAY;
+    if(lastState != GameState::Playing){
+        if(KeyRegistry::getPressed().empty()){
+            registeredEmpty = true;
+        }else if(registeredEmpty && !KeyRegistry::getPressed().empty()){
+            // Restart from death
+            if(Game::state == GameState::Dead){
+                Game::restart();
+            }
+
+            Game::state = GameState::Playing;
         }
     }
 }

@@ -6,7 +6,8 @@
 #include "../../core/Game.h"
 #include "../GAMECONFIG.h"
 #include "../entities/BulletEntity.h"
-#include "../global.h"
+#include "MediatorScript.h"
+#include "../GameState.h"
 
 
 void PlayerControllerScript::start() {
@@ -16,7 +17,7 @@ void PlayerControllerScript::start() {
 
 void PlayerControllerScript::update() {
 
-    if(STATE_GLOBAL != STATE_PLAY){
+    if(Game::state != 1){
         return;
     }
 
@@ -86,5 +87,5 @@ void PlayerControllerScript::onCollision(Entity* other) {
         return;
     }
 
-    Game::restart();
+    Game::state = GameState::Dead;
 }

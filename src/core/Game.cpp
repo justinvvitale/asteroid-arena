@@ -24,6 +24,9 @@
 
 #endif
 
+int Game::state = 0;
+
+
 float Game::lastIdleTime = 0.0;
 float Game::dt = 1;
 long int Game::tick = 0;
@@ -75,6 +78,8 @@ void Game::init() {
 
     glEnable(GL_DEPTH_TEST);
 
+    //glEnable(GL_SCISSOR_TEST);
+
     glPointSize(POINT_SIZE);
 
     // Set last idle
@@ -85,16 +90,17 @@ void Game::init() {
 
 void Game::reshape(int w, int h) {
     glViewport(0, 0, w, h);
-
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
     float aspectRatio = (GLfloat) w / (GLfloat) h;
 
-    if (w <= h)
+    if (w <= h) {
         glOrtho(-1000, 1000, -1000 / aspectRatio, 1000 / aspectRatio, 1.0, -1.0);
-    else
+        //glScissor(0, 0, w / 2, h / 2);
+    }else {
         glOrtho(-1000 * aspectRatio, 1000 * aspectRatio, -1000, 1000, 1.0, -1.0);
+    }
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

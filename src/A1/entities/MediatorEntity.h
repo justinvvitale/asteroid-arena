@@ -14,9 +14,6 @@ class MediatorEntity {
         static Entity* getEntity() {
             Entity* entity = new Entity();
 
-            MeshComponent* meshRenderer = new MeshComponent();
-
-            entity->addComponent((Component*)meshRenderer);
             entity->addComponent((Component*) new MediatorScript());
 
             return entity;

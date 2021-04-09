@@ -13,11 +13,11 @@
 
 class MediatorScript : public ScriptComponent {
 private:
-    MeshComponent* mesh;
-    Mesh blackout;
-
     TextComponent* message;
     TextComponent* anyKey;
+
+    // Ensure no keys are pressed before recognising key strokes
+    bool registeredEmpty = false;
 
     int lastState = -1;
 
@@ -25,7 +25,6 @@ protected:
     void start() override;
 
     void update() override;
-public:
 };
 
 

@@ -7,9 +7,6 @@
 
 #include <ctime>
 
-// 0 Initial 1 Playing 2 End
-static int playState = 0;
-
 Scene* getScene() {
     Scene* scene = new Scene();
     scene->addEntity(MediatorEntity::getEntity());

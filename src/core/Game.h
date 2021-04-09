@@ -32,6 +32,9 @@ public:
     // Time difference since last tick (Used for smooth animations)
     static float dt;
 
+    // State variable which is determined/used by implementation
+    static int state;
+
     static long int elapsed; // MS
     static long int elapsedSeconds; // S
 

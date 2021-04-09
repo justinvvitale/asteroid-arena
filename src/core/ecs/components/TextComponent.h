@@ -5,7 +5,6 @@
 #ifndef I3D_TEXTCOMPONENT_H
 #define I3D_TEXTCOMPONENT_H
 
-
 #include "../Component.h"
 
 class TextComponent : public Component {
@@ -27,6 +26,8 @@ public:
     void setText(const std::string &text);
 
     float getSize() const;
+
+    void setPosition(const Vector3& position);
 };
 
 

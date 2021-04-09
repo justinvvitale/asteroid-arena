@@ -19,8 +19,7 @@ public:
         Entity* ship = new Entity("player");
 
         // Setting ship to bottom left, aiming towards top right
-        ship->setPosition(Vector3(-(ARENA_WIDTH / 2) + SHIP_SIZE + ARENA_WARN_DIST,
-                                  -(ARENA_HEIGHT / 2) + SHIP_SIZE + ARENA_WARN_DIST, 0));
+        ship->setPosition(Vector3(0,0,0));
         ship->setRotation(Rotation(0, 0, 1, -50));
 
         MeshComponent* meshRender = new MeshComponent();

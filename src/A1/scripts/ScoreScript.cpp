@@ -4,7 +4,7 @@
 
 #include "ScoreScript.h"
 #include "../../core/Game.h"
-#include "../global.h"
+#include "MediatorScript.h"
 
 void ScoreScript::start() {
     std::list<Component*> textComps = getEntity()->getComponentsOfType(ComponentType::CText);
@@ -16,7 +16,7 @@ void ScoreScript::start() {
 
 void ScoreScript::update() {
 
-    if(STATE_GLOBAL != STATE_PLAY) return;
+    if(Game::state != 1) return;
 
     int seconds = Game::elapsedSeconds;
 

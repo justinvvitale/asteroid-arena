@@ -15,6 +15,10 @@ TextComponent::TextComponent(std::string text, Vector3 pos, float size) : Compon
     this->size = size;
 }
 
+void TextComponent::setPosition(const Vector3& position) {
+    TextComponent::position = position;
+}
+
 const std::string &TextComponent::getText() const {
     return text;
 }
@@ -30,4 +34,3 @@ const Vector3 &TextComponent::getPosition() const {
 float TextComponent::getSize() const {
     return size;
 }
-

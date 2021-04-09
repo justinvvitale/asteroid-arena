@@ -4,15 +4,18 @@
 
 #include <set>
 #include "MeshRendererSystem.h"
-#include "../../ENGINECONFIG.h"
 #include "../components/ColliderComponent.h"
 #include "../../Renderer.h"
 
+bool MeshRendererSystem::enabled = true;
 
 MeshRendererSystem::MeshRendererSystem() : System(ComponentType::CMesh) {
 }
 
 void MeshRendererSystem::process(std::list<Component*> items) {
+
+    if(!enabled) return;
+
     std::set<Entity*> rootEntities = std::set<Entity*>();
 
     // Get root entities
@@ -108,6 +111,10 @@ void MeshRendererSystem::debugRender(Entity* entity) {
 
         Renderer::setColour(DEFAULT_COLOUR);
     }
+}
+
+void MeshRendererSystem::setEnabled(bool flag) {
+    enabled = flag;
 }
 
 
