@@ -60,26 +60,43 @@ Vector3 AsteroidWaveScript::getPositionOutOfArena(float payloadSize) const {
 }
 
 void AsteroidWaveScript::spawnAsteroid() {
-    Vector3 playerPos = playerRef->getPosition();
+    // Fetch and calculate variables
+    float speed = getRandomNumber(ASTEROID_MIN_SPEED, ASTEROID_MAX_SPEED);
+    float radius = ASTEROID_MIN_RADIUS + (rand() % static_cast<int>(ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS + 1));
+    Vector3 position = getPositionOutOfArena(radius); // Set rotation to either left/right and to config values
+    float rotation = getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION);
+    Vector3 force = VectorUtil::Normalize(playerRef->getPosition() - position) * speed;
 
-    // Spawn initial test asteroid
-    Entity* ast = AsteroidEntity::getEntity(this);
-    AsteroidScript* asteroidScript = dynamic_cast<AsteroidScript*>(ast->getComponentOfType(ComponentType::CScript));
+    // Spawn configured asteroid
+    spawnAsteroid(ASTEROID_HEALTH, position, speed, radius, rand() % 2 ? rotation : -rotation, force, true);
+}
 
-    ast->setPosition(getPositionOutOfArena(asteroidScript->getRadius()));
+void AsteroidWaveScript::spawnAsteroid(float health, Vector3 position, float speed, float radius, float rotation, Vector3 force, bool canSplit) {
+    // Create entity and add script
+    Entity* ast = AsteroidEntity::getEntity(radius);
+    AsteroidScript* asteroidScript = new AsteroidScript(this, health, radius, speed, canSplit);
+
+    ast->addComponent(asteroidScript);
+
+    ast->setPosition(position);
 
     RigidbodyComponent* rb = dynamic_cast<RigidbodyComponent*>(ast->getComponentOfType(ComponentType::CRigidbody));
 
     // Add force to move to player
-    rb->addForce(VectorUtil::Normalize(playerPos - ast->getPosition()) * asteroidScript->getSpeed());
-
-    // Set rotation to either left/right and to config values
-    float rotVel = getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION);
-    rb->setForceRot(rand() % 2 ? rotVel : -rotVel);
+    rb->addForce(force);
+    rb->setForceRot(rotation);
 
     Game::getEngine()->getScene()->addEntity(ast);
 
     asteroids.emplace(ast);
+}
+
+void AsteroidWaveScript::splitAsteroid(Entity* asteroid) {
+    AsteroidScript* script = dynamic_cast<AsteroidScript*>(asteroid->getComponentOfType(ComponentType::CScript));
+    spawnAsteroid(1, asteroid->getPosition(), 0, script->getRadius()/2, 0, Vector3::zero(), false);
+
+
+    destroyAsteroid(asteroid, true);
 }
 
 void AsteroidWaveScript::destroyAsteroid(Entity* asteroid, bool scored) {
@@ -92,3 +109,7 @@ void AsteroidWaveScript::destroyAsteroid(Entity* asteroid, bool scored) {
         this->scoreScript->addScore(SCORE_AMOUNT_ASTEROID_KILL);
     }
 }
+
+
+
+

@@ -40,6 +40,8 @@ public:
     static void drawCircle(float radius);
 
     static void drawRect(float height, float width);
+
+    static void drawRectSolid(float width, float height);
 };
 
 

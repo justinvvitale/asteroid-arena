@@ -5,11 +5,13 @@
 #include "AsteroidScript.h"
 #include "../GAMECONFIG.h"
 
-AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed) {
+AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, bool canSplit) {
     this->mgr = mgr;
     this->health = health;
     this->radius = radius;
     this->speed = speed;
+
+    this->canSplit = canSplit;
 }
 
 void AsteroidScript::start() {
@@ -34,7 +36,13 @@ void AsteroidScript::onCollision(Entity* other) {
         health -= SHIP_BULLET_DAMAGE;
 
         if(health <= 0){
-            mgr->destroyAsteroid(this->getEntity(), true);
+            // Create two new asteroids
+            if(canSplit){
+                mgr->splitAsteroid(this->getEntity());
+            }else{
+                mgr->destroyAsteroid(this->getEntity(), true);
+
+            }
         }
     }
 }

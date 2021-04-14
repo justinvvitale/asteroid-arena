@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include "Engine.h"
+#include "shared/engine_graphic.h"
 #include <iostream>
 #include <queue>
 #include <set>
@@ -40,7 +41,6 @@ public:
 
     // Current tick
     static long int tick;
-
 
     static void start(int argc, char** argv, const std::string& name, Scene* (* getDefaultScene)());
 

@@ -23,6 +23,7 @@ private:
     Vector3 getPositionOutOfArena(float payloadSize) const;
 
     void spawnAsteroid();
+    void spawnAsteroid(float health, Vector3 position, float speed, float radius, float rotation, Vector3 force, bool canSplit);
 
     Entity* playerRef;
 
@@ -31,6 +32,7 @@ protected:
     void start() override;
 
 public:
+    void splitAsteroid(Entity* asteroid);
     void destroyAsteroid(Entity* asteroid, bool scored);
 };
 

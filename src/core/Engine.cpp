@@ -9,27 +9,27 @@
 #include "ecs/systems/ParticleSystem.h"
 #include "ecs/systems/TextRendererSystem.h"
 
-#include <unordered_set>
-
 Engine::Engine() {
 
+    // Shared automatic and manual, kinda special
+    ParticleSystem* particleSystem = new ParticleSystem();
+
     // Setup systems (Priority)
-    systems.push_back(new CollisionSystem());
-    systems.push_back(new ScriptProcessorSystem());
+    systems.emplace(ComponentType::CCollider, new CollisionSystem());
+    systems.emplace(ComponentType::CScript, new ScriptProcessorSystem());
+    systems.emplace(ComponentType::CParticle, particleSystem);
 
     // Manual systems (Priority)
     manualSystems.emplace(ComponentType::CText, new TextRendererSystem());
     manualSystems.emplace(ComponentType::CMesh, new MeshRendererSystem());
-    manualSystems.emplace(ComponentType::CParticle, new ParticleSystem());
+    manualSystems.emplace(ComponentType::CParticle, particleSystem);
 
     // Init systems
-    for (System* system : systems) {
-        system->init();
-        processedSystemTypes.emplace(system->getType());
+    for (auto const& sys : systems) {
+        sys.second->init();
     }
     for (auto const& sys : manualSystems) {
         sys.second->init();
-        processedSystemTypes.emplace(sys.first);
     }
 }
 
@@ -41,30 +41,22 @@ void Engine::tick() {
         bufferDirty = false;
     }
 
-    // System handling
-    for (System* system : systems) {
-        auto componentTypeIter = bufferComponentTypes.find(system->getType());
-        // If we can't find it, then it probably doesn't exist, don't need to process system.
-        if (componentTypeIter == bufferComponentTypes.end()) continue;
+    // Handle components and systems
+    for (const auto& compType : bufferComponentTypes) {
+        auto iterSystem = systems.find(compType.first);
 
-        system->process(componentTypeIter->second);
-    }
-
-    // Tick any components which don't have a system directly managing them (Or manual)
-    for (auto& compType: bufferComponentTypes) {
-//        if (processedSystemTypes.count(compType.first) == 0) { // TODO make it only call once cheaply
-            for (Component* comp : compType.second) {
+        if(iterSystem != systems.end()){
+            System* system = (*iterSystem).second;
+            system->process(compType.second);
+        }else{
+            // Doesn't have a system, just tick it.
+            for(Component* comp : compType.second){
                 comp->tick();
             }
-//        }
+        }
     }
 
-    // Particle rendering (Tick)
-    auto componentTypesParticle = bufferComponentTypes.find(ComponentType::CParticle);
-    if (componentTypesParticle != bufferComponentTypes.end()) {
-        // Run particle renders then mesh rendering
-        manualSystems[ComponentType::CParticle]->process(componentTypesParticle->second);
-    }
+
 }
 
 void Engine::render() {
@@ -79,20 +71,18 @@ void Engine::render() {
         manualSystems[ComponentType::CText]->process(componentTypesText->second);
     }
 
-    // Particle rendering (Render)
-    auto componentTypesParticle = bufferComponentTypes.find(ComponentType::CParticle);
-    if (componentTypesParticle != bufferComponentTypes.end()) {
-        // Run particle renders then mesh rendering
-        manualSystems[ComponentType::CParticle]->render();
-    }
-
     // Core rendering
     auto componentTypesMesh = bufferComponentTypes.find(ComponentType::CMesh);
     if (componentTypesMesh != bufferComponentTypes.end()) {
         manualSystems[ComponentType::CMesh]->process(componentTypesMesh->second);
     }
 
-
+    // Particle rendering (Render)
+    auto componentTypesParticle = bufferComponentTypes.find(ComponentType::CParticle);
+    if (componentTypesParticle != bufferComponentTypes.end()) {
+        // Run particle renders then mesh rendering
+        manualSystems[ComponentType::CParticle]->render();
+    }
 }
 
 void Engine::setScene(Scene* sceneIn) {

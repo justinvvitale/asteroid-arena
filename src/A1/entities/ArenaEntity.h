@@ -59,6 +59,59 @@ public:
         return arena;
     }
 
+    static void applyMasks(Scene* scene){
+
+        float pad = 5;
+        float dist = 100000;
+
+        Mesh maskLeft;
+        maskLeft.mode = GL_QUADS;
+        maskLeft.colour = Vector3(0, 0, 0);
+        maskLeft.data = {
+                MeshData(-ARENA_WIDTH/2 - pad, -(ARENA_HEIGHT + dist)/2, 0),
+                MeshData(-ARENA_WIDTH/2 - pad, (ARENA_HEIGHT + dist)/2, 0),
+                MeshData(-dist, (ARENA_HEIGHT + dist)/2, 0),
+                MeshData(-dist, -(ARENA_HEIGHT + dist)/2, 0)
+        };
+
+        Mesh maskRight;
+        maskRight.mode = GL_QUADS;
+        maskRight.colour = Vector3(0, 0, 0);
+        maskRight.data = {
+                MeshData(ARENA_WIDTH/2 + pad, (ARENA_HEIGHT + dist)/2, 0),
+                MeshData(ARENA_WIDTH/2 + pad, -(ARENA_HEIGHT + dist)/2, 0),
+                MeshData(dist, -(ARENA_HEIGHT + dist)/2, 0),
+                MeshData(dist, (ARENA_HEIGHT + dist)/2, 0)
+        };
+
+        Mesh maskTop;
+        maskTop.mode = GL_QUADS;
+        maskTop.colour = Vector3(0, 0, 0);
+        maskTop.data = {
+                MeshData(-(ARENA_WIDTH + dist)/2, ARENA_HEIGHT/2 + pad, 0),
+                MeshData((ARENA_WIDTH + dist)/2, ARENA_HEIGHT/2 + pad, 0),
+                MeshData((ARENA_WIDTH + dist)/2, dist, 0),
+                MeshData(-(ARENA_WIDTH + dist)/2, dist, 0)
+        };
+
+        Mesh maskBottom;
+        maskBottom.mode = GL_QUADS;
+        maskBottom.colour = Vector3(0, 0, 0);
+        maskBottom.data = {
+                MeshData((ARENA_WIDTH + dist)/2, -ARENA_HEIGHT/2 - pad, 0),
+                MeshData(-(ARENA_WIDTH + dist)/2, -ARENA_HEIGHT/2 - pad, 0),
+                MeshData(-(ARENA_WIDTH + dist)/2, -dist, 0),
+                MeshData((ARENA_WIDTH + dist)/2, -dist, 0)
+        };
+
+
+
+        scene->masks.push_back(maskTop);
+        scene->masks.push_back(maskBottom);
+        scene->masks.push_back(maskLeft);
+        scene->masks.push_back(maskRight);
+}
+
 };
 
 

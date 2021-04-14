@@ -61,6 +61,18 @@ void Renderer::drawRect(float width, float height) {
     glEnd();
 }
 
+void Renderer::drawRectSolid(float width, float height) {
+    float heightHalf = height / 2;
+    float widthHalf = width / 2;
+
+    glBegin(GL_QUADS);
+    glVertex2f(widthHalf, heightHalf);
+    glVertex2f(-widthHalf, heightHalf);
+    glVertex2f(-widthHalf, -heightHalf);
+    glVertex2f(widthHalf, -heightHalf);
+    glEnd();
+}
+
 void Renderer::renderText(const std::string& text, float scale) {
     Renderer::scale(scale);
 

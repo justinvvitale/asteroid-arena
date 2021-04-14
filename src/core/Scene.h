@@ -12,6 +12,7 @@
 #include <iostream>
 #include <unordered_map>
 #include "ecs/Entity.h"
+#include "shared/engine_graphic.h"
 
 class Scene {
 private:
@@ -40,6 +41,9 @@ public:
     // Returns a map of componentTypes with every component of that type
     std::unordered_map<ComponentType, std::list<Component*>> getComponentsByType();
 
+
+    // Masks which are mesh that are infront of everything (Excluding text)
+    std::list<Mesh> masks = std::list<Mesh>();
 };
 
 

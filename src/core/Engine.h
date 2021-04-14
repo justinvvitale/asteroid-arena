@@ -7,18 +7,15 @@
 
 #include "ecs/System.h"
 #include "Scene.h"
-#include <map>
-#include <unordered_set>
+#include <unordered_map>
 
 class Engine {
 private:
     // Variables
     Scene* scene = nullptr;
 
-    std::list<System*> systems = std::list<System*>();
-    std::map<ComponentType, System*> manualSystems = std::map<ComponentType, System*>();
-
-    std::unordered_set<ComponentType> processedSystemTypes = std::unordered_set<ComponentType>();
+    std::unordered_map<ComponentType, System*> systems = std::unordered_map<ComponentType, System*>();
+    std::unordered_map<ComponentType, System*> manualSystems = std::unordered_map<ComponentType, System*>();
 
     bool bufferDirty = true;
     std::unordered_map<ComponentType, std::list<Component*>> bufferComponentTypes = std::unordered_map<ComponentType, std::list<Component*>>();

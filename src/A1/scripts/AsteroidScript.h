@@ -9,12 +9,15 @@
 #include "../../core/ecs/components/ScriptComponent.h"
 #include "AsteroidWaveScript.h"
 
+
 class AsteroidScript : public ScriptComponent {
 private:
     float health;
 
     float radius;
     float speed;
+
+    bool canSplit;
 
     AsteroidWaveScript* mgr;
 public:
@@ -28,7 +31,7 @@ protected:
     void update() override;
 
 public:
-    AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed);
+    AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, bool canSplit);
 
     void onCollision(Entity* other) override;
 };

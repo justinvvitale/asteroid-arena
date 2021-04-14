@@ -77,8 +77,7 @@ void Game::init() {
     glCullFace(GL_BACK);
 
     glEnable(GL_DEPTH_TEST);
-
-    //glEnable(GL_SCISSOR_TEST);
+    glEnable(GL_SCISSOR_TEST);
 
     glPointSize(POINT_SIZE);
 
@@ -90,17 +89,24 @@ void Game::init() {
 
 void Game::reshape(int w, int h) {
     glViewport(0, 0, w, h);
+
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
     float aspectRatio = (GLfloat) w / (GLfloat) h;
 
+
+    float size;
+
     if (w <= h) {
         glOrtho(-1000, 1000, -1000 / aspectRatio, 1000 / aspectRatio, 1.0, -1.0);
-        //glScissor(0, 0, w / 2, h / 2);
+        size = h*aspectRatio;
     }else {
         glOrtho(-1000 * aspectRatio, 1000 * aspectRatio, -1000, 1000, 1.0, -1.0);
+        size = w/aspectRatio;
     }
+
+    glScissor((w/2) - (size/2),(h/2)-(size/2),size,size);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

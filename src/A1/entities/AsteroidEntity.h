@@ -29,18 +29,12 @@ private:
     }
 
 public:
-    static Entity* getEntity(AsteroidWaveScript* waveMgr) {
+    static Entity* getEntity(float radius) {
         Entity* entity = new Entity();
-
-        float radius = ASTEROID_MIN_RADIUS + (rand() % static_cast<int>(ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS + 1));
 
         MeshComponent* meshRenderer = new MeshComponent();
         meshRenderer->setMesh(getAsteroidModel(radius, getRandomNumber(ASTEROID_SEGMENTS_MIN, ASTEROID_SEGMENTS_MAX), ASTEROID_RADIUS_VARIATION_RANGE));
         entity->addComponent(meshRenderer);
-
-        AsteroidScript* scriptComponent = new AsteroidScript(waveMgr, ASTEROID_HEALTH, radius,
-                                                             getRandomNumber(ASTEROID_MIN_SPEED, ASTEROID_MAX_SPEED));
-        entity->addComponent((Component*) scriptComponent);
 
         ColliderComponent* col = new ColliderComponent(radius);
         entity->addComponent((Component*) col);

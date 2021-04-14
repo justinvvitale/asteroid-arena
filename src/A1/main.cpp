@@ -12,6 +12,8 @@ Scene* getScene() {
     scene->addEntity(MediatorEntity::getEntity());
 
     scene->addEntity(ArenaEntity::getEntity());
+    ArenaEntity::applyMasks(scene);
+
     scene->addEntity(ShipEntity::getEntity());
     scene->addEntity(ScoreManagerEntity::getEntity());
 

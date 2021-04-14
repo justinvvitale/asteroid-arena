@@ -28,13 +28,13 @@ const float SHIP_COLLIDER_RELAX = 0.5f; // How much % smaller collider should be
 const Vector3 SHIP_COLOUR = Vector3(0, 0, 0);
 const Vector3 SHIP_COLOUR_OUTLINE = Vector3(1, 1, 1);
 
-const float SHIP_MAX_SPEED = 400;
+const float SHIP_MAX_SPEED = 800;
 const float SHIP_BULLET_DAMAGE = 5; // How much damage each bullet does to thins it hit (with health)
 const float SHIP_SHOOT_VELOCITY = 5; // Speed which bullets shoot
 const int SHIP_SHOOT_COOLDOWN = 150; // MS seconds between shooting
-const float SHIP_ACCELERATION = 0.8f; // % increase * dt
-const float SHIP_DECELERATION = 0.6f; // % decrease * dt
-const float SHIP_TURN_SPEED = 200;
+const float SHIP_ACCELERATION = 0.9f; // % increase * dt
+const float SHIP_DECELERATION = 0.7f; // % decrease * dt
+const float SHIP_TURN_SPEED = 400;
 
 const char SHIP_FORWARD_KEY = 'w';
 const char SHIP_TURN_LEFT_KEY = 'a';
