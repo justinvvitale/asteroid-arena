@@ -20,13 +20,12 @@ void MediatorScript::update() {
 
         switch (curState) {
             case GameState::Initial: // Initial
-            MeshRendererSystem::setEnabled(false);
-            message->setText("Welcome to Space Wars");
-            message->setPosition(Vector3(-800,0,0));
+                MeshRendererSystem::setEnabled(false);
+                message->setText("Welcome to Space Wars");
+                message->setPosition(Vector3(-800,0,0));
 
-            getEntity()->addComponent(message);
-            getEntity()->addComponent(anyKey);
-
+                getEntity()->addComponent(message);
+                getEntity()->addComponent(anyKey);
                 break;
             case GameState::Playing: // Playing (Hide everything)
                 MeshRendererSystem::setEnabled(true);
@@ -44,6 +43,7 @@ void MediatorScript::update() {
                 break;
         }
 
+        Game::getEngine()->flagDirty();
         registeredEmpty = false;
     }
 

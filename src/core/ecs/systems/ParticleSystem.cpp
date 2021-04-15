@@ -6,8 +6,9 @@
 #include "../../Game.h"
 #include "../../Renderer.h"
 
-ParticleSystem::ParticleSystem() : System(ComponentType::CParticle) {
+std::list<Particle*> ParticleSystem::particles = std::list<Particle*>();
 
+ParticleSystem::ParticleSystem() : System(ComponentType::CParticle) {
 }
 
 void ParticleSystem::init() {
@@ -18,7 +19,7 @@ void ParticleSystem::process(std::list<Component*> items) {
     for (Component* component : items) {
         ParticleEmitterComponent* emitter = dynamic_cast<ParticleEmitterComponent*>(component);
         if (emitter->hasBufferedParticles()) {
-            auto bufferedParticles = emitter->TakeParticles();
+            auto bufferedParticles = emitter->takeParticles();
             particles.insert(particles.end(), bufferedParticles.begin(), bufferedParticles.end());
         }
     }
@@ -68,4 +69,9 @@ void ParticleSystem::cleanup() {
         delete particle;
         particles.erase(particleIter++);
     }
+}
+
+void ParticleSystem::emit(Particle* particle, Vector3 position) {
+    particle->position = position;
+    particles.push_back(particle);
 }

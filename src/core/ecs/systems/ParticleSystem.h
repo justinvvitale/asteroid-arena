@@ -12,7 +12,7 @@
 
 class ParticleSystem : public System {
 private:
-    std::list<Particle*> particles = std::list<Particle*>();
+    static std::list<Particle*> particles;
 
     long int lastLifeDecrement = -1;
 public:
@@ -21,6 +21,9 @@ public:
     void init() override;
 
     void process(std::list<Component*> items) override;
+
+    // Manual emit
+    static void emit(Particle* particle, Vector3 position);
 
     void render();
 

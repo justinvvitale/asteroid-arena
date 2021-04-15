@@ -128,7 +128,7 @@ void Game::display() {
 void Game::idle() {
     if (restartRequested) {
         performEntityCleanup();
-        engine->ResetSystems();
+        engine->resetSystems();
         engine->setScene(getDefaultScene());
         restartRequested = false;
     }

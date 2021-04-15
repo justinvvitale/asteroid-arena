@@ -51,13 +51,13 @@ public:
 
     ParticleEmitterComponent(float offset);
 
-    void Emit(Particle* particle);
+    void emit(Particle* particle);
 
     Vector3 getEmitOffset();
 
     bool hasBufferedParticles();
 
-    std::list<Particle*> TakeParticles();
+    std::list<Particle*> takeParticles();
 
     float getOffset() const;
 };

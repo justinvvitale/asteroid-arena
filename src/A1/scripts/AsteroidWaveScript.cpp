@@ -6,6 +6,8 @@
 #include "../entities/AsteroidEntity.h"
 #include "../../core/Game.h"
 #include "../GameState.h"
+#include "../../core/ecs/components/ParticleEmitterComponent.h"
+#include "../../core/ecs/systems/ParticleSystem.h"
 
 void AsteroidWaveScript::start() {
     scoreScript = dynamic_cast<ScoreScript*>(Game::getEntity("score")->getComponentOfType(ComponentType::CScript));
@@ -84,7 +86,7 @@ void AsteroidWaveScript::spawnAsteroid(float health, Vector3 position, float spe
 
     // Add force to move to player
     rb->addForce(force);
-    rb->setForceRot(rotation);
+    rb->setSpin(rotation);
 
     Game::getEngine()->getScene()->addEntity(ast);
 
@@ -93,20 +95,38 @@ void AsteroidWaveScript::spawnAsteroid(float health, Vector3 position, float spe
 
 void AsteroidWaveScript::splitAsteroid(Entity* asteroid) {
     AsteroidScript* script = dynamic_cast<AsteroidScript*>(asteroid->getComponentOfType(ComponentType::CScript));
-    spawnAsteroid(1, asteroid->getPosition(), 0, script->getRadius()/2, 0, Vector3::zero(), false);
+    RigidbodyComponent* rigid = dynamic_cast<RigidbodyComponent*>(asteroid->getComponentOfType(ComponentType::CRigidbody));
+
+    float brokenRadius = script->getRadius()/2;
+    float speed = script->getSpeed()/2;
+    Vector3 direction = VectorUtil::Normalize(rigid->getVelocity());
+
+    float t = 45 * (PI/180);
+    Vector3 forceL = Vector3(direction.x * cos(t) - direction.y * sin(t), direction.x * sin(t) + direction.y * cos(t), 0) * speed;
+    Vector3 forceR = Vector3(direction.x * cos(-t) - direction.y * sin(-t), direction.x * sin(-t) + direction.y * cos(-t), 0) * speed;
+
+
+    spawnAsteroid(1, asteroid->getPosition() + Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE,0,0), speed, brokenRadius, 0, forceL, false);
+    spawnAsteroid(1, asteroid->getPosition() - Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE,0,0), speed, brokenRadius, 0, forceR, false);
 
 
     destroyAsteroid(asteroid, true);
 }
 
 void AsteroidWaveScript::destroyAsteroid(Entity* asteroid, bool scored) {
+    if(scored){
+//        Mesh asteroidMeshChunks = dynamic_cast<MeshComponent*>(asteroid->getComponentOfType(ComponentType::CMesh))->getMesh();
+        for(int i = 0; i < 50; i++) {
+            Vector3 vel = Vector3((float) getRandomNumber(0, 400), (float) getRandomNumber(0, 400), 0);
+
+            ParticleSystem::emit(new Particle(vel, 1000, 1, 4, MeshHelper::getHexagonMesh(3, ASTEROID_COLOUR)), asteroid->getPosition());
+        }
+        this->scoreScript->addScore(SCORE_AMOUNT_ASTEROID_KILL);
+    }
+
     if (asteroids.find(asteroid) != asteroids.end()) {
         asteroid->destroy();
         asteroids.erase(asteroid);
-    }
-
-    if(scored){
-        this->scoreScript->addScore(SCORE_AMOUNT_ASTEROID_KILL);
     }
 }
 

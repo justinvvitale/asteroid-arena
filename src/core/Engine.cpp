@@ -95,7 +95,7 @@ Scene* Engine::getScene() {
     return scene;
 }
 
-void Engine::ResetSystems() {
+void Engine::resetSystems() {
     manualSystems[ComponentType::CParticle]->cleanup();
 
 }

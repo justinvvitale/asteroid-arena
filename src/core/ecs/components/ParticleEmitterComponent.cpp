@@ -12,13 +12,13 @@ ParticleEmitterComponent::ParticleEmitterComponent(float offset) : Component(Com
     this->offset = offset;
 }
 
-void ParticleEmitterComponent::Emit(Particle* particle) {
+void ParticleEmitterComponent::emit(Particle* particle) {
     particle->position = getEntity()->getWorldPosition() + getEmitOffset();
     particleBuffer.push_back(particle);
 }
 
 
-std::list<Particle*> ParticleEmitterComponent::TakeParticles() {
+std::list<Particle*> ParticleEmitterComponent::takeParticles() {
     std::list<Particle*> particleCpy = particleBuffer;
     particleBuffer.clear();
 

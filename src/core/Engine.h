@@ -30,7 +30,7 @@ public:
 
     Scene* getScene();
 
-    void ResetSystems();
+    void resetSystems();
 
     void flagDirty();
 };

@@ -31,3 +31,7 @@ void MeshComponent::addMesh(const Mesh& meshIn) {
 void MeshComponent::reset() {
 this->data.clear();
 }
+
+Mesh MeshComponent::getMesh() {
+    return this->data.front();
+}

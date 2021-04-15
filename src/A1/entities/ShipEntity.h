@@ -29,11 +29,6 @@ public:
         // Define the particle emitter and move it into the exhaust area
         ParticleEmitterComponent* emitter = new ParticleEmitterComponent(-SHIP_SIZE / 4);
 
-        // WEAPON SYSTEM
-        Entity* test = BulletEntity::getEntity(Vector3::zero(), Vector3::zero());
-
-
-
         ship->addComponent(meshRender);
         ship->addComponent((Component*) new PlayerControllerScript());
 

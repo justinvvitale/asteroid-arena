@@ -16,8 +16,8 @@ class AsteroidEntity {
 private:
     static Mesh getAsteroidModel(float radius, float sections, float randRange) {
         Mesh mesh;
-        mesh.mode = GL_POLYGON;
-        mesh.colour = Vector3(0.3, 0.3, 0.3);
+        mesh.mode = ASTEROID_SOLID ? GL_POLYGON : GL_LINE_LOOP;
+        mesh.colour = ASTEROID_COLOUR;
 
         for (int i = 0; i < 360; i += 360 / sections) {
             float pointRadius = getRandomNumber(radius, radius + randRange);

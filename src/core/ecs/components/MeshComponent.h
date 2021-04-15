@@ -20,6 +20,8 @@ public:
 
     void addMesh(const Mesh& meshIn);
 
+    Mesh getMesh();
+
     void reset();
 
 private:

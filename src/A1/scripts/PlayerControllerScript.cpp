@@ -46,10 +46,10 @@ void PlayerControllerScript::update() {
 
 
         if(elapsed - lastParticleEmit >= 60) {
-            emitter->Emit(
+            emitter->emit(
                     new Particle(VectorUtil::GetForwardVector(this->getEntity()->getRotation()).opposite() * 200, 150,
                                  2.5, 0.5,
-                                 MeshHelper::getHexagonMesh((float)SHIP_SIZE / 8, Vector3(1, 0.3, 0))));
+                                 MeshHelper::getHexagonMesh((float) SHIP_SIZE / 8, Vector3(1, 0.3, 0))));
             lastParticleEmit = elapsed;
         }
 

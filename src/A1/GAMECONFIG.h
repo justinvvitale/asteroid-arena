@@ -42,7 +42,7 @@ const char SHIP_TURN_RIGHT_KEY = 'd';
 const char SHIP_SHOOT_KEY = 32;
 
 // WaveManagement
-const int ASTEROID_SPAWN_RATE = 800; // Spawn asteroid every X ms
+const int ASTEROID_SPAWN_RATE = 2000; // Spawn asteroid every X ms
 const int ASTEROID_CLEAR_RATE = 1000; // Clear asteroids out of range every X ms
 const int ASTEROID_MAX = 50; // How many asteroids can be in the game at any one point (Prevent spawn).
 
@@ -57,10 +57,12 @@ const float ASTEROID_SEGMENTS_MAX = 20; // How many points an asteroid should ha
 const float ASTEROID_MIN_RADIUS = 100; // Min size of asteroid  (All these are inclusive)
 const float ASTEROID_MAX_RADIUS = 100; // Max size of asteroid
 const float ASTEROID_MIN_SPEED = 200; // Min speed of asteroid
-const float ASTEROID_MAX_SPEED = 700; // Max speed of asteroid
+const float ASTEROID_MAX_SPEED = 500; // Max speed of asteroid
 const float ASTEROID_MIN_ROTATION = 0; // Min speed of asteroid rotation
 const float ASTEROID_MAX_ROTATION = 50; // Max speed of asteroid rotation
 const float ASTEROID_RADIUS_VARIATION_RANGE = 30; // The range += the that radius can vary per point
+const Vector3 ASTEROID_COLOUR = Vector3(0.3, 0.3, 0.3);
+const bool ASTEROID_SOLID = true;
 
 // Debug (Not directly related to engine)
 const bool DEBUG_DRAW_LAUNCH_CIRCLE = false;
