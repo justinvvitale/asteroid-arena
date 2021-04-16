@@ -3,10 +3,8 @@
 //
 #include "PlayerControllerScript.h"
 #include "../../core/input/KeyRegistry.h"
-#include "../../core/Game.h"
 #include "../GAMECONFIG.h"
 #include "../entities/BulletEntity.h"
-#include "MediatorScript.h"
 #include "../GameState.h"
 
 

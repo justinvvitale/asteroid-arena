@@ -24,6 +24,8 @@ private:
     static defaultScenePointer getDefaultScene;
     static bool restartRequested;
 
+    static long int lastSecondCheck;
+
     static void performEntityCleanup();
 
     static std::set<Entity*> toDelete;

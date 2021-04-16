@@ -6,6 +6,8 @@
 #define I3D_ENGINE_ENGINE_MATH_H
 
 #include <cmath>
+#include <iostream>
+#include <ctime>
 
 #define PI 3.14
 #define DEG_TO_RAD (PI/180)
@@ -102,11 +104,15 @@ static float Lerp(float v1, float v2, float t) {
 
 // Inclusive random helpers
 inline int getRandomNumber(int min, int max) {
-    return min + (rand() % max);
+    return min + rand() % (( max + 1 ) - min);
+}
+
+inline float randomSign(float number){
+    return getRandomNumber(0,1) == 1 ? -number : number;
 }
 
 inline float getRandomNumber(float min, float max) {
-    return min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (max - min)));
+    return min + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(max-min)));
 }
 
 class VectorUtil {

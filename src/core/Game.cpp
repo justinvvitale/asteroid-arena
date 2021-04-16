@@ -34,6 +34,8 @@ long int Game::tick = 0;
 long int Game::elapsed = 0;
 long int Game::elapsedSeconds = 0;
 
+long int Game::lastSecondCheck = -1;
+
 bool Game::restartRequested = false;
 
 Engine* Game::engine = nullptr;
@@ -148,7 +150,9 @@ void Game::idle() {
     engine->tick();
 
     // Perform costly operation that aren't crucial
-    if (Game::elapsedSeconds % 1 == 0) {
+    if (lastSecondCheck != (int)elapsedTimeSeconds) {
+        lastSecondCheck = elapsedSeconds;
+
         performEntityCleanup();
     }
 

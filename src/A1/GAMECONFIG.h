@@ -51,7 +51,7 @@ const int SCORE_AMOUNT_ASTEROID_KILL = 1;
 
 
 // Asteroids
-const float ASTEROID_HEALTH_MULTIPLIER = 1; // Multiplier * Radius = health
+const float ASTEROID_HEALTH_MULTIPLIER = 0.2; // Multiplier * Radius = health
 const float ASTEROID_SEGMENTS_MIN = 6; // How many points an asteroid should have MIN. 360 = full circle
 const float ASTEROID_SEGMENTS_MAX = 20; // How many points an asteroid should have MAX. 360 = full circle
 const float ASTEROID_MIN_RADIUS = 100; // Min size of asteroid  (All these are inclusive)

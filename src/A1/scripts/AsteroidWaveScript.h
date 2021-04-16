@@ -18,7 +18,7 @@ private:
     float launchRadius;
 
     int wave = 0;
-    bool isCD = false;
+    bool isCD = true;
     int asteroidSpawnAmount = 0;
 
     int cdStartTime = -1;

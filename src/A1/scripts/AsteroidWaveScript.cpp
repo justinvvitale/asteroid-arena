@@ -25,8 +25,8 @@ void AsteroidWaveScript::start() {
 void AsteroidWaveScript::update() {
 
     if(Game::state != GameState::Playing) return;
-    int elapsed = Game::elapsed;
 
+    int elapsed = Game::elapsed;
 
     // Spawning
     if(isCD) {
@@ -39,11 +39,10 @@ void AsteroidWaveScript::update() {
                 spawnAsteroid();
             }
         }
-    }
-
-    if(asteroids.empty()){
-            cdStartTime = Game::elapsed;
+    }else if(asteroids.empty()){
+            cdStartTime = elapsed;
             wave++;
+            std::cout << "WAVE" << std::endl;
             isCD = true;
         }
 
@@ -129,9 +128,8 @@ void AsteroidWaveScript::splitAsteroid(Entity* asteroid) {
 
 void AsteroidWaveScript::destroyAsteroid(Entity* asteroid, bool scored) {
     if(scored){
-//        Mesh asteroidMeshChunks = dynamic_cast<MeshComponent*>(asteroid->getComponentOfType(ComponentType::CMesh))->getMesh();
         for(int i = 0; i < 50; i++) {
-            Vector3 vel = Vector3((float) getRandomNumber(0, 400), (float) getRandomNumber(0, 400), 0);
+            Vector3 vel = Vector3(randomSign((float) getRandomNumber(0, 400)), randomSign((float) getRandomNumber(0, 400)), 0);
 
             ParticleSystem::emit(new Particle(vel, 1000, 1, 4, MeshHelper::getHexagonMesh(3, ASTEROID_COLOUR)), asteroid->getPosition());
         }
