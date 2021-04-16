@@ -17,7 +17,11 @@ private:
 
     float launchRadius;
 
-    int lastSpawnTime = -1;
+    int wave = 0;
+    bool isCD = false;
+    int asteroidSpawnAmount = 0;
+
+    int cdStartTime = -1;
     int lastClearTime = -1;
 
     Vector3 getPositionOutOfArena(float payloadSize) const;

@@ -42,16 +42,16 @@ const char SHIP_TURN_RIGHT_KEY = 'd';
 const char SHIP_SHOOT_KEY = 32;
 
 // WaveManagement
-const int ASTEROID_SPAWN_RATE = 2000; // Spawn asteroid every X ms
+const int ASTEROID_WAVE_CD = 2000; // Wait X ms before next wave
+const int ASTEROID_SPAWN_INCREMENT = 1; // Amount of asteroids to increase per wave
 const int ASTEROID_CLEAR_RATE = 1000; // Clear asteroids out of range every X ms
-const int ASTEROID_MAX = 50; // How many asteroids can be in the game at any one point (Prevent spawn).
 
 // Scoring
 const int SCORE_AMOUNT_ASTEROID_KILL = 1;
 
 
 // Asteroids
-const float ASTEROID_HEALTH = 10;
+const float ASTEROID_HEALTH_MULTIPLIER = 1; // Multiplier * Radius = health
 const float ASTEROID_SEGMENTS_MIN = 6; // How many points an asteroid should have MIN. 360 = full circle
 const float ASTEROID_SEGMENTS_MAX = 20; // How many points an asteroid should have MAX. 360 = full circle
 const float ASTEROID_MIN_RADIUS = 100; // Min size of asteroid  (All these are inclusive)

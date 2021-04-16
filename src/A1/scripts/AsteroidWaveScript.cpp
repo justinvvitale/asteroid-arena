@@ -25,13 +25,27 @@ void AsteroidWaveScript::start() {
 void AsteroidWaveScript::update() {
 
     if(Game::state != GameState::Playing) return;
+    int elapsed = Game::elapsed;
+
 
     // Spawning
-    int elapsed = Game::elapsed;
-    if (elapsed - lastSpawnTime >= ASTEROID_SPAWN_RATE && asteroids.size() < ASTEROID_MAX) {
-        spawnAsteroid();
-        lastSpawnTime = elapsed;
+    if(isCD) {
+        if (elapsed - cdStartTime >= ASTEROID_WAVE_CD) {
+            isCD = false;
+            asteroidSpawnAmount += ASTEROID_SPAWN_INCREMENT;
+
+            // Spawn wave
+            for(int i = 0; i < asteroidSpawnAmount; i++){
+                spawnAsteroid();
+            }
+        }
     }
+
+    if(asteroids.empty()){
+            cdStartTime = Game::elapsed;
+            wave++;
+            isCD = true;
+        }
 
     // Cleanup when off screen
     if (elapsed - lastClearTime >= ASTEROID_CLEAR_RATE) {
@@ -70,7 +84,7 @@ void AsteroidWaveScript::spawnAsteroid() {
     Vector3 force = VectorUtil::Normalize(playerRef->getPosition() - position) * speed;
 
     // Spawn configured asteroid
-    spawnAsteroid(ASTEROID_HEALTH, position, speed, radius, rand() % 2 ? rotation : -rotation, force, true);
+    spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * radius, position, speed, radius, rand() % 2 ? rotation : -rotation, force, true);
 }
 
 void AsteroidWaveScript::spawnAsteroid(float health, Vector3 position, float speed, float radius, float rotation, Vector3 force, bool canSplit) {
