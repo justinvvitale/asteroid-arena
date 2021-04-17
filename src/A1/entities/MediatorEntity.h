@@ -9,15 +9,15 @@
 #include "../scripts/MediatorScript.h"
 
 class MediatorEntity {
-    public:
+public:
 
-        static Entity* getEntity() {
-            Entity* entity = new Entity();
+    static Entity* getEntity() {
+        Entity* entity = new Entity();
 
-            entity->addComponent((Component*) new MediatorScript());
+        entity->addComponent((Component*) new MediatorScript());
 
-            return entity;
-        }
+        return entity;
+    }
 };
 
 

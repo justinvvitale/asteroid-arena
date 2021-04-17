@@ -25,6 +25,7 @@ private:
     AsteroidWaveScript* mgr;
 public:
     float getRadius() const;
+
     float getSpeed() const;
 
     bool isPrimed();

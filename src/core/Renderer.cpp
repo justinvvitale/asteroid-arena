@@ -44,7 +44,7 @@ void Renderer::renderMeshData(const Mesh& mesh) {
 }
 
 void Renderer::renderParticle(const Particle* particle) {
-    if(!drawParticles) return;
+    if (!drawParticles) return;
 
     glPushMatrix();
     move(particle->position);
@@ -81,7 +81,7 @@ void Renderer::renderText(const std::string& text, float scale) {
     Renderer::scale(scale);
 
     Renderer::push();
-    for (char c : text){
+    for (char c : text) {
         glutStrokeCharacter(GLUT_STROKE_ROMAN, c);
     }
     Renderer::pop();

@@ -19,7 +19,7 @@ public:
         Entity* ship = new Entity("player");
 
         // Setting ship to bottom left, aiming towards top right
-        ship->setPosition(Vector3(0,0,0));
+        ship->setPosition(Vector3(0, 0, 0));
         ship->setRotation(Rotation(0, 0, 1, -50));
 
         MeshComponent* meshRender = new MeshComponent();

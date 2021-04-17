@@ -71,7 +71,6 @@ const int ASTEROID_PARTICLE_LIFESPAN = 2000;
 const int ASTEROID_PARTICLE_LIFESPAN_VARIATION = 700;
 
 
-
 // Debug (Not directly related to engine)
 const bool DEBUG_DRAW_LAUNCH_CIRCLE = false;
 const Vector3 DEBUG_DRAW_LAUNCH_CIRCLE_COLOUR = Vector3(1, 0.5, 1);

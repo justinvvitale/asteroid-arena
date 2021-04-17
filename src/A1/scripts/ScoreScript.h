@@ -33,6 +33,7 @@ public:
     bool isCD = false;
 
     void addScore(int amount);
+
     void clearScore();
 
     int getScore() const;

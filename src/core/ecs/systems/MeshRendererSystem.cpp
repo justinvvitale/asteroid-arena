@@ -13,10 +13,10 @@ MeshRendererSystem::MeshRendererSystem() : System(ComponentType::CMesh) {
 }
 
 void MeshRendererSystem::process(std::list<Component*> items) {
-    if(!enabled) return;
+    if (!enabled) return;
 
     // Render scene masks
-    for(Mesh mask : Game::getEngine()->getScene()->masks){
+    for (Mesh mask : Game::getEngine()->getScene()->masks) {
         Renderer::renderMeshData(mask);
     }
 

@@ -22,7 +22,7 @@ void AsteroidScript::start() {
 
 void AsteroidScript::update() {
 
-    if(!didCollideArenaOuter){
+    if (!didCollideArenaOuter) {
         this->primed = true;
     }
 

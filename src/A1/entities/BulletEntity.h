@@ -36,7 +36,7 @@ public:
         RigidbodyComponent* rb = new RigidbodyComponent();
         rb->addForce(force);
 
-        entity->addComponent((Component*)rb);
+        entity->addComponent((Component*) rb);
         entity->addComponent((Component*) col);
 
         return entity;

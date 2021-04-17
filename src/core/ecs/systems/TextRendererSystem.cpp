@@ -10,7 +10,7 @@ TextRendererSystem::TextRendererSystem() : System(ComponentType::CText) {}
 
 void TextRendererSystem::process(std::list<Component*> items) {
     for (Component* component : items) {
-        TextComponent* textComponent = (TextComponent*)component;
+        TextComponent* textComponent = (TextComponent*) component;
 
         Renderer::push();
         Renderer::move(textComponent->getPosition());

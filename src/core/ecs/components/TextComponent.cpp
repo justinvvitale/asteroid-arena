@@ -19,15 +19,15 @@ void TextComponent::setPosition(const Vector3& position) {
     TextComponent::position = position;
 }
 
-const std::string &TextComponent::getText() const {
+const std::string& TextComponent::getText() const {
     return text;
 }
 
-void TextComponent::setText(const std::string &text) {
+void TextComponent::setText(const std::string& text) {
     this->text = text;
 }
 
-const Vector3 &TextComponent::getPosition() const {
+const Vector3& TextComponent::getPosition() const {
     return position;
 }
 

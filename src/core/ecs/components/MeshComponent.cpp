@@ -29,7 +29,7 @@ void MeshComponent::addMesh(const Mesh& meshIn) {
 }
 
 void MeshComponent::reset() {
-this->data.clear();
+    this->data.clear();
 }
 
 Mesh MeshComponent::getMesh() {

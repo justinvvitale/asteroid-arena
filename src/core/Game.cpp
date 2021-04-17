@@ -102,13 +102,13 @@ void Game::reshape(int w, int h) {
 
     if (w <= h) {
         glOrtho(-1000, 1000, -1000 / aspectRatio, 1000 / aspectRatio, 1.0, -1.0);
-        size = h*aspectRatio;
-    }else {
+        size = h * aspectRatio;
+    } else {
         glOrtho(-1000 * aspectRatio, 1000 * aspectRatio, -1000, 1000, 1.0, -1.0);
-        size = w/aspectRatio;
+        size = w / aspectRatio;
     }
 
-    glScissor((w/2) - (size/2),(h/2)-(size/2),size,size);
+    glScissor((w / 2) - (size / 2), (h / 2) - (size / 2), size, size);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -137,12 +137,12 @@ void Game::idle() {
 
     // State variables
     auto timeMS = (float) glutGet(GLUT_ELAPSED_TIME);
-    float elapsedTimeSeconds = timeMS/1000;
+    float elapsedTimeSeconds = timeMS / 1000;
     dt = elapsedTimeSeconds - Game::lastIdleTime;
     lastIdleTime = elapsedTimeSeconds;
 
-    elapsedSeconds = (int)elapsedTimeSeconds;
-    elapsed = (int)timeMS;
+    elapsedSeconds = (int) elapsedTimeSeconds;
+    elapsed = (int) timeMS;
 
     // Management
     tick++;
@@ -150,7 +150,7 @@ void Game::idle() {
     engine->tick();
 
     // Perform costly operation that aren't crucial
-    if (lastSecondCheck != (int)elapsedTimeSeconds) {
+    if (lastSecondCheck != (int) elapsedTimeSeconds) {
         lastSecondCheck = elapsedSeconds;
 
         performEntityCleanup();
@@ -180,7 +180,7 @@ void Game::queueEntityCleanup(Entity* item) {
 }
 
 void Game::performEntityCleanup() {
-    for (auto it = toDelete.begin(); it != toDelete.end(); ) {
+    for (auto it = toDelete.begin(); it != toDelete.end();) {
         delete *it;
         toDelete.erase(it++);
     }

@@ -11,27 +11,28 @@ void ScoreScript::start() {
     std::list<Component*> textComps = getEntity()->getComponentsOfType(ComponentType::CText);
 
     auto iter = textComps.begin();
-    uiRefKill = (TextComponent*)*iter++;
-    uiRefTime = (TextComponent*)*iter++;
-    uiRefWave = (TextComponent*)*iter;
+    uiRefKill = (TextComponent*) *iter++;
+    uiRefTime = (TextComponent*) *iter++;
+    uiRefWave = (TextComponent*) *iter;
 }
 
 
 void ScoreScript::update() {
-    if(Game::state != GameState::Initial){
-        uiRefWave->setText((isCD && Game::state == GameState::Playing) ? "INTERMISSION" : ("Wave: " + std::to_string(wave)));
+    if (Game::state != GameState::Initial) {
+        uiRefWave->setText(
+                (isCD && Game::state == GameState::Playing) ? "INTERMISSION" : ("Wave: " + std::to_string(wave)));
     }
 
-    if(Game::state != 1) return;
+    if (Game::state != 1) return;
 
     int seconds = Game::elapsedSeconds;
 
-    if(seconds != lastSecondCheck){
+    if (seconds != lastSecondCheck) {
         lastSecondCheck = seconds;
 
         elapsedSeconds++;
 
-        if(elapsedSeconds >= 60){
+        if (elapsedSeconds >= 60) {
             elapsedSeconds = 0;
             elapsedMinutes++;
         }
@@ -39,7 +40,7 @@ void ScoreScript::update() {
         uiRefTime->setText(std::to_string(elapsedMinutes) + "m " + std::to_string(elapsedSeconds) + "s");
     }
 
-    if(dirtyScore){
+    if (dirtyScore) {
         uiRefKill->setText("Score: " + std::to_string(score));
         dirtyScore = false;
     }

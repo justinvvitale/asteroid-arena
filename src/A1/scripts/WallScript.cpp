@@ -64,14 +64,14 @@ void WallScript::refreshMeshData() {
 }
 
 void WallScript::onCollision(Entity* other) {
-    if(other->getTag() == "bullet"){
+    if (other->getTag() == "bullet") {
         other->destroy();
     }
 
-    if(other->getTag() == "asteroid"){
+    if (other->getTag() == "asteroid") {
         AsteroidScript* ast = dynamic_cast<AsteroidScript*>(other->getComponentOfType(ComponentType::CScript));
 
-        if(ast->isPrimed()) {
+        if (ast->isPrimed()) {
             RigidbodyComponent* rigid = dynamic_cast<RigidbodyComponent*>(other->getComponentOfType(
                     ComponentType::CRigidbody));
             Vector3 vel = Vector3(rigid->getVelocity().opposite());
@@ -86,12 +86,12 @@ void WallScript::onCollision(Entity* other) {
             float minDistLeftRight = std::min(
                     VectorUtil::DistanceFromLine(topLeftVert, bottomLeftVert, asteroidPosition),
                     VectorUtil::DistanceFromLine(topRightVert, bottomRightVert, asteroidPosition)
-                                              );
+            );
 
-            if(minDistLeftRight <= minDistBottomTop){
+            if (minDistLeftRight <= minDistBottomTop) {
                 // Hit a left/right wall
                 rigid->addForce(vel.x, -vel.y, 0);
-            }else{
+            } else {
                 // Hit a top/bottom wall
                 rigid->addForce(-vel.x, vel.y, 0);
             }

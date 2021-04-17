@@ -15,7 +15,7 @@ void PlayerControllerScript::start() {
 
 void PlayerControllerScript::update() {
 
-    if(Game::state != 1){
+    if (Game::state != 1) {
         return;
     }
 
@@ -27,7 +27,7 @@ void PlayerControllerScript::update() {
     int elapsed = Game::elapsed;
 
     // Shooting..
-    if(elapsed - lastShoot >= SHIP_SHOOT_COOLDOWN) {
+    if (elapsed - lastShoot >= SHIP_SHOOT_COOLDOWN) {
         if (KeyRegistry::isPressed(SHIP_SHOOT_KEY)) {
             Game::getEngine()->getScene()->addEntity(BulletEntity::getEntity(player->getWorldPosition(),
                                                                              VectorUtil::GetForwardVector(rot) *
@@ -43,7 +43,7 @@ void PlayerControllerScript::update() {
         }
 
 
-        if(elapsed - lastParticleEmit >= 60) {
+        if (elapsed - lastParticleEmit >= 60) {
             emitter->emit(
                     new Particle(VectorUtil::GetForwardVector(this->getEntity()->getRotation()).opposite() * 200, 150,
                                  2.5, 0.5,
@@ -81,7 +81,7 @@ void PlayerControllerScript::update() {
 }
 
 void PlayerControllerScript::onCollision(Entity* other) {
-    if(other->getTag() == "bullet"){
+    if (other->getTag() == "bullet") {
         return;
     }
 

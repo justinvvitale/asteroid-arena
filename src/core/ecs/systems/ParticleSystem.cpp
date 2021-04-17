@@ -33,7 +33,7 @@ void ParticleSystem::process(std::list<Component*> items) {
     while (particleIter != particles.end()) {
         Particle* particle = *particleIter;
 
-        if(decrementLife) {
+        if (decrementLife) {
             particle->life -= elapsedDiffMS;
 
             // If end of life, destroy. Increment iter for next loop

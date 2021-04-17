@@ -19,11 +19,11 @@ public:
 
     explicit TextComponent(std::string text = "", Vector3 pos = Vector3::zero(), float size = 1);
 
-    const Vector3 &getPosition() const;
+    const Vector3& getPosition() const;
 
-    const std::string &getText() const;
+    const std::string& getText() const;
 
-    void setText(const std::string &text);
+    void setText(const std::string& text);
 
     float getSize() const;
 

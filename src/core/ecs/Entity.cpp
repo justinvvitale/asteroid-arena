@@ -40,7 +40,7 @@ void Entity::setPosition(const Vector3& pos) {
     Entity::position = pos;
 }
 
-Rotation Entity::getRotation() const  {
+Rotation Entity::getRotation() const {
     return rotation;
 }
 
@@ -159,9 +159,9 @@ void Entity::destroy() {
 void Entity::removeComponent(Component* component) {
     auto compIter = components.begin();
 
-    while(compIter != components.end()){
+    while (compIter != components.end()) {
         Component* curComp = *compIter;
-        if(curComp == component){
+        if (curComp == component) {
             components.erase(compIter);
             return;
         }

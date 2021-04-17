@@ -45,12 +45,12 @@ void Engine::tick() {
     for (const auto& compType : bufferComponentTypes) {
         auto iterSystem = systems.find(compType.first);
 
-        if(iterSystem != systems.end()){
+        if (iterSystem != systems.end()) {
             System* system = (*iterSystem).second;
             system->process(compType.second);
-        }else{
+        } else {
             // Doesn't have a system, just tick it.
-            for(Component* comp : compType.second){
+            for (Component* comp : compType.second) {
                 comp->tick();
             }
         }
