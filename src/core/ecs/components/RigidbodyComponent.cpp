@@ -29,7 +29,6 @@ void RigidbodyComponent::addForce(Vector3 force) {
 
 void RigidbodyComponent::clearVelocity() {
     this->velocity = Vector3::zero();
-    this->spin = 0;
 }
 
 void RigidbodyComponent::setSpin(float amount) {

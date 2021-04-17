@@ -21,6 +21,8 @@
 
 #endif
 
+bool Renderer::drawParticles = true;
+
 void Renderer::renderMeshData(const Mesh& mesh) {
     setColour(mesh.colour);
 
@@ -42,6 +44,8 @@ void Renderer::renderMeshData(const Mesh& mesh) {
 }
 
 void Renderer::renderParticle(const Particle* particle) {
+    if(!drawParticles) return;
+
     glPushMatrix();
     move(particle->position);
     scale(particle->scale);

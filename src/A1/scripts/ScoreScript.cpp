@@ -5,16 +5,22 @@
 #include "ScoreScript.h"
 #include "../../core/Game.h"
 #include "MediatorScript.h"
+#include "../GameState.h"
 
 void ScoreScript::start() {
     std::list<Component*> textComps = getEntity()->getComponentsOfType(ComponentType::CText);
 
-    uiRefKill = (TextComponent*)textComps.front();
-    uiRefTime = (TextComponent*)textComps.back();
+    auto iter = textComps.begin();
+    uiRefKill = (TextComponent*)*iter++;
+    uiRefTime = (TextComponent*)*iter++;
+    uiRefWave = (TextComponent*)*iter;
 }
 
 
 void ScoreScript::update() {
+    if(Game::state != GameState::Initial){
+        uiRefWave->setText((isCD && Game::state == GameState::Playing) ? "INTERMISSION" : ("Wave: " + std::to_string(wave)));
+    }
 
     if(Game::state != 1) return;
 
@@ -37,6 +43,7 @@ void ScoreScript::update() {
         uiRefKill->setText("Score: " + std::to_string(score));
         dirtyScore = false;
     }
+
 }
 
 void ScoreScript::addScore(int amount) {

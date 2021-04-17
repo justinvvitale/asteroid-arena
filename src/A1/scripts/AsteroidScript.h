@@ -19,11 +19,15 @@ private:
 
     bool canSplit;
 
+    bool didCollideArenaOuter = true;
+    bool primed = false;
+
     AsteroidWaveScript* mgr;
 public:
     float getRadius() const;
-
     float getSpeed() const;
+
+    bool isPrimed();
 
 protected:
     void start() override;
@@ -34,6 +38,8 @@ public:
     AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, bool canSplit);
 
     void onCollision(Entity* other) override;
+
+    void resetPrimed();
 };
 
 

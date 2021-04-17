@@ -6,6 +6,8 @@
 #include "../GAMECONFIG.h"
 #include "../../core/ENGINECONFIG.h"
 #include "../../core/Game.h"
+#include "../../core/ecs/components/RigidbodyComponent.h"
+#include "AsteroidScript.h"
 
 void WallScript::start() {
     this->meshComponent = dynamic_cast<MeshComponent*>(this->getEntity()->getComponentOfType(ComponentType::CMesh));
@@ -64,5 +66,37 @@ void WallScript::refreshMeshData() {
 void WallScript::onCollision(Entity* other) {
     if(other->getTag() == "bullet"){
         other->destroy();
+    }
+
+    if(other->getTag() == "asteroid"){
+        AsteroidScript* ast = dynamic_cast<AsteroidScript*>(other->getComponentOfType(ComponentType::CScript));
+
+        if(ast->isPrimed()) {
+            RigidbodyComponent* rigid = dynamic_cast<RigidbodyComponent*>(other->getComponentOfType(
+                    ComponentType::CRigidbody));
+            Vector3 vel = Vector3(rigid->getVelocity().opposite());
+            rigid->clearVelocity();
+
+            Vector3 asteroidPosition = other->getPosition();
+
+            float minDistBottomTop = std::min(
+                    VectorUtil::DistanceFromLine(topLeftVert, topRightVert, asteroidPosition),
+                    VectorUtil::DistanceFromLine(bottomLeftVert, bottomRightVert, asteroidPosition)
+            );
+            float minDistLeftRight = std::min(
+                    VectorUtil::DistanceFromLine(topLeftVert, bottomLeftVert, asteroidPosition),
+                    VectorUtil::DistanceFromLine(topRightVert, bottomRightVert, asteroidPosition)
+                                              );
+
+            if(minDistLeftRight <= minDistBottomTop){
+                // Hit a left/right wall
+                rigid->addForce(vel.x, -vel.y, 0);
+            }else{
+                // Hit a top/bottom wall
+                rigid->addForce(-vel.x, vel.y, 0);
+            }
+
+            ast->resetPrimed();
+        }
     }
 }

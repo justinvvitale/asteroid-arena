@@ -15,6 +15,7 @@ private:
 
     TextComponent* uiRefKill;
     TextComponent* uiRefTime;
+    TextComponent* uiRefWave;
 
     int lastSecondCheck = -1;
 
@@ -28,6 +29,9 @@ protected:
     void start() override;
 
 public:
+    int wave = 0;
+    bool isCD = false;
+
     void addScore(int amount);
     void clearScore();
 

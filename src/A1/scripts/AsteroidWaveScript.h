@@ -9,6 +9,7 @@
 #include <set>
 #include "../../core/ecs/components/ScriptComponent.h"
 #include "ScoreScript.h"
+#include "../../core/ecs/components/ColliderComponent.h"
 
 class AsteroidWaveScript : public ScriptComponent {
 private:
@@ -16,9 +17,6 @@ private:
     ScoreScript* scoreScript;
 
     float launchRadius;
-
-    int wave = 0;
-    bool isCD = true;
     int asteroidSpawnAmount = 0;
 
     int cdStartTime = -1;
@@ -36,7 +34,7 @@ protected:
     void start() override;
 
 public:
-    void splitAsteroid(Entity* asteroid);
+    void splitAsteroid(Entity* asteroid, bool scored = false);
     void destroyAsteroid(Entity* asteroid, bool scored);
 };
 

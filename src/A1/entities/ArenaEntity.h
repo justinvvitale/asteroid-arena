@@ -45,7 +45,7 @@ public:
     }
 
     static Entity* getEntity() {
-        Entity* arena = new Entity();
+        Entity* arena = new Entity("arena");
 
         MeshComponent* arenaMeshRender = new MeshComponent();
         arena->addComponent(arenaMeshRender);

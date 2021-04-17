@@ -29,9 +29,10 @@ void AsteroidWaveScript::update() {
     int elapsed = Game::elapsed;
 
     // Spawning
-    if(isCD) {
+    if(scoreScript->isCD) {
         if (elapsed - cdStartTime >= ASTEROID_WAVE_CD) {
-            isCD = false;
+            scoreScript->wave++;
+            scoreScript->isCD = false;
             asteroidSpawnAmount += ASTEROID_SPAWN_INCREMENT;
 
             // Spawn wave
@@ -41,9 +42,7 @@ void AsteroidWaveScript::update() {
         }
     }else if(asteroids.empty()){
             cdStartTime = elapsed;
-            wave++;
-            std::cout << "WAVE" << std::endl;
-            isCD = true;
+            scoreScript->isCD = true;
         }
 
     // Cleanup when off screen
@@ -106,7 +105,7 @@ void AsteroidWaveScript::spawnAsteroid(float health, Vector3 position, float spe
     asteroids.emplace(ast);
 }
 
-void AsteroidWaveScript::splitAsteroid(Entity* asteroid) {
+void AsteroidWaveScript::splitAsteroid(Entity* asteroid, bool scored) {
     AsteroidScript* script = dynamic_cast<AsteroidScript*>(asteroid->getComponentOfType(ComponentType::CScript));
     RigidbodyComponent* rigid = dynamic_cast<RigidbodyComponent*>(asteroid->getComponentOfType(ComponentType::CRigidbody));
 
@@ -119,20 +118,27 @@ void AsteroidWaveScript::splitAsteroid(Entity* asteroid) {
     Vector3 forceR = Vector3(direction.x * cos(-t) - direction.y * sin(-t), direction.x * sin(-t) + direction.y * cos(-t), 0) * speed;
 
 
-    spawnAsteroid(1, asteroid->getPosition() + Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE,0,0), speed, brokenRadius, 0, forceL, false);
-    spawnAsteroid(1, asteroid->getPosition() - Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE,0,0), speed, brokenRadius, 0, forceR, false);
+    spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * brokenRadius, asteroid->getPosition() + Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE,0,0), speed, brokenRadius, 0, forceL, false);
+    spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * brokenRadius, asteroid->getPosition() - Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE,0,0), speed, brokenRadius, 0, forceR, false);
 
 
-    destroyAsteroid(asteroid, true);
+    destroyAsteroid(asteroid, scored);
 }
 
 void AsteroidWaveScript::destroyAsteroid(Entity* asteroid, bool scored) {
-    if(scored){
-        for(int i = 0; i < 50; i++) {
-            Vector3 vel = Vector3(randomSign((float) getRandomNumber(0, 400)), randomSign((float) getRandomNumber(0, 400)), 0);
+    // Particles for destroying
+    for (int i = 0; i < ASTEROID_PARTICLE_DESTROY_COUNT; i++) {
+        Vector3 vel = Vector3(
+                (float) getRandomNumber(-ASTEROID_PARTICLE_VELOCITY_RANGE, ASTEROID_PARTICLE_VELOCITY_RANGE),
+                (float) getRandomNumber(-ASTEROID_PARTICLE_VELOCITY_RANGE, ASTEROID_PARTICLE_VELOCITY_RANGE), 0);
 
-            ParticleSystem::emit(new Particle(vel, 1000, 1, 4, MeshHelper::getHexagonMesh(3, ASTEROID_COLOUR)), asteroid->getPosition());
-        }
+        ParticleSystem::emit(new Particle(vel, ASTEROID_PARTICLE_LIFESPAN +
+                                               getRandomNumber(-ASTEROID_PARTICLE_LIFESPAN_VARIATION,
+                                                               ASTEROID_PARTICLE_LIFESPAN_VARIATION), 1, 4,
+                                          MeshHelper::getHexagonMesh(3, ASTEROID_COLOUR)), asteroid->getPosition());
+    }
+
+    if(scored){
         this->scoreScript->addScore(SCORE_AMOUNT_ASTEROID_KILL);
     }
 
@@ -141,7 +147,4 @@ void AsteroidWaveScript::destroyAsteroid(Entity* asteroid, bool scored) {
         asteroids.erase(asteroid);
     }
 }
-
-
-
 

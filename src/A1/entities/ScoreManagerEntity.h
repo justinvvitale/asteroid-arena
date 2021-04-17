@@ -29,7 +29,9 @@ public:
 
         entity->addComponent((Component*)new ScoreScript());
         entity->addComponent((Component*)new TextComponent("", Vector3(-980, 880,0), 0.5));
-        entity->addComponent((Component*)new TextComponent("", Vector3(700,880,0), 0.5));
+        entity->addComponent((Component*)new TextComponent("", Vector3(680,880,0), 0.5));
+        entity->addComponent((Component*)new TextComponent("", Vector3(-980,-980,0), 0.5));
+
 
         return entity;
     }

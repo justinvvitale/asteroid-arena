@@ -7,6 +7,7 @@
 #include "../GameState.h"
 #include "../../core/Game.h"
 #include "../../core/ecs/systems/MeshRendererSystem.h"
+#include "../../core/Renderer.h"
 
 void MediatorScript::start() {
     message = new TextComponent("X");
@@ -31,9 +32,11 @@ void MediatorScript::update() {
                 MeshRendererSystem::setEnabled(true);
                 getEntity()->removeComponent(message);
                 getEntity()->removeComponent(anyKey);
+                Renderer::drawParticles = true;
                 break;
             case GameState::Dead: // Game over, man
                 MeshRendererSystem::setEnabled(false);
+                Renderer::drawParticles = false;
 
                 message->setText("You Died");
                 message->setPosition(Vector3(-270,0,0));

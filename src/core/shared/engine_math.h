@@ -163,5 +163,4 @@ public:
     }
 };
 
-
 #endif //I3D_ENGINE_ENGINE_MATH_H

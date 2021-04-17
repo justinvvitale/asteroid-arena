@@ -17,7 +17,7 @@ Scene* getScene() {
     scene->addEntity(ShipEntity::getEntity());
     scene->addEntity(ScoreManagerEntity::getEntity());
 
-    Entity* waveManagerEntity = new Entity();
+    Entity* waveManagerEntity = new Entity("wave");
     waveManagerEntity->addComponent(new AsteroidWaveScript());
 
     scene->addEntity(waveManagerEntity);

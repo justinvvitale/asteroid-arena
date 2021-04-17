@@ -10,6 +10,8 @@
 
 class Renderer {
 public:
+    static bool drawParticles;
+
     static void renderMeshData(const Mesh& mesh);
 
     static void renderParticle(const Particle* particle);

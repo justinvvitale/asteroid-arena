@@ -4,6 +4,8 @@
 
 #include "AsteroidScript.h"
 #include "../GAMECONFIG.h"
+#include "../../core/shared/engine_math.h"
+#include "../../core/ecs/components/RigidbodyComponent.h"
 
 AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, bool canSplit) {
     this->mgr = mgr;
@@ -20,7 +22,13 @@ void AsteroidScript::start() {
 
 void AsteroidScript::update() {
 
+    if(!didCollideArenaOuter){
+        this->primed = true;
+    }
+
+    didCollideArenaOuter = false;
 }
+
 
 float AsteroidScript::getRadius() const {
     return radius;
@@ -31,18 +39,40 @@ float AsteroidScript::getSpeed() const {
 }
 
 void AsteroidScript::onCollision(Entity* other) {
-    if(other->getTag() == "bullet"){
+    if (other->getTag() == "bullet") {
         other->destroy();
         health -= SHIP_BULLET_DAMAGE;
 
-        if(health <= 0){
+        if (health <= 0) {
             // Create two new asteroids
-            if(canSplit){
-                mgr->splitAsteroid(this->getEntity());
-            }else{
+            if (canSplit) {
+                mgr->splitAsteroid(this->getEntity(), true);
+            } else {
                 mgr->destroyAsteroid(this->getEntity(), true);
 
             }
         }
     }
+
+    if (other->getTag() == "arena") {
+        didCollideArenaOuter = true;
+    }
+
+    if (primed && other->getTag() == "asteroid") {
+        other->getRotation();
+        RigidbodyComponent* rigid = dynamic_cast<RigidbodyComponent*>(this->getEntity()->getComponentOfType(
+                ComponentType::CRigidbody));
+        Vector3 vel = rigid->getVelocity();
+        rigid->clearVelocity();
+        rigid->addForce(vel.opposite());
+    }
+}
+
+bool AsteroidScript::isPrimed() {
+    return primed;
+}
+
+void AsteroidScript::resetPrimed() {
+    this->primed = false;
+    didCollideArenaOuter = true;
 }

@@ -30,7 +30,7 @@ private:
 
 public:
     static Entity* getEntity(float radius) {
-        Entity* entity = new Entity();
+        Entity* entity = new Entity("asteroid");
 
         MeshComponent* meshRenderer = new MeshComponent();
         meshRenderer->setMesh(getAsteroidModel(radius, getRandomNumber(ASTEROID_SEGMENTS_MIN, ASTEROID_SEGMENTS_MAX), ASTEROID_RADIUS_VARIATION_RANGE));

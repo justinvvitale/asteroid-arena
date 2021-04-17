@@ -34,7 +34,7 @@ const float SHIP_SHOOT_VELOCITY = 5; // Speed which bullets shoot
 const int SHIP_SHOOT_COOLDOWN = 150; // MS seconds between shooting
 const float SHIP_ACCELERATION = 0.9f; // % increase * dt
 const float SHIP_DECELERATION = 0.7f; // % decrease * dt
-const float SHIP_TURN_SPEED = 400;
+const float SHIP_TURN_SPEED = 340;
 
 const char SHIP_FORWARD_KEY = 'w';
 const char SHIP_TURN_LEFT_KEY = 'a';
@@ -63,6 +63,14 @@ const float ASTEROID_MAX_ROTATION = 50; // Max speed of asteroid rotation
 const float ASTEROID_RADIUS_VARIATION_RANGE = 30; // The range += the that radius can vary per point
 const Vector3 ASTEROID_COLOUR = Vector3(0.3, 0.3, 0.3);
 const bool ASTEROID_SOLID = true;
+
+// Asteroid destroyed particles
+const int ASTEROID_PARTICLE_DESTROY_COUNT = 40;
+const int ASTEROID_PARTICLE_VELOCITY_RANGE = 340;
+const int ASTEROID_PARTICLE_LIFESPAN = 2000;
+const int ASTEROID_PARTICLE_LIFESPAN_VARIATION = 700;
+
+
 
 // Debug (Not directly related to engine)
 const bool DEBUG_DRAW_LAUNCH_CIRCLE = false;
