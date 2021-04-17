@@ -36,6 +36,7 @@ public:
     static float dt;
 
     // State variable which is determined/used by implementation
+    static bool paused;
     static int state;
 
     static long int elapsed; // MS

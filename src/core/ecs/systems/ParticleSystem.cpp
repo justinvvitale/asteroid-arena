@@ -3,7 +3,6 @@
 //
 
 #include "ParticleSystem.h"
-#include "../../Game.h"
 #include "../../Renderer.h"
 
 std::list<Particle*> ParticleSystem::particles = std::list<Particle*>();

@@ -11,7 +11,7 @@
 
 void MediatorScript::start() {
     message = new TextComponent("X");
-    anyKey = new TextComponent("Press any key to continue", Vector3(-500, -200, 0), 0.6);
+    anyKey = new TextComponent("Press any key to continue...", Vector3(-560, -200, 0), 0.6);
 }
 
 void MediatorScript::update() {
@@ -22,8 +22,8 @@ void MediatorScript::update() {
         switch (curState) {
             case GameState::Initial: // Initial
                 MeshRendererSystem::setEnabled(false);
-                message->setText("Welcome to Space Wars");
-                message->setPosition(Vector3(-800, 0, 0));
+                message->setText("Welcome to Asteroid Arena");
+                message->setPosition(Vector3(-890, 0, 0));
 
                 getEntity()->addComponent(message);
                 getEntity()->addComponent(anyKey);
@@ -32,14 +32,14 @@ void MediatorScript::update() {
                 MeshRendererSystem::setEnabled(true);
                 getEntity()->removeComponent(message);
                 getEntity()->removeComponent(anyKey);
-                Renderer::drawParticles = true;
+                Game::paused = false;
                 break;
             case GameState::Dead: // Game over, man
                 MeshRendererSystem::setEnabled(false);
-                Renderer::drawParticles = false;
+                Game::paused = true;
 
-                message->setText("You Died");
-                message->setPosition(Vector3(-270, 0, 0));
+                message->setText("Game Over");
+                message->setPosition(Vector3(-360, 0, 0));
 
                 getEntity()->addComponent(message);
                 getEntity()->addComponent(anyKey);

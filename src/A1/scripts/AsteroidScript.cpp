@@ -4,7 +4,6 @@
 
 #include "AsteroidScript.h"
 #include "../GAMECONFIG.h"
-#include "../../core/shared/engine_math.h"
 #include "../../core/ecs/components/RigidbodyComponent.h"
 
 AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, bool canSplit) {
@@ -58,17 +57,20 @@ void AsteroidScript::onCollision(Entity* other) {
         didCollideArenaOuter = true;
     }
 
-    if (primed && other->getTag() == "asteroid") {
-        other->getRotation();
-        RigidbodyComponent* rigid = dynamic_cast<RigidbodyComponent*>(this->getEntity()->getComponentOfType(
-                ComponentType::CRigidbody));
-        Vector3 vel = rigid->getVelocity();
-        rigid->clearVelocity();
-        rigid->addForce(vel.opposite());
+
+    if(ASTEROID_COLLISION) {
+        if (primed && other->getTag() == "asteroid") {
+            other->getRotation();
+            RigidbodyComponent* rigid = dynamic_cast<RigidbodyComponent*>(this->getEntity()->getComponentOfType(
+                    ComponentType::CRigidbody));
+            Vector3 vel = rigid->getVelocity();
+            rigid->clearVelocity();
+            rigid->addForce(vel.opposite());
+        }
     }
 }
 
-bool AsteroidScript::isPrimed() {
+bool AsteroidScript::isPrimed() const {
     return primed;
 }
 

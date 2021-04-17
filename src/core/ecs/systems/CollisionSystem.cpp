@@ -4,6 +4,7 @@
 
 #include "CollisionSystem.h"
 #include "../components/ScriptComponent.h"
+#include "../../Game.h"
 
 CollisionSystem::CollisionSystem() : System(ComponentType::CCollider) {
 
@@ -14,6 +15,8 @@ void CollisionSystem::init() {
 
 void CollisionSystem::process(std::list<Component*> items) {
 
+    if(Game::paused) return;
+
     std::list<ColliderComponent*> colliders = std::list<ColliderComponent*>();
 
     for (Component* component : items) {
@@ -21,7 +24,7 @@ void CollisionSystem::process(std::list<Component*> items) {
         colliders.push_back(collider);
     }
 
-    // TODO prevent duplicate checks for checking same colliders twice
+    // TODO Could be improved but performance is OK, comparing entity types which should collide is a potential improvement
     for (ColliderComponent* collider : colliders) {
         for (ColliderComponent* otherCollider : colliders) {
             // Ignore if is same collider

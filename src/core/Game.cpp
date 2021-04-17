@@ -36,6 +36,7 @@ long int Game::elapsedSeconds = 0;
 
 long int Game::lastSecondCheck = -1;
 
+bool Game::paused = false;
 bool Game::restartRequested = false;
 
 Engine* Game::engine = nullptr;
@@ -133,6 +134,7 @@ void Game::idle() {
         engine->resetSystems();
         engine->setScene(getDefaultScene());
         restartRequested = false;
+        paused = false;
     }
 
     // State variables

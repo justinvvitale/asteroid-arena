@@ -11,7 +11,6 @@
 class BulletEntity {
 private:
     static Mesh getModel() {
-//        return MeshHelper::getHexagonMesh(10);
         Mesh mesh;
         mesh.mode = GL_POINTS;
         mesh.data = {

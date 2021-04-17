@@ -28,7 +28,7 @@ public:
 
     float getSpeed() const;
 
-    bool isPrimed();
+    bool isPrimed() const;
 
 protected:
     void start() override;
