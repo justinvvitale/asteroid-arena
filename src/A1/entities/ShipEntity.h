@@ -5,7 +5,6 @@
 #ifndef I3D_SHIPENTITY_H
 #define I3D_SHIPENTITY_H
 
-#include <freeglut.h>
 #include "../GAMECONFIG.h"
 #include "../scripts/PlayerControllerScript.h"
 #include "../../core/ecs/components/ColliderComponent.h"

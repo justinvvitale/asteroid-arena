@@ -69,14 +69,14 @@ void AsteroidWaveScript::update() {
 }
 
 Vector3 AsteroidWaveScript::getPositionOutOfArena(float payloadSize) const {
-    float angle = rand() * PI * 2;
+    float angle = (float)(rand() * PI * 2);
     return {cos(angle) * (launchRadius + payloadSize), sin(angle) * (launchRadius + payloadSize), 0};
 }
 
 void AsteroidWaveScript::spawnAsteroid() {
     // Fetch and calculate variables
     float speed = getRandomNumber(ASTEROID_MIN_SPEED, ASTEROID_MAX_SPEED);
-    float radius = ASTEROID_MIN_RADIUS + (rand() % static_cast<int>(ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS + 1));
+    float radius = ASTEROID_MIN_RADIUS + (float)(rand() % static_cast<int>(ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS + 1));
     Vector3 position = getPositionOutOfArena(radius); // Set rotation to either left/right and to config values
     float rotation = getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION);
     Vector3 force = VectorUtil::Normalize(playerRef->getPosition() - position) * speed;
@@ -127,10 +127,10 @@ void AsteroidWaveScript::splitAsteroid(Entity* asteroid, bool scored) {
 
     spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * brokenRadius,
                   asteroid->getPosition() + Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE, 0, 0), speed,
-                  brokenRadius, 0, forceL, false);
+                  brokenRadius, rigid->getSpin() * 1.2, forceL, false);
     spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * brokenRadius,
                   asteroid->getPosition() - Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE, 0, 0), speed,
-                  brokenRadius, 0, forceR, false);
+                  brokenRadius, rigid->getSpin() * 1.2, forceR, false);
 
 
     destroyAsteroid(asteroid, scored);
@@ -143,8 +143,8 @@ void AsteroidWaveScript::destroyAsteroid(Entity* asteroid, bool scored) {
                 (float) getRandomNumber(-ASTEROID_PARTICLE_VELOCITY_RANGE, ASTEROID_PARTICLE_VELOCITY_RANGE),
                 (float) getRandomNumber(-ASTEROID_PARTICLE_VELOCITY_RANGE, ASTEROID_PARTICLE_VELOCITY_RANGE), 0);
 
-        ParticleSystem::emit(new Particle(vel, ASTEROID_PARTICLE_LIFESPAN +
-                                               getRandomNumber(-ASTEROID_PARTICLE_LIFESPAN_VARIATION,
+        ParticleSystem::emit(new Particle(vel, (float)ASTEROID_PARTICLE_LIFESPAN +
+                                                               (float)getRandomNumber(-ASTEROID_PARTICLE_LIFESPAN_VARIATION,
                                                                ASTEROID_PARTICLE_LIFESPAN_VARIATION), 1, 4,
                                           MeshHelper::getHexagonMesh(3, ASTEROID_COLOUR)), asteroid->getPosition());
     }

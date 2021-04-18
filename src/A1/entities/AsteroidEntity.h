@@ -19,10 +19,10 @@ private:
         mesh.mode = ASTEROID_SOLID ? GL_POLYGON : GL_LINE_LOOP;
         mesh.colour = ASTEROID_COLOUR;
 
-        for (int i = 0; i < 360; i += 360 / sections) {
+        for (int i = 0; i < 360; i += (int)(360.0 / sections)) {
             float pointRadius = getRandomNumber(radius, radius + randRange);
 
-            mesh.data.emplace_back(cos(i * DEG_TO_RAD) * pointRadius, sin(i * DEG_TO_RAD) * pointRadius, 0);
+            mesh.data.emplace_back((float)cos(i * DEG_TO_RAD) * pointRadius, (float)sin(i * DEG_TO_RAD) * pointRadius, 0);
         }
 
         return mesh;

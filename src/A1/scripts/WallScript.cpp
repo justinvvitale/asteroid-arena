@@ -4,7 +4,6 @@
 
 #include "WallScript.h"
 #include "../GAMECONFIG.h"
-#include "../../core/ENGINECONFIG.h"
 #include "../../core/Game.h"
 #include "../../core/ecs/components/RigidbodyComponent.h"
 #include "AsteroidScript.h"
@@ -79,11 +78,11 @@ void WallScript::onCollision(Entity* other) {
 
             Vector3 asteroidPosition = other->getPosition();
 
-            float minDistBottomTop = std::min(
+            float minDistBottomTop = min(
                     VectorUtil::DistanceFromLine(topLeftVert, topRightVert, asteroidPosition),
                     VectorUtil::DistanceFromLine(bottomLeftVert, bottomRightVert, asteroidPosition)
             );
-            float minDistLeftRight = std::min(
+            float minDistLeftRight = min(
                     VectorUtil::DistanceFromLine(topLeftVert, bottomLeftVert, asteroidPosition),
                     VectorUtil::DistanceFromLine(topRightVert, bottomRightVert, asteroidPosition)
             );

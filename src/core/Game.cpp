@@ -4,7 +4,6 @@
 
 #include "Game.h"
 #include "input/KeyRegistry.h"
-#include "ENGINECONFIG.h"
 
 #if _WIN32
 
@@ -20,7 +19,6 @@
 #   include <GL/gl.h>
 #   include <GL/glu.h>
 #   include <GL/glut.h>
-#include <freeglut.h>
 
 #endif
 
@@ -51,13 +49,12 @@ void Game::start(int argc, char** argv, const std::string& name, Scene* (* defau
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-    glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
 
     glutInitWindowSize(1000, 1000);
 
     glutCreateWindow(name.c_str());
 
-    //glutFullScreen();
+    glutFullScreen();
 
     init();
     KeyRegistry::init();
@@ -156,6 +153,10 @@ void Game::idle() {
         lastSecondCheck = elapsedSeconds;
 
         performEntityCleanup();
+    }
+
+    if(KeyRegistry::isPressed(27)){
+        exit(0);
     }
 
     glutPostRedisplay();

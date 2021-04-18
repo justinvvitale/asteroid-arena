@@ -25,7 +25,7 @@ struct Vector3 {
         this->z = z;
     }
 
-    Vector3 opposite() {
+    Vector3 opposite() const {
         return {-x, -y, -z};
     }
 
@@ -66,7 +66,7 @@ struct Rotation {
 
     Rotation() = default;
 
-    Rotation(float angle) {
+    explicit Rotation(float angle) {
         this->z = 1;
         this->angle = angle;
     }
@@ -87,7 +87,7 @@ struct Rotation {
         this->angle += inc;
     }
 
-    float getAngle() {
+    float getAngle() const {
         return angle;
     };
 

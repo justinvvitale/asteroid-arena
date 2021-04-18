@@ -5,7 +5,6 @@
 #ifndef I3D_ARENAENTITY_H
 #define I3D_ARENAENTITY_H
 
-#include <freeglut.h>
 #include "../GAMECONFIG.h"
 #include "../../core/ecs/components/MeshComponent.h"
 #include "../scripts/WallScript.h"

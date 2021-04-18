@@ -7,8 +7,20 @@
 
 #include "engine_math.h"
 #include "../ENGINECONFIG.h"
-#include <freeglut.h>
 #include <list>
+
+#if _WIN32
+#   include <Windows.h>
+#endif
+#if __APPLE__
+#   include <OpenGL/gl.h>
+#   include <OpenGL/glu.h>
+#   include <GLUT/glut.h>
+#else
+#   include <GL/gl.h>
+#   include <GL/glu.h>
+#   include <GL/glut.h>
+#endif
 
 enum MeshDataType {
     primitive,
@@ -24,7 +36,7 @@ typedef struct MeshData {
         data = Vector3(x, y, z);
     }
 
-    MeshData(Vector3 position) {
+    explicit MeshData(Vector3 position) {
         this->dataType = MeshDataType::primitive;
         data = position;
     }
@@ -54,7 +66,7 @@ public:
         mesh.colour = colour;
 
         for (int i = 0; i < 360; i++) {
-            mesh.data.emplace_back(MeshData(cos(i * DEG_TO_RAD) * radius, sin(i * DEG_TO_RAD) * radius, 0));
+            mesh.data.emplace_back(MeshData((float)cos(i * DEG_TO_RAD) * radius, (float)sin(i * DEG_TO_RAD) * radius, 0));
         }
 
         return mesh;

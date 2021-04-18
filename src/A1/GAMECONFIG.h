@@ -23,7 +23,7 @@ const float ARENA_WARN_DIST = 250;
 
 // Ship
 const int SHIP_SIZE = 70;
-const float SHIP_COLLIDER_RELAX = 0.5f; // How much % smaller collider should be, allows more friendly collision detection.
+const float SHIP_COLLIDER_RELAX = 0.7f; // How much % smaller collider should be, allows more friendly collision detection.
 
 const Vector3 SHIP_COLOUR = Vector3(0, 0, 0);
 const Vector3 SHIP_COLOUR_OUTLINE = Vector3(1, 1, 1);
