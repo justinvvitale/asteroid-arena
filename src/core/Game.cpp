@@ -54,7 +54,7 @@ void Game::start(int argc, char** argv, const std::string& name, Scene* (* defau
 
     glutCreateWindow(name.c_str());
 
-    //glutFullScreen();
+    glutFullScreen();
 
     init();
     KeyRegistry::init();
