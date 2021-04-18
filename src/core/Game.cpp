@@ -63,6 +63,8 @@ void Game::start(int argc, char** argv, const std::string& name, Scene* (* defau
     glutDisplayFunc(Game::display);
     glutReshapeFunc(Game::reshape);
     glutIdleFunc(Game::idle);
+
+    glutMouseFunc(KeyRegistry::mouse);
     glutKeyboardFunc(KeyRegistry::keyPress);
     glutKeyboardUpFunc(KeyRegistry::keyUp);
 

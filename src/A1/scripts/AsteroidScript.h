@@ -14,6 +14,9 @@ class AsteroidScript : public ScriptComponent {
 private:
     float health;
 
+    int alive = 0;
+    int lastSecondCheck = -1;
+
     float radius;
     float speed;
 

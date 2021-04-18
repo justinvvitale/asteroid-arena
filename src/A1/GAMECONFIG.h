@@ -39,7 +39,6 @@ const float SHIP_TURN_SPEED = 340;
 const char SHIP_FORWARD_KEY = 'w';
 const char SHIP_TURN_LEFT_KEY = 'a';
 const char SHIP_TURN_RIGHT_KEY = 'd';
-const char SHIP_SHOOT_KEY = 32;
 
 // WaveManagement
 const int ASTEROID_WAVE_CD = 2000; // Wait X ms before next wave

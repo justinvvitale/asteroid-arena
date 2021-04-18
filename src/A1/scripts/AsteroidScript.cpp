@@ -5,6 +5,7 @@
 #include "AsteroidScript.h"
 #include "../GAMECONFIG.h"
 #include "../../core/ecs/components/RigidbodyComponent.h"
+#include "../../core/Game.h"
 
 AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, bool canSplit) {
     this->mgr = mgr;
@@ -16,12 +17,18 @@ AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radi
 }
 
 void AsteroidScript::start() {
-
+    lastSecondCheck = Game::elapsedSeconds;
 }
 
 void AsteroidScript::update() {
+    int elapsedSeconds = Game::elapsedSeconds;
+    if(lastSecondCheck != Game::elapsedSeconds){
+        this->alive++;
+        lastSecondCheck = elapsedSeconds;
+    }
 
-    if (!didCollideArenaOuter) {
+    // Prime once hasn't collided and been alive for atleast 2 seconds
+    if (!didCollideArenaOuter && alive >= 2) {
         this->primed = true;
     }
 

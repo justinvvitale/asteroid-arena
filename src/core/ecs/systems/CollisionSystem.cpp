@@ -14,9 +14,6 @@ void CollisionSystem::init() {
 }
 
 void CollisionSystem::process(std::list<Component*> items) {
-
-    if(Game::paused) return;
-
     std::list<ColliderComponent*> colliders = std::list<ColliderComponent*>();
 
     for (Component* component : items) {

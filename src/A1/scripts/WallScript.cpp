@@ -24,15 +24,23 @@ void WallScript::start() {
 }
 
 void WallScript::update() {
-    Vector3 playerPos = Game::getEntity("player")->getPosition();
-
     int prevWarns = topWarn + bottomWarn + leftWarn + rightWarn;
 
-    topWarn = VectorUtil::DistanceFromLine(topLeftVert, topRightVert, playerPos) <= ARENA_WARN_DIST;
-    bottomWarn = VectorUtil::DistanceFromLine(bottomLeftVert, bottomRightVert, playerPos) <= ARENA_WARN_DIST;
-    leftWarn = VectorUtil::DistanceFromLine(topLeftVert, bottomLeftVert, playerPos) <= ARENA_WARN_DIST;
-    rightWarn = VectorUtil::DistanceFromLine(topRightVert, bottomRightVert, playerPos) <= ARENA_WARN_DIST;
 
+    if(Game::paused){
+        topWarn = false;
+        bottomWarn = false;
+        leftWarn = false;
+        rightWarn = false;
+
+    }else {
+        Vector3 playerPos = Game::getEntity("player")->getPosition();
+
+        topWarn = VectorUtil::DistanceFromLine(topLeftVert, topRightVert, playerPos) <= ARENA_WARN_DIST;
+        bottomWarn = VectorUtil::DistanceFromLine(bottomLeftVert, bottomRightVert, playerPos) <= ARENA_WARN_DIST;
+        leftWarn = VectorUtil::DistanceFromLine(topLeftVert, bottomLeftVert, playerPos) <= ARENA_WARN_DIST;
+        rightWarn = VectorUtil::DistanceFromLine(topRightVert, bottomRightVert, playerPos) <= ARENA_WARN_DIST;
+    }
     int currentWarns = topWarn + bottomWarn + leftWarn + rightWarn;
 
     // Only redraw (probably costly) if something has changed

@@ -42,8 +42,6 @@ void Renderer::renderMeshData(const Mesh& mesh) {
 }
 
 void Renderer::renderParticle(const Particle* particle) {
-    if (Game::paused) return;
-
     glPushMatrix();
     move(particle->position);
     scale(particle->scale);

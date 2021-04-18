@@ -7,7 +7,6 @@
 #include "../GameState.h"
 #include "../../core/Game.h"
 #include "../../core/ecs/systems/MeshRendererSystem.h"
-#include "../../core/Renderer.h"
 
 void MediatorScript::start() {
     message = new TextComponent("X");
@@ -35,11 +34,15 @@ void MediatorScript::update() {
                 Game::paused = false;
                 break;
             case GameState::Dead: // Game over, man
-                MeshRendererSystem::setEnabled(false);
                 Game::paused = true;
 
                 message->setText("Game Over");
                 message->setPosition(Vector3(-360, 0, 0));
+
+                // Strip player of stuff which can mess up visuals but still allow it to exist (for particles)
+                Entity* player = Game::getEntity("player");
+                player->removeComponent(player->getComponentOfType(ComponentType::CCollider));
+                player->removeComponent(player->getComponentOfType(ComponentType::CMesh));
 
                 getEntity()->addComponent(message);
                 getEntity()->addComponent(anyKey);

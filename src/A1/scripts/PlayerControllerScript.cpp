@@ -6,6 +6,7 @@
 #include "../GAMECONFIG.h"
 #include "../entities/BulletEntity.h"
 #include "../GameState.h"
+#include "../../core/ecs/systems/ParticleSystem.h"
 
 
 void PlayerControllerScript::start() {
@@ -28,7 +29,7 @@ void PlayerControllerScript::update() {
 
     // Shooting..
     if (elapsed - lastShoot >= SHIP_SHOOT_COOLDOWN) {
-        if (KeyRegistry::isPressed(SHIP_SHOOT_KEY)) {
+        if (KeyRegistry::isPrimaryMousePressed()) {
             Game::getEngine()->getScene()->addEntity(BulletEntity::getEntity(player->getWorldPosition(),
                                                                              VectorUtil::GetForwardVector(rot) *
                                                                              SHIP_MAX_SPEED * SHIP_SHOOT_VELOCITY));
@@ -83,6 +84,17 @@ void PlayerControllerScript::update() {
 void PlayerControllerScript::onCollision(Entity* other) {
     if (other->getTag() == "bullet") {
         return;
+    }
+
+    for(int i = 0; i < 100; i++){
+        Vector3 vel = Vector3(
+                (float) getRandomNumber(-200, 200),
+                (float) getRandomNumber(-200, 200), 0);
+
+        ParticleSystem::emit(new Particle(vel, (float)2000 +
+                                               (float)getRandomNumber(-1000,
+                                                                      1000), 2.5, 0.5,
+                                          MeshHelper::getHexagonMesh((float) SHIP_SIZE / 8, Vector3(1, 0.3, 0))), this->getEntity()->getPosition());
     }
 
     Game::state = GameState::Dead;

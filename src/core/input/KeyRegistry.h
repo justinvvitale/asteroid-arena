@@ -14,6 +14,9 @@ private:
     KeyRegistry() = default;
 
     static std::set<unsigned char>* keyState;
+
+    static bool primaryPressed;
+
 public:
     static void init();
 
@@ -21,12 +24,15 @@ public:
 
     static void keyUp(unsigned char key, int x, int y);
 
+    static void mouse(int button, int state, int x, int y);
+
     static void clear();
 
     static bool isPressed(unsigned char key);
 
     static std::vector<unsigned char> getPressed();
 
+    static bool isPrimaryMousePressed();
 };
 
 

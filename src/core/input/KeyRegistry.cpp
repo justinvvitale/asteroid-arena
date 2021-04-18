@@ -4,9 +4,15 @@
 
 #include "KeyRegistry.h"
 
+#if __APPLE__
+#   include <GLUT/glut.h>
+#else
+#   include <GL/glut.h>
+#endif
+
 // Initialize to nothing, should be set by init
 std::set<unsigned char>* KeyRegistry::keyState = nullptr;
-
+bool KeyRegistry::primaryPressed = false;
 
 void KeyRegistry::init() {
     keyState = new std::set<unsigned char>();
@@ -34,6 +40,16 @@ bool KeyRegistry::isPressed(unsigned char key) {
 
 std::vector<unsigned char> KeyRegistry::getPressed() {
     return std::vector<unsigned char>(keyState->begin(), keyState->end());
+}
+
+void KeyRegistry::mouse(int button, int state, int x, int y) {
+    if(button == GLUT_LEFT_BUTTON ){
+        primaryPressed = state == GLUT_DOWN ? true : false;
+    }
+}
+
+bool KeyRegistry::isPrimaryMousePressed() {
+    return primaryPressed;
 }
 
 
