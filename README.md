@@ -3,10 +3,12 @@ Interactive 3D Graphics and Animation (2110) – S1 2021
 Justin Vitale (s3718796)
 
 <Building & Running>
-	Source files are in vs/src, whereas the sln is located in /vs
+	Source files are in src, whereas the sln is located in /vs
 	Everything else is as provided by canvas (Example VS files), it should run.
+	
 	Note: There are no folder filters since I was using CLion and merely moved it over for submission. 
 	However, for a cleaner view, in VS, change the hierarchy to folder view, this is much neater.
+	
 	Ignore the warnings about casting, that is intended.
 
 <Controls>
@@ -23,7 +25,7 @@ Justin Vitale (s3718796)
 	mostly related to interactions between the wall and asteroids bouncing around, ah the R&G, I tried to fix majority of the quirks 
 	but not sure if any more will arise 😊.
 	
-	Config files are located vs/src/core/ENGINECONFIG.h and vs/src/A1/GAMECONFIG.h respectively
+	Config files are located src/core/ENGINECONFIG.h and src/A1/GAMECONFIG.h respectively
 	
 <Milestones>
 	I have completed/attempted the following:

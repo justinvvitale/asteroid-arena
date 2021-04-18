@@ -54,7 +54,7 @@ void Game::start(int argc, char** argv, const std::string& name, Scene* (* defau
 
     glutCreateWindow(name.c_str());
 
-    glutFullScreen();
+    //glutFullScreen();
 
     init();
     KeyRegistry::init();
@@ -79,7 +79,6 @@ void Game::init() {
     glCullFace(GL_BACK);
 
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_SCISSOR_TEST);
 
     glPointSize(POINT_SIZE);
 
@@ -107,8 +106,6 @@ void Game::reshape(int w, int h) {
         glOrtho(-1000 * aspectRatio, 1000 * aspectRatio, -1000, 1000, 1.0, -1.0);
         size = w / aspectRatio;
     }
-
-    glScissor((w / 2) - (size / 2), (h / 2) - (size / 2), size, size);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

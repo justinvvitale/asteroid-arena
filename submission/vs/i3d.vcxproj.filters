@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{e9b2b8c8-28b3-4eff-986f-98a1b2cd3417}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\A1\entities\ArenaEntity.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\A1\entities\AsteroidEntity.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\A1\entities\BulletEntity.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\A1\entities\MediatorEntity.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\A1\entities\ScoreManagerEntity.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\A1\entities\ShipEntity.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\A1\GAMECONFIG.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\A1\GameState.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\A1\scripts\AsteroidScript.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\A1\scripts\AsteroidWaveScript.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\A1\scripts\MediatorScript.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\A1\scripts\PlayerControllerScript.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\A1\scripts\ScoreScript.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\A1\scripts\WallScript.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\Component.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\components\ColliderComponent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\components\MeshComponent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\components\ParticleEmitterComponent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\components\RigidbodyComponent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\components\ScriptComponent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\components\TextComponent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\Entity.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\enums\ComponentType.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\System.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\systems\CollisionSystem.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\systems\MeshRendererSystem.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\systems\ParticleSystem.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\systems\ScriptProcessorSystem.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ecs\systems\TextRendererSystem.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\Engine.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\ENGINECONFIG.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\Game.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\input\KeyRegistry.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\Renderer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\Scene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\shared\engine_graphic.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\shared\engine_math.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\A1\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\A1\scripts\AsteroidScript.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\A1\scripts\AsteroidWaveScript.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\A1\scripts\MediatorScript.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\A1\scripts\PlayerControllerScript.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\A1\scripts\ScoreScript.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\A1\scripts\WallScript.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\ecs\Component.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\ecs\components\ColliderComponent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\ecs\components\MeshComponent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\ecs\components\ParticleEmitterComponent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\ecs\components\RigidbodyComponent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\ecs\components\ScriptComponent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\ecs\components\TextComponent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\ecs\Entity.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\ecs\systems\CollisionSystem.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\ecs\systems\MeshRendererSystem.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\ecs\systems\ParticleSystem.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\ecs\systems\ScriptProcessorSystem.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\ecs\systems\TextRendererSystem.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\Engine.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\Game.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\input\KeyRegistry.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\Renderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\Scene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

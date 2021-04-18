@@ -54,7 +54,8 @@ void AsteroidWaveScript::update() {
 
             float dist = VectorUtil::Distance(ast->getPosition(), Vector3::zero());
 
-            if (dist > launchRadius + ASTEROID_MAX_RADIUS) {
+            // If distance greater than launch radius and max radius and some buffer, then destroy
+            if (dist > launchRadius + ASTEROID_MAX_RADIUS + 500) {
                 Game::getEngine()->getScene()->removeEntity(ast);
                 Game::queueEntityCleanup(ast);
                 asteroids.erase(entityIter++);

@@ -17,24 +17,23 @@ public:
     static void addColliders(Entity* entity) {
         // We'll add one for each side
 
-        float bufferSize = 500;
+        float bufferSize = 1000;
         float halfWidth = ARENA_WIDTH / 2;
         float halfHeight = ARENA_HEIGHT / 2;
 
-        // This could be improved with a loop
-
+        // This could be improved with a loo
         // Left
-        ColliderComponent* leftCol = new ColliderComponent(bufferSize, ARENA_HEIGHT);
+        ColliderComponent* leftCol = new ColliderComponent(bufferSize, ARENA_HEIGHT*2);
         leftCol->setOffset(Vector3(-halfWidth - bufferSize / 2, 0, 0));
         // Right
-        ColliderComponent* rightCol = new ColliderComponent(bufferSize, ARENA_HEIGHT);
+        ColliderComponent* rightCol = new ColliderComponent(bufferSize, ARENA_HEIGHT*2);
         rightCol->setOffset(Vector3(halfWidth + bufferSize / 2, 0, 0));
         // Top
-        ColliderComponent* topCol = new ColliderComponent(ARENA_HEIGHT, bufferSize);
-        topCol->setOffset(Vector3(0, halfHeight + bufferSize / 2, 0));
+        ColliderComponent* topCol = new ColliderComponent(ARENA_HEIGHT, bufferSize*2);
+        topCol->setOffset(Vector3(0, halfHeight + bufferSize, 0));
         // Bottom
-        ColliderComponent* bottomCol = new ColliderComponent(ARENA_HEIGHT, bufferSize);
-        bottomCol->setOffset(Vector3(0, -halfHeight - bufferSize / 2, 0));
+        ColliderComponent* bottomCol = new ColliderComponent(ARENA_HEIGHT, bufferSize*2);
+        bottomCol->setOffset(Vector3(0, -halfHeight - bufferSize, 0));
 
         entity->addComponent(leftCol);
         entity->addComponent(rightCol);
@@ -59,6 +58,8 @@ public:
     }
 
     static void applyMasks(Scene* scene) {
+
+        if(!DRAW_OUTER_ARENA_MASK) return;
 
         float pad = 5;
         float dist = 100000;

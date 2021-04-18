@@ -28,7 +28,7 @@ void AsteroidScript::update() {
     }
 
     // Prime once hasn't collided and been alive for atleast 3 seconds
-    if (!canSplit || !didCollideArenaOuter && alive >= 3) {
+    if (!canSplit || !didCollideArenaOuter && alive >= 2) {
         this->primed = true;
     }
 
