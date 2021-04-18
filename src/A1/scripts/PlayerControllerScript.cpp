@@ -44,10 +44,10 @@ void PlayerControllerScript::update() {
         }
 
 
-        if (elapsed - lastParticleEmit >= 60) {
+        if (elapsed - lastParticleEmit >= SHIP_EXHAUST_DROP_RATE) {
             emitter->emit(
-                    new Particle(VectorUtil::GetForwardVector(this->getEntity()->getRotation()).opposite() * 200, 150,
-                                 2.5, 0.5,
+                    new Particle(VectorUtil::GetForwardVector(this->getEntity()->getRotation()).opposite() * SHIP_EXHAUST_SPEED, SHIP_EXHAUST_LIFE,
+                                 SHIP_EXHAUST_START_SIZE, SHIP_EXHAUST_END_SIZE,
                                  MeshHelper::getHexagonMesh((float) SHIP_SIZE / 8, Vector3(1, 0.3, 0))));
             lastParticleEmit = elapsed;
         }

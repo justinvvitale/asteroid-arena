@@ -36,6 +36,12 @@ const float SHIP_ACCELERATION = 0.9f; // % increase * dt
 const float SHIP_DECELERATION = 0.7f; // % decrease * dt
 const float SHIP_TURN_SPEED = 340;
 
+const int SHIP_EXHAUST_DROP_RATE = 60; // Drop exhaust every X ms
+const float SHIP_EXHAUST_START_SIZE = 2.5; // scale
+const float SHIP_EXHAUST_END_SIZE = 0.5; // scale
+const float SHIP_EXHAUST_LIFE = 150; // decay ms
+const float SHIP_EXHAUST_SPEED = 200; // decay ms
+
 const char SHIP_FORWARD_KEY = 'w';
 const char SHIP_TURN_LEFT_KEY = 'a';
 const char SHIP_TURN_RIGHT_KEY = 'd';
