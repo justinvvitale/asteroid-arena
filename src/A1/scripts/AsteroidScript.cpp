@@ -27,8 +27,8 @@ void AsteroidScript::update() {
         lastSecondCheck = elapsedSeconds;
     }
 
-    // Prime once hasn't collided and been alive for atleast 2 seconds
-    if (!didCollideArenaOuter && alive >= 2) {
+    // Prime once hasn't collided and been alive for atleast 3 seconds
+    if (!canSplit || !didCollideArenaOuter && alive >= 3) {
         this->primed = true;
     }
 
@@ -67,12 +67,14 @@ void AsteroidScript::onCollision(Entity* other) {
 
     if(ASTEROID_COLLISION) {
         if (primed && other->getTag() == "asteroid") {
-            other->getRotation();
             RigidbodyComponent* rigid = dynamic_cast<RigidbodyComponent*>(this->getEntity()->getComponentOfType(
                     ComponentType::CRigidbody));
-            Vector3 vel = rigid->getVelocity();
+
+            Vector3 impactPoint = VectorUtil::MidPoint(this->getEntity()->getWorldPosition(), other->getWorldPosition());
+            Vector3 force = VectorUtil::Normalize(this->getEntity()->getWorldPosition() - impactPoint) * this->speed;
+
             rigid->clearVelocity();
-            rigid->addForce(vel.opposite());
+            rigid->addForce(force);
         }
     }
 }

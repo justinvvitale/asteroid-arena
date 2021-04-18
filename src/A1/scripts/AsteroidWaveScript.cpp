@@ -114,23 +114,42 @@ void AsteroidWaveScript::splitAsteroid(Entity* asteroid, bool scored) {
 
     float brokenRadius = script->getRadius() / 2;
     float speed = script->getSpeed() / 2;
-    Vector3 direction = VectorUtil::Normalize(rigid->getVelocity());
 
-    float t = 45 * (PI / 180);
-    Vector3 forceL =
-            Vector3(direction.x * cos(t) - direction.y * sin(t), direction.x * sin(t) + direction.y * cos(t), 0) *
-            speed;
-    Vector3 forceR =
-            Vector3(direction.x * cos(-t) - direction.y * sin(-t), direction.x * sin(-t) + direction.y * cos(-t), 0) *
-            speed;
 
+    // Original 45 degree velocity code,
+//    Vector3 direction = VectorUtil::Normalize(rigid->getVelocity());
+//    float t = 45 * (PI / 180);
+//    Vector3 forceL =
+//            Vector3(direction.x * cos(t) - direction.y * sin(t), direction.x * sin(t) + direction.y * cos(t), 0) *
+//            speed;
+//    Vector3 forceR =
+//            Vector3(direction.x * cos(-t) - direction.y * sin(-t), direction.x * sin(-t) + direction.y * cos(-t), 0) *
+//            speed;
+
+    // Original LEFT/RIGHT split
+//    Vector3 posL = asteroid->getPosition() + Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE, 0, 0);
+//    Vector3 posR = asteroid->getPosition() - Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE, 0, 0);
+
+    srand((unsigned) time(nullptr));
+    float angle = getRandomNumber(0, 360);
+    Vector3 posL = Vector3(cos(angle) * (brokenRadius + 2), sin(angle) * (brokenRadius + 2), 0);
+    Vector3 posR = posL.opposite();
+
+    Vector3 astPos = asteroid->getWorldPosition();
+    posL = posL + astPos;
+    posR = posR + astPos;
+
+
+    Vector3 playerPos = asteroid->getWorldPosition();
+    Vector3 forceL = VectorUtil::Normalize(posL - playerPos) * speed;
+    Vector3 forceR  = VectorUtil::Normalize(posR - playerPos) * speed;
 
     spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * brokenRadius,
-                  asteroid->getPosition() + Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE, 0, 0), speed,
-                  brokenRadius, rigid->getSpin() * 1.2, forceL, false);
+                  posL , speed,
+                  brokenRadius, rigid->getSpin() * 1.2f, forceL, false);
     spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * brokenRadius,
-                  asteroid->getPosition() - Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE, 0, 0), speed,
-                  brokenRadius, rigid->getSpin() * 1.2, forceR, false);
+                  posR, speed,
+                  brokenRadius, rigid->getSpin() * 1.2f, forceR, false);
 
 
     destroyAsteroid(asteroid, scored);

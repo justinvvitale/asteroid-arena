@@ -108,6 +108,10 @@ inline int getRandomNumber(int min, int max) {
     return min + rand() % ((max + 1) - min);
 }
 
+inline bool getRandomBool() {
+    return getRandomNumber(0, 1);
+}
+
 inline float randomSign(float number) {
     return getRandomNumber(0, 1) == 1 ? -number : number;
 }
@@ -143,6 +147,10 @@ public:
 
     static float Magnitude(Vector3 vector) {
         return (float) sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
+    }
+
+    static Vector3 MidPoint(Vector3 v1, Vector3 v2) {
+        return {(v1.x + v2.x)/2, (v1.y + v2.y)/2, (v1.z + v2.z)/2};
     }
 
     static Vector3 Normalize(Vector3 vector) {

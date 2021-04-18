@@ -69,8 +69,8 @@ const float ASTEROID_RADIUS_VARIATION_RANGE = 30; // The range += the that radiu
 const Vector3 ASTEROID_COLOUR = Vector3(0.3, 0.3, 0.3);
 const bool ASTEROID_SOLID = true;
 
-// 4.2 Bouncies 2 (Not happy with it, kinda of lazy implementation but works)
-const bool ASTEROID_COLLISION = false;
+// 4.2 Bouncies 2 (Toggle)
+const bool ASTEROID_COLLISION = true;
 
 // Asteroid destroyed particles
 const int ASTEROID_PARTICLE_DESTROY_COUNT = 40;
@@ -78,8 +78,7 @@ const int ASTEROID_PARTICLE_VELOCITY_RANGE = 340;
 const int ASTEROID_PARTICLE_LIFESPAN = 2000;
 const int ASTEROID_PARTICLE_LIFESPAN_VARIATION = 700;
 
-
-// Debug (Not directly related to engine)
+// Debug (Not directly related to engine), only shows corners
 const bool DEBUG_DRAW_LAUNCH_CIRCLE = false;
 const Vector3 DEBUG_DRAW_LAUNCH_CIRCLE_COLOUR = Vector3(1, 0.5, 1);
 
