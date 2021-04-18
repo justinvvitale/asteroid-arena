@@ -16,7 +16,10 @@ Justin Vitale (s3718796)
 	Left mouse button - shoot
 	
 <Implementation Information>
-	Just a quick run down on how everything fits together, I am using a ECS architecture approach. There are Entities, which have multiple Components, these components add functionality to Entities, such as a mesh or a script (e.g PlayerControllerScript). The components are managed by systems (e.g MeshRendererSystem) whose job is to process each component of its respective type of each game cycle. 
+	Just a quick run down on how everything fits together, I am using a ECS architecture approach. 
+	There are Entities, which have multiple Components, these components add functionality to Entities, such as a mesh or a 
+	script (e.g PlayerControllerScript). The components are managed by systems (e.g MeshRendererSystem) 
+	whose job is to process each component of its respective type of each game cycle. 
 	
 	I have tried my best to keep the core game engine and the assignment specification separate, as you can probably tell by the A1 and core folder in 
 	the src folder. The only purpose of the A1 folder is providing data for the core (engine) and scripts (for entities).
