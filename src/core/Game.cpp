@@ -96,15 +96,14 @@ void Game::reshape(int w, int h) {
 
     float aspectRatio = (GLfloat) w / (GLfloat) h;
 
-
-    float size;
-
-    if (w <= h) {
-        glOrtho(-1000, 1000, -1000 / aspectRatio, 1000 / aspectRatio, 1.0, -1.0);
-        size = h * aspectRatio;
-    } else {
-        glOrtho(-1000 * aspectRatio, 1000 * aspectRatio, -1000, 1000, 1.0, -1.0);
-        size = w / aspectRatio;
+    if(is3D){
+        gluPerspective(45.0, aspectRatio, 1.0, 1000.0 );
+    }else{
+        if (w <= h) {
+            glOrtho(-1000, 1000, -1000 / aspectRatio, 1000 / aspectRatio, 1000, -1000);;
+        } else {
+            glOrtho(-1000 * aspectRatio, 1000 * aspectRatio, -1000, 1000, 1000, -1000);
+        }
     }
 
     glMatrixMode(GL_MODELVIEW);

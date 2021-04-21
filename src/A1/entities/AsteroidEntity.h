@@ -9,7 +9,7 @@
 #include "../../core/ecs/components/RigidbodyComponent.h"
 #include "../scripts/AsteroidScript.h"
 #include "../../core/ecs/components/MeshComponent.h"
-#include "../../core/ecs/components/ColliderComponent.h"
+#include "../../core/ecs/components/ColliderComponent2D.h"
 #include "../GAMECONFIG.h"
 
 class AsteroidEntity {
@@ -37,7 +37,7 @@ public:
                                                ASTEROID_RADIUS_VARIATION_RANGE));
         entity->addComponent(meshRenderer);
 
-        ColliderComponent* col = new ColliderComponent(radius);
+        ColliderComponent2D* col = new ColliderComponent2D(radius);
         entity->addComponent((Component*) col);
 
         RigidbodyComponent* rb = new RigidbodyComponent();

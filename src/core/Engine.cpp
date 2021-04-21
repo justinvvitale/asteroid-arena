@@ -5,9 +5,10 @@
 #include "Engine.h"
 #include "ecs/systems/MeshRendererSystem.h"
 #include "ecs/systems/ScriptProcessorSystem.h"
-#include "ecs/systems/CollisionSystem.h"
+#include "ecs/systems/CollisionSystem2D.h"
 #include "ecs/systems/ParticleSystem.h"
 #include "ecs/systems/TextRendererSystem.h"
+#include "ecs/systems/CollisionSystem3D.h"
 
 Engine::Engine() {
 
@@ -15,7 +16,12 @@ Engine::Engine() {
     ParticleSystem* particleSystem = new ParticleSystem();
 
     // Setup systems (Priority)
-    systems.emplace(ComponentType::CCollider, new CollisionSystem());
+    if(is3D){
+        systems.emplace(ComponentType::CCollider, new CollisionSystem3D());
+    }else{
+        systems.emplace(ComponentType::CCollider, new CollisionSystem2D());
+    }
+
     systems.emplace(ComponentType::CScript, new ScriptProcessorSystem());
     systems.emplace(ComponentType::CParticle, particleSystem);
 

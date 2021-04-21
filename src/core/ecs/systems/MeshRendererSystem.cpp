@@ -4,7 +4,7 @@
 
 #include <set>
 #include "MeshRendererSystem.h"
-#include "../components/ColliderComponent.h"
+#include "../components/ColliderComponent2D.h"
 #include "../../Renderer.h"
 
 bool MeshRendererSystem::enabled = true;
@@ -93,7 +93,7 @@ void MeshRendererSystem::debugRender(Entity* entity) {
 
         for (Component* colComp : colCompList) {
             if (colComp != nullptr) {
-                auto* collider = dynamic_cast<ColliderComponent*>(colComp);
+                auto* collider = dynamic_cast<ColliderComponent2D*>(colComp);
                 Vector3 offset = collider->getOffset();
 
                 Renderer::move(offset);

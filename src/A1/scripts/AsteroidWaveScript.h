@@ -9,7 +9,7 @@
 #include <set>
 #include "../../core/ecs/components/ScriptComponent.h"
 #include "ScoreScript.h"
-#include "../../core/ecs/components/ColliderComponent.h"
+#include "../../core/ecs/components/ColliderComponent2D.h"
 
 class AsteroidWaveScript : public ScriptComponent {
 private:

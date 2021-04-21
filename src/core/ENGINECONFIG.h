@@ -8,6 +8,8 @@
 // Colours are defined as a vector3 (R, G, B) from a value from 0-1
 const Vector3 DEFAULT_COLOUR = Vector3(1, 1, 1);
 
+const bool is3D = true;
+
 const float POINT_SIZE = 5;
 
 // Debugging

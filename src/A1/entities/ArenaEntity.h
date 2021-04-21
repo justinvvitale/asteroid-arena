@@ -8,7 +8,7 @@
 #include "../GAMECONFIG.h"
 #include "../../core/ecs/components/MeshComponent.h"
 #include "../scripts/WallScript.h"
-#include "../../core/ecs/components/ColliderComponent.h"
+#include "../../core/ecs/components/ColliderComponent2D.h"
 
 class ArenaEntity {
 private:
@@ -23,16 +23,16 @@ public:
 
         // This could be improved with a loo
         // Left
-        ColliderComponent* leftCol = new ColliderComponent(bufferSize, ARENA_HEIGHT*2);
+        ColliderComponent2D* leftCol = new ColliderComponent2D(bufferSize, ARENA_HEIGHT*2);
         leftCol->setOffset(Vector3(-halfWidth - bufferSize / 2, 0, 0));
         // Right
-        ColliderComponent* rightCol = new ColliderComponent(bufferSize, ARENA_HEIGHT*2);
+        ColliderComponent2D* rightCol = new ColliderComponent2D(bufferSize, ARENA_HEIGHT*2);
         rightCol->setOffset(Vector3(halfWidth + bufferSize / 2, 0, 0));
         // Top
-        ColliderComponent* topCol = new ColliderComponent(ARENA_HEIGHT, bufferSize*2);
+        ColliderComponent2D* topCol = new ColliderComponent2D(ARENA_HEIGHT, bufferSize*2);
         topCol->setOffset(Vector3(0, halfHeight + bufferSize, 0));
         // Bottom
-        ColliderComponent* bottomCol = new ColliderComponent(ARENA_HEIGHT, bufferSize*2);
+        ColliderComponent2D* bottomCol = new ColliderComponent2D(ARENA_HEIGHT, bufferSize*2);
         bottomCol->setOffset(Vector3(0, -halfHeight - bufferSize, 0));
 
         entity->addComponent(leftCol);

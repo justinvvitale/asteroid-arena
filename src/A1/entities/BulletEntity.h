@@ -6,7 +6,7 @@
 #define I3D_BULLETENTITY_H
 
 #include "../../core/ecs/components/RigidbodyComponent.h"
-#include "../../core/ecs/components/ColliderComponent.h"
+#include "../../core/ecs/components/ColliderComponent2D.h"
 
 class BulletEntity {
 private:
@@ -30,7 +30,7 @@ public:
         meshRenderer->setMesh(getModel());
         entity->addComponent(meshRenderer);
 
-        ColliderComponent* col = new ColliderComponent(POINT_SIZE);
+        ColliderComponent2D* col = new ColliderComponent2D(POINT_SIZE);
 
         RigidbodyComponent* rb = new RigidbodyComponent();
         rb->addForce(force);

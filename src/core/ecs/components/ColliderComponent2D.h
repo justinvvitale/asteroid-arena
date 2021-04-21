@@ -2,21 +2,21 @@
 // Created by dim on 22/03/2021.
 //
 
-#ifndef I3D_COLLIDERCOMPONENT_H
-#define I3D_COLLIDERCOMPONENT_H
+#ifndef I3D_COLLIDERCOMPONENT2D_H
+#define I3D_COLLIDERCOMPONENT2D_H
 
 #include <tuple>
 #include "../Component.h"
 
-enum ColliderType {
+enum ColliderType2D {
     circlePos,
     square
 };
 
 
-class ColliderComponent : public Component {
+class ColliderComponent2D : public Component {
 private:
-    ColliderType type;
+    ColliderType2D type;
 
     Vector3 offset = Vector3::zero();
 
@@ -25,11 +25,11 @@ private:
     float width = 0;
     float height = 0;
 public:
-    explicit ColliderComponent(float radius);
+    explicit ColliderComponent2D(float radius);
 
-    ColliderComponent(float width, float height);
+    ColliderComponent2D(float width, float height);
 
-    ColliderType getCollisionType();
+    ColliderType2D getCollisionType();
 
     void setOffset(Vector3 offsetIn);
 
@@ -41,4 +41,4 @@ public:
 };
 
 
-#endif //I3D_COLLIDERCOMPONENT_H
+#endif //I3D_COLLIDERCOMPONENT2D_H

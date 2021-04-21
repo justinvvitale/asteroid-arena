@@ -2,28 +2,28 @@
 // Created by dim on 22/03/2021.
 //
 
-#include "CollisionSystem.h"
+#include "CollisionSystem2D.h"
 #include "../components/ScriptComponent.h"
 #include "../../Game.h"
 
-CollisionSystem::CollisionSystem() : System(ComponentType::CCollider) {
+CollisionSystem2D::CollisionSystem2D() : System(ComponentType::CCollider) {
 
 }
 
-void CollisionSystem::init() {
+void CollisionSystem2D::init() {
 }
 
-void CollisionSystem::process(std::list<Component*> items) {
-    std::list<ColliderComponent*> colliders = std::list<ColliderComponent*>();
+void CollisionSystem2D::process(std::list<Component*> items) {
+    std::list<ColliderComponent2D*> colliders = std::list<ColliderComponent2D*>();
 
     for (Component* component : items) {
-        ColliderComponent* collider = dynamic_cast<ColliderComponent*>(component);
+        ColliderComponent2D* collider = dynamic_cast<ColliderComponent2D*>(component);
         colliders.push_back(collider);
     }
 
     // TODO Could be improved but performance is OK, comparing entity types which should collide is a potential improvement
-    for (ColliderComponent* collider : colliders) {
-        for (ColliderComponent* otherCollider : colliders) {
+    for (ColliderComponent2D* collider : colliders) {
+        for (ColliderComponent2D* otherCollider : colliders) {
             // Ignore if is same collider
             if (collider == otherCollider) {
                 continue;
@@ -41,12 +41,12 @@ void CollisionSystem::process(std::list<Component*> items) {
     }
 }
 
-bool CollisionSystem::isCollided(ColliderComponent col1, ColliderComponent col2) {
+bool CollisionSystem2D::isCollided(ColliderComponent2D col1, ColliderComponent2D col2) {
     Vector3 col1Pos = col1.getEntity()->getPosition() + col1.getOffset();
     Vector3 col2Pos = col2.getEntity()->getPosition() + col2.getOffset();
 
     // Square collision check:
-    if (col1.getCollisionType() == ColliderType::square && col2.getCollisionType() == ColliderType::square) {
+    if (col1.getCollisionType() == ColliderType2D::square && col2.getCollisionType() == ColliderType2D::square) {
         std::tuple<float, float> col1Dims = col1.getSquareDimension();
         std::tuple<float, float> col2Dims = col2.getSquareDimension();
 
@@ -61,7 +61,7 @@ bool CollisionSystem::isCollided(ColliderComponent col1, ColliderComponent col2)
     }
 
     // Circle collision check:
-    if (col1.getCollisionType() == ColliderType::circlePos && col2.getCollisionType() == ColliderType::circlePos) {
+    if (col1.getCollisionType() == ColliderType2D::circlePos && col2.getCollisionType() == ColliderType2D::circlePos) {
         float dx = col1Pos.x - col2Pos.x;
         float dy = col1Pos.y - col2Pos.y;
         float distance = sqrt(dx * dx + dy * dy);
@@ -76,10 +76,10 @@ bool CollisionSystem::isCollided(ColliderComponent col1, ColliderComponent col2)
     // This does not support any new types, should be re-designed in future if more colliders are added.
 
     // Circle Square collision check:
-    ColliderComponent* squareColliderRef;
-    ColliderComponent* circleColliderRef;
+    ColliderComponent2D* squareColliderRef;
+    ColliderComponent2D* circleColliderRef;
 
-    if (col1.getCollisionType() == ColliderType::square) {
+    if (col1.getCollisionType() == ColliderType2D::square) {
         squareColliderRef = &col1;
         circleColliderRef = &col2;
     } else {
