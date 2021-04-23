@@ -22,19 +22,30 @@ void CollisionSystem2D::process(std::list<Component*> items) {
     }
 
     // TODO Could be improved but performance is OK, comparing entity types which should collide is a potential improvement
-    for (ColliderComponent2D* collider : colliders) {
-        for (ColliderComponent2D* otherCollider : colliders) {
-            // Ignore if is same collider
-            if (collider == otherCollider) {
-                continue;
-            }
+    const int colliderCount = (int)colliders.size();
+    std::vector<ColliderComponent2D*> colliderVec(colliders.begin(), colliders.end());
 
-            if (isCollided(*collider, *otherCollider)) {
-                for (Component* component : collider->getEntity()->getComponentsOfType(ComponentType::CScript)) {
+    int colliderOffset = 0;
+    for(int x = 0; x < colliderCount; x++){
+        colliderOffset++;
+        for(int y = colliderOffset; y < colliderCount; y++){
+            ColliderComponent2D* col1 = colliderVec[x];
+            ColliderComponent2D* col2 = colliderVec[y];
+
+
+            if (isCollided(*col1, *col2)) {
+                for (Component* component : col1->getEntity()->getComponentsOfType(ComponentType::CScript)) {
                     ScriptComponent* script = dynamic_cast<ScriptComponent*>(component);
 
                     // Trigger callback
-                    script->onCollision(otherCollider->getEntity());
+                    script->onCollision(col2->getEntity());
+                }
+
+                for (Component* component : col2->getEntity()->getComponentsOfType(ComponentType::CScript)) {
+                    ScriptComponent* script = dynamic_cast<ScriptComponent*>(component);
+
+                    // Trigger callback
+                    script->onCollision(col1->getEntity());
                 }
             }
         }
