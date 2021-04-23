@@ -19,6 +19,8 @@ add_executable(I3D
         libs/include/GL/glxew.h
         libs/include/GL/wglew.h
         libs/include/SOIL/SOIL.h
+# Lab
+#        src/labs/main.cpp
 
 # A1
 #        src/A1/main.cpp
@@ -47,6 +49,9 @@ add_executable(I3D
         src/A2/main.cpp
         src/A2/GAMECONFIG.h
         src/A2/GameState.h
+        src/A2/entities/PlayerEntity.h
+        src/A2/scripts/PlayerControllerScript.cpp
+        src/A2/scripts/PlayerControllerScript.h
 
 # Core
         src/core/input/KeyRegistry.cpp
@@ -96,4 +101,4 @@ add_executable(I3D
         src/core/ecs/components/ColliderComponent3D.h
 
 # Unsorted
-        src/A2/entities/PlayerEntity.h src/A2/scripts/PlayerControllerScript.cpp src/A2/scripts/PlayerControllerScript.h)
+         )
