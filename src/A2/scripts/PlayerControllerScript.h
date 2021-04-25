@@ -10,8 +10,6 @@
 
 class PlayerControllerScript : public ScriptComponent {
 private:
-    Vector3 cameraPos = Vector3(0,0,0);
-    void updateCamera() const;
 
 protected:
     void start() override;

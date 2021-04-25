@@ -104,7 +104,9 @@ void Renderer::move(Vector3 move) {
 }
 
 void Renderer::rotate(Rotation rotation) {
-    glRotatef(rotation.angle, rotation.x, rotation.y, rotation.z);
+    glRotatef(rotation.x, 1, 0,0);
+    glRotatef(rotation.y, 0, 1,0);
+    glRotatef(rotation.z, 1, 0,1);
 }
 
 void Renderer::push() {
@@ -122,7 +124,6 @@ void Renderer::scale(Vector3 scale) {
 void Renderer::scale(float scale) {
     Renderer::scale(Vector3(scale, scale, scale));
 }
-
 
 
 

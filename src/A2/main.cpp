@@ -1,11 +1,13 @@
 #include <cstdlib>
 #include "entities/PlayerEntity.h"
-#include "../core/Game.h"
+#include "entities/CubeEntity.h"
 
 Scene* getScene() {
     Scene* scene = new Scene();
 
+    scene->addEntity(CubeEntity::getEntity());
     scene->addEntity(PlayerEntity::getEntity());
+
 
     return scene;
 }

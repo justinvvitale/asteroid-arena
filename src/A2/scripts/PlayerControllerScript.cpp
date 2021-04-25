@@ -7,53 +7,41 @@
 #include "../../core/Game.h"
 
 void PlayerControllerScript::start() {
-    updateCamera();
 }
 
 void PlayerControllerScript::update() {
-    float change = + 300 * Game::dt;
+    float factor = 200 * Game::dt;
 
-    bool didMove = false;
-
-    if(KeyRegistry::isPressed('w')){
-        cameraPos.z -= change;
-        didMove = true;
+    CameraComponent* camera = Game::getEngine()->camera;
+    Vector3 cameraLook = Vector3::zero();
+    if(camera != nullptr) {
+        cameraLook = camera->getDirectionVector();
     }
 
-    if(KeyRegistry::isPressed('s')){
-        cameraPos.z += change;
-        didMove = true;
+    // Boost
+    if(KeyRegistry::isPressed(32)){
+        factor *= 3;
     }
 
-    if(KeyRegistry::isPressed('q')){
-        cameraPos.y -= change;
-        didMove = true;
+    Vector3 playerPos = getEntity()->getPosition();
+
+    if (KeyRegistry::isPressed('w')) {
+        playerPos.x += cameraLook.x * factor;
+        playerPos.z += cameraLook.z * factor;
     }
 
-    if(KeyRegistry::isPressed('e')){
-        cameraPos.y += change;
-        didMove = true;
+    if (KeyRegistry::isPressed('s')) {
+        playerPos.x -= cameraLook.x * factor;
+        playerPos.z -= cameraLook.z * factor;
     }
 
-    if(KeyRegistry::isPressed('a')){
-        cameraPos.x -= change;
-        didMove = true;
+    if (KeyRegistry::isPressed('q')) {
+        playerPos.y +=  factor;
     }
 
-    if(KeyRegistry::isPressed('d')){
-        cameraPos.x += change;
-        didMove = true;
+    if (KeyRegistry::isPressed('e')) {
+        playerPos.y -= factor;
     }
 
-    if(didMove){
-        updateCamera();
-    }
-}
-
-void PlayerControllerScript::updateCamera() const {
-    gluLookAt(
-            cameraPos.x, cameraPos.y, cameraPos.z,  // eye location
-            0.0,  0.0,   0.0,
-            0.0,  1.0,   0.0    // up vector
-    );
+    getEntity()->setPosition(playerPos);
 }

@@ -62,38 +62,18 @@ struct Rotation {
     float x = 0;
     float y = 0;
     float z = 0;
-    float angle = 0;
 
     Rotation() = default;
 
-    explicit Rotation(float angle) {
-        this->z = 1;
-        this->angle = angle;
-    }
-
-    Rotation(float x, float y, float z, float angle) {
+    Rotation(float x, float y, float z) {
         this->x = x;
         this->y = y;
         this->z = z;
-        this->angle = angle;
     }
 
     static Rotation zero() {
-        return {0, 0, 0, 0};
+        return {0, 0, 0};
     }
-
-
-    void modifyAngle(float inc) {
-        this->angle += inc;
-    }
-
-    float getAngle() const {
-        return angle;
-    };
-
-    void setAngle(float angleIn) {
-        this->angle = angleIn;
-    };
 
 };
 
@@ -161,10 +141,7 @@ public:
             return Vector3::zero();
         }
     }
-
-    static Vector3 GetForwardVector(Rotation rotation) {
-        return {(-sinf(rotation.angle * DEG_TO_RAD)), (cosf(rotation.angle * DEG_TO_RAD)), 0};
-    }
+    
 
     // Dot product of vector
     static float Dot(Vector3 l, Vector3 r) {

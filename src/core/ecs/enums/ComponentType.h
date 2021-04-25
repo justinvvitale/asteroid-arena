@@ -12,7 +12,8 @@ enum ComponentType {
     CCollider,
     CRigidbody,
     CParticle,
-    CText
+    CText,
+    CCamera
 };
 
 

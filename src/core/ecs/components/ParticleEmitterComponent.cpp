@@ -37,7 +37,7 @@ Vector3 ParticleEmitterComponent::getEmitOffset() {
     Vector3 offsetVec = Vector3::zero();
 
     if (offset != 0) {
-        offsetVec = (VectorUtil::GetForwardVector(this->getEntity()->getRotation()) * offset);
+//        offsetVec = (VectorUtil::GetForwardVector(this->getEntity()->getRotation()) * offset); TODO
     }
 
     return offsetVec;

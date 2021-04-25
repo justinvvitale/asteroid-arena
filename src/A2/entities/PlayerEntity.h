@@ -7,45 +7,19 @@
 
 #include "../../core/Renderer.h"
 #include "../scripts/PlayerControllerScript.h"
+#include "../../core/ecs/components/CameraComponent.h"
 
 class PlayerEntity {
 
 public:
-
-    static Mesh getModel() {
-        Mesh mesh;
-
-        float playerSize = 30;
-        mesh.mode = GL_TRIANGLE_STRIP;
-        mesh.data = {
-                MeshData(-playerSize, playerSize, playerSize),     // Front top-left
-                MeshData(playerSize, playerSize, playerSize),      // Front top-right
-                MeshData(-playerSize, -playerSize, playerSize),    // Front bottom-left
-                MeshData(playerSize, -playerSize, playerSize),     // Front bottom-right
-                MeshData(playerSize, -playerSize, -playerSize),    // Back bottom-right
-                MeshData(playerSize, playerSize, playerSize),      // Front top-right
-                MeshData(playerSize, playerSize, -playerSize),     // Back top-right
-                MeshData(-playerSize, playerSize, playerSize),     // Front top-left
-                MeshData(-playerSize, playerSize, -playerSize),    // Back top-left
-                MeshData(-playerSize, -playerSize, playerSize),    // Front bottom-left
-                MeshData(-playerSize, -playerSize, -playerSize),   // Back bottom-left
-                MeshData(playerSize, -playerSize, -playerSize),    // Back bottom-right
-                MeshData(-playerSize, playerSize, -playerSize),    // Back top-left
-                MeshData(playerSize, playerSize, -playerSize)      // Back top-right
-        };
-
-        return mesh;
-    }
-
     static Entity* getEntity() {
         Entity* player = new Entity("player");
 
-        MeshComponent* meshRenderer = new MeshComponent();
-        meshRenderer->setMesh(getModel());
-        player->addComponent(meshRenderer);
-
+        CameraComponent* cameraComponent = new CameraComponent();
         PlayerControllerScript* controllerScript = new PlayerControllerScript();
+
         player->addComponent(controllerScript);
+        player->addComponent(cameraComponent);
 
         return player;
     }

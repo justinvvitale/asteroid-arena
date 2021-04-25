@@ -5,10 +5,9 @@
 #include "Engine.h"
 #include "ecs/systems/MeshRendererSystem.h"
 #include "ecs/systems/ScriptProcessorSystem.h"
-#include "ecs/systems/CollisionSystem2D.h"
 #include "ecs/systems/ParticleSystem.h"
 #include "ecs/systems/TextRendererSystem.h"
-#include "ecs/systems/CollisionSystem3D.h"
+#include "ecs/systems/CollisionSystem.h"
 
 Engine::Engine() {
 
@@ -16,11 +15,7 @@ Engine::Engine() {
     ParticleSystem* particleSystem = new ParticleSystem();
 
     // Setup systems (Priority)
-    if(is3D){
-        systems.emplace(ComponentType::CCollider, new CollisionSystem3D());
-    }else{
-        systems.emplace(ComponentType::CCollider, new CollisionSystem2D());
-    }
+    systems.emplace(ComponentType::CCollider, new CollisionSystem());
 
     systems.emplace(ComponentType::CScript, new ScriptProcessorSystem());
     systems.emplace(ComponentType::CParticle, particleSystem);
@@ -71,6 +66,11 @@ void Engine::render() {
         bufferDirty = false;
     }
 
+    // Camera (Render)
+    if(camera != nullptr){
+        camera->render();
+    }
+
     // Text rendering
     auto componentTypesText = bufferComponentTypes.find(ComponentType::CText);
     if (componentTypesText != bufferComponentTypes.end()) {
@@ -89,6 +89,8 @@ void Engine::render() {
         // Run particle renders then mesh rendering
         manualSystems[ComponentType::CParticle]->render();
     }
+
+
 }
 
 void Engine::setScene(Scene* sceneIn) {

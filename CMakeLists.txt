@@ -52,6 +52,7 @@ add_executable(I3D
         src/A2/entities/PlayerEntity.h
         src/A2/scripts/PlayerControllerScript.cpp
         src/A2/scripts/PlayerControllerScript.h
+        src/A2/entities/CubeEntity.h
 
 # Core
         src/core/input/KeyRegistry.cpp
@@ -78,10 +79,6 @@ add_executable(I3D
         src/core/ecs/systems/ScriptProcessorSystem.cpp
         src/core/ecs/systems/ScriptProcessorSystem.h
         src/core/ecs/enums/ComponentType.h
-        src/core/ecs/systems/CollisionSystem2D.cpp
-        src/core/ecs/systems/CollisionSystem2D.h
-        src/core/ecs/components/ColliderComponent2D.cpp
-        src/core/ecs/components/ColliderComponent2D.h
         src/core/ENGINECONFIG.h
         src/core/Renderer.cpp
         src/core/Renderer.h
@@ -95,10 +92,12 @@ add_executable(I3D
         src/core/ecs/components/TextComponent.h
         src/core/ecs/systems/TextRendererSystem.cpp
         src/core/ecs/systems/TextRendererSystem.h
-        src/core/ecs/systems/CollisionSystem3D.cpp
-        src/core/ecs/systems/CollisionSystem3D.h
-        src/core/ecs/components/ColliderComponent3D.cpp
-        src/core/ecs/components/ColliderComponent3D.h
+        src/core/ecs/systems/CollisionSystem.cpp
+        src/core/ecs/systems/CollisionSystem.h
+        src/core/ecs/components/ColliderComponent.cpp
+        src/core/ecs/components/ColliderComponent.h
+        src/core/ecs/components/CameraComponent.cpp
+        src/core/ecs/components/CameraComponent.h
 
 # Unsorted
-         )
+        )

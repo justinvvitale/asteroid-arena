@@ -75,6 +75,13 @@ void Game::init() {
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glShadeModel(GL_FLAT);
 
+    glEnable (GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+
+    GLfloat lightPos[] = {1000, 1000, 1000, 1000};
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+
+
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
 
@@ -96,22 +103,17 @@ void Game::reshape(int w, int h) {
 
     float aspectRatio = (GLfloat) w / (GLfloat) h;
 
-    if(is3D){
-        gluPerspective(45.0, aspectRatio, 1.0, 1000.0 );
-    }else{
-        if (w <= h) {
-            glOrtho(-1000, 1000, -1000 / aspectRatio, 1000 / aspectRatio, 1000, -1000);;
-        } else {
-            glOrtho(-1000 * aspectRatio, 1000 * aspectRatio, -1000, 1000, 1000, -1000);
-        }
-    }
+    gluPerspective(45.0, aspectRatio, 1.0, 1000.0 );
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
 
 void Game::display() {
+    if(engine == nullptr) return;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glLoadIdentity();
 
     engine->render();
 
@@ -124,6 +126,8 @@ void Game::display() {
 }
 
 void Game::idle() {
+    if(engine == nullptr) return;
+
     if (restartRequested) {
         performEntityCleanup();
         engine->resetSystems();

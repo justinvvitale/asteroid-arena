@@ -7,6 +7,7 @@
 
 #include "ecs/System.h"
 #include "Scene.h"
+#include "ecs/components/CameraComponent.h"
 #include <unordered_map>
 
 class Engine {
@@ -20,6 +21,8 @@ private:
     bool bufferDirty = true;
     std::unordered_map<ComponentType, std::list<Component*>> bufferComponentTypes = std::unordered_map<ComponentType, std::list<Component*>>();
 public:
+    CameraComponent* camera = nullptr;
+
     Engine();
 
     void tick();
