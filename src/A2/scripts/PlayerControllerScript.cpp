@@ -10,7 +10,7 @@ void PlayerControllerScript::start() {
 }
 
 void PlayerControllerScript::update() {
-    float factor = 200 * Game::dt;
+    float factor = 80 * Game::dt;
 
     CameraComponent* camera = Game::getEngine()->camera;
     Vector3 cameraLook = Vector3::zero();

@@ -73,14 +73,24 @@ void Game::start(int argc, char** argv, const std::string& name, Scene* (* defau
 
 void Game::init() {
     glClearColor(0.0, 0.0, 0.0, 0.0);
-    glShadeModel(GL_FLAT);
+    glShadeModel(GL_SMOOTH);
 
-    glEnable (GL_LIGHTING);
+    // Enable lighting
+    glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+    glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
 
-    GLfloat lightPos[] = {1000, 1000, 1000, 1000};
-    glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+    // Lighting config
+    GLfloat qaAmbientLight[]	= {0.2, 0.2, 0.2, 1.0};
+    GLfloat qaDiffuseLight[]	= {0.8, 0.8, 0.8, 1.0};
+    GLfloat qaSpecularLight[]	= {1.0, 1.0, 1.0, 1.0};
+    glLightfv(GL_LIGHT0, GL_AMBIENT, qaAmbientLight);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight);
 
+    // Set global
+    GLfloat qaLightPosition[]	= {.5, .5, 0.0, 1.0};
+    glLightfv(GL_LIGHT0, GL_POSITION, qaLightPosition);
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
@@ -103,7 +113,7 @@ void Game::reshape(int w, int h) {
 
     float aspectRatio = (GLfloat) w / (GLfloat) h;
 
-    gluPerspective(45.0, aspectRatio, 1.0, 1000.0 );
+    gluPerspective(45.0, aspectRatio, 1.0, 100000000000.0 );
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

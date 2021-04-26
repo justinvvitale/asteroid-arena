@@ -16,22 +16,42 @@ public:
         Mesh mesh;
 
         float cubeSize = 100;
-        mesh.mode = GL_TRIANGLE_STRIP;
+        mesh.mode = GL_QUAD_STRIP;
         mesh.data = {
-                MeshData(-cubeSize, cubeSize, cubeSize),     // Front top-left
-                MeshData(cubeSize, cubeSize, cubeSize),      // Front top-right
-                MeshData(-cubeSize, -cubeSize, cubeSize),    // Front bottom-left
-                MeshData(cubeSize, -cubeSize, cubeSize),     // Front bottom-right
-                MeshData(cubeSize, -cubeSize, -cubeSize),    // Back bottom-right
-                MeshData(cubeSize, cubeSize, cubeSize),      // Front top-right
-                MeshData(cubeSize, cubeSize, -cubeSize),     // Back top-right
-                MeshData(-cubeSize, cubeSize, cubeSize),     // Front top-left
-                MeshData(-cubeSize, cubeSize, -cubeSize),    // Back top-left
-                MeshData(-cubeSize, -cubeSize, cubeSize),    // Front bottom-left
-                MeshData(-cubeSize, -cubeSize, -cubeSize),   // Back bottom-left
-                MeshData(cubeSize, -cubeSize, -cubeSize),    // Back bottom-right
-                MeshData(-cubeSize, cubeSize, -cubeSize),    // Back top-left
-                MeshData(cubeSize, cubeSize, -cubeSize)      // Back top-right
+                // Top face
+                MeshData(-cubeSize, cubeSize, -cubeSize),
+                MeshData(-cubeSize, cubeSize,  cubeSize),
+                MeshData( cubeSize, cubeSize,  cubeSize),
+
+                // Bottom face
+                MeshData( cubeSize, -cubeSize,  cubeSize),
+                MeshData(-cubeSize, -cubeSize,  cubeSize),
+                MeshData(-cubeSize, -cubeSize, -cubeSize),
+                MeshData( cubeSize, -cubeSize, -cubeSize),
+
+                // Front face
+                MeshData( cubeSize,  cubeSize, cubeSize),
+                MeshData(-cubeSize,  cubeSize, cubeSize),
+                MeshData(-cubeSize, -cubeSize, cubeSize),
+                MeshData( cubeSize, -cubeSize, cubeSize),
+
+                // Back face
+                MeshData( cubeSize, -cubeSize, -cubeSize),
+                MeshData(-cubeSize, -cubeSize, -cubeSize),
+                MeshData(-cubeSize,  cubeSize, -cubeSize),
+                MeshData( cubeSize,  cubeSize, -cubeSize),
+
+                // Left face
+                MeshData(-cubeSize,  cubeSize,  cubeSize),
+                MeshData(-cubeSize,  cubeSize, -cubeSize),
+                MeshData(-cubeSize, -cubeSize, -cubeSize),
+                MeshData(-cubeSize, -cubeSize,  cubeSize),
+
+                // Right face
+                MeshData(cubeSize,  cubeSize, -cubeSize),
+                MeshData(cubeSize,  cubeSize,  cubeSize),
+                MeshData(cubeSize, -cubeSize,  cubeSize),
+                MeshData(cubeSize, -cubeSize, -cubeSize),
         };
 
         return mesh;

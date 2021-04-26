@@ -40,10 +40,6 @@ public:
 
     // Returns a map of componentTypes with every component of that type
     std::unordered_map<ComponentType, std::list<Component*>> getComponentsByType();
-
-
-    // Masks which are mesh that are infront of everything (Excluding text)
-    std::list<Mesh> masks = std::list<Mesh>();
 };
 
 

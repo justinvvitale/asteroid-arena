@@ -73,15 +73,63 @@ void Renderer::drawRectSolid(float width, float height) {
     glEnd();
 }
 
-void Renderer::renderText(const std::string& text, float scale) {
-    Renderer::scale(scale);
+void Renderer::renderText(TextOrigin origin, Vector3 offset, const std::string& text, float scale) {
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
 
-    Renderer::push();
-    for (char c : text) {
-        glutStrokeCharacter(GLUT_STROKE_ROMAN, c);
-    }
-    Renderer::pop();
+        glLoadIdentity();
+        int w = glutGet(GLUT_WINDOW_WIDTH);
+        int h = glutGet(GLUT_WINDOW_HEIGHT);
+        glOrtho(0, w, 0, h, -1, 1);
+
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+
+            glLoadIdentity();
+
+            glDisable(GL_DEPTH_TEST);
+            glDisable(GL_LIGHTING);
+
+            switch(origin){
+                case centre:
+                    Renderer::move(Vector3((float)w/2, (float)h/2, 0));
+                    break;
+                case topLeft:
+                    Renderer::move(Vector3(0, (float)h, 0));
+                    break;
+                case topRight:
+                    Renderer::move(Vector3((float)w, (float)h, 0));
+                    break;
+                case bottomLeft:
+                    // This is the default
+                    break;
+                case bottomRight:
+                    Renderer::move(Vector3((float)w, 0, 0));
+                    break;
+            }
+
+            // Account for different screen resolutions with offset
+            float impactUnit = (float)h*(float)w / 100000;
+            Renderer::move(Vector3(offset.x * impactUnit, offset.y *impactUnit, 0));
+            Renderer::scale(scale * impactUnit / 40);
+            glColor3f(1, 0, 0);
+
+            for (char c : text) {
+                glutStrokeCharacter(GLUT_STROKE_ROMAN, c);
+            }
+
+            glEnable(GL_LIGHTING);
+            glEnable(GL_DEPTH_TEST);
+
+        glMatrixMode(GL_MODELVIEW);
+        glPopMatrix();
+
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+
+    glMatrixMode(GL_MODELVIEW);
 }
+
 
 void Renderer::drawCharacter(char chr) {
     glutStrokeCharacter(GLUT_STROKE_ROMAN, chr);
@@ -104,9 +152,9 @@ void Renderer::move(Vector3 move) {
 }
 
 void Renderer::rotate(Rotation rotation) {
-    glRotatef(rotation.x, 1, 0,0);
-    glRotatef(rotation.y, 0, 1,0);
-    glRotatef(rotation.z, 1, 0,1);
+    glRotatef(rotation.x, 1, 0, 0);
+    glRotatef(rotation.y, 0, 1, 0);
+    glRotatef(rotation.z, 1, 0, 1);
 }
 
 void Renderer::push() {

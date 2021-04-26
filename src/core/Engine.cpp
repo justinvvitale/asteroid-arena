@@ -71,11 +71,7 @@ void Engine::render() {
         camera->render();
     }
 
-    // Text rendering
-    auto componentTypesText = bufferComponentTypes.find(ComponentType::CText);
-    if (componentTypesText != bufferComponentTypes.end()) {
-        manualSystems[ComponentType::CText]->process(componentTypesText->second);
-    }
+
 
     // Core rendering
     auto componentTypesMesh = bufferComponentTypes.find(ComponentType::CMesh);
@@ -88,6 +84,12 @@ void Engine::render() {
     if (componentTypesParticle != bufferComponentTypes.end()) {
         // Run particle renders then mesh rendering
         manualSystems[ComponentType::CParticle]->render();
+    }
+
+    // Text rendering
+    auto componentTypesText = bufferComponentTypes.find(ComponentType::CText);
+    if (componentTypesText != bufferComponentTypes.end()) {
+        manualSystems[ComponentType::CText]->process(componentTypesText->second);
     }
 
 

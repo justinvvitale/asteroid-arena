@@ -53,6 +53,22 @@ add_executable(I3D
         src/A2/scripts/PlayerControllerScript.cpp
         src/A2/scripts/PlayerControllerScript.h
         src/A2/entities/CubeEntity.h
+        src/A2/entities/ArenaEntity.h
+        src/A2/scripts/WallScript.cpp
+        src/A2/scripts/WallScript.h
+        src/A2/entities/AsteroidEntity.h
+        src/A2/scripts/AsteroidWaveScript.cpp
+        src/A2/scripts/AsteroidWaveScript.h
+        src/A2/scripts/AsteroidScript.cpp
+        src/A2/scripts/AsteroidScript.h
+        src/A2/entities/BulletEntity.h
+        src/A2/scripts/ScoreScript.cpp
+        src/A2/scripts/ScoreScript.h
+        src/A2/entities/ScoreManagerEntity.h
+        src/A2/entities/MediatorEntity.h
+        src/A2/scripts/MediatorScript.cpp
+        src/A2/scripts/MediatorScript.h
+        src/A2/GameState.h
 
 # Core
         src/core/input/KeyRegistry.cpp
@@ -98,6 +114,5 @@ add_executable(I3D
         src/core/ecs/components/ColliderComponent.h
         src/core/ecs/components/CameraComponent.cpp
         src/core/ecs/components/CameraComponent.h
-
 # Unsorted
         )
