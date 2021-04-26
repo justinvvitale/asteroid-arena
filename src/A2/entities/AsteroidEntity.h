@@ -32,8 +32,8 @@ public:
         Entity* entity = new Entity("asteroid");
 
         MeshComponent* meshRenderer = new MeshComponent();
-        meshRenderer->setMesh(getAsteroidModel(radius, getRandomNumber(ASTEROID_SEGMENTS_MIN, ASTEROID_SEGMENTS_MAX),
-                                               ASTEROID_RADIUS_VARIATION_RANGE));
+        meshRenderer->setRawMesh(getAsteroidModel(radius, getRandomNumber(ASTEROID_SEGMENTS_MIN, ASTEROID_SEGMENTS_MAX),
+                                                  ASTEROID_RADIUS_VARIATION_RANGE));
         entity->addComponent(meshRenderer);
 
         RigidbodyComponent* rb = new RigidbodyComponent();

@@ -59,7 +59,7 @@ public:
         Entity* arena = new Entity("arena");
 
         MeshComponent* arenaMeshRender = new MeshComponent();
-        arenaMeshRender->setMesh(getModel());
+        arenaMeshRender->setRawMesh(getModel());
         arena->addComponent(arenaMeshRender);
 
         arena->addComponent(new WallScript());

@@ -27,7 +27,7 @@ public:
         entity->setPosition(initialPosition);
 
         MeshComponent* meshRenderer = new MeshComponent();
-        meshRenderer->setMesh(getModel());
+        meshRenderer->setRawMesh(getModel());
         entity->addComponent(meshRenderer);
 
         ColliderComponent2D* col = new ColliderComponent2D(POINT_SIZE);

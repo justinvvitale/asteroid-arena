@@ -88,7 +88,7 @@
 
 #define  GLUT_GEOMETRY_VISUALIZE_NORMALS    0x0205
 
-#define  GLUT_STROKE_FONT_DRAW_JOIN_DOTS    0x0206  /* Draw dots between line segments of stroke fonts? */
+#define  GLUT_STROKE_FONT_DRAW_JOIN_DOTS    0x0206  /* draw dots between line segments of stroke fonts? */
 
 /*
  * New tokens for glutInitDisplayMode.

@@ -115,4 +115,4 @@ add_executable(I3D
         src/core/ecs/components/CameraComponent.cpp
         src/core/ecs/components/CameraComponent.h
 # Unsorted
-        )
+        src/core/loader/ObjModel.cpp src/core/loader/ObjModel.h src/A2/scripts/TestScript.cpp src/A2/scripts/TestScript.h)

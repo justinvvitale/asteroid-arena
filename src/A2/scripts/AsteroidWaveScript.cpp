@@ -16,7 +16,7 @@ void AsteroidWaveScript::start() {
 
     if (DEBUG_DRAW_LAUNCH_CIRCLE) {
         MeshComponent* meshComponent = new MeshComponent();
-        meshComponent->setMesh(MeshHelper::getCircleMesh(launchRadius, DEBUG_DRAW_LAUNCH_CIRCLE_COLOUR));
+        meshComponent->setRawMesh(MeshHelper::getCircleMesh(launchRadius, DEBUG_DRAW_LAUNCH_CIRCLE_COLOUR));
         this->getEntity()->addComponent(meshComponent);
     }
 
