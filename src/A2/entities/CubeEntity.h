@@ -8,6 +8,7 @@
 #include "../../core/Renderer.h"
 #include "../scripts/PlayerControllerScript.h"
 #include "../scripts/TestScript.h"
+#include "../../core/ecs/components/RigidbodyComponent.h"
 
 class CubeEntity {
 
@@ -20,10 +21,8 @@ public:
 
         MeshComponent* meshRenderer = new MeshComponent();
         meshRenderer->setScale(1.2);
-        meshRenderer->setObjMesh("data/test.obj");
+        meshRenderer->setObjMesh("data/person.obj");
         cube->addComponent(meshRenderer);
-
-        cube->addComponent(new TestScript());
 
         return cube;
     }

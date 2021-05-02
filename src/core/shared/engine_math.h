@@ -12,6 +12,30 @@
 #define PI 3.14
 #define DEG_TO_RAD (PI/180)
 
+struct Vector2 {
+    float x = 0;
+    float y = 0;
+
+    Vector2() = default;
+
+    Vector2(float x, float y) {
+        this->x = x;
+        this->y = y;
+    }
+
+    Vector2 opposite() const {
+        return {-x, -y};
+    }
+
+    static Vector2 zero() {
+        return {0, 0};
+    }
+
+    static Vector2 identity() {
+        return {1, 1};
+    }
+};
+
 struct Vector3 {
     float x = 0;
     float y = 0;
@@ -55,6 +79,34 @@ struct Vector3 {
 
     Vector3 operator/(const float& value) const {
         return {x / value, y / value, z / value};
+    }
+};
+
+struct Vector4 {
+    float x = 0;
+    float y = 0;
+    float z = 0;
+    float w = 0;
+
+    Vector4() = default;
+
+    Vector4(float x, float y, float z, float w) {
+        this->x = x;
+        this->y = y;
+        this->z = z;
+        this->w = w;
+    }
+
+    Vector4 opposite() const {
+        return {-x, -y, -z, -w};
+    }
+
+    static Vector4 zero() {
+        return {0, 0, 0, 0};
+    }
+
+    static Vector4 identity() {
+        return {1, 1, 1,1};
     }
 };
 

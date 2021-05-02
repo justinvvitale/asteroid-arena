@@ -16,6 +16,17 @@ Scene* getScene() {
     scene->addEntity(CubeEntity::getEntity());
     scene->addEntity(PlayerEntity::getEntity());
 
+    Entity* shrek = new Entity();
+
+    MeshComponent* meshRenderer = new MeshComponent();
+    meshRenderer->setScale(1.2);
+    meshRenderer->setObjMesh("data/test.obj");
+    shrek->addComponent(new TestScript());
+    shrek->addComponent(meshRenderer);
+    shrek->setPosition(Vector3(20,2,0));
+
+    scene->addEntity(shrek);
+
 
     return scene;
 }
