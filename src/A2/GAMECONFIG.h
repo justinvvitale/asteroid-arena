@@ -8,8 +8,7 @@
 // > Any other value is either relative to the +-1000 by +-1000 game space or an in-line comment explaining.
 
 // Arena
-const float ARENA_WIDTH = 1990;
-const float ARENA_HEIGHT = 1990;
+const float ARENA_SIZE = 2000;
 const Vector3 ARENA_COLOUR = Vector3(1, 1, 1);
 const Vector3 ARENA_WARN_COLOUR = Vector3(1, 0, 0);
 const float ARENA_WARN_DIST = 250;

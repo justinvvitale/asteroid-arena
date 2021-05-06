@@ -41,25 +41,10 @@ public:
 
     }
 
-    static Mesh getModel() {
-        Mesh mesh;
-        float arenaSize = 1000;
-        mesh.mode = GL_POLYGON;
-        mesh.data = {
-                MeshData(arenaSize, 0, arenaSize),
-                MeshData(arenaSize, 0, -arenaSize),
-                MeshData(-arenaSize, 0, -arenaSize),
-                MeshData(-arenaSize, 0, arenaSize)
-        };
-
-        return mesh;
-    }
-
     static Entity* getEntity() {
         Entity* arena = new Entity("arena");
 
         MeshComponent* arenaMeshRender = new MeshComponent();
-        arenaMeshRender->setRawMesh(getModel());
         arena->addComponent(arenaMeshRender);
 
         arena->addComponent(new WallScript());
