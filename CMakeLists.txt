@@ -69,8 +69,11 @@ add_executable(I3D
         src/A2/scripts/MediatorScript.cpp
         src/A2/scripts/MediatorScript.h
         src/A2/GameState.h
+        src/A2/scripts/TestScript.cpp
+        src/A2/scripts/TestScript.h
 
-# Core
+
+        # Core
         src/core/input/KeyRegistry.cpp
         src/core/input/KeyRegistry.h
         src/core/ecs/Entity.cpp
@@ -114,5 +117,6 @@ add_executable(I3D
         src/core/ecs/components/ColliderComponent.h
         src/core/ecs/components/CameraComponent.cpp
         src/core/ecs/components/CameraComponent.h
-# Unsorted
-        src/core/loader/ObjModel.cpp src/core/loader/ObjModel.h src/A2/scripts/TestScript.cpp src/A2/scripts/TestScript.h)
+
+        # Unsorted
+         )

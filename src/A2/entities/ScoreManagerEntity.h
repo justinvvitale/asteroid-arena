@@ -12,13 +12,13 @@ class ScoreManagerEntity {
 private:
     static Mesh getModel() {
         Mesh mesh;
-        mesh.mode = GL_LINE_LOOP;
-        mesh.data = {
-                MeshData(-100, -100, 0),
-                MeshData(100, -100, 0),
-                MeshData(100, 100, 0),
-                MeshData(-100, 100, 0)
-        };
+//        mesh.mode = GL_LINE_LOOP;
+//        mesh.data = {
+//                MeshData(-100, -100, 0),
+//                MeshData(100, -100, 0),
+//                MeshData(100, 100, 0),
+//                MeshData(-100, 100, 0)
+//        };
 
         return mesh;
     }

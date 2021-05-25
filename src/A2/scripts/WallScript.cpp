@@ -67,7 +67,7 @@ void WallScript::refreshMeshData() {
 //            MeshData(MeshDataType::colour, DEFAULT_COLOUR)
 //    };
 //
-//    this->meshComponent->setRawMesh(arenaMesh);
+//    this->meshComponent->setMesh(arenaMesh);
 }
 
 void WallScript::onCollision(Entity* other) {

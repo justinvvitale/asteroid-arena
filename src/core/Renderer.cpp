@@ -21,31 +21,19 @@
 
 #endif
 
-void Renderer::renderMeshData(const Mesh& mesh) {
-    setColour(mesh.colour);
-
-    glBegin(mesh.mode);
-
-    for (MeshData meshData : mesh.data) {
-        switch (meshData.dataType) {
-            case primitive:
-                glVertex3f(meshData.data.x, meshData.data.y, meshData.data.z);
-                break;
-            case colour:
-                glColor3f(meshData.data.x, meshData.data.y, meshData.data.z);
-                break;
-        }
+void Renderer::renderMesh(const Mesh& mesh) {
+    for (Face face : mesh.faces){
+        glBegin(GL_TRIANGLES);
+            face.render();
+        glEnd();
     }
-    glEnd();
-
-    setColour(DEFAULT_COLOUR);
 }
 
 void Renderer::renderParticle(const Particle* particle) {
     glPushMatrix();
     move(particle->position);
     scale(particle->scale);
-    renderMeshData(particle->mesh);
+    renderMesh(particle->mesh);
     glPopMatrix();
 }
 

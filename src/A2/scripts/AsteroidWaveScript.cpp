@@ -11,12 +11,12 @@
 
 void AsteroidWaveScript::start() {
     scoreScript = dynamic_cast<ScoreScript*>(Game::getEntity("score")->getComponentOfType(ComponentType::CScript));
-    launchRadius = (float) sqrt(pow(ARENA_WIDTH / 2, 2) + pow(ARENA_HEIGHT / 2, 2));
+    launchRadius = (float) sqrt(pow(ARENA_SIZE / 2, 2) + pow(ARENA_SIZE / 2, 2));
     playerRef = Game::getEntity("player");
 
     if (DEBUG_DRAW_LAUNCH_CIRCLE) {
         MeshComponent* meshComponent = new MeshComponent();
-        meshComponent->setRawMesh(MeshHelper::getCircleMesh(launchRadius, DEBUG_DRAW_LAUNCH_CIRCLE_COLOUR));
+//        meshComponent->setMesh(MeshHelper::getCircleMesh(launchRadius, DEBUG_DRAW_LAUNCH_CIRCLE_COLOUR));
         this->getEntity()->addComponent(meshComponent);
     }
 
@@ -163,10 +163,10 @@ void AsteroidWaveScript::destroyAsteroid(Entity* asteroid, bool scored) {
                 (float) getRandomNumber(-ASTEROID_PARTICLE_VELOCITY_RANGE, ASTEROID_PARTICLE_VELOCITY_RANGE),
                 (float) getRandomNumber(-ASTEROID_PARTICLE_VELOCITY_RANGE, ASTEROID_PARTICLE_VELOCITY_RANGE), 0);
 
-        ParticleSystem::emit(new Particle(vel, (float)ASTEROID_PARTICLE_LIFESPAN +
-                                                               (float)getRandomNumber(-ASTEROID_PARTICLE_LIFESPAN_VARIATION,
-                                                               ASTEROID_PARTICLE_LIFESPAN_VARIATION), 1, 4,
-                                          MeshHelper::getHexagonMesh(3, ASTEROID_COLOUR)), asteroid->getPosition());
+//        ParticleSystem::emit(new Particle(vel, (float)ASTEROID_PARTICLE_LIFESPAN +
+//                                                               (float)getRandomNumber(-ASTEROID_PARTICLE_LIFESPAN_VARIATION,
+//                                                               ASTEROID_PARTICLE_LIFESPAN_VARIATION), 1, 4,
+//                                          MeshHelper::getHexagonMesh(3, ASTEROID_COLOUR)), asteroid->getPosition());
     }
 
     if (scored) {

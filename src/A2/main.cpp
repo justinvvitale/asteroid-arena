@@ -20,7 +20,6 @@ Scene* getScene() {
 
     MeshComponent* meshRenderer = new MeshComponent();
     meshRenderer->setScale(1.2);
-    meshRenderer->setObjMesh("data/test.obj");
     shrek->addComponent(new TestScript());
     shrek->addComponent(meshRenderer);
     shrek->setPosition(Vector3(20,2,0));
