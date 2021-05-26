@@ -6,6 +6,7 @@
 #include "../../input/KeyRegistry.h"
 #include "../../Game.h"
 #include "../../Renderer.h"
+#include "../../shared/engine_graphic.h"
 
 CameraComponent::CameraComponent() : Component(ComponentType::CCamera) {
     Game::getEngine()->camera = this;
@@ -36,9 +37,7 @@ void CameraComponent::tick() {
 void CameraComponent::render() {
     Vector3 globalPosition = getEntity()->getPosition() + cameraOffset;
 
-    gluLookAt(globalPosition.x, globalPosition.y, globalPosition.z,
-              globalPosition.x + lookDirection.x, globalPosition.y + lookDirection.y, globalPosition.z + lookDirection.z,
-              0.0f, 1.0f, 0.0f);
+    Renderer::moveCamera(globalPosition, lookDirection);
 }
 
 CameraComponent::~CameraComponent() {

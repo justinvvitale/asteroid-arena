@@ -52,6 +52,8 @@ public:
     static void drawRect(float height, float width);
 
     static void drawRectSolid(float width, float height);
+
+    static void moveCamera(Vector3 position, Vector3 direction);
 };
 
 

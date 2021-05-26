@@ -23,8 +23,12 @@
 
 void Renderer::renderMesh(const Mesh& mesh) {
     for (Face face : mesh.faces){
+//        face.normal = MeshHelper::calculateNormal(face);
         glBegin(GL_TRIANGLES);
-            face.render();
+            glNormal3f(face.normal.x, face.normal.y, face.normal.z);
+            glVertex3f(face.vert1->position.x, face.vert1->position.y, face.vert1->position.z);
+            glVertex3f(face.vert2->position.x, face.vert2->position.y, face.vert2->position.z);
+            glVertex3f(face.vert3->position.x, face.vert3->position.y, face.vert3->position.z);
         glEnd();
     }
 }
@@ -159,6 +163,12 @@ void Renderer::scale(Vector3 scale) {
 
 void Renderer::scale(float scale) {
     Renderer::scale(Vector3(scale, scale, scale));
+}
+
+void Renderer::moveCamera(Vector3 position, Vector3 direction) {
+    gluLookAt(position.x, position.y, position.z,
+              position.x + direction.x, position.y + direction.y, position.z + direction.z,
+              0.0f, 1.0f, 0.0f);
 }
 
 

@@ -1,31 +1,17 @@
 //
 // Created by Dimme on 15/03/2021.
 //
-
 #ifndef I3D_ENGINE_GRAPHIC_H
 #define I3D_ENGINE_GRAPHIC_H
 
 #include "engine_math.h"
 #include "../ENGINECONFIG.h"
 #include <list>
-
-#if _WIN32
-#   include <Windows.h>
-#endif
-#if __APPLE__
-#   include <OpenGL/gl.h>
-#   include <OpenGL/glu.h>
-#   include <GLUT/glut.h>
-#else
-#   include <GL/gl.h>
-#   include <GL/glu.h>
-#   include <GL/glut.h>
-#endif
+#include <vector>
 
 typedef struct Vertex {
     Vector3 position;
-    Vector3 texCoord;
-    Vector3 normal;
+    Vector2 texCoord;
 } Vertex;
 
 typedef struct Face {
@@ -33,20 +19,33 @@ typedef struct Face {
     Vertex* vert2;
     Vertex* vert3;
 
-    void render() const{
-        glVertex3f(vert1->position.x, vert1->position.y, vert1->position.z);
-        glVertex3f(vert2->position.x, vert2->position.y, vert2->position.z);
-        glVertex3f(vert3->position.x, vert3->position.y, vert3->position.z);
-    }
+    Vector3 normal;
 } Face;
 
 typedef struct Mesh {
-    std::list<Vertex*> vertices = std::list<Vertex*>();
+    std::vector<Vertex*> vertices = std::vector<Vertex*>();
     std::list<Face> faces = std::list<Face>();
 } Mesh;
 
 class MeshHelper {
 public:
+    static Vector3 calculateNormal(Face face){
+
+        Vector3 p1 = Vector3();
+        Vector3 p2 = Vector3();
+        p1.x = face.vert1->position.x - face.vert2->position.x;
+        p1.y = face.vert1->position.y - face.vert2->position.y;
+        p1.z = face.vert1->position.z - face.vert2->position.z;
+
+        p2.x = face.vert1->position.x - face.vert3->position.x;
+        p2.y = face.vert1->position.y - face.vert3->position.y;
+        p2.z = face.vert1->position.z - face.vert3->position.z;
+
+        // Cross
+        Vector3 normal = VectorUtil::Cross(p1, p2);
+
+        return normal;
+    }
 
 
 };

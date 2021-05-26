@@ -117,6 +117,8 @@ add_executable(I3D
         src/core/ecs/components/ColliderComponent.h
         src/core/ecs/components/CameraComponent.cpp
         src/core/ecs/components/CameraComponent.h
+        src/core/external/tiny_obj_loader.h
+        src/core/external/ObjAccess.h
 
         # Unsorted
-         )
+        )
