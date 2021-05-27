@@ -97,6 +97,9 @@ void Game::init() {
 
     glEnable(GL_DEPTH_TEST);
 
+    glEnable(GL_NORMALIZE);
+    glEnable(GL_COLOR_MATERIAL);
+
     glPointSize(POINT_SIZE);
 
     // Set last idle
@@ -122,6 +125,8 @@ void Game::reshape(int w, int h) {
 void Game::display() {
     if(engine == nullptr) return;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glLoadIdentity();
 

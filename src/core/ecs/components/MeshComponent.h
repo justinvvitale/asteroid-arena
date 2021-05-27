@@ -26,6 +26,7 @@ public:
 
 private:
     float scale = 1;
+    bool isStartTick = true;
 
     // Data
     Mesh mesh;

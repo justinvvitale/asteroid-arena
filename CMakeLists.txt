@@ -118,7 +118,6 @@ add_executable(I3D
         src/core/ecs/components/CameraComponent.cpp
         src/core/ecs/components/CameraComponent.h
         src/core/external/tiny_obj_loader.h
-        src/core/external/ObjAccess.h
-
+        src/core/external/stb_image.h
         # Unsorted
-        )
+        src/core/external/ObjAccess.cpp)

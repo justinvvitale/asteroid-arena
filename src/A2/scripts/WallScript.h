@@ -19,6 +19,8 @@ private:
 
     void refreshMeshData();
 
+    Mesh mesh;
+
 public:
     void onCollision(Entity* other) override;
 
@@ -26,15 +28,19 @@ private:
 
     MeshComponent* meshComponent;
 
-    Vector3 topLeftVert;
-    Vector3 topRightVert;
-    Vector3 bottomLeftVert;
-    Vector3 bottomRightVert;
+    int topFaceIndex;
+    int bottomFaceIndex;
+    int leftFaceIndex;
+    int rightFaceIndex;
+    int nearFaceIndex;
+    int farFaceIndex;
 
     bool topWarn = false;
     bool bottomWarn = false;
     bool leftWarn = false;
     bool rightWarn = false;
+    bool farWarn = false;
+    bool nearWarn = false;
 
 
 };

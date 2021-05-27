@@ -10,32 +10,33 @@
 #include "../scripts/AsteroidScript.h"
 #include "../../core/ecs/components/MeshComponent.h"
 #include "../GAMECONFIG.h"
+#include "../../core/external/ObjAccess.h"
 
 class AsteroidEntity {
 private:
-    static Mesh getAsteroidModel(float radius, float sections, float randRange) {
-        Mesh mesh;
+    static Mesh getAsteroidModel(float radius, int stacks, int slices) {
+                Mesh mesh = ObjAccess::load("ship");
 
+                return mesh;
+            }
 
-        return mesh;
-    }
+            public:
+            static Entity* getEntity(float radius) {
+                Entity* entity = new Entity("asteroid");
 
-public:
-    static Entity* getEntity(float radius) {
-        Entity* entity = new Entity("asteroid");
+                MeshComponent* meshRenderer = new MeshComponent();
+                meshRenderer->setMesh(
+                        getAsteroidModel(radius, getRandomNumber(ASTEROID_SEGMENTS_MIN, ASTEROID_SEGMENTS_MAX),
+                                         ASTEROID_RADIUS_VARIATION_RANGE));
+                entity->addComponent(meshRenderer);
 
-        MeshComponent* meshRenderer = new MeshComponent();
-        meshRenderer->setMesh(getAsteroidModel(radius, getRandomNumber(ASTEROID_SEGMENTS_MIN, ASTEROID_SEGMENTS_MAX),
-                                               ASTEROID_RADIUS_VARIATION_RANGE));
-        entity->addComponent(meshRenderer);
+                RigidbodyComponent* rb = new RigidbodyComponent();
+                entity->addComponent((Component*) rb);
 
-        RigidbodyComponent* rb = new RigidbodyComponent();
-        entity->addComponent((Component*) rb);
+                return entity;
+            }
 
-        return entity;
-    }
-
-};
+        };
 
 
 #endif //I3D_ASTEROIDENTITY_H

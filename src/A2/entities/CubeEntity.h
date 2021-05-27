@@ -16,12 +16,13 @@ public:
 
     static Entity* getEntity() {
         Entity* cube = new Entity();
-
-        //cube->setRotation(Rotation(40,40,0));
+        cube->setPosition(Vector3(0,0,-10));
 
         MeshComponent* meshComp = new MeshComponent();
 
-        meshComp->setMesh(ObjAccess::load("ship"));
+        Mesh mesh = ObjAccess::load("cube");
+        mesh.texture = "data/brick.jpg";
+        meshComp->setMesh(mesh);
 
         cube->addComponent(meshComp);
 

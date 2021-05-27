@@ -43,6 +43,7 @@ public:
 
     // Helpers (General)
 
+    static unsigned int loadTexture(const std::string& file);
 
     // Helpers (Drawing)
     static void drawCharacter(char chr);

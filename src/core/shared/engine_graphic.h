@@ -14,37 +14,43 @@ typedef struct Vertex {
     Vector2 texCoord;
 } Vertex;
 
+enum FaceType{
+    triangle = 3,
+    quad = 4
+};
+
 typedef struct Face {
-    Vertex* vert1;
-    Vertex* vert2;
-    Vertex* vert3;
+    Vertex* vertices[4] = {};
+    FaceType type;
+
+    Vector3 colour = Vector3::identity();
 
     Vector3 normal;
+
+    explicit Face(FaceType type = triangle){
+        this->type = type;
+    }
 } Face;
 
 typedef struct Mesh {
     std::vector<Vertex*> vertices = std::vector<Vertex*>();
-    std::list<Face> faces = std::list<Face>();
+    std::vector<Face> faces = std::vector<Face>();
+    unsigned int textureRef = 0;
+
+    std::string texture;
 } Mesh;
 
 class MeshHelper {
 public:
     static Vector3 calculateNormal(Face face){
-
-        Vector3 p1 = Vector3();
-        Vector3 p2 = Vector3();
-        p1.x = face.vert1->position.x - face.vert2->position.x;
-        p1.y = face.vert1->position.y - face.vert2->position.y;
-        p1.z = face.vert1->position.z - face.vert2->position.z;
-
-        p2.x = face.vert1->position.x - face.vert3->position.x;
-        p2.y = face.vert1->position.y - face.vert3->position.y;
-        p2.z = face.vert1->position.z - face.vert3->position.z;
-
-        // Cross
-        Vector3 normal = VectorUtil::Cross(p1, p2);
-
-        return normal;
+        // Handle different vertices faces (Mostly just triangles, cbs with rest.
+        switch(face.type){
+            case triangle:
+            case quad:
+                return VectorUtil::Cross(face.vertices[1]->position - face.vertices[0]->position, face.vertices[2]->position - face.vertices[0]->position);
+            default:
+                return {};
+        }
     }
 
 

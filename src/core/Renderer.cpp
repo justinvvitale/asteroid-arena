@@ -1,8 +1,10 @@
 //
 // Created by dim on 23/03/2021.
 //
-
 #include "Renderer.h"
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "external/stb_image.h"
 
 #if _WIN32
 
@@ -22,15 +24,42 @@
 #endif
 
 void Renderer::renderMesh(const Mesh& mesh) {
-    for (Face face : mesh.faces){
-//        face.normal = MeshHelper::calculateNormal(face);
-        glBegin(GL_TRIANGLES);
-            glNormal3f(face.normal.x, face.normal.y, face.normal.z);
-            glVertex3f(face.vert1->position.x, face.vert1->position.y, face.vert1->position.z);
-            glVertex3f(face.vert2->position.x, face.vert2->position.y, face.vert2->position.z);
-            glVertex3f(face.vert3->position.x, face.vert3->position.y, face.vert3->position.z);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, mesh.textureRef);
+
+    for (const Face& face : mesh.faces){
+        switch(face.type){
+            case triangle:
+                glBegin(GL_TRIANGLES);
+                break;
+            case quad:
+                glBegin(GL_QUADS);
+                break;
+            default:
+                glBegin(GL_LINES);
+                break;
+        }
+//        float amb[] = {0.2f, 0.2f, 0.2f, 1.0f};;
+//        float diff[] = {0.2, 0.2, 0.2, 1.0};
+//
+//        glMaterialfv(GL_FRONT, GL_AMBIENT, amb);
+//        glMaterialfv(GL_FRONT, GL_DIFFUSE, diff);
+
+        glNormal3f(face.normal.x, face.normal.y, face.normal.z);
+        glColor3f(face.colour.x, face.colour.y, face.colour.z);
+
+        for(int i = 0; i < face.type; i++){
+            Vertex* vert = face.vertices[i];
+
+            glTexCoord2f(vert->texCoord.x, vert->texCoord.y);
+            glVertex3f(vert->position.x, vert->position.y, vert->position.z);
+        }
+
         glEnd();
     }
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_TEXTURE_2D);
 }
 
 void Renderer::renderParticle(const Particle* particle) {
@@ -169,6 +198,31 @@ void Renderer::moveCamera(Vector3 position, Vector3 direction) {
     gluLookAt(position.x, position.y, position.z,
               position.x + direction.x, position.y + direction.y, position.z + direction.z,
               0.0f, 1.0f, 0.0f);
+}
+
+unsigned int Renderer::loadTexture(const std::string& file) {
+    int width, height, components;
+    unsigned char* data = stbi_load(file.c_str(), &width, &height, &components, STBI_rgb);
+
+    if(data == nullptr){
+        std::cout << "(Error) Unable to load texture: " + file << std::endl;
+        return 0;
+    }
+
+    unsigned int id;
+
+    glPushAttrib(GL_TEXTURE_BIT);
+    glGenTextures(1, &id);
+    glBindTexture(GL_TEXTURE_2D, id);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glPopAttrib();
+
+    return id;
 }
 
 

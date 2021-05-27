@@ -9,7 +9,14 @@ MeshComponent::MeshComponent() : Component(ComponentType::CMesh) {
 }
 
 void MeshComponent::tick() {
-    // Do nothing
+    // Load any textures on first tick
+    if(isStartTick){
+        if(mesh.textureRef == 0 && !mesh.texture.empty()){
+            mesh.textureRef = Renderer::loadTexture(mesh.texture);
+        }
+
+    isStartTick = false;
+    }
 }
 
 void MeshComponent::render() {
