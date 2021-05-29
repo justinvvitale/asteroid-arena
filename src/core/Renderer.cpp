@@ -39,19 +39,19 @@ void Renderer::renderMesh(const Mesh& mesh) {
                 glBegin(GL_LINES);
                 break;
         }
-//        float amb[] = {0.2f, 0.2f, 0.2f, 1.0f};;
-//        float diff[] = {0.2, 0.2, 0.2, 1.0};
-//
-//        glMaterialfv(GL_FRONT, GL_AMBIENT, amb);
-//        glMaterialfv(GL_FRONT, GL_DIFFUSE, diff);
+        float amb[] = {mesh.ambient.x, mesh.ambient.y, mesh.ambient.z, mesh.ambient.w};
+        float diff[] = {mesh.diffuse.x, mesh.diffuse.y, mesh.diffuse.z, mesh.diffuse.w};;
 
-        glNormal3f(face.normal.x, face.normal.y, face.normal.z);
+        glMaterialfv(GL_FRONT, GL_AMBIENT, amb);
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, diff);
+
         glColor3f(face.colour.x, face.colour.y, face.colour.z);
 
         for(int i = 0; i < face.type; i++){
             Vertex* vert = face.vertices[i];
 
             glTexCoord2f(vert->texCoord.x, vert->texCoord.y);
+            glNormal3f(vert->normal.x, vert->normal.y,vert->normal.z);
             glVertex3f(vert->position.x, vert->position.y, vert->position.z);
         }
 
@@ -60,6 +60,8 @@ void Renderer::renderMesh(const Mesh& mesh) {
 
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE_2D);
+    glColor3f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z);
+
 }
 
 void Renderer::renderParticle(const Particle* particle) {

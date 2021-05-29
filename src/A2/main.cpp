@@ -18,17 +18,10 @@ Scene* getScene() {
     scene->addEntity(PlayerEntity::getEntity());
     scene->addEntity(AsteroidEntity::getEntity());
 
+    Entity* waveManagerEntity = new Entity("wave");
+    waveManagerEntity->addComponent(new AsteroidWaveScript());
 
-    Entity* shrek = new Entity();
-
-    MeshComponent* meshRenderer = new MeshComponent();
-    meshRenderer->setScale(1.2);
-    shrek->addComponent(new TestScript());
-    shrek->addComponent(meshRenderer);
-    shrek->setPosition(Vector3(20,2,0));
-
-    scene->addEntity(shrek);
-
+    scene->addEntity(waveManagerEntity);
 
     return scene;
 }

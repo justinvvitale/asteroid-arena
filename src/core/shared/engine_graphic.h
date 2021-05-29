@@ -10,8 +10,10 @@
 #include <vector>
 
 typedef struct Vertex {
-    Vector3 position;
-    Vector2 texCoord;
+    Vector3 position = Vector3::zero();
+    Vector3 normal = Vector3::identity();
+    Vector2 texCoord = Vector2::zero();
+
 } Vertex;
 
 enum FaceType{
@@ -19,13 +21,16 @@ enum FaceType{
     quad = 4
 };
 
+enum CustomRender{
+    None,
+    Sphere
+};
+
 typedef struct Face {
     Vertex* vertices[4] = {};
     FaceType type;
 
     Vector3 colour = Vector3::identity();
-
-    Vector3 normal;
 
     explicit Face(FaceType type = triangle){
         this->type = type;
@@ -36,6 +41,9 @@ typedef struct Mesh {
     std::vector<Vertex*> vertices = std::vector<Vertex*>();
     std::vector<Face> faces = std::vector<Face>();
     unsigned int textureRef = 0;
+
+    Vector4 ambient = Vector4(0,0,0,0);
+    Vector4 diffuse = Vector4(0,0,0,0);
 
     std::string texture;
 } Mesh;

@@ -70,8 +70,8 @@ void AsteroidWaveScript::update() {
 }
 
 Vector3 AsteroidWaveScript::getPositionOutOfArena(float payloadSize) const {
-    float angle = (float)(rand() * PI * 2);
-    return {cos(angle) * (launchRadius + payloadSize), sin(angle) * (launchRadius + payloadSize), 0};
+    Vector3 spawnpos = Vector3(0,0,0);
+    return spawnpos;
 }
 
 void AsteroidWaveScript::spawnAsteroid() {

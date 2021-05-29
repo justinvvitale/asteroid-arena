@@ -17,40 +17,48 @@ Mesh ObjAccess::load(const std::string& name) {
     auto& shapes = reader.GetShapes();
     auto& materials = reader.GetMaterials();
 
-    // Load vertices
-    for(int i = 0; i < attrib.vertices.size(); i += 3){ // 3 x y z
-        Vertex* vert = new Vertex();
-
-        vert->position = Vector3(attrib.vertices[i], attrib.vertices[i + 1], attrib.vertices[i + 2]);
-
-        mesh.vertices.push_back(vert);
-    }
-
-    // Load faces
-    for(tinyobj::shape_t shape : shapes){
-        for(int i = 0; i < shape.mesh.indices.size(); i += 3){ // triangles only e.g 3
+// Loop over shapes
+    for (size_t s = 0; s < shapes.size(); s++) {
+        // Loop over faces(polygon)
+        size_t index_offset = 0;
+        for (size_t f = 0; f < shapes[s].mesh.num_face_vertices.size(); f++) {
+            size_t fv = size_t(shapes[s].mesh.num_face_vertices[f]);
             Face face = Face();
-            face.vertices[0] = mesh.vertices[shape.mesh.indices[i].vertex_index];
-            face.vertices[1] = mesh.vertices[shape.mesh.indices[i + 1].vertex_index];
-            face.vertices[2] = mesh.vertices[shape.mesh.indices[i + 2].vertex_index];
 
-            face.normal = MeshHelper::calculateNormal(face);
+            // Loop over vertices in the face.
+            for (size_t v = 0; v < fv; v++) {
+                Vertex* vertex = new Vertex();
+                face.vertices[v] = vertex;
+                mesh.vertices.push_back(vertex);
 
-            // Map texture coordinates to shape's vertexes
-            if(shape.mesh.indices[i].texcoord_index >= 0){
-                face.vertices[0]->texCoord = Vector2(attrib.texcoords[2 * size_t(shape.mesh.indices[i].texcoord_index) + 0],
-                                               attrib.texcoords[2 * size_t(shape.mesh.indices[i].texcoord_index) + 1]);
+                // Vertex position
+                tinyobj::index_t idx = shapes[s].mesh.indices[index_offset + v];
+                tinyobj::real_t vx = attrib.vertices[3*size_t(idx.vertex_index)+0];
+                tinyobj::real_t vy = attrib.vertices[3*size_t(idx.vertex_index)+1];
+                tinyobj::real_t vz = attrib.vertices[3*size_t(idx.vertex_index)+2];
+                vertex->position = Vector3(vx,vy,vz);
+
+                // Normal check
+                if (idx.normal_index >= 0) {
+                    tinyobj::real_t nx = attrib.normals[3*size_t(idx.normal_index)+0];
+                    tinyobj::real_t ny = attrib.normals[3*size_t(idx.normal_index)+1];
+                    tinyobj::real_t nz = attrib.normals[3*size_t(idx.normal_index)+2];
+                    vertex->normal = Vector3(nx,ny,nz);
+                }
+
+                // TexCord check
+                if (idx.texcoord_index >= 0) {
+                    tinyobj::real_t tx = attrib.texcoords[2*size_t(idx.texcoord_index)+0];
+                    tinyobj::real_t ty = attrib.texcoords[2*size_t(idx.texcoord_index)+1];
+                    vertex->texCoord = Vector2(tx,ty);
+                }
+
             }
-            if(shape.mesh.indices[i + 1].texcoord_index >= 0){
-                face.vertices[1]->texCoord = Vector2(attrib.texcoords[2 * size_t(shape.mesh.indices[i + 1].texcoord_index) + 0],
-                                               attrib.texcoords[2 * size_t(shape.mesh.indices[i + 1].texcoord_index) + 1]);
-            }
-            if(shape.mesh.indices[i + 2].texcoord_index >= 0){
-                face.vertices[2]->texCoord = Vector2(attrib.texcoords[2 * size_t(shape.mesh.indices[i + 2].texcoord_index) + 0],
-                                               attrib.texcoords[2 * size_t(shape.mesh.indices[i + 2].texcoord_index) + 1]);
-            }
+            index_offset += fv;
 
             mesh.faces.push_back(face);
+            // per-face material
+            shapes[s].mesh.material_ids[f];
         }
     }
 

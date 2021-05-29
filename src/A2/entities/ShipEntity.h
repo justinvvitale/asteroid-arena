@@ -18,9 +18,9 @@ public:
 
         MeshComponent* meshComp = new MeshComponent();
 
-        Mesh mesh = ObjAccess::load("ship");
-        mesh.texture = "data/brick.jpg";
-        meshComp->setMesh(mesh);
+//        Mesh mesh = ObjAccess::load("ship");
+//        mesh.texture = "data/ship.png";
+//        meshComp->setMesh(mesh);
 
         ship->addComponent(meshComp);
 

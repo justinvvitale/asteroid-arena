@@ -12,7 +12,7 @@
 
 class MeshComponent : public Component {
 public:
-    explicit MeshComponent();
+    explicit MeshComponent(CustomRender customRender = CustomRender::None);
 
     void render();
 
@@ -27,6 +27,7 @@ public:
 private:
     float scale = 1;
     bool isStartTick = true;
+    CustomRender customRender;
 
     // Data
     Mesh mesh;

@@ -5,7 +5,8 @@
 #include "MeshComponent.h"
 #include "../../Renderer.h"
 
-MeshComponent::MeshComponent() : Component(ComponentType::CMesh) {
+MeshComponent::MeshComponent(CustomRender customRender) : Component(ComponentType::CMesh) {
+    this->customRender = customRender;
 }
 
 void MeshComponent::tick() {
@@ -20,7 +21,11 @@ void MeshComponent::tick() {
 }
 
 void MeshComponent::render() {
-    Renderer::renderMesh(mesh);
+    if(customRender == CustomRender::None){
+        Renderer::renderMesh(mesh);
+    }else{
+        Renderer::renderCustom(customRender);
+    }
 }
 
 void MeshComponent::setMesh(const Mesh& meshIn) {

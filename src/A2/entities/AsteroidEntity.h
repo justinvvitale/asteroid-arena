@@ -17,11 +17,12 @@ class AsteroidEntity {
             static Entity* getEntity() {
                 Entity* entity = new Entity("asteroid");
 
-//                MeshComponent* meshRenderer = new MeshComponent(CustomRender::Sphere);
-//                entity->addComponent(meshRenderer);
+                MeshComponent* meshRenderer = new MeshComponent(CustomRender::Sphere);
+                entity->addComponent(meshRenderer);
 
                 RigidbodyComponent* rb = new RigidbodyComponent();
                 entity->addComponent((Component*) rb);
+                rb->addForce(Vector3(getRandomNumber(0,100), getRandomNumber(0,100), getRandomNumber(0,100)));
 
                 return entity;
             }

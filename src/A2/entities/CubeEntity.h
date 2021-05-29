@@ -20,8 +20,8 @@ public:
 
         MeshComponent* meshComp = new MeshComponent();
 
-        Mesh mesh = ObjAccess::load("cube");
-        mesh.texture = "data/brick.jpg";
+        Mesh mesh = ObjAccess::load("ship");
+        mesh.texture = "data/ship.png";
         meshComp->setMesh(mesh);
 
         cube->addComponent(meshComp);

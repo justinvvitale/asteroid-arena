@@ -16,11 +16,6 @@ enum TextOrigin {
     bottomRight
 };
 
-enum CustomRender{
-    None,
-    Sphere
-};
-
 class Renderer {
 public:
     static bool drawParticles;
