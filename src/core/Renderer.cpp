@@ -225,5 +225,16 @@ unsigned int Renderer::loadTexture(const std::string& file) {
     return id;
 }
 
+void Renderer::renderCustom(CustomRender customRender, Vector3 colour) {
+    switch (customRender) {
+        case Sphere:
+            gluSphere(gluNewQuadric(), 25,100,20);
+            break;
+        default:
+            break;
+    }
+
+}
+
 
 

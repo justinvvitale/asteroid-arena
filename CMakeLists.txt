@@ -50,6 +50,7 @@ add_executable(I3D
         src/A2/GAMECONFIG.h
         src/A2/GameState.h
         src/A2/entities/PlayerEntity.h
+        src/A2/entities/ShipEntity.h
         src/A2/scripts/PlayerControllerScript.cpp
         src/A2/scripts/PlayerControllerScript.h
         src/A2/entities/CubeEntity.h
@@ -119,5 +120,6 @@ add_executable(I3D
         src/core/ecs/components/CameraComponent.h
         src/core/external/tiny_obj_loader.h
         src/core/external/stb_image.h
+        src/core/external/ObjAccess.cpp
         # Unsorted
-        src/core/external/ObjAccess.cpp)
+        )

@@ -40,6 +40,11 @@ void Entity::setPosition(const Vector3& pos) {
     Entity::position = pos;
 }
 
+void Entity::setPosition(float x, float y, float z) {
+    Entity::position = Vector3(x,y,z);
+}
+
+
 Rotation Entity::getRotation() const {
     return rotation;
 }
@@ -169,6 +174,7 @@ void Entity::removeComponent(Component* component) {
         ++compIter;
     }
 }
+
 
 
 

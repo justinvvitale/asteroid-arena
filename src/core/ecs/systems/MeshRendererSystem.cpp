@@ -55,7 +55,7 @@ Entity* MeshRendererSystem::getRootEntity(Entity* entity) {
         return entity;
     }
 
-    return getRootEntity(entity);
+    return getRootEntity(entity->getParent());
 }
 
 void MeshRendererSystem::debugRender(Entity* entity) {

@@ -61,6 +61,7 @@ public:
     Vector3 getWorldPosition();
 
     void setPosition(const Vector3& pos);
+    void setPosition(float x, float y, float z);
 
     Rotation getRotation() const;
 

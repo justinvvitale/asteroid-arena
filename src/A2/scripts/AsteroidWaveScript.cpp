@@ -90,7 +90,7 @@ void AsteroidWaveScript::spawnAsteroid() {
 void AsteroidWaveScript::spawnAsteroid(float health, Vector3 position, float speed, float radius, float rotation,
                                        Vector3 force, bool canSplit) {
     // Create entity and add script
-    Entity* ast = AsteroidEntity::getEntity(radius);
+    Entity* ast = AsteroidEntity::getEntity();
     AsteroidScript* asteroidScript = new AsteroidScript(this, health, radius, speed, canSplit);
 
     ast->addComponent(asteroidScript);

@@ -6,6 +6,8 @@
 #include "../GAMECONFIG.h"
 #include "../../core/Game.h"
 #include "AsteroidScript.h"
+#include "../../core/ecs/systems/ParticleSystem.h"
+#include "../GameState.h"
 
 void WallScript::start() {
     this->meshComponent = dynamic_cast<MeshComponent*>(this->getEntity()->getComponentOfType(ComponentType::CMesh));
@@ -120,9 +122,38 @@ void WallScript::update() {
 
     }else {
         Vector3 playerPos = Game::getEntity("player")->getPosition();
-        float halfSize = ARENA_SIZE / 2;
+        float halfArena = ARENA_SIZE / 2;
 
-        topWarn = halfSize - playerPos.y <= ARENA_WARN_DIST;
+        float distTop = halfArena - playerPos.y;
+        float distBottom = halfArena + playerPos.y;
+        float distNear =  halfArena - playerPos.z;
+        float distFar = halfArena + playerPos.z;
+        float distLeft = halfArena + playerPos.x;
+        float distRight = halfArena - playerPos.x;
+
+        topWarn = distTop <= ARENA_WARN_DIST;
+        bottomWarn = distBottom <= ARENA_WARN_DIST;
+        nearWarn = distNear <= ARENA_WARN_DIST;
+        farWarn = distFar <= ARENA_WARN_DIST;
+        leftWarn = distLeft <= ARENA_WARN_DIST;
+        rightWarn = distRight <= ARENA_WARN_DIST;
+
+        // Kill check (Player)
+        float killDist = 50;
+        if(distTop < killDist || distBottom < killDist || distLeft < killDist || distRight < killDist || distFar < killDist || distNear < killDist){
+//            for(int i = 0; i < 100; i++){
+//                Vector3 vel = Vector3(
+//                        (float) getRandomNumber(-200, 200),
+//                        (float) getRandomNumber(-200, 200), 0);
+//
+//                ParticleSystem::emit(new Particle(vel, (float)2000 +
+//                                                       (float)getRandomNumber(-1000,
+//                                                                              1000), 2.5, 0.5,
+//                                                  MeshHelper::getHexagonMesh((float) SHIP_SIZE / 8, Vector3(1, 0.3, 0))), this->getEntity()->getPosition());
+//            }
+
+            Game::state = GameState::Dead;
+        }
     }
     int currentWarns = topWarn + bottomWarn + leftWarn + rightWarn + nearWarn + farWarn;
 
@@ -134,10 +165,42 @@ void WallScript::update() {
 
 
 void WallScript::refreshMeshData() {
+    Vector3 warnColour = Vector3(0.7, 0,0);
+    Vector3 colour = Vector3(0.5, 0.5,0.5);
     if(topWarn){
-        mesh.faces[topFaceIndex].colour = Vector3(0.5,0.5,1);
+        mesh.faces[topFaceIndex].colour = Vector3(warnColour);
     }else{
-        mesh.faces[topFaceIndex].colour = Vector3::zero();
+        mesh.faces[topFaceIndex].colour = colour;
+    }
+
+    if(bottomWarn){
+        mesh.faces[bottomFaceIndex].colour = Vector3(warnColour);
+    }else{
+        mesh.faces[bottomFaceIndex].colour = colour;
+    }
+
+    if(nearWarn){
+        mesh.faces[nearFaceIndex].colour = Vector3(warnColour);
+    }else{
+        mesh.faces[nearFaceIndex].colour = colour;
+    }
+
+    if(farWarn){
+        mesh.faces[farFaceIndex].colour = Vector3(warnColour);
+    }else{
+        mesh.faces[farFaceIndex].colour = colour;
+    }
+
+    if(leftWarn){
+        mesh.faces[leftFaceIndex].colour = Vector3(warnColour);
+    }else{
+        mesh.faces[leftFaceIndex].colour = colour;
+    }
+
+    if(rightWarn){
+        mesh.faces[rightFaceIndex].colour = Vector3(warnColour);
+    }else{
+        mesh.faces[rightFaceIndex].colour = colour;
     }
 
     this->meshComponent->setMesh(mesh);

@@ -4,6 +4,7 @@
 #include "entities/MediatorEntity.h"
 #include "entities/ScoreManagerEntity.h"
 #include "entities/ArenaEntity.h"
+#include "entities/AsteroidEntity.h"
 
 Scene* getScene() {
     Scene* scene = new Scene();
@@ -15,6 +16,8 @@ Scene* getScene() {
     scene->addEntity(ArenaEntity::getEntity());
     scene->addEntity(CubeEntity::getEntity());
     scene->addEntity(PlayerEntity::getEntity());
+    scene->addEntity(AsteroidEntity::getEntity());
+
 
     Entity* shrek = new Entity();
 

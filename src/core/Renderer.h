@@ -16,11 +16,18 @@ enum TextOrigin {
     bottomRight
 };
 
+enum CustomRender{
+    None,
+    Sphere
+};
+
 class Renderer {
 public:
     static bool drawParticles;
 
     static void renderMesh(const Mesh& mesh);
+
+    static void renderCustom(CustomRender customRender, Vector3 colour = Vector3::identity());
 
     static void renderParticle(const Particle* particle);
 
