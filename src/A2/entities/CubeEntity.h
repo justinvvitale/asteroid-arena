@@ -21,7 +21,6 @@ public:
         MeshComponent* meshComp = new MeshComponent();
 
         Mesh mesh = ObjAccess::load("death");
-        Renderer::loadTexture("death", "data/death.jpeg");
         mesh.texture = "death";
         meshComp->setMesh(mesh);
 

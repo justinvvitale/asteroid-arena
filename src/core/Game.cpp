@@ -66,6 +66,7 @@ void Game::start(int argc, char** argv, const std::string& name, Scene* (* defau
     glutIdleFunc(Game::idle);
 
     glutMouseFunc(KeyRegistry::mouse);
+    glutPassiveMotionFunc(KeyRegistry::mouseMotion);
     glutKeyboardFunc(KeyRegistry::keyPress);
     glutKeyboardUpFunc(KeyRegistry::keyUp);
 
@@ -103,6 +104,8 @@ void Game::init() {
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glutSetCursor(GLUT_CURSOR_NONE);
 
     glPointSize(POINT_SIZE);
 

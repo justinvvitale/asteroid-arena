@@ -14,8 +14,16 @@
 std::set<unsigned char>* KeyRegistry::keyState = nullptr;
 bool KeyRegistry::primaryPressed = false;
 
+Vector2 KeyRegistry::centerPoint = Vector2::zero();
+Vector2 KeyRegistry::lastMotion = Vector2::zero();
+Vector2 KeyRegistry::mouseMove = Vector2::zero();
+
 void KeyRegistry::init() {
     keyState = new std::set<unsigned char>();
+    centerPoint.x = glutGet(GLUT_WINDOW_WIDTH)/2;
+    centerPoint.y = glutGet(GLUT_WINDOW_HEIGHT)/2;
+
+
 }
 
 // Call backs
@@ -50,6 +58,20 @@ void KeyRegistry::mouse(int button, int state, int x, int y) {
 
 bool KeyRegistry::isPrimaryMousePressed() {
     return primaryPressed;
+}
+
+void KeyRegistry::mouseMotion(int x, int y) {
+    Vector2 curMotion = Vector2((float)x, (float)y);
+    mouseMove = mouseMove + (lastMotion - curMotion);
+    lastMotion = curMotion;
+
+    if (x != centerPoint.x || y != centerPoint.y) glutWarpPointer(centerPoint.x, centerPoint.y);
+}
+
+Vector2 KeyRegistry::getMouseMove() {
+    Vector2 returnVec = Vector2(mouseMove.x, mouseMove.y);
+    mouseMove = Vector2::zero();
+    return returnVec;
 }
 
 

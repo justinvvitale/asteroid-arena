@@ -24,7 +24,8 @@ enum FaceType{
 enum CustomRender{
     None,
     Sphere,
-    Cube
+    Cube,
+    Bullet
 };
 
 typedef struct Face {

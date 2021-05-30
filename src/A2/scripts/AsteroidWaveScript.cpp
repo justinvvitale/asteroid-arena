@@ -12,7 +12,7 @@
 void AsteroidWaveScript::start() {
     scoreScript = dynamic_cast<ScoreScript*>(Game::getEntity("score")->getComponentOfType(ComponentType::CScript));
     launchRadius = (float) sqrt(pow(ARENA_SIZE / 2, 2) + pow(ARENA_SIZE / 2, 2));
-    shipRef = Game::getEntity("ship");
+    shipRef = Game::getEntity("player");
 
     if (DEBUG_DRAW_LAUNCH_CIRCLE) {
         MeshComponent* meshComponent = new MeshComponent();

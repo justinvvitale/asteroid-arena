@@ -249,6 +249,9 @@ void Renderer::renderCustom(CustomRender customRender, Vector3 colour) {
         case Cube:
             glutSolidCube(25);
             break;
+        case Bullet:
+            drawTransparentQuad("bullet", 100);
+            break;
         default:
             break;
     }
@@ -261,7 +264,7 @@ void Renderer::loadTexture(const std::string& name, const std::string& path) {
         return;
 
     if(hasGlLoaded){
-        unsigned int id;
+        unsigned int id = loadTextureGl(path);
         std::cout << "Loaded texture " << name << " and assigned ID " << id << std::endl;
         textures[name] = id;
     }else{

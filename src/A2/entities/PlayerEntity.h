@@ -9,7 +9,6 @@
 #include "../scripts/PlayerControllerScript.h"
 #include "../../core/ecs/components/CameraComponent.h"
 #include "../../core/external/ObjAccess.h"
-#include "ShipEntity.h"
 
 class PlayerEntity {
 
@@ -18,14 +17,18 @@ public:
         Entity* player = new Entity("player");
 
         CameraComponent* cameraComponent = new CameraComponent();
+        cameraComponent->setCameraOffset(Vector3(0,2,10));
+
         PlayerControllerScript* controllerScript = new PlayerControllerScript();
 
-        // Mesh is on a different inner-entity so we can move it
-        Entity* ship = ShipEntity::getEntity();
-        ship->setPosition(0,0,-5);
-        ship->setRotation(Rotation(-100,90,180));
-        player->addChild(ship);
 
+        MeshComponent* meshComp = new MeshComponent();
+        Mesh mesh = ObjAccess::load("ship");
+        Renderer::loadTexture("ship", "data/ship.png");
+        mesh.texture = "ship";
+        meshComp->setMesh(mesh);
+
+        player->addComponent(meshComp);
         player->addComponent(controllerScript);
         player->addComponent(cameraComponent);
 

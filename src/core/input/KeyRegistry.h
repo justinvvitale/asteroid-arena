@@ -8,6 +8,7 @@
 #include <iostream>
 #include <set>
 #include <vector>
+#include "../shared/engine_math.h"
 
 class KeyRegistry {
 private:
@@ -16,6 +17,10 @@ private:
     static std::set<unsigned char>* keyState;
 
     static bool primaryPressed;
+
+    static Vector2 centerPoint;
+    static Vector2 mouseMove;
+    static Vector2 lastMotion;
 
 public:
     static void init();
@@ -26,6 +31,8 @@ public:
 
     static void mouse(int button, int state, int x, int y);
 
+    static void mouseMotion(int x, int y);
+
     static void clear();
 
     static bool isPressed(unsigned char key);
@@ -33,6 +40,9 @@ public:
     static std::vector<unsigned char> getPressed();
 
     static bool isPrimaryMousePressed();
+
+
+    static Vector2 getMouseMove();
 };
 
 

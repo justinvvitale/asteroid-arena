@@ -49,7 +49,6 @@ add_executable(I3D
         src/A2/GAMECONFIG.h
         src/A2/GameState.h
         src/A2/entities/PlayerEntity.h
-        src/A2/entities/ShipEntity.h
         src/A2/scripts/PlayerControllerScript.cpp
         src/A2/scripts/PlayerControllerScript.h
         src/A2/entities/CubeEntity.h

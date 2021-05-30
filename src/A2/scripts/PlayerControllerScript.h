@@ -7,10 +7,16 @@
 
 
 #include "../../core/ecs/components/ScriptComponent.h"
+#include "../../core/ecs/components/ParticleEmitterComponent.h"
 
 class PlayerControllerScript : public ScriptComponent {
 private:
+    float velocity = 0;
+    int lastShoot = -1;
+    int lastParticleEmit = -1;
 
+    CameraComponent* camera;
+    ParticleEmitterComponent* emitter;
 protected:
     void start() override;
 

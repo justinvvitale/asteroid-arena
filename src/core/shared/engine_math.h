@@ -34,6 +34,14 @@ struct Vector2 {
     static Vector2 identity() {
         return {1, 1};
     }
+
+    Vector2 operator-(const Vector2& other) const {
+        return {x - other.x, y - other.y};
+    }
+
+    Vector2 operator+(const Vector2& other) const {
+        return {x + other.x, y + other.y};
+    }
 };
 
 struct Vector3 {

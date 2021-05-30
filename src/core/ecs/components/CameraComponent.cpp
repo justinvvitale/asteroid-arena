@@ -21,21 +21,12 @@ void CameraComponent::tick() {
         fraction *= 3;
     }
 
-    if (KeyRegistry::isPressed('a')) {
-        camRot -= turnSpeed;
-        lookDirection.x = sin(camRot);
-        lookDirection.z = -cos(camRot);
-    }
-
-    if (KeyRegistry::isPressed('d')) {
-        camRot += turnSpeed;
-        lookDirection.x = sin(camRot);
-        lookDirection.z = -cos(camRot);
-    }
 }
 
 void CameraComponent::render() {
+    // Set camera position behind player
     Vector3 globalPosition = getEntity()->getPosition() + cameraOffset;
+    globalPosition = Vector3(-globalPosition.y, globalPosition.x, globalPosition.z);
 
     Renderer::moveCamera(globalPosition, lookDirection);
 }
