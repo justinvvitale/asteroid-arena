@@ -17,7 +17,20 @@ enum TextOrigin {
 };
 
 class Renderer {
+private:
+    static bool hasGlLoaded;
+
+    static std::unordered_map<std::string, int> textures;
+    std::queue<std::pair<std::string, std::string>> static textureLoadQueue;
+
+    static unsigned int loadTextureGl(const std::string& file);
+
 public:
+    // Admin
+
+    static void glInitialized();
+
+    // Rendering
     static bool drawParticles;
 
     static void renderMesh(const Mesh& mesh);
@@ -45,16 +58,13 @@ public:
 
     // Helpers (General)
 
-    static unsigned int loadTexture(const std::string& file);
+    static unsigned int getTextureId(const std::string& name);
+    static void loadTexture(const std::string& name, const std::string& path);
 
     // Helpers (Drawing)
     static void drawCharacter(char chr);
 
-    static void drawCircle(float radius);
-
-    static void drawRect(float height, float width);
-
-    static void drawRectSolid(float width, float height);
+    static void drawTransparentQuad(const std::string& texture, float size, Vector3 offset = Vector3::zero());
 
     static void moveCamera(Vector3 position, Vector3 direction);
 };

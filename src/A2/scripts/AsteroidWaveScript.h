@@ -27,7 +27,7 @@ private:
     void spawnAsteroid(float health, Vector3 position, float speed, float radius, float rotation, Vector3 force,
                        bool canSplit);
 
-    Entity* playerRef;
+    Entity* shipRef;
 
 protected:
     void update() override;

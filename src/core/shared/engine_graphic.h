@@ -23,7 +23,8 @@ enum FaceType{
 
 enum CustomRender{
     None,
-    Sphere
+    Sphere,
+    Cube
 };
 
 typedef struct Face {
@@ -40,12 +41,12 @@ typedef struct Face {
 typedef struct Mesh {
     std::vector<Vertex*> vertices = std::vector<Vertex*>();
     std::vector<Face> faces = std::vector<Face>();
-    unsigned int textureRef = 0;
+    std::string texture;
+
 
     Vector4 ambient = Vector4(0,0,0,0);
     Vector4 diffuse = Vector4(0,0,0,0);
 
-    std::string texture;
 } Mesh;
 
 class MeshHelper {

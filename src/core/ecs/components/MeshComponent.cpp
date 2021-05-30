@@ -10,14 +10,6 @@ MeshComponent::MeshComponent(CustomRender customRender) : Component(ComponentTyp
 }
 
 void MeshComponent::tick() {
-    // Load any textures on first tick
-    if(isStartTick){
-        if(mesh.textureRef == 0 && !mesh.texture.empty()){
-            mesh.textureRef = Renderer::loadTexture(mesh.texture);
-        }
-
-    isStartTick = false;
-    }
 }
 
 void MeshComponent::render() {
@@ -40,6 +32,10 @@ void MeshComponent::reset() {
 
 void MeshComponent::setScale(float newScale) {
     this->scale = newScale;
+}
+
+Mesh MeshComponent::getMesh() {
+    return mesh;
 }
 
 

@@ -50,6 +50,7 @@ public:
     Entity* getParent();
 
     std::list<Entity*> getChildren();
+    std::list<Entity*> getHierarchicalEntities();
 
     void addChild(Entity* entity);
 

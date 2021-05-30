@@ -4,6 +4,7 @@
 
 #include "Game.h"
 #include "input/KeyRegistry.h"
+#include "Renderer.h"
 
 #if _WIN32
 
@@ -48,7 +49,7 @@ void Game::start(int argc, char** argv, const std::string& name, Scene* (* defau
     engine->setScene(getDefaultScene());
 
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 
     glutInitWindowSize(1000, 1000);
 
@@ -100,10 +101,15 @@ void Game::init() {
     glEnable(GL_NORMALIZE);
     glEnable(GL_COLOR_MATERIAL);
 
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     glPointSize(POINT_SIZE);
 
     // Set last idle
     lastIdleTime = (float) glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
+
+    Renderer::glInitialized();
 }
 
 // Callbacks
@@ -205,4 +211,6 @@ void Game::performEntityCleanup() {
         toDelete.erase(it++);
     }
 }
+
+
 

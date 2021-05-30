@@ -23,9 +23,35 @@
 
 #endif
 
+
+bool Renderer::hasGlLoaded = false;
+std::unordered_map<std::string, int> Renderer::textures = std::unordered_map<std::string, int>();
+std::queue<std::pair<std::string, std::string>> Renderer::textureLoadQueue = std::queue<std::pair<std::string, std::string>>();
+
+
+void Renderer::glInitialized() {
+    hasGlLoaded = true;
+
+    // Load textures which have been requested
+    while(!textureLoadQueue.empty()){
+        std::pair<std::string, std::string> request = textureLoadQueue.front();
+        std::string name = request.first;
+        std::string path = request.second;
+
+        unsigned int id = loadTextureGl(request.second);
+
+        std::cout << "Loaded texture " << name << " and assigned ID " << id << std::endl;
+
+        textures[name] = id;
+
+        textureLoadQueue.pop();
+    }
+}
+
+
 void Renderer::renderMesh(const Mesh& mesh) {
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, mesh.textureRef);
+    glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(mesh.texture));
 
     for (const Face& face : mesh.faces){
         switch(face.type){
@@ -55,6 +81,8 @@ void Renderer::renderMesh(const Mesh& mesh) {
             glVertex3f(vert->position.x, vert->position.y, vert->position.z);
         }
 
+        glColor3f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z);
+
         glEnd();
     }
 
@@ -72,28 +100,21 @@ void Renderer::renderParticle(const Particle* particle) {
     glPopMatrix();
 }
 
-void Renderer::drawRect(float width, float height) {
-    float heightHalf = height / 2;
-    float widthHalf = width / 2;
-
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(widthHalf, heightHalf);
-    glVertex2f(-widthHalf, heightHalf);
-    glVertex2f(-widthHalf, -heightHalf);
-    glVertex2f(widthHalf, -heightHalf);
-    glEnd();
-}
-
-void Renderer::drawRectSolid(float width, float height) {
-    float heightHalf = height / 2;
-    float widthHalf = width / 2;
+void Renderer::drawTransparentQuad(const std::string& texture, float size, Vector3 offset) {
+    glDisable(GL_LIGHTING);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(texture));
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
     glBegin(GL_QUADS);
-    glVertex2f(widthHalf, heightHalf);
-    glVertex2f(-widthHalf, heightHalf);
-    glVertex2f(-widthHalf, -heightHalf);
-    glVertex2f(widthHalf, -heightHalf);
+    glTexCoord2f(0.0, 1.0); glVertex2f(-size,size);
+    glTexCoord2f(0.0, 0.0); glVertex2f(-size,-size);
+    glTexCoord2f(1.0, 0.0); glVertex2f(size,-size);
+    glTexCoord2f(1.0, 1.0); glVertex2f(size,size);
     glEnd();
+
+    glDisable(GL_TEXTURE_2D);
+    glEnable(GL_LIGHTING);
 }
 
 void Renderer::renderText(TextOrigin origin, Vector3 offset, const std::string& text, float scale) {
@@ -158,14 +179,6 @@ void Renderer::drawCharacter(char chr) {
     glutStrokeCharacter(GLUT_STROKE_ROMAN, chr);
 }
 
-void Renderer::drawCircle(float radius) {
-    glBegin(GL_LINE_LOOP);
-    for (int i = 0; i < 360; i++) {
-        glVertex2f(cos(i * DEG_TO_RAD) * radius, sin(i * DEG_TO_RAD) * radius);
-    }
-    glEnd();
-}
-
 void Renderer::setColour(Vector3 colour) {
     glColor3f(colour.x, colour.y, colour.z);
 }
@@ -202,9 +215,10 @@ void Renderer::moveCamera(Vector3 position, Vector3 direction) {
               0.0f, 1.0f, 0.0f);
 }
 
-unsigned int Renderer::loadTexture(const std::string& file) {
+unsigned int Renderer::loadTextureGl(const std::string& file) {
+    stbi_set_flip_vertically_on_load(true);
     int width, height, components;
-    unsigned char* data = stbi_load(file.c_str(), &width, &height, &components, STBI_rgb);
+    unsigned char* data = stbi_load(file.c_str(), &width, &height, &components, STBI_rgb_alpha);
 
     if(data == nullptr){
         std::cout << "(Error) Unable to load texture: " + file << std::endl;
@@ -221,7 +235,7 @@ unsigned int Renderer::loadTexture(const std::string& file) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, components == 4 ? GL_RGBA : GL_RGB, width, height, 0, components == 4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, data);
     glPopAttrib();
 
     return id;
@@ -232,10 +246,31 @@ void Renderer::renderCustom(CustomRender customRender, Vector3 colour) {
         case Sphere:
             gluSphere(gluNewQuadric(), 25,100,20);
             break;
+        case Cube:
+            glutSolidCube(25);
+            break;
         default:
             break;
     }
 
+}
+
+void Renderer::loadTexture(const std::string& name, const std::string& path) {
+    // Don't allow double loading
+    if (textures.find(name) != textures.end())
+        return;
+
+    if(hasGlLoaded){
+        unsigned int id;
+        std::cout << "Loaded texture " << name << " and assigned ID " << id << std::endl;
+        textures[name] = id;
+    }else{
+        textureLoadQueue.emplace(std::pair<std::string, std::string>(name, path));
+    }
+}
+
+unsigned int Renderer::getTextureId(const std::string& name) {
+    return textures[name];
 }
 
 

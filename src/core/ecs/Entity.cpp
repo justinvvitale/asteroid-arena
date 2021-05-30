@@ -175,6 +175,18 @@ void Entity::removeComponent(Component* component) {
     }
 }
 
+std::list<Entity*> Entity::getHierarchicalEntities() {
+    std::list<Entity*> entities = std::list<Entity*>();
+    for(Entity* child : getChildren()){
+        std::list<Entity*> childOfChild = child->getHierarchicalEntities();
+        entities.insert(entities.begin(), childOfChild.begin(), childOfChild.end());
+    }
+
+    entities.push_back(this);
+
+    return entities;
+}
+
 
 
 

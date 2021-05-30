@@ -15,13 +15,14 @@ class CubeEntity {
 public:
 
     static Entity* getEntity() {
-        Entity* cube = new Entity();
+        Entity* cube = new Entity("test");
         cube->setPosition(Vector3(0,0,-10));
 
         MeshComponent* meshComp = new MeshComponent();
 
-        Mesh mesh = ObjAccess::load("ship");
-        mesh.texture = "data/ship.png";
+        Mesh mesh = ObjAccess::load("death");
+        Renderer::loadTexture("death", "data/death.jpeg");
+        mesh.texture = "death";
         meshComp->setMesh(mesh);
 
         cube->addComponent(meshComp);

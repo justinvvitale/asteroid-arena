@@ -8,6 +8,7 @@
 #include "ecs/systems/ParticleSystem.h"
 #include "ecs/systems/TextRendererSystem.h"
 #include "ecs/systems/CollisionSystem.h"
+#include "Renderer.h"
 
 Engine::Engine() {
 
@@ -72,7 +73,6 @@ void Engine::render() {
     }
 
 
-
     // Core rendering
     auto componentTypesMesh = bufferComponentTypes.find(ComponentType::CMesh);
     if (componentTypesMesh != bufferComponentTypes.end()) {
@@ -92,7 +92,7 @@ void Engine::render() {
         manualSystems[ComponentType::CText]->process(componentTypesText->second);
     }
 
-
+    Renderer::drawTransparentQuad(std::string(), 0, Vector3::zero());
 }
 
 void Engine::setScene(Scene* sceneIn) {

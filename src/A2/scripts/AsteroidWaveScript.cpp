@@ -12,7 +12,7 @@
 void AsteroidWaveScript::start() {
     scoreScript = dynamic_cast<ScoreScript*>(Game::getEntity("score")->getComponentOfType(ComponentType::CScript));
     launchRadius = (float) sqrt(pow(ARENA_SIZE / 2, 2) + pow(ARENA_SIZE / 2, 2));
-    playerRef = Game::getEntity("player");
+    shipRef = Game::getEntity("ship");
 
     if (DEBUG_DRAW_LAUNCH_CIRCLE) {
         MeshComponent* meshComponent = new MeshComponent();
@@ -80,7 +80,7 @@ void AsteroidWaveScript::spawnAsteroid() {
     float radius = ASTEROID_MIN_RADIUS + (float)(rand() % static_cast<int>(ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS + 1));
     Vector3 position = getPositionOutOfArena(radius); // Set rotation to either left/right and to config values
     float rotation = getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION);
-    Vector3 force = VectorUtil::Normalize(playerRef->getPosition() - position) * speed;
+    Vector3 force = VectorUtil::Normalize(shipRef->getPosition() - position) * speed;
 
     // Spawn configured asteroid
     spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * radius, position, speed, radius, rand() % 2 ? rotation : -rotation,

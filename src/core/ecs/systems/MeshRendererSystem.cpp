@@ -71,7 +71,7 @@ void MeshRendererSystem::debugRender(Entity* entity) {
                 Vector3 offsetVec = Vector3(0, offset, 0);
 
                 Renderer::move(offsetVec);
-                Renderer::drawRect(5, 5);
+                Renderer::renderCustom(CustomRender::Cube);
                 Renderer::move(offsetVec.opposite());
             }
         }
@@ -99,7 +99,7 @@ void MeshRendererSystem::debugRender(Entity* entity) {
 //                        break;
 //                    case square:
 //                        std::tuple<float, float> dims = collider->getSquareDimension();
-//                        Renderer::drawRect(std::get<0>(dims), std::get<1>(dims));
+//                        Renderer::drawTransparentQuad(std::get<0>(dims), std::get<1>(dims));
 //                        break;
 //                }
 

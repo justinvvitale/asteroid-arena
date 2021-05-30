@@ -9,7 +9,6 @@ include_directories(libs/include/SOIL)
 
 link_directories(libs/lib)
 
-
 add_executable(I3D
         libs/include/GL/freeglut.h
         libs/include/GL/freeglut_ext.h
@@ -123,3 +122,6 @@ add_executable(I3D
         src/core/external/ObjAccess.cpp
         # Unsorted
         )
+
+file(COPY src/A2/data DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY freeglut.dll DESTINATION ${CMAKE_BINARY_DIR})

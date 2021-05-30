@@ -14,13 +14,14 @@ class ShipEntity {
 
 public:
     static Entity* getEntity() {
-        Entity* ship = new Entity();
+        Entity* ship = new Entity("ship");
 
         MeshComponent* meshComp = new MeshComponent();
 
-//        Mesh mesh = ObjAccess::load("ship");
-//        mesh.texture = "data/ship.png";
-//        meshComp->setMesh(mesh);
+        Mesh mesh = ObjAccess::load("ship");
+        Renderer::loadTexture("ship", "data/ship.png");
+        mesh.texture = "ship";
+        meshComp->setMesh(mesh);
 
         ship->addComponent(meshComp);
 

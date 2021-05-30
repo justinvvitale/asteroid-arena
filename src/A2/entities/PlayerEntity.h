@@ -22,8 +22,8 @@ public:
 
         // Mesh is on a different inner-entity so we can move it
         Entity* ship = ShipEntity::getEntity();
-        ship->setPosition(0,-5,-50);
-        ship->setRotation(Rotation(0,180,0));
+        ship->setPosition(0,0,-5);
+        ship->setRotation(Rotation(-100,90,180));
         player->addChild(ship);
 
         player->addComponent(controllerScript);

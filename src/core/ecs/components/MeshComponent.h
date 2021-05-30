@@ -20,13 +20,15 @@ public:
 
     void setScale(float scale);
 
+    Mesh getMesh();
+
+
     void reset();
 
     ~MeshComponent();
 
 private:
     float scale = 1;
-    bool isStartTick = true;
     CustomRender customRender;
 
     // Data
