@@ -188,9 +188,9 @@ void Renderer::move(Vector3 move) {
 }
 
 void Renderer::rotate(Rotation rotation) {
-    glRotatef(rotation.x, 1, 0, 0);
     glRotatef(rotation.y, 0, 1, 0);
-    glRotatef(rotation.z, 1, 0, 1);
+    glRotatef(rotation.z, 0, 0, 1);
+    glRotatef(rotation.x, 1, 0, 0);
 }
 
 void Renderer::push() {

@@ -126,13 +126,22 @@ struct Rotation {
     Rotation() = default;
 
     Rotation(float x, float y, float z) {
-        this->x = x;
-        this->y = y;
-        this->z = z;
+        this->x = x; // Pitch
+        this->y = y; // Yaw
+        this->z = z; // Roll
     }
 
     static Rotation zero() {
         return {0, 0, 0};
+    }
+
+    Vector3 direction(){
+        Vector3 direction = Vector3();
+        direction.x = std::cos(y) * std::cos(x);
+        direction.y = std::sin(y) * std::cos(x);
+        direction.z = std::sin(y);
+
+        return direction;
     }
 
 };
