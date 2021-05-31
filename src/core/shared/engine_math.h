@@ -136,10 +136,15 @@ struct Rotation {
     }
 
     Vector3 direction(){
-        Vector3 direction = Vector3();
-        direction.x = std::cos(y) * std::cos(x);
-        direction.y = std::sin(y) * std::cos(x);
-        direction.z = std::sin(y);
+        Vector3 direction = Vector3::identity();
+
+        float yaw = (x * PI) /180;
+        float roll = (y * PI) /180;
+        float pitch = (z * PI) /180;
+
+        direction.x = sin(yaw);
+        direction.y = cos(pitch);
+        direction.z = sin(pitch)*cos(yaw);
 
         return direction;
     }
@@ -208,6 +213,10 @@ public:
                 v1.z * v2.x - v1.x * v2.z,
                 v1.x * v2.y - v1.y * v2.x
         };
+    }
+
+    static void Print(Vector3 vector){
+        std::cout << "X: " << vector.x << " | Y: " <<vector.y << " | Z: " << vector.z << std::endl;
     }
 
     static Vector3 Normalize(Vector3 vector) {

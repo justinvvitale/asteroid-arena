@@ -5,6 +5,7 @@
 #include "entities/ScoreManagerEntity.h"
 #include "entities/ArenaEntity.h"
 #include "entities/AsteroidEntity.h"
+#include "entities/CameraEntity.h"
 
 Scene* getScene() {
     Scene* scene = new Scene();
@@ -12,10 +13,12 @@ Scene* getScene() {
     scene->addEntity(MediatorEntity::getEntity());
     scene->addEntity(ScoreManagerEntity::getEntity());
 
+    scene->addEntity(CameraEntity::getEntity());
+    scene->addEntity(PlayerEntity::getEntity());
+
 
     scene->addEntity(ArenaEntity::getEntity());
     scene->addEntity(CubeEntity::getEntity());
-    scene->addEntity(PlayerEntity::getEntity());
     scene->addEntity(AsteroidEntity::getEntity());
 
     Entity* waveManagerEntity = new Entity("wave");

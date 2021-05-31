@@ -13,22 +13,13 @@ CameraComponent::CameraComponent() : Component(ComponentType::CCamera) {
 }
 
 void CameraComponent::tick() {
-    float fraction = 20 * Game::dt;
-    float turnSpeed = 2.3f * Game::dt;
-
-    // Boost
-    if(KeyRegistry::isPressed(32)){
-        fraction *= 3;
-    }
-
 }
 
 void CameraComponent::render() {
     // Set camera position behind player
-    Vector3 globalPosition = getEntity()->getPosition() + cameraOffset;
-    globalPosition = Vector3(-globalPosition.y, globalPosition.x, globalPosition.z);
+    Vector3 globalPosition = getEntity()->getPosition();
 
-    Renderer::moveCamera(globalPosition, lookDirection);
+    Renderer::moveCamera(globalPosition, this->getEntity()->getRotation().direction());
 }
 
 CameraComponent::~CameraComponent() {
@@ -40,13 +31,6 @@ CameraComponent::~CameraComponent() {
 }
 
 Vector3 CameraComponent::getDirectionVector() {
-    return lookDirection;
+    return this->getEntity()->getRotation().direction();
 }
 
-const Vector3& CameraComponent::getCameraOffset() const {
-    return cameraOffset;
-}
-
-void CameraComponent::setCameraOffset(const Vector3& offset) {
-    CameraComponent::cameraOffset = offset;
-}

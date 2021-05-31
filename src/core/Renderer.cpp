@@ -188,6 +188,7 @@ void Renderer::move(Vector3 move) {
 }
 
 void Renderer::rotate(Rotation rotation) {
+    glMultMatrixf()
     glRotatef(rotation.y, 0, 1, 0);
     glRotatef(rotation.z, 0, 0, 1);
     glRotatef(rotation.x, 1, 0, 0);

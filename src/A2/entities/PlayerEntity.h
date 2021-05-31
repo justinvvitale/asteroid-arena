@@ -16,11 +16,7 @@ public:
     static Entity* getEntity() {
         Entity* player = new Entity("player");
 
-        CameraComponent* cameraComponent = new CameraComponent();
-        cameraComponent->setCameraOffset(Vector3(0,2,10));
-
         PlayerControllerScript* controllerScript = new PlayerControllerScript();
-
 
         MeshComponent* meshComp = new MeshComponent();
         Mesh mesh = ObjAccess::load("ship");
@@ -30,7 +26,6 @@ public:
 
         player->addComponent(meshComp);
         player->addComponent(controllerScript);
-        player->addComponent(cameraComponent);
 
         return player;
     }
