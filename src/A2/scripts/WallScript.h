@@ -22,7 +22,6 @@ private:
     Mesh mesh;
 
 public:
-    void onCollision(Entity* other) override;
 
 private:
 

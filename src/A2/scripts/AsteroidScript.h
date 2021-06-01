@@ -22,7 +22,6 @@ private:
 
     bool canSplit;
 
-    bool didCollideArenaOuter = true;
     bool primed = false;
 
     AsteroidWaveScript* mgr;

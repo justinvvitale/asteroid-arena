@@ -14,7 +14,6 @@ private:
     std::set<Entity*> asteroids = std::set<Entity*>();
     ScoreScript* scoreScript;
 
-    float launchRadius;
     int asteroidSpawnAmount = 0;
 
     int cdStartTime = -1;

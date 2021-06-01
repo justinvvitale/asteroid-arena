@@ -11,15 +11,7 @@
 
 void AsteroidWaveScript::start() {
     scoreScript = dynamic_cast<ScoreScript*>(Game::getEntity("score")->getComponentOfType(ComponentType::CScript));
-    launchRadius = (float) sqrt(pow(ARENA_SIZE / 2, 2) + pow(ARENA_SIZE / 2, 2));
     shipRef = Game::getEntity("player");
-
-    if (DEBUG_DRAW_LAUNCH_CIRCLE) {
-        MeshComponent* meshComponent = new MeshComponent();
-//        meshComponent->setMesh(MeshHelper::getCircleMesh(launchRadius, DEBUG_DRAW_LAUNCH_CIRCLE_COLOUR));
-        this->getEntity()->addComponent(meshComponent);
-    }
-
 }
 
 void AsteroidWaveScript::update() {
@@ -52,10 +44,10 @@ void AsteroidWaveScript::update() {
         while (entityIter != asteroids.end()) {
             Entity* ast = *entityIter;
 
-            float dist = VectorUtil::Distance(ast->getPosition(), Vector3::zero());
+            AsteroidScript* astScript = dynamic_cast<AsteroidScript*>(ast->getComponentOfType(CScript));
 
-            // If distance greater than launch radius and max radius and some buffer, then destroy
-            if (dist > launchRadius + ASTEROID_MAX_RADIUS + 500) {
+            // If not in arena cube and primed
+            if (astScript->isPrimed() && !isInsideCube(ast->getPosition(), ARENA_SIZE, astScript->getRadius())) {
                 Game::getEngine()->getScene()->removeEntity(ast);
                 Game::queueEntityCleanup(ast);
                 asteroids.erase(entityIter++);
@@ -70,8 +62,10 @@ void AsteroidWaveScript::update() {
 }
 
 Vector3 AsteroidWaveScript::getPositionOutOfArena(float payloadSize) const {
-    Vector3 spawnpos = Vector3(0,0,1000);
-    return spawnpos;
+    float halfArena = ARENA_SIZE/2;
+
+
+    return {randomSign(halfArena) + payloadSize + getRandomNumber(50,800), randomSign(halfArena) + getRandomNumber(50,800), randomSign(halfArena) + getRandomNumber(50,800)};
 }
 
 void AsteroidWaveScript::spawnAsteroid() {
@@ -108,6 +102,7 @@ void AsteroidWaveScript::spawnAsteroid(float health, Vector3 position, float spe
     asteroids.emplace(ast);
 }
 
+// Still works in 3D somehow, lol why not.
 void AsteroidWaveScript::splitAsteroid(Entity* asteroid, bool scored) {
     AsteroidScript* script = dynamic_cast<AsteroidScript*>(asteroid->getComponentOfType(ComponentType::CScript));
     RigidbodyComponent* rigid = dynamic_cast<RigidbodyComponent*>(asteroid->getComponentOfType(
@@ -115,21 +110,6 @@ void AsteroidWaveScript::splitAsteroid(Entity* asteroid, bool scored) {
 
     float brokenRadius = script->getRadius() / 2;
     float speed = script->getSpeed() / 2;
-
-
-    // Original 45 degree velocity code,
-//    Vector3 direction = VectorUtil::Normalize(rigid->getVelocity());
-//    float t = 45 * (PI / 180);
-//    Vector3 forceL =
-//            Vector3(direction.x * cos(t) - direction.y * sin(t), direction.x * sin(t) + direction.y * cos(t), 0) *
-//            speed;
-//    Vector3 forceR =
-//            Vector3(direction.x * cos(-t) - direction.y * sin(-t), direction.x * sin(-t) + direction.y * cos(-t), 0) *
-//            speed;
-
-    // Original LEFT/RIGHT split
-//    Vector3 posL = asteroid->getOffset() + Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE, 0, 0);
-//    Vector3 posR = asteroid->getOffset() - Vector3(brokenRadius + ASTEROID_RADIUS_VARIATION_RANGE, 0, 0);
 
     srand((unsigned) time(nullptr));
     float angle = getRandomNumber(0, 360);

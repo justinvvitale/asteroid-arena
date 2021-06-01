@@ -469,6 +469,22 @@ static float Lerp(float v1, float v2, float t) {
     return v1 + (v2 - v1) * t;
 }
 
+static bool isInsideCube(Vector3 position, float cubeSize, float radius = 0){
+    float halfCube = cubeSize/2;
+
+    if(position.x - radius > halfCube || position.x + radius < -halfCube){
+        return false;
+    }
+    if(position.y - radius > halfCube || position.y + radius < -halfCube){
+        return false;
+    }
+    if(position.z - radius > halfCube || position.z + radius < -halfCube){
+        return false;
+    }
+
+    return true;
+}
+
 // Inclusive random helpers
 inline int getRandomNumber(int min, int max) {
     return min + rand() % ((max + 1) - min);

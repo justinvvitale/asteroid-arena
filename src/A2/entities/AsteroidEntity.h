@@ -24,7 +24,6 @@ class AsteroidEntity {
 
                 RigidbodyComponent* rb = new RigidbodyComponent();
                 entity->addComponent((Component*) rb);
-                rb->addForce(Vector3(getRandomNumber(0,100), getRandomNumber(0,100), getRandomNumber(0,100)));
 
                 entity->addComponent(new ColliderComponent(sphere, 35));
 

@@ -22,17 +22,28 @@ void AsteroidScript::start() {
 
 void AsteroidScript::update() {
     int elapsedSeconds = Game::elapsedSeconds;
-    if(lastSecondCheck != Game::elapsedSeconds){
+    if (lastSecondCheck != Game::elapsedSeconds) {
         this->alive++;
         lastSecondCheck = elapsedSeconds;
     }
 
     // Prime once hasn't collided and been alive for atleast 3 seconds
-    if (!canSplit || !didCollideArenaOuter && alive >= 2) {
+    if (!canSplit || isInsideCube(this->getEntity()->getPosition(), ARENA_SIZE, this->radius) && alive >= 2) {
         this->primed = true;
     }
 
-    didCollideArenaOuter = false;
+    if (isPrimed() && !isInsideCube(this->getEntity()->getPosition(), ARENA_SIZE, this->radius)) {
+        RigidbodyComponent* rigid = dynamic_cast<RigidbodyComponent*>(this->getEntity()->getComponentOfType(
+                ComponentType::CRigidbody));
+        Vector3 vel = Vector3(rigid->getVelocity().opposite());
+        rigid->clearVelocity();
+
+        Vector3 asteroidPosition = this->getEntity()->getPosition();
+
+        rigid->addForce(vel.opposite());
+
+        resetPrimed();
+    }
 }
 
 
@@ -55,22 +66,17 @@ void AsteroidScript::onCollision(Entity* other) {
                 mgr->splitAsteroid(this->getEntity(), true);
             } else {
                 mgr->destroyAsteroid(this->getEntity(), true);
-
             }
         }
     }
 
-    if (other->getTag() == "arena") {
-        didCollideArenaOuter = true;
-    }
-
-
-    if(ASTEROID_COLLISION) {
+    if (ASTEROID_COLLISION) {
         if (primed && other->getTag() == "asteroid") {
             RigidbodyComponent* rigid = dynamic_cast<RigidbodyComponent*>(this->getEntity()->getComponentOfType(
                     ComponentType::CRigidbody));
 
-            Vector3 impactPoint = VectorUtil::MidPoint(this->getEntity()->getWorldPosition(), other->getWorldPosition());
+            Vector3 impactPoint = VectorUtil::MidPoint(this->getEntity()->getWorldPosition(),
+                                                       other->getWorldPosition());
             Vector3 force = VectorUtil::Normalize(this->getEntity()->getWorldPosition() - impactPoint) * this->speed;
 
             rigid->clearVelocity();
@@ -85,5 +91,4 @@ bool AsteroidScript::isPrimed() const {
 
 void AsteroidScript::resetPrimed() {
     this->primed = false;
-    didCollideArenaOuter = true;
 }

@@ -139,8 +139,7 @@ void WallScript::update() {
         rightWarn = distRight <= ARENA_WARN_DIST;
 
         // Kill check (Player)
-        float killDist = 50;
-        if(distTop < killDist || distBottom < killDist || distLeft < killDist || distRight < killDist || distFar < killDist || distNear < killDist){
+        if(!isInsideCube(playerPos, ARENA_SIZE)){
 //            for(int i = 0; i < 100; i++){
 //                Vector3 vel = Vector3(
 //                        (float) getRandomNumber(-200, 200),
@@ -204,42 +203,4 @@ void WallScript::refreshMeshData() {
     }
 
     this->meshComponent->setMesh(mesh);
-}
-
-void WallScript::onCollision(Entity* other) {
-//    if (other->getTag() == "bullet") {
-//        other->destroy();
-//    }
-//
-//    if (other->getTag() == "asteroid") {
-//        AsteroidScript* ast = dynamic_cast<AsteroidScript*>(other->getComponentOfType(ComponentType::CScript));
-//
-//        if (ast->isPrimed()) {
-//            RigidbodyComponent* rigid = dynamic_cast<RigidbodyComponent*>(other->getComponentOfType(
-//                    ComponentType::CRigidbody));
-//            Vector3 vel = Vector3(rigid->getVelocity().opposite());
-//            rigid->clearVelocity();
-//
-//            Vector3 asteroidPosition = other->getOffset();
-//
-//            float minDistBottomTop = min(
-//                    VectorUtil::DistanceFromLine(topLeftVert, topRightVert, asteroidPosition),
-//                    VectorUtil::DistanceFromLine(bottomLeftVert, bottomRightVert, asteroidPosition)
-//            );
-//            float minDistLeftRight = min(
-//                    VectorUtil::DistanceFromLine(topLeftVert, bottomLeftVert, asteroidPosition),
-//                    VectorUtil::DistanceFromLine(topRightVert, bottomRightVert, asteroidPosition)
-//            );
-//
-//            if (minDistLeftRight <= minDistBottomTop) {
-//                // Hit a left/right wall
-//                rigid->addForce(vel.x, -vel.y, 0);
-//            } else {
-//                // Hit a top/bottom wall
-//                rigid->addForce(-vel.x, vel.y, 0);
-//            }
-//
-//            ast->resetPrimed();
-//        }
-//    }
 }
