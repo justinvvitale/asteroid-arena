@@ -18,12 +18,9 @@ public:
         Entity* cube = new Entity("test");
         cube->setPosition(Vector3(0,0,-10));
 
-        MeshComponent* meshComp = new MeshComponent();
+        MeshComponent* meshComp = new MeshComponent(Cube);
 
-        Mesh mesh = ObjAccess::load("death");
-        mesh.texture = "death";
-        meshComp->setMesh(mesh);
-
+        cube->addComponent(new TestScript());
         cube->addComponent(meshComp);
 
         return cube;

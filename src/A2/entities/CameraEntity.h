@@ -1,25 +1,20 @@
 //
-// Created by dim on 31/05/2021.
+// Created by dim on 1/06/2021.
 //
 
 #ifndef I3D_CAMERAENTITY_H
 #define I3D_CAMERAENTITY_H
 
-#include "../scripts/CameraControlScript.h"
-
 class CameraEntity {
 
 public:
     static Entity* getEntity() {
-        Entity* cameraEnt = new Entity("camera");
+        Entity* camera = new Entity();
 
         CameraComponent* cameraComponent = new CameraComponent();
 
-        cameraEnt->addComponent(new CameraControlScript());
-
-        cameraEnt->addComponent(cameraComponent);
-
-        return cameraEnt;
+        camera->addComponent(cameraComponent);
+        return camera;
     }
 };
 

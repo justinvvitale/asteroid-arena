@@ -72,7 +72,6 @@ void Engine::render() {
         camera->render();
     }
 
-
     // Core rendering
     auto componentTypesMesh = bufferComponentTypes.find(ComponentType::CMesh);
     if (componentTypesMesh != bufferComponentTypes.end()) {
@@ -93,6 +92,7 @@ void Engine::render() {
     }
 
     Renderer::drawTransparentQuad(std::string(), 0, Vector3::zero());
+
 }
 
 void Engine::setScene(Scene* sceneIn) {

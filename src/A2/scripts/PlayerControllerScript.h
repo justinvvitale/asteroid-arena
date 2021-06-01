@@ -13,6 +13,7 @@ class PlayerControllerScript : public ScriptComponent {
 private:
     int lastShoot = -1;
     int lastParticleEmit = -1;
+    float velocity = 0;
 
     CameraComponent* camera;
     ParticleEmitterComponent* emitter;

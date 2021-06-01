@@ -7,12 +7,15 @@
 
 
 #include "../Component.h"
+#include "MeshComponent.h"
 
 class CameraComponent : public Component {
 public:
     CameraComponent();
     ~CameraComponent();
     void tick() override;
+
+    MeshComponent* meshComponent;
 
     void render();
 

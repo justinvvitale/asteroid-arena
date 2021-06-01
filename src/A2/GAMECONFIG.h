@@ -25,8 +25,8 @@ const float SHIP_MAX_SPEED = 700;
 const float SHIP_BULLET_DAMAGE = 5; // How much damage each bullet does to thins it hit (with health)
 const float SHIP_SHOOT_VELOCITY = 5; // Speed which bullets shoot
 const int SHIP_SHOOT_COOLDOWN = 180; // MS seconds between shooting
-const float SHIP_ACCELERATION = 0.8f; // % increase * dt
-const float SHIP_DECELERATION = 0.7f; // % decrease * dt
+const float SHIP_ACCELERATION = 0.4f; // % increase * dt
+const float SHIP_DECELERATION = 0.4f; // % decrease * dt
 const float SHIP_TURN_SPEED = 320;
 
 const int SHIP_EXHAUST_DROP_RATE = 60; // Drop exhaust every X ms

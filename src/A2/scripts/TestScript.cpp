@@ -9,6 +9,5 @@ void TestScript::start() {
 }
 
 void TestScript::update() {
-    Rotation curRot = this->getEntity()->getRotation();
-    this->getEntity()->setRotation(Rotation(45, curRot.y + 20 * Game::dt, curRot.z));
+    this->getEntity()->setRotation(this->getEntity()->getRotation() *= this->getEntity()->getRotation().FromEuler(Vector3(0.7,0.2,0.5) * 0.01));
 }

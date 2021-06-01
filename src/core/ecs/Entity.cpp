@@ -49,6 +49,10 @@ Rotation Entity::getRotation() const {
     return rotation;
 }
 
+Vector3 Entity::getForwardVector()  {
+    return rotation * Vector3::forward();
+}
+
 void Entity::setRotation(const Rotation& rot) {
     Entity::rotation = rot;
 }

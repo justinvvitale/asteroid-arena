@@ -66,7 +66,7 @@ public:
 
     static void drawTransparentQuad(const std::string& texture, float size, Vector3 offset = Vector3::zero());
 
-    static void moveCamera(Vector3 position, Vector3 direction);
+    static void moveCamera(Vector3 position, Rotation rotation);
 };
 
 

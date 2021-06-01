@@ -188,10 +188,10 @@ void Renderer::move(Vector3 move) {
 }
 
 void Renderer::rotate(Rotation rotation) {
-    glMultMatrixf()
-    glRotatef(rotation.y, 0, 1, 0);
-    glRotatef(rotation.z, 0, 0, 1);
-    glRotatef(rotation.x, 1, 0, 0);
+    float* mat = rotation.ToRotationMatrix();
+    glMultMatrixf(mat);
+
+    delete[] mat;
 }
 
 void Renderer::push() {
@@ -210,10 +210,14 @@ void Renderer::scale(float scale) {
     Renderer::scale(Vector3(scale, scale, scale));
 }
 
-void Renderer::moveCamera(Vector3 position, Vector3 direction) {
-    gluLookAt(position.x, position.y, position.z,
-              position.x + direction.x, position.y + direction.y, position.z + direction.z,
-              0.0f, 1.0f, 0.0f);
+void Renderer::moveCamera(Vector3 position, Rotation rotation) {
+//    Vector3 eye = position;
+//    Vector3 center = rotation * Vector3::forward();
+//    Vector3 up = rotation * Vector3::up();
+//
+//    gluLookAt(position.x, position.y, position.z,
+//              center.x, center.y, center.z,
+//              up.x, up.y, up.z);
 }
 
 unsigned int Renderer::loadTextureGl(const std::string& file) {

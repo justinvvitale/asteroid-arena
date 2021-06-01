@@ -120,7 +120,7 @@ add_executable(I3D
         src/core/external/stb_image.h
         src/core/external/ObjAccess.cpp
         # Unsorted
-        src/A2/entities/CameraEntity.h src/A2/scripts/CameraControlScript.cpp src/A2/scripts/CameraControlScript.h)
+        src/A2/entities/CameraEntity.h)
 
 file(COPY src/A2/data DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY freeglut.dll DESTINATION ${CMAKE_BINARY_DIR})

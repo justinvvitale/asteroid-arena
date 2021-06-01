@@ -16,10 +16,14 @@ void CameraComponent::tick() {
 }
 
 void CameraComponent::render() {
-    // Set camera position behind player
-    Vector3 globalPosition = getEntity()->getPosition();
+    // The camera entity is special, it's the centre of the damn map
+    Vector3 globalPosition = getEntity()->getWorldPosition() + Vector3(0,0,-50);
+    Rotation rotation = getEntity()->getRotation();
 
-    Renderer::moveCamera(globalPosition, this->getEntity()->getRotation().direction());
+    Renderer::rotate(rotation);
+    Renderer::move(globalPosition);
+w
+
 }
 
 CameraComponent::~CameraComponent() {
@@ -31,6 +35,6 @@ CameraComponent::~CameraComponent() {
 }
 
 Vector3 CameraComponent::getDirectionVector() {
-    return this->getEntity()->getRotation().direction();
+    return this->getEntity()->getForwardVector();
 }
 

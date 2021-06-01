@@ -22,7 +22,7 @@ private:
     std::list<Component*> components = std::list<Component*>();
 
     Vector3 position = Vector3::zero();
-    Rotation rotation = Rotation::zero();
+    Rotation rotation = Rotation::identity();
 public:
     Entity() = default;
 
@@ -64,6 +64,8 @@ public:
     void setPosition(const Vector3& pos);
     void setPosition(float x, float y, float z);
 
+    Vector3 getForwardVector();
+
     Rotation getRotation() const;
 
     void destroy();
@@ -71,6 +73,7 @@ public:
     virtual ~Entity();
 
     void setRotation(const Rotation& rotation);
+
 };
 
 

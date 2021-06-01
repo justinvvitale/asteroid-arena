@@ -14,8 +14,8 @@ Scene* getScene() {
     scene->addEntity(ScoreManagerEntity::getEntity());
 
     scene->addEntity(CameraEntity::getEntity());
-    scene->addEntity(PlayerEntity::getEntity());
 
+    scene->addEntity(PlayerEntity::getEntity());
 
     scene->addEntity(ArenaEntity::getEntity());
     scene->addEntity(CubeEntity::getEntity());

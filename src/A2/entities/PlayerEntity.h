@@ -18,15 +18,15 @@ public:
 
         PlayerControllerScript* controllerScript = new PlayerControllerScript();
 
+
         MeshComponent* meshComp = new MeshComponent();
         Mesh mesh = ObjAccess::load("ship");
         Renderer::loadTexture("ship", "data/ship.png");
         mesh.texture = "ship";
         meshComp->setMesh(mesh);
 
-        player->addComponent(meshComp);
         player->addComponent(controllerScript);
-
+        player->addComponent(meshComp);
         return player;
     }
 };
