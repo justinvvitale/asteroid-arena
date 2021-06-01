@@ -19,7 +19,6 @@ Scene* getScene() {
 
     scene->addEntity(ArenaEntity::getEntity());
     scene->addEntity(CubeEntity::getEntity());
-    scene->addEntity(AsteroidEntity::getEntity());
 
     Entity* waveManagerEntity = new Entity("wave");
     waveManagerEntity->addComponent(new AsteroidWaveScript());

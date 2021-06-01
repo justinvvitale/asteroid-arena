@@ -23,6 +23,9 @@ protected:
     void update() override;
 
 public:
+    void onCollision(Entity* other) override;
+
+public:
 
 };
 

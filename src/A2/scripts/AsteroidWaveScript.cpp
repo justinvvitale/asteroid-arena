@@ -70,7 +70,7 @@ void AsteroidWaveScript::update() {
 }
 
 Vector3 AsteroidWaveScript::getPositionOutOfArena(float payloadSize) const {
-    Vector3 spawnpos = Vector3(0,0,0);
+    Vector3 spawnpos = Vector3(0,0,1000);
     return spawnpos;
 }
 

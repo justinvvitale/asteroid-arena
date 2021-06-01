@@ -7,6 +7,7 @@
 
 #include "../../core/ecs/components/RigidbodyComponent.h"
 #include "../../core/Renderer.h"
+#include "../../core/ecs/components/ColliderComponent.h"
 
 class BulletEntity {
 private:
@@ -19,7 +20,10 @@ public:
 
         Renderer::loadTexture("bullet", "data/bullet.png");
         MeshComponent* meshRenderer = new MeshComponent(CustomRender::Bullet);
+        meshRenderer->setScale(2);
         entity->addComponent(meshRenderer);
+
+        entity->addComponent(new ColliderComponent(sphere, 0.5));
 
         RigidbodyComponent* rb = new RigidbodyComponent();
         rb->addForce(force);

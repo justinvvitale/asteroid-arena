@@ -17,6 +17,9 @@ public:
 
     MeshComponent* meshComponent;
 
+    Rotation rotOffset = Rotation::identity();
+    Vector3 posOffset = Vector3::zero();
+
     void render();
 
     Vector3 getDirectionVector();

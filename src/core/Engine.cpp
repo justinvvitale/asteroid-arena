@@ -90,9 +90,6 @@ void Engine::render() {
     if (componentTypesText != bufferComponentTypes.end()) {
         manualSystems[ComponentType::CText]->process(componentTypesText->second);
     }
-
-    Renderer::drawTransparentQuad(std::string(), 0, Vector3::zero());
-
 }
 
 void Engine::setScene(Scene* sceneIn) {

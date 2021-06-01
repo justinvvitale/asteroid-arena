@@ -50,6 +50,7 @@ void Renderer::glInitialized() {
 
 
 void Renderer::renderMesh(const Mesh& mesh) {
+    glColor3f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z);
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(mesh.texture));
 
@@ -101,20 +102,25 @@ void Renderer::renderParticle(const Particle* particle) {
 }
 
 void Renderer::drawTransparentQuad(const std::string& texture, float size, Vector3 offset) {
-    glDisable(GL_LIGHTING);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(texture));
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+    push();
+    Entity* player = Game::getEntity("player");
+    rotate(Rotation::LookRotation(player->getForwardVector().opposite()));
 
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0, 1.0); glVertex2f(-size,size);
-    glTexCoord2f(0.0, 0.0); glVertex2f(-size,-size);
-    glTexCoord2f(1.0, 0.0); glVertex2f(size,-size);
-    glTexCoord2f(1.0, 1.0); glVertex2f(size,size);
-    glEnd();
+        glDisable(GL_LIGHTING);
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(texture));
+        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
-    glDisable(GL_TEXTURE_2D);
-    glEnable(GL_LIGHTING);
+        glBegin(GL_QUADS);
+        glTexCoord2f(0.0, 1.0); glVertex2f(-size,size);
+        glTexCoord2f(0.0, 0.0); glVertex2f(-size,-size);
+        glTexCoord2f(1.0, 0.0); glVertex2f(size,-size);
+        glTexCoord2f(1.0, 1.0); glVertex2f(size,size);
+        glEnd();
+
+        glDisable(GL_TEXTURE_2D);
+        glEnable(GL_LIGHTING);
+    pop();
 }
 
 void Renderer::renderText(TextOrigin origin, Vector3 offset, const std::string& text, float scale) {
@@ -210,15 +216,6 @@ void Renderer::scale(float scale) {
     Renderer::scale(Vector3(scale, scale, scale));
 }
 
-void Renderer::moveCamera(Vector3 position, Rotation rotation) {
-//    Vector3 eye = position;
-//    Vector3 center = rotation * Vector3::forward();
-//    Vector3 up = rotation * Vector3::up();
-//
-//    gluLookAt(position.x, position.y, position.z,
-//              center.x, center.y, center.z,
-//              up.x, up.y, up.z);
-}
 
 unsigned int Renderer::loadTextureGl(const std::string& file) {
     stbi_set_flip_vertically_on_load(true);
@@ -246,16 +243,16 @@ unsigned int Renderer::loadTextureGl(const std::string& file) {
     return id;
 }
 
-void Renderer::renderCustom(CustomRender customRender, Vector3 colour) {
+void Renderer::renderCustom(CustomRender customRender, float param1, float param2, float param3, Vector3 colour) {
     switch (customRender) {
         case Sphere:
-            gluSphere(gluNewQuadric(), 25,100,20);
+            gluSphere(gluNewQuadric(), param1,100,20);
             break;
         case Cube:
-            glutSolidCube(25);
+            glutSolidCube(param1);
             break;
         case Bullet:
-            drawTransparentQuad("bullet", 100);
+            drawTransparentQuad("bullet", param1);
             break;
         default:
             break;

@@ -5,6 +5,7 @@
 #include <set>
 #include "MeshRendererSystem.h"
 #include "../../Renderer.h"
+#include "../components/ColliderComponent.h"
 
 bool MeshRendererSystem::enabled = true;
 
@@ -88,23 +89,22 @@ void MeshRendererSystem::debugRender(Entity* entity) {
         for (Component* colComp : colCompList) {
             if (colComp != nullptr) {
                 // TODO
-//                auto* collider = dynamic_cast<ColliderComponent*>(colComp);
-//                Vector3 offset = collider->getOffset();
-//
-//                Renderer::move(offset);
-//
-//                switch (collider->getCollisionType()) {
-//                    case circlePos:
-//                        Renderer::drawCircle(collider->getCircleRadius());
-//                        break;
-//                    case square:
-//                        std::tuple<float, float> dims = collider->getSquareDimension();
-//                        Renderer::drawTransparentQuad(std::get<0>(dims), std::get<1>(dims));
-//                        break;
-//                }
+                auto* collider = dynamic_cast<ColliderComponent*>(colComp);
+                Vector3 offset = collider->getOffset();
 
-                // Move to origin
-//              Renderer::move(offset.opposite());
+                Renderer::move(offset);
+
+                switch (collider->getCollisionType()) {
+                    case cube:
+                        Renderer::renderCustom(Cube, collider->getSize());
+                        break;
+                    case sphere:
+                        Renderer::renderCustom(Sphere, collider->getSize());
+                        break;
+                }
+
+             // Move to origin
+              Renderer::move(offset.opposite());
             }
         }
 

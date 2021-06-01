@@ -35,7 +35,7 @@ public:
 
     static void renderMesh(const Mesh& mesh);
 
-    static void renderCustom(CustomRender customRender, Vector3 colour = Vector3::identity());
+    static void renderCustom(CustomRender customRender, float param1 = 50, float param2 = 50, float param3 = 50, Vector3 colour = Vector3::identity());
 
     static void renderParticle(const Particle* particle);
 
@@ -65,8 +65,6 @@ public:
     static void drawCharacter(char chr);
 
     static void drawTransparentQuad(const std::string& texture, float size, Vector3 offset = Vector3::zero());
-
-    static void moveCamera(Vector3 position, Rotation rotation);
 };
 
 

@@ -10,20 +10,24 @@
 #include "../Component.h"
 
 enum ColliderType {
-    cube
+    cube, // NOT USED
+    sphere
 };
 
 
 class ColliderComponent : public Component {
 private:
     ColliderType type;
+    float size = 10;
 
     Vector3 offset = Vector3::zero();
 
 public:
-    explicit ColliderComponent();
+    explicit ColliderComponent(ColliderType type = sphere, float size = 5);
 
     ColliderType getCollisionType();
+
+    float getSize();
 
     void setOffset(Vector3 offsetIn);
 

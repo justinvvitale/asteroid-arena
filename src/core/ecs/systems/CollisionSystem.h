@@ -22,7 +22,7 @@ private:
 
     void process(std::list<Component*> items) override;
 
-    static bool isCollided(const ColliderComponent& col1, const ColliderComponent& col2);
+    static bool isCollided(ColliderComponent col1, ColliderComponent col2);
 };
 
 

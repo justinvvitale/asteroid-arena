@@ -17,12 +17,15 @@ void CameraComponent::tick() {
 
 void CameraComponent::render() {
     // The camera entity is special, it's the centre of the damn map
-    Vector3 globalPosition = getEntity()->getWorldPosition() + Vector3(0,0,-50);
+    Vector3 globalPosition = getEntity()->getWorldPosition();
     Rotation rotation = getEntity()->getRotation();
 
+    Renderer::rotate(rotOffset);
+    Renderer::move(posOffset);
+
+    // Core Transforms
     Renderer::rotate(rotation);
     Renderer::move(globalPosition);
-w
 
 }
 

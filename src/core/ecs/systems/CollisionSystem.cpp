@@ -49,7 +49,19 @@ void CollisionSystem::process(std::list<Component*> items) {
         }
     }}
 
-bool CollisionSystem::isCollided(const ColliderComponent& col1, const ColliderComponent& col2) {
-    // TODO
+bool CollisionSystem::isCollided(ColliderComponent col1, ColliderComponent col2) {
+    if(col1.getCollisionType() == sphere && col2.getCollisionType() == sphere){
+        Vector3 col1Pos = col1.getEntity()->getPosition();
+        Vector3 col2Pos = col2.getEntity()->getPosition();
+
+        float dist = VectorUtil::Distance(col1Pos, col2Pos);
+
+        // We've collided
+        if(dist < col1.getSize() + col2.getSize()){
+            return true;
+        }
+
+        return false;
+    }
     return false;
 }

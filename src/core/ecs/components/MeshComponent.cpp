@@ -14,9 +14,12 @@ void MeshComponent::tick() {
 
 void MeshComponent::render() {
     if(customRender == CustomRender::None){
-        Renderer::renderMesh(mesh);
+        Renderer::scale(this->scale);
+            Renderer::renderMesh(mesh);
+        Renderer::scale(-scale);
+
     }else{
-        Renderer::renderCustom(customRender);
+        Renderer::renderCustom(customRender, this->scale);
     }
 }
 

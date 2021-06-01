@@ -9,8 +9,8 @@
 #include <iostream>
 #include <ctime>
 
-#define PI 3.14
-#define PI2 3.14/2
+#define PI 3.14159265358979323846
+#define PI2 PI/2
 #define DEG_TO_RAD (PI/180)
 
 struct Vector2 {
@@ -169,6 +169,15 @@ public:
         };
     }
 
+    static double SqrMagnitude(Vector3 v) {
+        return v.x * v.x + v.y * v.y + v.z * v.z;
+    }
+
+    static Vector3 Orthogonal(Vector3 v) {
+        return v.z < v.x ? Vector3(v.y, -v.x, 0) : Vector3(0, -v.z, v.y);
+    }
+
+
     static void Print(Vector3 vector) {
         std::cout << "X: " << vector.x << " | Y: " << vector.y << " | Z: " << vector.z << std::endl;
     }
@@ -186,6 +195,18 @@ public:
         }
     }
 
+    static Vector3 Lerp(Vector3 a, Vector3 b, float delta){
+        if(delta > 1){
+            delta = 1;
+        }
+
+        return Vector3(
+                a.x + (b.x - a.x) * delta,
+                a.y + (b.y - a.y) * delta,
+                a.z + (b.z - a.z) * delta
+        );
+    }
+
 
     // Dot product of vector
     static float Dot(Vector3 l, Vector3 r) {
@@ -199,7 +220,7 @@ struct Rotation {
     float z = 0;
     float w = 1;
 
-    Rotation() = default;
+    Rotation() : x(0), y(0), z(0), w(1) {}
 
     Rotation(float x, float y, float z, float w) {
         this->x = x;
@@ -207,6 +228,8 @@ struct Rotation {
         this->z = z;
         this->w = w;
     }
+
+    Rotation(Vector3 vector, double scalar) : x(vector.x), y(vector.y), z(vector.z), w(scalar) {}
 
     static Rotation zero() {
         return {0, 0, 0, 0};
@@ -255,6 +278,7 @@ struct Rotation {
         double sx = sin(euler.x * 0.5);
         double sy = sin(euler.y * 0.5);
         double sz = sin(euler.z * 0.5);
+
         Rotation q = Rotation();
         q.x = cx * sy * sz + cy * cz * sx;
         q.y = cx * cz * sy - cy * sx * sz;
@@ -263,25 +287,25 @@ struct Rotation {
         return q;
     }
 
-     Vector3 ToEuler() {
+    Vector3 ToEuler() {
         Rotation rotation = *this;
         double sqw = rotation.w * rotation.w;
         double sqx = rotation.x * rotation.x;
         double sqy = rotation.y * rotation.y;
         double sqz = rotation.z * rotation.z;
 
-        // Normalize or use other
+        // Normalize if valid otherwise other
         double unit = sqx + sqy + sqz + sqw;
         double cond = rotation.x * rotation.w - rotation.y * rotation.z;
         Vector3 vector;
-        // Singularity at north pole
+        // Singular
         if (cond > 0.4995f * unit) {
             vector.y = 2 * atan2(rotation.y, rotation.x);
             vector.x = PI2;
             vector.z = 0;
             return vector;
         }
-        // Singularity at south pole
+        // Singular
         if (cond < -0.4995f * unit) {
             vector.y = -2 * atan2(rotation.y, rotation.x);
             vector.x = -PI2;
@@ -298,6 +322,71 @@ struct Rotation {
         vector.z = atan2(2 * rotation.w * rotation.z + 2 * rotation.x * rotation.y,
                          1 - 2 * (rotation.z * rotation.z + rotation.x * rotation.x));
         return vector;
+    }
+
+    static Rotation LookRotation(Vector3 forward) {
+        return LookRotation(forward, Vector3(0, 1, 0));
+    }
+
+    static Rotation LookRotation(Vector3 forward, Vector3 upwards) {
+        // Normalize inputs
+        forward = VectorUtil::Normalize(forward);
+        upwards = VectorUtil::Normalize(upwards);
+
+        // Avoid zeros
+        if (VectorUtil::SqrMagnitude(forward) < 0.0000001 || VectorUtil::SqrMagnitude(upwards) < 0.0000001)
+            return {};
+
+        // Align
+        if (1 - fabs(VectorUtil::Dot(forward, upwards)) < 0.0000001)
+            return Rotation::FromToRotation(Vector3::forward(), forward);
+
+        // Orths
+        Vector3 right = VectorUtil::Normalize(VectorUtil::Cross(upwards, forward));
+        upwards = VectorUtil::Cross(forward, right);
+
+        // Calculate rotation
+        Rotation quaternion;
+        double radicand = right.x + upwards.y + forward.z;
+
+        if (radicand > 0) {
+            quaternion.w = sqrt(1.0 + radicand) * 0.5;
+            double recip = 1.0 / (4.0 * quaternion.w);
+            quaternion.x = (upwards.z - forward.y) * recip;
+            quaternion.y = (forward.x - right.z) * recip;
+            quaternion.z = (right.y - upwards.x) * recip;
+        } else if (right.x >= upwards.y && right.x >= forward.z) {
+            quaternion.x = sqrt(1.0 + right.x - upwards.y - forward.z) * 0.5;
+            double recip = 1.0 / (4.0 * quaternion.x);
+            quaternion.w = (upwards.z - forward.y) * recip;
+            quaternion.z = (forward.x + right.z) * recip;
+            quaternion.y = (right.y + upwards.x) * recip;
+        } else if (upwards.y > forward.z) {
+            quaternion.y = sqrt(1.0 - right.x + upwards.y - forward.z) * 0.5;
+            double recip = 1.0 / (4.0 * quaternion.y);
+            quaternion.z = (upwards.z + forward.y) * recip;
+            quaternion.w = (forward.x - right.z) * recip;
+            quaternion.x = (right.y + upwards.x) * recip;
+        } else {
+            quaternion.z = sqrt(1.0 - right.x - upwards.y + forward.z) * 0.5;
+            double recip = 1.0 / (4.0 * quaternion.z);
+            quaternion.y = (upwards.z + forward.y) * recip;
+            quaternion.x = (forward.x + right.z) * recip;
+            quaternion.w = (right.y - upwards.x) * recip;
+        }
+        return quaternion;
+    }
+
+    static Rotation FromToRotation(Vector3 fromVector, Vector3 toVector) {
+        double dot = VectorUtil::Dot(fromVector, toVector);
+        double k = sqrt(VectorUtil::SqrMagnitude(fromVector) *
+                        VectorUtil::SqrMagnitude(toVector));
+        if (fabs(dot / k + 1) < 0.00001) {
+            Vector3 ortho = VectorUtil::Orthogonal(fromVector);
+            return Rotation(VectorUtil::Normalize(ortho), 0);
+        }
+        Vector3 cross = VectorUtil::Cross(fromVector, toVector);
+        return Normalized(Rotation(cross, dot + k));
     }
 
     static double Norm(Rotation rotation) {

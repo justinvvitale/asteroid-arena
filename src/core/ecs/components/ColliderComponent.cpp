@@ -4,8 +4,9 @@
 
 #include "ColliderComponent.h"
 
-ColliderComponent::ColliderComponent() : Component(ComponentType::CCollider) {
-    this->type = ColliderType::cube;
+ColliderComponent::ColliderComponent(ColliderType type, float size) : Component(ComponentType::CCollider) {
+    this->type = type;
+    this->size = size;
 }
 
 ColliderType ColliderComponent::getCollisionType() {
@@ -18,4 +19,8 @@ void ColliderComponent::setOffset(Vector3 offsetIn) {
 
 Vector3 ColliderComponent::getOffset() {
     return this->offset;
+}
+
+float ColliderComponent::getSize() {
+    return size;
 }

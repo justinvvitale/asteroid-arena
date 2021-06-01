@@ -19,6 +19,7 @@ public:
         cube->setPosition(Vector3(0,0,-10));
 
         MeshComponent* meshComp = new MeshComponent(Cube);
+        meshComp->setScale(100);
 
         cube->addComponent(new TestScript());
         cube->addComponent(meshComp);
