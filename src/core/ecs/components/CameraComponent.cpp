@@ -3,7 +3,7 @@
 //
 
 #include "CameraComponent.h"
-#include "../../input/KeyRegistry.h"
+#include "../../input/InputRegistry.h"
 #include "../../Game.h"
 #include "../../Renderer.h"
 #include "../../shared/engine_graphic.h"

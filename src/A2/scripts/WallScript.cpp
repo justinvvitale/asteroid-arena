@@ -164,42 +164,40 @@ void WallScript::update() {
 
 
 void WallScript::refreshMeshData() {
-    Vector3 warnColour = Vector3(0.7, 0,0);
-    Vector3 colour = Vector3(0.5, 0.5,0.5);
     if(topWarn){
-        mesh.faces[topFaceIndex].colour = Vector3(warnColour);
+        mesh.faces[topFaceIndex].colour = Vector3(ARENA_WARN_COLOUR);
     }else{
-        mesh.faces[topFaceIndex].colour = colour;
+        mesh.faces[topFaceIndex].colour = ARENA_COLOUR;
     }
 
     if(bottomWarn){
-        mesh.faces[bottomFaceIndex].colour = Vector3(warnColour);
+        mesh.faces[bottomFaceIndex].colour = Vector3(ARENA_WARN_COLOUR);
     }else{
-        mesh.faces[bottomFaceIndex].colour = colour;
+        mesh.faces[bottomFaceIndex].colour = ARENA_COLOUR;
     }
 
     if(nearWarn){
-        mesh.faces[nearFaceIndex].colour = Vector3(warnColour);
+        mesh.faces[nearFaceIndex].colour = Vector3(ARENA_WARN_COLOUR);
     }else{
-        mesh.faces[nearFaceIndex].colour = colour;
+        mesh.faces[nearFaceIndex].colour = ARENA_COLOUR;
     }
 
     if(farWarn){
-        mesh.faces[farFaceIndex].colour = Vector3(warnColour);
+        mesh.faces[farFaceIndex].colour = Vector3(ARENA_WARN_COLOUR);
     }else{
-        mesh.faces[farFaceIndex].colour = colour;
+        mesh.faces[farFaceIndex].colour = ARENA_COLOUR;
     }
 
     if(leftWarn){
-        mesh.faces[leftFaceIndex].colour = Vector3(warnColour);
+        mesh.faces[leftFaceIndex].colour = Vector3(ARENA_WARN_COLOUR);
     }else{
-        mesh.faces[leftFaceIndex].colour = colour;
+        mesh.faces[leftFaceIndex].colour = ARENA_COLOUR;
     }
 
     if(rightWarn){
-        mesh.faces[rightFaceIndex].colour = Vector3(warnColour);
+        mesh.faces[rightFaceIndex].colour = Vector3(ARENA_WARN_COLOUR);
     }else{
-        mesh.faces[rightFaceIndex].colour = colour;
+        mesh.faces[rightFaceIndex].colour = ARENA_COLOUR;
     }
 
     this->meshComponent->setMesh(mesh);

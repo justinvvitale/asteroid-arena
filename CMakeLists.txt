@@ -73,8 +73,8 @@ add_executable(I3D
 
 
         # Core
-        src/core/input/KeyRegistry.cpp
-        src/core/input/KeyRegistry.h
+        src/core/input/InputRegistry.cpp
+        src/core/input/InputRegistry.h
         src/core/ecs/Entity.cpp
         src/core/ecs/Entity.h
         src/core/shared/engine_math.h
@@ -120,7 +120,7 @@ add_executable(I3D
         src/core/external/stb_image.h
         src/core/external/ObjAccess.cpp
         # Unsorted
-        src/A2/entities/CameraEntity.h)
+        src/A2/entities/CameraEntity.h src/A2/scripts/DelayDestroy.cpp src/A2/scripts/DelayDestroy.h)
 
 file(COPY src/A2/data DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY freeglut.dll DESTINATION ${CMAKE_BINARY_DIR})

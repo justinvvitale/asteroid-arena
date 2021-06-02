@@ -2,7 +2,7 @@
 // Created by dim on 22/03/2021.
 //
 #include "PlayerControllerScript.h"
-#include "../../core/input/KeyRegistry.h"
+#include "../../core/input/InputRegistry.h"
 #include "../GAMECONFIG.h"
 #include "../entities/BulletEntity.h"
 #include "../GameState.h"

@@ -3,7 +3,7 @@
 //
 
 #include "Game.h"
-#include "input/KeyRegistry.h"
+#include "input/InputRegistry.h"
 #include "Renderer.h"
 
 #if _WIN32
@@ -58,17 +58,18 @@ void Game::start(int argc, char** argv, const std::string& name, Scene* (* defau
     glutFullScreen();
 
     init();
-    KeyRegistry::init();
+    InputRegistry::init();
 
     // Callbacks
     glutDisplayFunc(Game::display);
     glutReshapeFunc(Game::reshape);
     glutIdleFunc(Game::idle);
 
-    glutMouseFunc(KeyRegistry::mouse);
-    glutPassiveMotionFunc(KeyRegistry::mouseMotion);
-    glutKeyboardFunc(KeyRegistry::keyPress);
-    glutKeyboardUpFunc(KeyRegistry::keyUp);
+    glutMouseFunc(InputRegistry::mouse);
+    glutPassiveMotionFunc(InputRegistry::mouseMotion);
+    glutMotionFunc(InputRegistry::mouseMotion);
+    glutKeyboardFunc(InputRegistry::keyPress);
+    glutKeyboardUpFunc(InputRegistry::keyUp);
 
     glutMainLoop();
 }
@@ -83,15 +84,15 @@ void Game::init() {
     glEnable(GL_LIGHT0);
 
     // Lighting config
-    GLfloat qaAmbientLight[]	= {0.2, 0.2, 0.2, 1.0};
-    GLfloat qaDiffuseLight[]	= {0.8, 0.8, 0.8, 1.0};
-    GLfloat qaSpecularLight[]	= {1.0, 1.0, 1.0, 1.0};
+    GLfloat qaAmbientLight[]	= {0.1, 0.1, 0.1, 1.0};
+//    GLfloat qaDiffuseLight[]	= {0.8, 0.8, 0.8, 1.0};
+//    GLfloat qaSpecularLight[]	= {1.0, 1.0, 1.0, 1.0};
     glLightfv(GL_LIGHT0, GL_AMBIENT, qaAmbientLight);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight);
+//    glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight);
+//    glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight);
 
     // Set global
-    GLfloat qaLightPosition[]	= {.5, .5, 0.0, 1.0};
+    GLfloat qaLightPosition[]	= {0, 0, 0, 1.0};
     glLightfv(GL_LIGHT0, GL_POSITION, qaLightPosition);
 
     glEnable(GL_CULL_FACE);
@@ -181,7 +182,7 @@ void Game::idle() {
         performEntityCleanup();
     }
 
-    if(KeyRegistry::isPressed(27)){
+    if(InputRegistry::isPressed(27)){
         exit(0);
     }
 

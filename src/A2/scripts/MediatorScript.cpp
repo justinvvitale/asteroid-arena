@@ -3,9 +3,8 @@
 //
 
 #include "MediatorScript.h"
-#include "../../core/input/KeyRegistry.h"
+#include "../../core/input/InputRegistry.h"
 #include "../GameState.h"
-#include "../../core/Game.h"
 #include "../../core/ecs/systems/MeshRendererSystem.h"
 
 void MediatorScript::start() {
@@ -55,9 +54,9 @@ void MediatorScript::update() {
 
     // Await input
     if (lastState != GameState::Playing) {
-        if (KeyRegistry::getPressed().empty()) {
+        if (InputRegistry::getPressed().empty()) {
             registeredEmpty = true;
-        } else if (registeredEmpty && !KeyRegistry::getPressed().empty()) {
+        } else if (registeredEmpty && !InputRegistry::getPressed().empty()) {
             // Restart from death
             if (Game::state == GameState::Dead) {
                 Game::restart();

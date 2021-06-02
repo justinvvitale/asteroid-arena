@@ -109,13 +109,12 @@ void Renderer::drawTransparentQuad(const std::string& texture, float size, Vecto
         glDisable(GL_LIGHTING);
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(texture));
-        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
         glBegin(GL_QUADS);
-        glTexCoord2f(0.0, 1.0); glVertex2f(-size,size);
-        glTexCoord2f(0.0, 0.0); glVertex2f(-size,-size);
-        glTexCoord2f(1.0, 0.0); glVertex2f(size,-size);
-        glTexCoord2f(1.0, 1.0); glVertex2f(size,size);
+            glTexCoord2f(0.0, 1.0); glVertex2f(-size,size);
+            glTexCoord2f(0.0, 0.0); glVertex2f(-size,-size);
+            glTexCoord2f(1.0, 0.0); glVertex2f(size,-size);
+            glTexCoord2f(1.0, 1.0); glVertex2f(size,size);
         glEnd();
 
         glDisable(GL_TEXTURE_2D);

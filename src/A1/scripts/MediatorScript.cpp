@@ -3,7 +3,7 @@
 //
 
 #include "MediatorScript.h"
-#include "../../core/input/KeyRegistry.h"
+#include "../../core/input/InputRegistry.h"
 #include "../GameState.h"
 #include "../../core/Game.h"
 #include "../../core/ecs/systems/MeshRendererSystem.h"

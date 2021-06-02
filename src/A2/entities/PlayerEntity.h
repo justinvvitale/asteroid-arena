@@ -10,6 +10,7 @@
 #include "../../core/ecs/components/CameraComponent.h"
 #include "../../core/external/ObjAccess.h"
 #include "../../core/ecs/components/ColliderComponent.h"
+#include "../GAMECONFIG.h"
 
 class PlayerEntity {
 
@@ -25,7 +26,7 @@ public:
         mesh.texture = "ship";
         meshComp->setMesh(mesh);
 
-        player->addComponent(new ColliderComponent( sphere, 1.4));
+        player->addComponent(new ColliderComponent( sphere, SHIP_COLLIDER_SIZE));
 
         player->addComponent(controllerScript);
         player->addComponent(meshComp);

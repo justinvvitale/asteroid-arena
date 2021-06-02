@@ -11,7 +11,7 @@ const Vector3 DEFAULT_COLOUR = Vector3(1, 1, 1);
 const float POINT_SIZE = 5;
 
 // Debugging
-const bool DEBUG_DRAW_COLLIDERS = true;
+const bool DEBUG_DRAW_COLLIDERS = false;
 const Vector3 DEBUG_DRAW_COLLIDERS_COLOUR = Vector3(1, 0, 1);
 
 const bool DEBUG_DRAW_PARTICLE_EMITTERS = false;

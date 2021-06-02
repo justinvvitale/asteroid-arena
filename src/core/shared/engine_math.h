@@ -287,6 +287,17 @@ struct Rotation {
         return q;
     }
 
+    static Rotation FromAngleAxis(double angle, Vector3 axis){
+        Rotation rot;
+        double m = sqrt(axis.x * axis.x + axis.y * axis.y + axis.z * axis.z);
+        double s = sin(angle / 2) / m;
+        rot.x = axis.x * s;
+        rot.y = axis.y * s;
+        rot.z = axis.z * s;
+        rot.w = cos(angle / 2);
+        return rot;
+    }
+
     Vector3 ToEuler() {
         Rotation rotation = *this;
         double sqw = rotation.w * rotation.w;
@@ -467,6 +478,16 @@ struct Rotation {
 
 static float Lerp(float v1, float v2, float t) {
     return v1 + (v2 - v1) * t;
+}
+
+static float Clamp(float value, float min, float max)
+{
+    if (value < min){
+        value = min;
+    }else if (value > max){
+        value = max;
+    }
+    return value;
 }
 
 static bool isInsideCube(Vector3 position, float cubeSize, float radius = 0){
