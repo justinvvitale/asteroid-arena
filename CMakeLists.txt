@@ -51,7 +51,7 @@ add_executable(I3D
         src/A2/entities/PlayerEntity.h
         src/A2/scripts/PlayerControllerScript.cpp
         src/A2/scripts/PlayerControllerScript.h
-        src/A2/entities/CubeEntity.h
+        src/A2/entities/StationEntity.h
         src/A2/entities/ArenaEntity.h
         src/A2/scripts/WallScript.cpp
         src/A2/scripts/WallScript.h

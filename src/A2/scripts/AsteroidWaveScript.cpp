@@ -73,15 +73,15 @@ void AsteroidWaveScript::spawnAsteroid() {
     float speed = getRandomNumber(ASTEROID_MIN_SPEED, ASTEROID_MAX_SPEED);
     float radius = ASTEROID_MIN_RADIUS + (float)(rand() % static_cast<int>(ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS + 1));
     Vector3 position = getPositionOutOfArena(radius); // Set rotation to either left/right and to config values
-    float rotation = getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION);
+    Vector3 rotation = Vector3(getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION), getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION), getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION));
     Vector3 force = VectorUtil::Normalize(shipRef->getPosition() - position) * speed;
 
     // Spawn configured asteroid
-    spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * radius, position, speed, radius, rand() % 2 ? rotation : -rotation,
+    spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * radius, position, speed, radius, rand() % 2 ? rotation : rotation.opposite(),
                   force, true);
 }
 
-void AsteroidWaveScript::spawnAsteroid(float health, Vector3 position, float speed, float radius, float rotation,
+void AsteroidWaveScript::spawnAsteroid(float health, Vector3 position, float speed, float radius, Vector3 rotation,
                                        Vector3 force, bool canSplit) {
     // Create entity and add script
     Entity* ast = AsteroidEntity::getEntity();

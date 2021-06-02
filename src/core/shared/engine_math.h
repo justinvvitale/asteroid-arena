@@ -195,8 +195,8 @@ public:
         }
     }
 
-    static Vector3 Lerp(Vector3 a, Vector3 b, float delta){
-        if(delta > 1){
+    static Vector3 Lerp(Vector3 a, Vector3 b, float delta) {
+        if (delta > 1) {
             delta = 1;
         }
 
@@ -237,6 +237,56 @@ struct Rotation {
 
     static Rotation identity() {
         return {0, 0, 0, 1};
+    }
+
+    static Rotation RotateTowards(Rotation from, Rotation to, double maxRadiansDelta) {
+        double angle = Rotation::Angle(from, to);
+        if (angle == 0)
+            return to;
+        maxRadiansDelta = fmax(maxRadiansDelta, angle - PI);
+        double t = fmin(1, maxRadiansDelta / angle);
+        return Rotation::SlerpUnclamped(from, to, t);
+    }
+
+    static double Angle(Rotation a, Rotation b) {
+        double dot = Dot(a, b);
+        return acos(fmin(fabs(dot), 1)) * 2;
+    }
+
+    Rotation Slerp(Rotation a, Rotation b, double t) {
+        if (t < 0) return Normalized(a);
+        else if (t > 1) return Normalized(b);
+        return SlerpUnclamped(a, b, t);
+    }
+
+    static Rotation SlerpUnclamped(Rotation a, Rotation b, double t) {
+        double n1;
+        double n2;
+        double n3 = Dot(a, b);
+        bool flag = false;
+        if (n3 < 0) {
+            flag = true;
+            n3 = -n3;
+        }
+        if (n3 > 0.999999) {
+            n2 = 1 - t;
+            n1 = flag ? -t : t;
+        } else {
+            double n4 = acos(n3);
+            double n5 = 1 / sin(n4);
+            n2 = sin((1 - t) * n4) * n5;
+            n1 = flag ? -sin(t * n4) * n5 : sin(t * n4) * n5;
+        }
+        Rotation quaternion;
+        quaternion.x = (n2 * a.x) + (n1 * b.x);
+        quaternion.y = (n2 * a.y) + (n1 * b.y);
+        quaternion.z = (n2 * a.z) + (n1 * b.z);
+        quaternion.w = (n2 * a.w) + (n1 * b.w);
+        return Normalized(quaternion);
+    }
+
+    static double Dot(Rotation lhs, Rotation rhs) {
+        return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z + lhs.w * rhs.w;
     }
 
     float* ToRotationMatrix() const {
@@ -287,7 +337,7 @@ struct Rotation {
         return q;
     }
 
-    static Rotation FromAngleAxis(double angle, Vector3 axis){
+    static Rotation FromAngleAxis(double angle, Vector3 axis) {
         Rotation rot;
         double m = sqrt(axis.x * axis.x + axis.y * axis.y + axis.z * axis.z);
         double s = sin(angle / 2) / m;
@@ -480,26 +530,25 @@ static float Lerp(float v1, float v2, float t) {
     return v1 + (v2 - v1) * t;
 }
 
-static float Clamp(float value, float min, float max)
-{
-    if (value < min){
+static float Clamp(float value, float min, float max) {
+    if (value < min) {
         value = min;
-    }else if (value > max){
+    } else if (value > max) {
         value = max;
     }
     return value;
 }
 
-static bool isInsideCube(Vector3 position, float cubeSize, float radius = 0){
-    float halfCube = cubeSize/2;
+static bool isInsideCube(Vector3 position, float cubeSize, float radius = 0) {
+    float halfCube = cubeSize / 2;
 
-    if(position.x - radius > halfCube || position.x + radius < -halfCube){
+    if (position.x - radius > halfCube || position.x + radius < -halfCube) {
         return false;
     }
-    if(position.y - radius > halfCube || position.y + radius < -halfCube){
+    if (position.y - radius > halfCube || position.y + radius < -halfCube) {
         return false;
     }
-    if(position.z - radius > halfCube || position.z + radius < -halfCube){
+    if (position.z - radius > halfCube || position.z + radius < -halfCube) {
         return false;
     }
 

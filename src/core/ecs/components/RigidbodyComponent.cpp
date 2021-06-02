@@ -16,7 +16,7 @@ void RigidbodyComponent::tick() {
     Rotation curRotation = parent->getRotation();
 
     parent->setPosition(curPosition + (velocity * Game::dt));
-    //parent->setRotation(Rotation(0, 0, 1, curRotation.angle + (this->spin * Game::dt))); TODO
+    parent->setRotation(curRotation * Rotation::FromEuler(this->spin * Game::dt));
 }
 
 void RigidbodyComponent::addForce(float x, float y, float z) {
@@ -31,14 +31,14 @@ void RigidbodyComponent::clearVelocity() {
     this->velocity = Vector3::zero();
 }
 
-void RigidbodyComponent::setSpin(float amount) {
-    this->spin = amount;
+void RigidbodyComponent::setSpin(Vector3 spin) {
+    this->spin = spin;
 }
 
 Vector3 RigidbodyComponent::getVelocity() {
     return {this->velocity};
 }
 
-float RigidbodyComponent::getSpin() const {
+Vector3 RigidbodyComponent::getSpin() const {
     return spin;
 }

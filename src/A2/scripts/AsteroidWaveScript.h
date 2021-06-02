@@ -23,7 +23,7 @@ private:
 
     void spawnAsteroid();
 
-    void spawnAsteroid(float health, Vector3 position, float speed, float radius, float rotation, Vector3 force,
+    void spawnAsteroid(float health, Vector3 position, float speed, float radius, Vector3 rotation, Vector3 force,
                        bool canSplit);
 
     Entity* shipRef;

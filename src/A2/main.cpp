@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include "entities/PlayerEntity.h"
-#include "entities/CubeEntity.h"
+#include "entities/StationEntity.h"
 #include "entities/MediatorEntity.h"
 #include "entities/ScoreManagerEntity.h"
 #include "entities/ArenaEntity.h"
@@ -18,7 +18,7 @@ Scene* getScene() {
     scene->addEntity(PlayerEntity::getEntity());
 
     scene->addEntity(ArenaEntity::getEntity());
-    scene->addEntity(CubeEntity::getEntity());
+    scene->addEntity(StationEntity::getEntity());
 
     Entity* waveManagerEntity = new Entity("wave");
     waveManagerEntity->addComponent(new AsteroidWaveScript());

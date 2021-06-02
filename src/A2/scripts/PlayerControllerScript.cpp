@@ -21,10 +21,11 @@ void PlayerControllerScript::update() {
 
 
     Vector3 pos = getEntity()->getPosition();
-    Rotation rot = getEntity()->getRotation();
+    Rotation rot;
 
     // Clamp values
-    InputRegistry::mouseAngleV = Clamp(InputRegistry::mouseAngleV, -SHIP_VERTICAL_VIEW_CLAMP, SHIP_VERTICAL_VIEW_CLAMP);
+    // Not needed anymore but good reference
+    //InputRegistry::mouseAngleV = Clamp(InputRegistry::mouseAngleV, -SHIP_VERTICAL_VIEW_CLAMP, SHIP_VERTICAL_VIEW_CLAMP);
 
     Vector3 eulerMods = Vector3::zero();
     eulerMods.y = -InputRegistry::mouseAngleH * SHIP_HORIZONTAL_SENSITIVITY;
@@ -89,11 +90,11 @@ void PlayerControllerScript::update() {
     //spaceship. This could simply consist of switching the camera to a side or rear view
     //while an appropriate key is pressed down. The ship should not be rendered while the
     //camera is displaying one of these camera views.
-    if(InputRegistry::isPressed('a')){
+    if(InputRegistry::isPressed(SHIP_VIEW_LEFT)){
         horizontalAngleOffset -= 90;
-    }else if(InputRegistry::isPressed('d')){
+    }else if(InputRegistry::isPressed(SHIP_VIEW_RIGHT)){
         horizontalAngleOffset += 90;
-    }else if(InputRegistry::isPressed('s')){
+    }else if(InputRegistry::isPressed(SHIP_VIEW_BEHIND)){
         horizontalAngleOffset -= 180;
     }
 
@@ -101,14 +102,11 @@ void PlayerControllerScript::update() {
     // What a bloody hack job, atleast it works...
     // I hate rotations :(
     // Update: Improved it lol
-    camera->getEntity()->setPosition(VectorUtil::Lerp(camera->getEntity()->getPosition(), this->getEntity()->getPosition().opposite(),  0.2));
-    Vector3 curRot = this->getEntity()->getRotation().ToEuler();
-    Vector3 newRot = Vector3(-0.01, -curRot.y, 0);
-
     camera->rotOffset = Rotation::Rotation::FromEuler(Vector3(0,(180 + horizontalAngleOffset) * DEG_TO_RAD,0));
-    camera->posOffset = Vector3(0,-2,10);
+    camera->posOffset = Vector3(0,-2,8);
 
-    Game::getEngine()->camera->getEntity()->setRotation(Rotation::Rotation::FromEuler(newRot));
+    camera->getEntity()->setRotation(Rotation::RotateTowards(camera->getEntity()->getRotation(), rot.Inverse(), CAMERA_ROTATION_DAMP));
+    camera->getEntity()->setPosition(VectorUtil::Lerp(camera->getEntity()->getPosition(), pos.opposite(),  CAMERA_POSITION_DAMP));
 }
 
 void PlayerControllerScript::onCollision(Entity* other) {

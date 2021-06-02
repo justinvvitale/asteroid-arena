@@ -11,7 +11,7 @@
 class RigidbodyComponent : public Component {
 private:
     Vector3 velocity = Vector3::zero();
-    float spin = 0;
+    Vector3 spin = Vector3::zero();
 
 public:
     RigidbodyComponent();
@@ -20,7 +20,7 @@ public:
 
     void addForce(float x, float y, float z);
 
-    void setSpin(float amount);
+    void setSpin(Vector3 spin);
 
     void addForce(Vector3 force);
 
@@ -28,7 +28,7 @@ public:
 
     void clearVelocity();
 
-    float getSpin() const;
+    Vector3 getSpin() const;
 };
 
 

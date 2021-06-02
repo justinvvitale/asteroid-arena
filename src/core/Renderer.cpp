@@ -67,10 +67,14 @@ void Renderer::renderMesh(const Mesh& mesh) {
                 break;
         }
         float amb[] = {mesh.ambient.x, mesh.ambient.y, mesh.ambient.z, mesh.ambient.w};
-        float diff[] = {mesh.diffuse.x, mesh.diffuse.y, mesh.diffuse.z, mesh.diffuse.w};;
+        float diff[] = {mesh.diffuse.x, mesh.diffuse.y, mesh.diffuse.z, mesh.diffuse.w};
+        float spec[] = {1,1,1,1};
+        float emission[] = {0,0,0,1};
 
         glMaterialfv(GL_FRONT, GL_AMBIENT, amb);
         glMaterialfv(GL_FRONT, GL_DIFFUSE, diff);
+        glMaterialfv(GL_FRONT, GL_SPECULAR, spec);
+        glMaterialfv(GL_FRONT, GL_EMISSION, emission);
 
         glColor3f(face.colour.x, face.colour.y, face.colour.z);
 

@@ -9,7 +9,7 @@
 
 // Arena
 const float ARENA_SIZE = 5000;
-const Vector3 ARENA_COLOUR = Vector3(0.3, 0.3,0.3);
+const Vector3 ARENA_COLOUR = Vector3(0, 0,0); // Vector3(0.3, 0.3,0.3);
 const Vector3 ARENA_WARN_COLOUR = Vector3(0.7, 0,0);
 const float ARENA_WARN_DIST = 500;
 
@@ -31,12 +31,21 @@ const float SHIP_EXHAUST_END_SIZE = 0.5; // scale
 const float SHIP_EXHAUST_LIFE = 150; // decay ms
 const float SHIP_EXHAUST_SPEED = 200; // decay ms
 
-const char SHIP_FORWARD_KEY = 'w';
-const char SHIP_MOVE_UP = 'e';
-const char SHIP_MOVE_DOWN = 'q';
 const float SHIP_VERTICAL_SENSITIVITY = 0.03;
 const float SHIP_HORIZONTAL_SENSITIVITY = 0.03;
 const float SHIP_VERTICAL_VIEW_CLAMP = 10;
+
+// Controls
+const char SHIP_FORWARD_KEY = 'w';
+const char SHIP_MOVE_UP = 'e';
+const char SHIP_MOVE_DOWN = 'q';
+const char SHIP_VIEW_LEFT = 'a';
+const char SHIP_VIEW_RIGHT = 'd';
+const char SHIP_VIEW_BEHIND = 's';
+
+// Camera
+const float CAMERA_POSITION_DAMP = 0.35; // Position delta 0-1
+const float CAMERA_ROTATION_DAMP = 0.05; // Radian  delta
 
 // WaveManagement
 const int ASTEROID_WAVE_CD = 2000; // Wait X ms before next wave
