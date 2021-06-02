@@ -265,6 +265,10 @@ void Renderer::renderCustom(CustomRender customRender, float param1, float param
             float radius = param1; // Radius
             int fidelity = param2; // More = less detail
 
+            if (radius < 1 || fidelity < 1){
+                break;
+            }
+
             for (int i = 0; i < 90; i += fidelity) {
                 float distance1 = radius * sin((PI * i) / 180);
                 float distance2 = radius * sin((PI * (i + fidelity)) / 180);
