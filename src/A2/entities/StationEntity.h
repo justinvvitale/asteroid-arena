@@ -18,33 +18,33 @@ public:
         Entity* station = new Entity("station");
         station->setPosition(Vector3(0,0,-10));
 
-        MeshComponent* meshComp = new MeshComponent(CustomSphere, "asteroid1");
-//        Mesh mesh = ObjAccess::load("outerStation");
-//        Renderer::loadTexture("metal", "data/metal.jpg");
-//        mesh.texture = "metal";
-//        meshComp->setMesh(mesh);
+        MeshComponent* meshComp = new MeshComponent();
+        Mesh mesh = ObjAccess::load("outerStation");
+        Renderer::loadTexture("metal", "data/metal.jpg");
+        mesh.texture = "metal";
+        meshComp->setMesh(mesh);
         station->addComponent(meshComp);
 
         RigidbodyComponent* rigid = new RigidbodyComponent();
-        rigid->setSpin(Vector3(0,0,0));
+        rigid->setSpin(Vector3(0.5,1,1));
         station->addComponent(rigid);
 
-//        // Setup inner section
-//        Entity* innerStation = new Entity();
-//
-//        // Mesh
-//        MeshComponent* innerMeshComp = new MeshComponent();
-//        Mesh innerMesh = ObjAccess::load("innerStation");
-//        innerMesh.texture = "metal";
-//        innerMeshComp->setMesh(innerMesh);
-//        innerStation->addComponent(innerMeshComp);
-//
-//        // Rigid
-//        RigidbodyComponent* innerRigid = new RigidbodyComponent();
-//        innerRigid->setSpin(Vector3(0,0,0));
-//        innerStation->addComponent(innerRigid);
-//
-//        station->addChild(innerStation);
+        // Setup inner section
+        Entity* innerStation = new Entity();
+
+        // Mesh
+        MeshComponent* innerMeshComp = new MeshComponent();
+        Mesh innerMesh = ObjAccess::load("innerStation");
+        innerMesh.texture = "metal";
+        innerMeshComp->setMesh(innerMesh);
+        innerStation->addComponent(innerMeshComp);
+
+        // Rigid
+        RigidbodyComponent* innerRigid = new RigidbodyComponent();
+        innerRigid->setSpin(Vector3(5,0,0));
+        innerStation->addComponent(innerRigid);
+
+        station->addChild(innerStation);
 
 
 

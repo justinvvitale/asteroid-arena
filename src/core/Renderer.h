@@ -27,7 +27,6 @@ private:
 
 public:
     // Admin
-
     static void glInitialized();
 
     // Rendering

@@ -20,8 +20,7 @@ public:
         entity->setPosition(initialPosition);
 
         Renderer::loadTexture("bullet", "data/bullet.png");
-        MeshComponent* meshRenderer = new MeshComponent(CustomRender::Bullet);
-        meshRenderer->setScale(2);
+        MeshComponent* meshRenderer = new MeshComponent(CustomRenderMesh(Bullet, "", 2));
         entity->addComponent(meshRenderer);
 
         entity->addComponent(new ColliderComponent(sphere, 0.5));

@@ -248,6 +248,7 @@ unsigned int Renderer::loadTextureGl(const std::string& file) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
     glTexImage2D(GL_TEXTURE_2D, 0, components == 4 ? GL_RGBA : GL_RGB, width, height, 0,
                  components == 4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, data);
     glPopAttrib();
@@ -258,11 +259,11 @@ unsigned int Renderer::loadTextureGl(const std::string& file) {
 void Renderer::renderCustom(CustomRender customRender, float param1, float param2, float param3, Vector3 colour) {
     switch (customRender) {
         case Sphere:
-            gluSphere(gluNewQuadric(), param1,100,20);
+            gluSphere(gluNewQuadric(), param1, param2, param3);
             break;
         case CustomSphere:{
-            float radius = 40; // Radius
-            int fidelity = 10; // More = less detail
+            float radius = param1; // Radius
+            int fidelity = param2; // More = less detail
 
             for (int i = 0; i < 90; i += fidelity) {
                 float distance1 = radius * sin((PI * i) / 180);

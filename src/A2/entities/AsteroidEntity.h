@@ -18,7 +18,7 @@ class AsteroidEntity {
             static Entity* getEntity() {
                 Entity* entity = new Entity("asteroid");
 
-                MeshComponent* meshRenderer = new MeshComponent(CustomRender::CustomSphere, "asteroid" + std::to_string(getRandomNumber(0,4)) + ".jpg");
+                MeshComponent* meshRenderer = new MeshComponent(CustomRenderMesh(CustomRender::CustomSphere, "asteroid" + std::to_string(getRandomNumber(0,4)) + ".jpg"));
                 meshRenderer->setScale(30);
                 entity->addComponent(meshRenderer);
 
