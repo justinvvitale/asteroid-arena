@@ -4,6 +4,7 @@
 #include "Renderer.h"
 
 #define STB_IMAGE_IMPLEMENTATION
+
 #include "external/stb_image.h"
 
 #if _WIN32
@@ -33,7 +34,7 @@ void Renderer::glInitialized() {
     hasGlLoaded = true;
 
     // Load textures which have been requested
-    while(!textureLoadQueue.empty()){
+    while (!textureLoadQueue.empty()) {
         std::pair<std::string, std::string> request = textureLoadQueue.front();
         std::string name = request.first;
         std::string path = request.second;
@@ -51,11 +52,10 @@ void Renderer::glInitialized() {
 
 void Renderer::renderMesh(const Mesh& mesh) {
     glColor3f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(mesh.texture));
+    TextureStart(mesh.texture);
 
-    for (const Face& face : mesh.faces){
-        switch(face.type){
+    for (const Face& face : mesh.faces) {
+        switch (face.type) {
             case triangle:
                 glBegin(GL_TRIANGLES);
                 break;
@@ -68,21 +68,17 @@ void Renderer::renderMesh(const Mesh& mesh) {
         }
         float amb[] = {mesh.ambient.x, mesh.ambient.y, mesh.ambient.z, mesh.ambient.w};
         float diff[] = {mesh.diffuse.x, mesh.diffuse.y, mesh.diffuse.z, mesh.diffuse.w};
-        float spec[] = {1,1,1,1};
-        float emission[] = {0,0,0,1};
 
         glMaterialfv(GL_FRONT, GL_AMBIENT, amb);
         glMaterialfv(GL_FRONT, GL_DIFFUSE, diff);
-        glMaterialfv(GL_FRONT, GL_SPECULAR, spec);
-        glMaterialfv(GL_FRONT, GL_EMISSION, emission);
 
         glColor3f(face.colour.x, face.colour.y, face.colour.z);
 
-        for(int i = 0; i < face.type; i++){
+        for (int i = 0; i < face.type; i++) {
             Vertex* vert = face.vertices[i];
 
             glTexCoord2f(vert->texCoord.x, vert->texCoord.y);
-            glNormal3f(vert->normal.x, vert->normal.y,vert->normal.z);
+            glNormal3f(vert->normal.x, vert->normal.y, vert->normal.z);
             glVertex3f(vert->position.x, vert->position.y, vert->position.z);
         }
 
@@ -91,10 +87,18 @@ void Renderer::renderMesh(const Mesh& mesh) {
         glEnd();
     }
 
+    TextureEnd();
+    glColor3f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z);
+}
+
+void Renderer::TextureEnd() {
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE_2D);
-    glColor3f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z);
+}
 
+void Renderer::TextureStart(std::string name) {
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, getTextureId(name));
 }
 
 void Renderer::renderParticle(const Particle* particle) {
@@ -110,19 +114,23 @@ void Renderer::drawTransparentQuad(const std::string& texture, float size, Vecto
     Entity* player = Game::getEntity("player");
     rotate(Rotation::LookRotation(player->getForwardVector().opposite()));
 
-        glDisable(GL_LIGHTING);
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(texture));
+    glDisable(GL_LIGHTING);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(texture));
 
-        glBegin(GL_QUADS);
-            glTexCoord2f(0.0, 1.0); glVertex2f(-size,size);
-            glTexCoord2f(0.0, 0.0); glVertex2f(-size,-size);
-            glTexCoord2f(1.0, 0.0); glVertex2f(size,-size);
-            glTexCoord2f(1.0, 1.0); glVertex2f(size,size);
-        glEnd();
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0, 1.0);
+    glVertex2f(-size, size);
+    glTexCoord2f(0.0, 0.0);
+    glVertex2f(-size, -size);
+    glTexCoord2f(1.0, 0.0);
+    glVertex2f(size, -size);
+    glTexCoord2f(1.0, 1.0);
+    glVertex2f(size, size);
+    glEnd();
 
-        glDisable(GL_TEXTURE_2D);
-        glEnable(GL_LIGHTING);
+    glDisable(GL_TEXTURE_2D);
+    glEnable(GL_LIGHTING);
     pop();
 }
 
@@ -130,52 +138,52 @@ void Renderer::renderText(TextOrigin origin, Vector3 offset, const std::string& 
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
 
-        glLoadIdentity();
-        int w = glutGet(GLUT_WINDOW_WIDTH);
-        int h = glutGet(GLUT_WINDOW_HEIGHT);
-        glOrtho(0, w, 0, h, -1, 1);
+    glLoadIdentity();
+    int w = glutGet(GLUT_WINDOW_WIDTH);
+    int h = glutGet(GLUT_WINDOW_HEIGHT);
+    glOrtho(0, w, 0, h, -1, 1);
 
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
 
-            glLoadIdentity();
+    glLoadIdentity();
 
-            glDisable(GL_DEPTH_TEST);
-            glDisable(GL_LIGHTING);
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_LIGHTING);
 
-            switch(origin){
-                case centre:
-                    Renderer::move(Vector3((float)w/2, (float)h/2, 0));
-                    break;
-                case topLeft:
-                    Renderer::move(Vector3(0, (float)h, 0));
-                    break;
-                case topRight:
-                    Renderer::move(Vector3((float)w, (float)h, 0));
-                    break;
-                case bottomLeft:
-                    // This is the default
-                    break;
-                case bottomRight:
-                    Renderer::move(Vector3((float)w, 0, 0));
-                    break;
-            }
+    switch (origin) {
+        case centre:
+            Renderer::move(Vector3((float) w / 2, (float) h / 2, 0));
+            break;
+        case topLeft:
+            Renderer::move(Vector3(0, (float) h, 0));
+            break;
+        case topRight:
+            Renderer::move(Vector3((float) w, (float) h, 0));
+            break;
+        case bottomLeft:
+            // This is the default
+            break;
+        case bottomRight:
+            Renderer::move(Vector3((float) w, 0, 0));
+            break;
+    }
 
-            // Account for different screen resolutions with offset
-            float impactUnit = (float)h*(float)w / 100000;
-            Renderer::move(Vector3(offset.x * impactUnit, offset.y *impactUnit, 0));
-            Renderer::scale(scale * impactUnit / 40);
-            glColor3f(1, 0, 0);
+    // Account for different screen resolutions with offset
+    float impactUnit = (float) h * (float) w / 100000;
+    Renderer::move(Vector3(offset.x * impactUnit, offset.y * impactUnit, 0));
+    Renderer::scale(scale * impactUnit / 40);
+    glColor3f(1, 0, 0);
 
-            for (char c : text) {
-                glutStrokeCharacter(GLUT_STROKE_ROMAN, c);
-            }
+    for (char c : text) {
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, c);
+    }
 
-            glEnable(GL_LIGHTING);
-            glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_DEPTH_TEST);
 
-        glMatrixMode(GL_MODELVIEW);
-        glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
 
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
@@ -225,7 +233,7 @@ unsigned int Renderer::loadTextureGl(const std::string& file) {
     int width, height, components;
     unsigned char* data = stbi_load(file.c_str(), &width, &height, &components, STBI_rgb_alpha);
 
-    if(data == nullptr){
+    if (data == nullptr) {
         std::cout << "(Error) Unable to load texture: " + file << std::endl;
         return 0;
     }
@@ -240,7 +248,8 @@ unsigned int Renderer::loadTextureGl(const std::string& file) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, components == 4 ? GL_RGBA : GL_RGB, width, height, 0, components == 4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, components == 4 ? GL_RGBA : GL_RGB, width, height, 0,
+                 components == 4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, data);
     glPopAttrib();
 
     return id;
@@ -250,6 +259,75 @@ void Renderer::renderCustom(CustomRender customRender, float param1, float param
     switch (customRender) {
         case Sphere:
             gluSphere(gluNewQuadric(), param1,100,20);
+            break;
+        case CustomSphere:{
+            float radius = 40; // Radius
+            int fidelity = 10; // More = less detail
+
+            for (int i = 0; i < 90; i += fidelity) {
+                float distance1 = radius * sin((PI * i) / 180);
+                float distance2 = radius * sin((PI * (i + fidelity)) / 180);
+
+                float dist1Sqrt = sqrt(radius * radius - distance1 * distance1);
+                float dist2Sqrt = sqrt(radius * radius - distance2 * distance2);
+
+                for (int j = 0; j < 360; j += fidelity) {
+                    Vector3 point1;
+                    Vector3 point2;
+                    Vector3 point3;
+                    Vector3 point4;
+
+                    point1.x = dist1Sqrt * cos((2 * PI * j) / 360);
+                    point1.y = dist1Sqrt * sin(2 * PI * j / 360);
+                    point1.z = distance1;
+
+                    point2.x = dist1Sqrt * cos(2 * PI * (j + fidelity) / 360);
+                    point2.y = dist1Sqrt * sin(2 * PI * (j + fidelity) / 360);
+                    point2.z = distance1;
+
+                    point3.x = dist2Sqrt * cos(2 * PI * j / 360);
+                    point3.y = dist2Sqrt * sin(2 * PI * j / 360);
+                    point3.z = distance2;
+
+                    point4.x = dist2Sqrt * cos(2 * PI * (j + fidelity) / 360);
+                    point4.y = dist2Sqrt * sin(2 * PI * (j + fidelity) / 360);
+                    point4.z = -distance2;
+
+                    // First half of sphere
+                    Vector3 normal = MeshHelper::calculateNormal(point2, point1, point3);
+
+                    glNormal3f(normal.x, normal.y, normal.z);
+                    glBegin(GL_QUADS);
+                        glTexCoord2f(0.0, 0.0);
+                        glVertex3f(point1.x, point1.y, distance1);
+                        glTexCoord2f(0.0, 1.0);
+                        glVertex3f(point2.x, point2.y, distance1);
+                        glTexCoord2f(1.0, 1.0);
+                        glVertex3f(point4.x, point4.y, distance2);
+                        glTexCoord2f(1.0, 0.0);
+                        glVertex3f(point3.x, point3.y, distance2);
+                    glEnd();
+
+
+                    // Second half of sphere
+                    point1.z = -distance1;
+                    point2.z = -distance1;
+
+                    normal = MeshHelper::calculateNormal(point4, point1, point2);
+                    glNormal3f(normal.x, normal.y, normal.z);
+                    glBegin(GL_QUADS);
+                        glTexCoord2f(0.0, 0.0);
+                        glVertex3f(point3.x, point3.y, -distance2);
+                        glTexCoord2f(0.0, 1.0);
+                        glVertex3f(point4.x, point4.y, -distance2);
+                        glTexCoord2f(1.0, 1.0);
+                        glVertex3f(point2.x, point2.y, -distance1);
+                        glTexCoord2f(1.0, 0.0);
+                        glVertex3f(point1.x, point1.y, -distance1);
+                    glEnd();
+                }
+            }
+        }
             break;
         case Cube:
             glutSolidCube(param1);
@@ -268,11 +346,11 @@ void Renderer::loadTexture(const std::string& name, const std::string& path) {
     if (textures.find(name) != textures.end())
         return;
 
-    if(hasGlLoaded){
+    if (hasGlLoaded) {
         unsigned int id = loadTextureGl(path);
         std::cout << "Loaded texture " << name << " and assigned ID " << id << std::endl;
         textures[name] = id;
-    }else{
+    } else {
         textureLoadQueue.emplace(std::pair<std::string, std::string>(name, path));
     }
 }

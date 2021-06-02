@@ -21,15 +21,20 @@ void PlayerControllerScript::update() {
 
 
     Vector3 pos = getEntity()->getPosition();
-    Rotation rot;
+    Rotation rot = getEntity()->getRotation();
 
     // Clamp values
     // Not needed anymore but good reference
     //InputRegistry::mouseAngleV = Clamp(InputRegistry::mouseAngleV, -SHIP_VERTICAL_VIEW_CLAMP, SHIP_VERTICAL_VIEW_CLAMP);
+    float inverter = (rot * Vector3::up()).y;
 
     Vector3 eulerMods = Vector3::zero();
-    eulerMods.y = -InputRegistry::mouseAngleH * SHIP_HORIZONTAL_SENSITIVITY;
+    eulerMods.y = InputRegistry::mouseAngleH * SHIP_HORIZONTAL_SENSITIVITY;
     eulerMods.x = InputRegistry::mouseAngleV * SHIP_VERTICAL_SENSITIVITY;
+
+    // Always keep the ship up-right TODO kinda annoying
+    eulerMods.y = inverter < 0 ? eulerMods.y : -eulerMods.y;
+
     rot = Rotation::FromEuler(eulerMods);
 
     if (InputRegistry::isPressed(SHIP_MOVE_UP)){

@@ -49,7 +49,7 @@ const float CAMERA_ROTATION_DAMP = 0.05; // Radian  delta
 
 // WaveManagement
 const int ASTEROID_WAVE_CD = 2000; // Wait X ms before next wave
-const int ASTEROID_SPAWN_INCREMENT = 1; // Amount of asteroids to increase per wave
+const int ASTEROID_SPAWN_INCREMENT = 5; // Amount of asteroids to increase per wave
 const int ASTEROID_CLEAR_RATE = 1000; // Clear asteroids out of range every X ms
 
 // Misc
@@ -67,7 +67,7 @@ const float ASTEROID_MAX_RADIUS = 100; // Max size of asteroid
 const float ASTEROID_MIN_SPEED = 200; // Min speed of asteroid
 const float ASTEROID_MAX_SPEED = 400; // Max speed of asteroid
 const float ASTEROID_MIN_ROTATION = 0; // Min speed of asteroid rotation
-const float ASTEROID_MAX_ROTATION = 50; // Max speed of asteroid rotation
+const float ASTEROID_MAX_ROTATION = 2; // Max speed of asteroid rotation
 const float ASTEROID_RADIUS_VARIATION_RANGE = 30; // The range += the that radius can vary per point
 const Vector3 ASTEROID_COLOUR = Vector3(0.3, 0.3, 0.3);
 const bool ASTEROID_SOLID = true;

@@ -20,16 +20,22 @@ Scene* getScene() {
     scene->addEntity(ArenaEntity::getEntity());
     scene->addEntity(StationEntity::getEntity());
 
-    Entity* waveManagerEntity = new Entity("wave");
-    waveManagerEntity->addComponent(new AsteroidWaveScript());
-
-    scene->addEntity(waveManagerEntity);
+//    Entity* waveManagerEntity = new Entity("wave");
+//    waveManagerEntity->addComponent(new AsteroidWaveScript());
+//
+//    scene->addEntity(waveManagerEntity);
 
     return scene;
 }
 
 int main(int argc, char** argv) {
     srand((unsigned) time(nullptr));
+
+    // Buffer asteroid textures
+    Renderer::loadTexture("asteroid1", "data/asteroid1.jpg");
+    Renderer::loadTexture("asteroid2", "data/asteroid2.jpg");
+    Renderer::loadTexture("asteroid3", "data/asteroid3.jpg");
+    Renderer::loadTexture("asteroid4", "data/asteroid4.jpg");
 
     // Run Game
     Game::start(argc, argv, "I3D Assignment 2 - S3718796", getScene);

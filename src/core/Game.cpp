@@ -78,22 +78,33 @@ void Game::init() {
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glShadeModel(GL_SMOOTH);
 
-    // Enable lighting
-    glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+
+    // Lighting
     glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHT0); // Directional
 
-    // Lighting config
-    GLfloat qaAmbientLight[]	= {0.1, 0.1, 0.1, 1.0};
-//    GLfloat qaDiffuseLight[]	= {0.8, 0.8, 0.8, 1.0};
-//    GLfloat qaSpecularLight[]	= {1.0, 1.0, 1.0, 1.0};
+    // Global ambient
+    GLfloat sceneAmbient[] = {0.2, 0.2, 0.2, 1.0};
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, sceneAmbient);
+
+    // Directional light
+    GLfloat qaAmbientLight[]	= { 0,0,0,1};
+
+    float directionStrength = 0.5;
+    GLfloat qaDiffuseLight[]	= {directionStrength, directionStrength, directionStrength, directionStrength};
+    GLfloat qaSpecularLight[]	= {directionStrength, directionStrength, directionStrength, directionStrength};
     glLightfv(GL_LIGHT0, GL_AMBIENT, qaAmbientLight);
-//    glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight);
-//    glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight);
 
-    // Set global
-    GLfloat qaLightPosition[]	= {0, 0, 0, 1.0};
-    glLightfv(GL_LIGHT0, GL_POSITION, qaLightPosition);
+    // Set directional position
+    GLfloat light1Pos[]	= {0,1,0,0};
+    glLightfv(GL_LIGHT0, GL_POSITION, light1Pos);
+//    GLfloat light1Dir[]	= {1,1,0};
+//    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, light1Dir);
+
+
+
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
@@ -101,7 +112,9 @@ void Game::init() {
     glEnable(GL_DEPTH_TEST);
 
     glEnable(GL_NORMALIZE);
+
     glEnable(GL_COLOR_MATERIAL);
+    glColorMaterial (GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

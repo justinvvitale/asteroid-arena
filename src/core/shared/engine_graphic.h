@@ -25,7 +25,8 @@ enum CustomRender{
     None,
     Sphere,
     Cube,
-    Bullet
+    Bullet,
+    CustomSphere
 };
 
 typedef struct Face {
@@ -52,15 +53,8 @@ typedef struct Mesh {
 
 class MeshHelper {
 public:
-    static Vector3 calculateNormal(Face face){
-        // Handle different vertices faces (Mostly just triangles, cbs with rest.
-        switch(face.type){
-            case triangle:
-            case quad:
-                return VectorUtil::Cross(face.vertices[1]->position - face.vertices[0]->position, face.vertices[2]->position - face.vertices[0]->position);
-            default:
-                return {};
-        }
+    static Vector3 calculateNormal(Vector3 p1, Vector3 p2, Vector3 p3){
+        return VectorUtil::Cross(p2 - p1, p3 - p1);
     }
 
 

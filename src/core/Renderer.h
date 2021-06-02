@@ -65,6 +65,10 @@ public:
     static void drawCharacter(char chr);
 
     static void drawTransparentQuad(const std::string& texture, float size, Vector3 offset = Vector3::zero());
+
+    static void TextureStart(std::string name);
+
+    static void TextureEnd();
 };
 
 

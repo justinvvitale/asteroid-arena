@@ -5,8 +5,9 @@
 #include "MeshComponent.h"
 #include "../../Renderer.h"
 
-MeshComponent::MeshComponent(CustomRender customRender) : Component(ComponentType::CMesh) {
+MeshComponent::MeshComponent(CustomRender customRender, std::string customRendererTexture) : Component(ComponentType::CMesh) {
     this->customRender = customRender;
+    this->customRendererTexture = customRendererTexture;
 }
 
 void MeshComponent::tick() {
@@ -19,7 +20,14 @@ void MeshComponent::render() {
         Renderer::scale(-scale);
 
     }else{
-        Renderer::renderCustom(customRender, this->scale);
+        // Render if textures (If any)
+        if(!customRendererTexture.empty()){
+            Renderer::TextureStart(customRendererTexture);
+            Renderer::renderCustom(customRender, this->scale);
+            Renderer::TextureEnd();
+        }else{
+            Renderer::renderCustom(customRender, this->scale);
+        }
     }
 }
 

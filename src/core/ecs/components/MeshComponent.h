@@ -12,7 +12,7 @@
 
 class MeshComponent : public Component {
 public:
-    explicit MeshComponent(CustomRender customRender = CustomRender::None);
+    explicit MeshComponent(CustomRender customRender = CustomRender::None, std:: string customRendererTexture = "");
 
     void render();
 
@@ -30,6 +30,7 @@ public:
 private:
     float scale = 1;
     CustomRender customRender;
+    std::string customRendererTexture;
 
     // Data
     Mesh mesh;
