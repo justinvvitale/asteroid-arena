@@ -26,7 +26,7 @@ void MediatorScript::update() {
                 getEntity()->addComponent(message);
                 getEntity()->addComponent(anyKey);
                 break;
-            case GameState::Playing: // Playing (Hide everything)
+            case GameState::Playing: // Playable (Hide everything)
                 MeshRendererSystem::setEnabled(true);
                 getEntity()->removeComponent(message);
                 getEntity()->removeComponent(anyKey);

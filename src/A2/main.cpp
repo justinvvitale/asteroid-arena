@@ -32,10 +32,10 @@ int main(int argc, char** argv) {
     srand((unsigned) time(nullptr));
 
     // Buffer asteroid textures
-    Renderer::loadTexture("asteroid1", "data/asteroid1.jpg");
-    Renderer::loadTexture("asteroid2", "data/asteroid2.jpg");
-    Renderer::loadTexture("asteroid3", "data/asteroid3.jpg");
-    Renderer::loadTexture("asteroid4", "data/asteroid4.jpg");
+    Renderer::loadTexture("asteroid1", "data/texture/asteroid1.jpg");
+    Renderer::loadTexture("asteroid2", "data/texture/asteroid2.jpg");
+    Renderer::loadTexture("asteroid3", "data/texture/asteroid3.jpg");
+    Renderer::loadTexture("asteroid4", "data/texture/asteroid4.jpg");
 
     // Run Game
     Game::start(argc, argv, "I3D Assignment 2 - S3718796", getScene);

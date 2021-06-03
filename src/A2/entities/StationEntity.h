@@ -20,7 +20,7 @@ public:
 
         MeshComponent* meshComp = new MeshComponent();
         Mesh mesh = ObjAccess::load("outerStation");
-        Renderer::loadTexture("metal", "data/metal.jpg");
+        Renderer::loadTexture("metal", "data/texture/metal.jpg");
         mesh.texture = "metal";
         meshComp->setMesh(mesh);
         station->addComponent(meshComp);

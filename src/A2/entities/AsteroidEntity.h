@@ -31,5 +31,4 @@ class AsteroidEntity {
 
         };
 
-
 #endif //I3D_ASTEROIDENTITY_H

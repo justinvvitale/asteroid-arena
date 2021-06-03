@@ -8,6 +8,7 @@
 #include "shared/engine_graphic.h"
 #include "ecs/components/ParticleEmitterComponent.h"
 
+
 enum TextOrigin {
     centre,
     topLeft,
@@ -39,6 +40,7 @@ public:
     static void renderParticle(const Particle* particle);
 
     static void renderText(TextOrigin origin, Vector3 offset, const std::string& text, float scale = 1);
+
 
     // State
     static void setColour(Vector3 colour);

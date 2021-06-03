@@ -22,7 +22,7 @@ public:
 
         MeshComponent* meshComp = new MeshComponent();
         Mesh mesh = ObjAccess::load("ship");
-        Renderer::loadTexture("ship", "data/ship.png");
+        Renderer::loadTexture("ship", "data/texture/ship.png");
         mesh.texture = "ship";
         meshComp->setMesh(mesh);
 

@@ -20,6 +20,11 @@ void CameraComponent::render() {
     Vector3 globalPosition = getEntity()->getWorldPosition();
     Rotation rotation = getEntity()->getRotation();
 
+    glBindVertexArray(skyboxVAO);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glDepthMask(GL_TRUE);
+
     Renderer::rotate(rotOffset);
     Renderer::move(posOffset);
 

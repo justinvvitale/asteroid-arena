@@ -11,7 +11,7 @@ Mesh ObjAccess::load(const std::string& name) {
     Mesh mesh = Mesh();
 
     tinyobj::ObjReader reader;
-    reader.ParseFromFile("data/" + name + ".obj");
+    reader.ParseFromFile("data/model/" + name + ".obj");
 
     auto& attrib = reader.GetAttrib();
     auto& shapes = reader.GetShapes();

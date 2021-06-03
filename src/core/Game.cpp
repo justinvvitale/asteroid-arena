@@ -78,7 +78,6 @@ void Game::init() {
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glShadeModel(GL_SMOOTH);
 
-
     // Lighting
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0); // Directional
@@ -100,10 +99,6 @@ void Game::init() {
     // Set directional position
     GLfloat light1Pos[]	= {0,1,0,0};
     glLightfv(GL_LIGHT0, GL_POSITION, light1Pos);
-//    GLfloat light1Dir[]	= {1,1,0};
-//    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, light1Dir);
-
-
 
 
     glEnable(GL_CULL_FACE);

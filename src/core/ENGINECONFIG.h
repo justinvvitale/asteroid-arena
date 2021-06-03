@@ -5,6 +5,10 @@
 #ifndef I3D_ENGINECONFIG_H
 #define I3D_ENGINECONFIG_H
 
+// Control
+// Audio - Doesn't mix but also not in the spec so :)
+const bool SOUND_ENABLED = false;
+
 // Colours are defined as a vector3 (R, G, B) from a value from 0-1
 const Vector3 DEFAULT_COLOUR = Vector3(1, 1, 1);
 

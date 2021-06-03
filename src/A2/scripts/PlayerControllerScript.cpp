@@ -4,10 +4,10 @@
 
 #include "PlayerControllerScript.h"
 #include "../../core/input/InputRegistry.h"
-#include "../../core/Game.h"
 #include "../GAMECONFIG.h"
 #include "../entities/BulletEntity.h"
 #include "../GameState.h"
+#include "../../core/audio/AudioPlayer.h"
 
 void PlayerControllerScript::start() {
     camera = Game::getEngine()->camera;
@@ -82,6 +82,7 @@ void PlayerControllerScript::update() {
     // Shooting..
     if (elapsed - lastShoot >= SHIP_SHOOT_COOLDOWN) {
         if (InputRegistry::isPrimaryMousePressed()) {
+            AudioPlayer::playOnce("shoot");
             Game::getEngine()->getScene()->addEntity(BulletEntity::getEntity(pos + forwardVec * 20,
                                                                              forwardVec *
                                                                              SHIP_MAX_SPEED * SHIP_SHOOT_VELOCITY));

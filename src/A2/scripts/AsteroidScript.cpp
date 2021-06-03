@@ -6,6 +6,7 @@
 #include "../GAMECONFIG.h"
 #include "../../core/ecs/components/RigidbodyComponent.h"
 #include "../../core/Game.h"
+#include "../../core/audio/AudioPlayer.h"
 
 AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, bool canSplit) {
     this->mgr = mgr;
@@ -61,6 +62,8 @@ void AsteroidScript::onCollision(Entity* other) {
         health -= SHIP_BULLET_DAMAGE;
 
         if (health <= 0) {
+            AudioPlayer::playOnce("explode");
+
             // Create two new asteroids
             if (canSplit) {
                 mgr->splitAsteroid(this->getEntity(), true);
