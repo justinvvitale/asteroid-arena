@@ -28,8 +28,8 @@ add_executable(I3D
 #        src/A1/GAMECONFIG.h
 #        src/A1/scripts/PlayerControllerScript.cpp
 #        src/A1/scripts/PlayerControllerScript.h
-#        src/A1/scripts/WallScript.cpp
-#        src/A1/scripts/WallScript.h
+#        src/A1/scripts/ArenaScript.cpp
+#        src/A1/scripts/ArenaScript.h
 #        src/A1/entities/AsteroidEntity.h
 #        src/A1/scripts/AsteroidWaveScript.cpp
 #        src/A1/scripts/AsteroidWaveScript.h
@@ -53,8 +53,8 @@ add_executable(I3D
         src/A2/scripts/PlayerControllerScript.h
         src/A2/entities/StationEntity.h
         src/A2/entities/ArenaEntity.h
-        src/A2/scripts/WallScript.cpp
-        src/A2/scripts/WallScript.h
+        src/A2/scripts/ArenaScript.cpp
+        src/A2/scripts/ArenaScript.h
         src/A2/entities/AsteroidEntity.h
         src/A2/scripts/AsteroidWaveScript.cpp
         src/A2/scripts/AsteroidWaveScript.h

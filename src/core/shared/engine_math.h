@@ -8,6 +8,7 @@
 #include <cmath>
 #include <iostream>
 #include <ctime>
+#include <list>
 
 #define PI 3.14159265358979323846
 #define PI2 PI/2
@@ -99,6 +100,16 @@ struct Vector3 {
     }
 };
 
+enum Direction {
+    Up,
+    Down,
+    Left,
+    Right,
+    Near,
+    Far
+};
+
+
 struct Vector4 {
     float x = 0;
     float y = 0;
@@ -132,6 +143,18 @@ class VectorUtil {
 
 public:
     // Core functions
+
+    static std::list<std::pair<Direction, Vector3>> DirectionVectors(){
+        auto list =  std::list<std::pair<Direction, Vector3>>();
+        list.emplace_back(Up, Vector3(0,1,0));
+        list.emplace_back(Down, Vector3(0,-1,0));
+        list.emplace_back(Left, Vector3(-1,0,0));
+        list.emplace_back(Right, Vector3(1,0,0));
+        list.emplace_back(Near, Vector3(0,0,1));
+        list.emplace_back(Far, Vector3(0,0,-1));
+
+        return list;
+    }
 
     // Distance between two vectors
     static float Distance(Vector3 vert1, Vector3 vert2) {

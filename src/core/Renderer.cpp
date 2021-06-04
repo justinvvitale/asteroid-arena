@@ -81,7 +81,7 @@ void Renderer::renderMesh(const Mesh& mesh) {
             glVertex3f(vert->position.x, vert->position.y, vert->position.z);
         }
 
-        glColor3f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z);
+        glColor4f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z, 1);
 
         glEnd();
     }
@@ -110,38 +110,32 @@ void Renderer::renderParticle(const Particle* particle) {
 
 void Renderer::drawTransparentQuad(const std::string& texture, float size, Vector3 offset) {
     push();
-    Entity* player = Game::getEntity("player");
-    rotate(Rotation::LookRotation(player->getForwardVector().opposite()));
+        Entity* player = Game::getEntity("player");
+        rotate(Rotation::LookRotation(player->getForwardVector().opposite()));
 
-    glColor4f(1,1,1,1);
+        glColor4f(1,1,1,1);
 
+        glAlphaFunc(GL_GREATER, 0.5);
+        glEnable(GL_ALPHA_TEST);
 
-    glAlphaFunc(GL_GREATER, 0.5);
-    glEnable(GL_ALPHA_TEST);
+        glDisable(GL_LIGHTING);
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(texture));
 
-//    glEnable(GL_BLEND);
-//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glDisable(GL_LIGHTING);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(texture));
+        glBegin(GL_QUADS);
+            glTexCoord2f(0.0, 1.0);
+            glVertex2f(-size, size);
+            glTexCoord2f(0.0, 0.0);
+            glVertex2f(-size, -size);
+            glTexCoord2f(1.0, 0.0);
+            glVertex2f(size, -size);
+            glTexCoord2f(1.0, 1.0);
+            glVertex2f(size, size);
+        glEnd();
 
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0, 1.0);
-    glVertex2f(-size, size);
-    glTexCoord2f(0.0, 0.0);
-    glVertex2f(-size, -size);
-    glTexCoord2f(1.0, 0.0);
-    glVertex2f(size, -size);
-    glTexCoord2f(1.0, 1.0);
-    glVertex2f(size, size);
-    glEnd();
-
-    glDisable(GL_TEXTURE_2D);
-    glEnable(GL_LIGHTING);
-//    glDisable(GL_BLEND);
-
-    glDisable(GL_ALPHA_TEST);
-
+        glDisable(GL_TEXTURE_2D);
+        glEnable(GL_LIGHTING);
+        glDisable(GL_ALPHA_TEST);
     pop();
 }
 
@@ -153,6 +147,7 @@ void Renderer::renderText(TextOrigin origin, Vector3 offset, const std::string& 
     int w = glutGet(GLUT_WINDOW_WIDTH);
     int h = glutGet(GLUT_WINDOW_HEIGHT);
     glOrtho(0, w, 0, h, -1, 1);
+    glColor3f(UI_COLOUR.x, UI_COLOUR.y, UI_COLOUR.z);
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -184,7 +179,6 @@ void Renderer::renderText(TextOrigin origin, Vector3 offset, const std::string& 
     float impactUnit = (float) h * (float) w / 100000;
     Renderer::move(Vector3(offset.x * impactUnit, offset.y * impactUnit, 0));
     Renderer::scale(scale * impactUnit / 40);
-    glColor3f(1, 0, 0);
 
     for (char c : text) {
         glutStrokeCharacter(GLUT_STROKE_ROMAN, c);
@@ -198,6 +192,8 @@ void Renderer::renderText(TextOrigin origin, Vector3 offset, const std::string& 
 
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
+
+    glColor3f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z);
 
     glMatrixMode(GL_MODELVIEW);
 }
@@ -353,6 +349,75 @@ void Renderer::renderCustom(CustomRender customRender, float param1, float param
             break;
         case Bullet:
             drawTransparentQuad("bullet", param1);
+            break;
+        case Arena: {
+            float sizeH = ARENA_SIZE * 0.5f;
+            float sizing = ARENA_SPACING;
+
+            // Calculate distance for colours
+            Vector3 playerPos = Vector3(param1, param2, param3);
+            float halfArena = ARENA_SIZE / 2;
+
+            float distTop = halfArena - playerPos.y;
+            float distBottom = halfArena + playerPos.y;
+            float distNear =  halfArena - playerPos.z;
+            float distFar = halfArena + playerPos.z;
+            float distLeft = halfArena + playerPos.x;
+            float distRight = halfArena - playerPos.x;
+
+            bool override = !Game::paused;
+            bool warns[6] = {
+                    override && distRight <= ARENA_WARN_DIST,
+                    override && distLeft <= ARENA_WARN_DIST,
+                    override && distTop <= ARENA_WARN_DIST,
+                    override && distBottom <= ARENA_WARN_DIST,
+                    override && distNear <= ARENA_WARN_DIST,
+                    override && distFar <= ARENA_WARN_DIST,
+            };
+
+            glDisable(GL_LIGHTING);
+
+            int index = 0;
+            for(auto directionVector : VectorUtil::DirectionVectors()){
+                push();
+
+                // Set colour for warns
+                if(warns[index]){
+                    glColor3f(ARENA_WARN_COLOUR.x, ARENA_WARN_COLOUR.y, ARENA_WARN_COLOUR.z);
+                }else{
+                    glColor3f(ARENA_COLOUR.x, ARENA_COLOUR.y, ARENA_COLOUR.z);
+                }
+
+                // Rotation
+                rotate(Rotation::FromEuler(directionVector.second * 90 * DEG_TO_RAD));
+
+                // Move into position
+                // I don't know why Far is so special, but it's inverted, I assumed its because of the axis origin.
+                move(Vector3::forward() * (directionVector.first == Far ? -sizeH : sizeH));
+
+                // Render mesh
+                glBegin(GL_LINES);
+                    // Horizontal lines
+                    for(float x = -sizeH; x <= sizeH; x += sizing ){
+                        glVertex3f(x, -sizeH, 0.0f);
+                        glVertex3f(x, sizeH, 0.0f);
+                    }
+
+                    // Vertical lines
+                    for(float y = -sizeH; y <= sizeH; y += sizing ){
+                        glVertex3f(-sizeH, y, 0.0f);
+                        glVertex3f(sizeH, y, 0.0f);
+                    }
+                glEnd();
+
+                glColor3f(ARENA_COLOUR.x, ARENA_COLOUR.y, ARENA_COLOUR.z);
+                pop();
+                index++;
+            }
+
+            glEnable(GL_LIGHTING);
+            glColor3f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z);
+        }
             break;
         default:
             break;

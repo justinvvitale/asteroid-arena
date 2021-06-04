@@ -61,7 +61,7 @@ void AsteroidWaveScript::update() {
 
 }
 
-Vector3 AsteroidWaveScript::getPositionOutOfArena(float payloadSize) const {
+Vector3 AsteroidWaveScript::getPositionOutOfArena(float payloadSize) {
     float halfArena = ARENA_SIZE/2;
 
 

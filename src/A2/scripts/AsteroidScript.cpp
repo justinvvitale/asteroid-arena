@@ -20,7 +20,8 @@ AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radi
 
 void AsteroidScript::start() {
     lastSecondCheck = Game::elapsedSeconds;
-    MeshComponent* meshRenderer = new MeshComponent(CustomRenderMesh(CustomRender::CustomSphere, "asteroid" + std::to_string(getRandomNumber(1,4)),  radius, 10));
+    MeshComponent* meshRenderer = new MeshComponent();
+    meshRenderer->setMesh(CustomRenderMesh(CustomRender::CustomSphere, "asteroid" + std::to_string(getRandomNumber(1,4)),  radius, 10));
 
     this->getEntity()->addComponent(new ColliderComponent(sphere, radius));
 

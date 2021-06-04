@@ -28,6 +28,7 @@ enum CustomRender{
     CustomSphere,
     Cube,
     Bullet,
+    Arena
 };
 
 typedef struct Face {

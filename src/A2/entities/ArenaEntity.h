@@ -7,51 +7,16 @@
 
 #include "../GAMECONFIG.h"
 #include "../../core/ecs/components/MeshComponent.h"
-#include "../scripts/WallScript.h"
+#include "../scripts/ArenaScript.h"
 
 class ArenaEntity {
-private:
-
 public:
-    static void addColliders(Entity* entity) {
-//        // We'll add one for each side
-//
-//        float bufferSize = 1000;
-//        float halfWidth = ARENA_WIDTH / 2;
-//        float halfHeight = ARENA_HEIGHT / 2;
-//
-//        // This could be improved with a loo
-//        // Left
-//        ColliderComponent2D* leftCol = new ColliderComponent2D(bufferSize, ARENA_HEIGHT*2);
-//        leftCol->setOffset(Vector3(-halfWidth - bufferSize / 2, 0, 0));
-//        // Right
-//        ColliderComponent2D* rightCol = new ColliderComponent2D(bufferSize, ARENA_HEIGHT*2);
-//        rightCol->setOffset(Vector3(halfWidth + bufferSize / 2, 0, 0));
-//        // Top
-//        ColliderComponent2D* topCol = new ColliderComponent2D(ARENA_HEIGHT, bufferSize*2);
-//        topCol->setOffset(Vector3(0, halfHeight + bufferSize, 0));
-//        // Bottom
-//        ColliderComponent2D* bottomCol = new ColliderComponent2D(ARENA_HEIGHT, bufferSize*2);
-//        bottomCol->setOffset(Vector3(0, -halfHeight - bufferSize, 0));
-//
-//        entity->addComponent(leftCol);
-//        entity->addComponent(rightCol);
-//        entity->addComponent(topCol);
-//        entity->addComponent(bottomCol);
-
-    }
-
     static Entity* getEntity() {
         Entity* arena = new Entity("arena");
 
-        MeshComponent* arenaMeshRender = new MeshComponent();
-        arena->addComponent(arenaMeshRender);
+        arena->addComponent(new MeshComponent());
 
-        arena->addComponent(new WallScript());
-
-        addColliders(arena);
-
-        arena->setPosition(Vector3(0, 0, 0));
+        arena->addComponent(new ArenaScript());
 
         return arena;
     }

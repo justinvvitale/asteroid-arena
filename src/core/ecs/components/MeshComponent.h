@@ -17,10 +17,7 @@ typedef struct CustomRenderMesh {
     float param2 = 0;
     float param3 = 0;
 
-    CustomRenderMesh() {
-
-    }
-
+    explicit CustomRenderMesh()= default;;
     explicit CustomRenderMesh(CustomRender customRender, std::string  texture = "", float param1 = 0, float param2 = 0, float param3 = 0)
             : customRender(customRender), texture(std::move(texture)), param1(param1), param2(param2), param3(param3) {}
 } CustomRenderMesh;
@@ -28,11 +25,12 @@ typedef struct CustomRenderMesh {
 class MeshComponent : public Component {
 public:
     explicit MeshComponent();
-    explicit MeshComponent(CustomRenderMesh customRenderMesh);
 
     void render();
 
     void setMesh(const Mesh& meshIn);
+
+    void setMesh(CustomRenderMesh customRenderMesh);
 
     void setScale(float scale);
 
@@ -40,8 +38,6 @@ public:
 
 
     void reset();
-
-    ~MeshComponent();
 
 private:
     float scale = 1;
