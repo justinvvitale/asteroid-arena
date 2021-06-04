@@ -60,7 +60,6 @@ Entity* MeshRendererSystem::getRootEntity(Entity* entity) {
 }
 
 void MeshRendererSystem::debugRender(Entity* entity) {
-
     // Particle Emitters
     if (DEBUG_DRAW_PARTICLE_EMITTERS) {
         auto emitterCompList = entity->getComponentsOfType(ComponentType::CParticle);
@@ -99,7 +98,7 @@ void MeshRendererSystem::debugRender(Entity* entity) {
                         Renderer::renderCustom(Cube, collider->getSize());
                         break;
                     case sphere:
-                        Renderer::renderCustom(Sphere, collider->getSize());
+                        Renderer::renderCustom(WireSphere, collider->getSize());
                         break;
                 }
 

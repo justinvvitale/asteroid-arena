@@ -111,9 +111,6 @@ void Game::init() {
     glEnable(GL_COLOR_MATERIAL);
     glColorMaterial (GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
     glutSetCursor(GLUT_CURSOR_NONE);
 
     glPointSize(POINT_SIZE);
@@ -143,8 +140,6 @@ void Game::reshape(int w, int h) {
 void Game::display() {
     if(engine == nullptr) return;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glLoadIdentity();
 

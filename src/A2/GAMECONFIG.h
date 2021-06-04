@@ -9,7 +9,7 @@
 
 // Arena
 const float ARENA_SIZE = 5000;
-const Vector3 ARENA_COLOUR = Vector3(0, 0,0); // Vector3(0.3, 0.3,0.3);
+const Vector3 ARENA_COLOUR = Vector3(0.3, 0.3,0.3);
 const Vector3 ARENA_WARN_COLOUR = Vector3(0.7, 0,0);
 const float ARENA_WARN_DIST = 500;
 

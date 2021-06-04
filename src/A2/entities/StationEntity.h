@@ -29,24 +29,6 @@ public:
         rigid->setSpin(Vector3(0.5,1,1));
         station->addComponent(rigid);
 
-        // Setup inner section
-        Entity* innerStation = new Entity();
-
-        // Mesh
-        MeshComponent* innerMeshComp = new MeshComponent();
-        Mesh innerMesh = ObjAccess::load("innerStation");
-        innerMesh.texture = "metal";
-        innerMeshComp->setMesh(innerMesh);
-        innerStation->addComponent(innerMeshComp);
-
-        // Rigid
-        RigidbodyComponent* innerRigid = new RigidbodyComponent();
-        innerRigid->setSpin(Vector3(5,0,0));
-        innerStation->addComponent(innerRigid);
-
-        station->addChild(innerStation);
-
-
 
 
         return station;

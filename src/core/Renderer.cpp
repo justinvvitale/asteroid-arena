@@ -51,7 +51,6 @@ void Renderer::glInitialized() {
 
 
 void Renderer::renderMesh(const Mesh& mesh) {
-    glColor3f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z);
     TextureStart(mesh.texture);
 
     for (const Face& face : mesh.faces) {
@@ -88,7 +87,7 @@ void Renderer::renderMesh(const Mesh& mesh) {
     }
 
     TextureEnd();
-    glColor3f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z);
+    glColor4f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z, 1);
 }
 
 void Renderer::TextureEnd() {
@@ -114,6 +113,14 @@ void Renderer::drawTransparentQuad(const std::string& texture, float size, Vecto
     Entity* player = Game::getEntity("player");
     rotate(Rotation::LookRotation(player->getForwardVector().opposite()));
 
+    glColor4f(1,1,1,1);
+
+
+    glAlphaFunc(GL_GREATER, 0.5);
+    glEnable(GL_ALPHA_TEST);
+
+//    glEnable(GL_BLEND);
+//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glDisable(GL_LIGHTING);
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(texture));
@@ -131,6 +138,10 @@ void Renderer::drawTransparentQuad(const std::string& texture, float size, Vecto
 
     glDisable(GL_TEXTURE_2D);
     glEnable(GL_LIGHTING);
+//    glDisable(GL_BLEND);
+
+    glDisable(GL_ALPHA_TEST);
+
     pop();
 }
 
@@ -260,6 +271,9 @@ void Renderer::renderCustom(CustomRender customRender, float param1, float param
     switch (customRender) {
         case Sphere:
             gluSphere(gluNewQuadric(), param1, param2, param3);
+            break;
+        case WireSphere:
+            glutWireSphere(param1, param2, param3);
             break;
         case CustomSphere:{
             float radius = param1; // Radius
