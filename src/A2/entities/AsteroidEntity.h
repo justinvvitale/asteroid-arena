@@ -18,13 +18,8 @@ class AsteroidEntity {
             static Entity* getEntity() {
                 Entity* entity = new Entity("asteroid");
 
-                MeshComponent* meshRenderer = new MeshComponent(CustomRenderMesh(CustomRender::CustomSphere, "asteroid" + std::to_string(getRandomNumber(1,4)),  120, 10));
-                entity->addComponent(meshRenderer);
-
                 RigidbodyComponent* rb = new RigidbodyComponent();
                 entity->addComponent((Component*) rb);
-
-                entity->addComponent(new ColliderComponent(sphere, 35));
 
                 return entity;
             }

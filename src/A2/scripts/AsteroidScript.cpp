@@ -7,6 +7,7 @@
 #include "../../core/ecs/components/RigidbodyComponent.h"
 #include "../../core/Game.h"
 #include "../../core/audio/AudioPlayer.h"
+#include "../../core/ecs/components/ColliderComponent.h"
 
 AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, bool canSplit) {
     this->mgr = mgr;
@@ -19,6 +20,11 @@ AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radi
 
 void AsteroidScript::start() {
     lastSecondCheck = Game::elapsedSeconds;
+    MeshComponent* meshRenderer = new MeshComponent(CustomRenderMesh(CustomRender::CustomSphere, "asteroid" + std::to_string(getRandomNumber(1,4)),  radius, 10));
+
+    this->getEntity()->addComponent(new ColliderComponent(sphere, radius));
+
+    this->getEntity()->addComponent(meshRenderer);
 }
 
 void AsteroidScript::update() {
@@ -29,18 +35,18 @@ void AsteroidScript::update() {
     }
 
     // Prime once hasn't collided and been alive for atleast 3 seconds
-    if (!canSplit || isInsideCube(this->getEntity()->getPosition(), ARENA_SIZE, this->radius) && alive >= 2) {
+    if (!primed && (!canSplit || isInsideCube(this->getEntity()->getPosition(), ARENA_SIZE, this->radius) && alive >= 2)) {
         this->primed = true;
     }
 
     if (isPrimed() && !isInsideCube(this->getEntity()->getPosition(), ARENA_SIZE, this->radius)) {
         RigidbodyComponent* rigid = dynamic_cast<RigidbodyComponent*>(this->getEntity()->getComponentOfType(
                 ComponentType::CRigidbody));
-        Vector3 vel = Vector3(rigid->getVelocity().opposite());
+        Vector3 vel = Vector3(rigid->getVelocity());
         rigid->clearVelocity();
 
         Vector3 asteroidPosition = this->getEntity()->getPosition();
-
+        // TODO more accurate bounce
         rigid->addForce(vel.opposite());
 
         resetPrimed();
