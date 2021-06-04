@@ -17,7 +17,6 @@ Engine::Engine() {
 
     // Setup systems (Priority)
     systems.emplace(ComponentType::CCollider, new CollisionSystem());
-
     systems.emplace(ComponentType::CScript, new ScriptProcessorSystem());
     systems.emplace(ComponentType::CParticle, particleSystem);
 
@@ -79,11 +78,7 @@ void Engine::render() {
     }
 
     // Particle rendering (Render)
-    auto componentTypesParticle = bufferComponentTypes.find(ComponentType::CParticle);
-    if (componentTypesParticle != bufferComponentTypes.end()) {
-        // Run particle renders then mesh rendering
-        manualSystems[ComponentType::CParticle]->render();
-    }
+    manualSystems[ComponentType::CParticle]->render();
 
     // Text rendering
     auto componentTypesText = bufferComponentTypes.find(ComponentType::CText);

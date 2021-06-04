@@ -101,19 +101,18 @@ void Renderer::TextureStart(std::string name) {
 }
 
 void Renderer::renderParticle(const Particle* particle) {
-    glPushMatrix();
-    move(particle->position);
-    scale(particle->scale);
-    renderMesh(particle->mesh);
-    glPopMatrix();
+    push();
+        move(particle->position);
+        drawTransparentQuad(particle->texture, particle->scale, Vector3::zero(), particle->colour);
+    pop();
 }
 
-void Renderer::drawTransparentQuad(const std::string& texture, float size, Vector3 offset) {
+void Renderer::drawTransparentQuad(const std::string& texture, float size, Vector3 offset, Vector3 colour) {
     push();
         Entity* player = Game::getEntity("player");
         rotate(Rotation::LookRotation(player->getForwardVector().opposite()));
 
-        glColor4f(1,1,1,1);
+        glColor4f(colour.x, colour.y, colour.z,1);
 
         glAlphaFunc(GL_GREATER, 0.5);
         glEnable(GL_ALPHA_TEST);
@@ -137,6 +136,9 @@ void Renderer::drawTransparentQuad(const std::string& texture, float size, Vecto
         glEnable(GL_LIGHTING);
         glDisable(GL_ALPHA_TEST);
     pop();
+
+    glColor4f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z, 1);
+
 }
 
 void Renderer::renderText(TextOrigin origin, Vector3 offset, const std::string& text, float scale) {

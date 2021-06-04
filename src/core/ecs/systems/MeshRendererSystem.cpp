@@ -67,12 +67,11 @@ void MeshRendererSystem::debugRender(Entity* entity) {
 
         for (Component* emitComp : emitterCompList) {
             if (emitComp != nullptr) {
-                float offset = dynamic_cast<ParticleEmitterComponent*>(emitComp)->getOffset();
-                Vector3 offsetVec = Vector3(0, offset, 0);
+                Vector3 offset = dynamic_cast<ParticleEmitterComponent*>(emitComp)->getOffset();
 
-                Renderer::move(offsetVec);
-                Renderer::renderCustom(CustomRender::Cube);
-                Renderer::move(offsetVec.opposite());
+                Renderer::move(offset);
+                    Renderer::renderCustom(CustomRender::WireSphere, 0.5);
+                Renderer::move(offset.opposite());
             }
         }
 

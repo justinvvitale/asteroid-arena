@@ -65,7 +65,7 @@ public:
     // Helpers (Drawing)
     static void drawCharacter(char chr);
 
-    static void drawTransparentQuad(const std::string& texture, float size, Vector3 offset = Vector3::zero());
+    static void drawTransparentQuad(const std::string& texture, float size, Vector3 offset = Vector3::zero(), Vector3 colour = Vector3(1,1,1));
 
     static void TextureStart(std::string name);
 

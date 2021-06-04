@@ -12,6 +12,7 @@
 void PlayerControllerScript::start() {
     camera = Game::getEngine()->camera;
 
+    auto emitters = getEntity()->getComponentsOfType(CParticle);
 }
 
 void PlayerControllerScript::update() {
@@ -49,6 +50,8 @@ void PlayerControllerScript::update() {
         return;
     }
 
+    // Particle for moving
+    int elapsed = Game::elapsed;
 
     // Forward
     if (InputRegistry::isPressed(SHIP_FORWARD_KEY)) {
@@ -74,10 +77,6 @@ void PlayerControllerScript::update() {
 
     this->getEntity()->setPosition(pos);
     this->getEntity()->setRotation(rot);
-
-
-    // Particle for moving
-    int elapsed = Game::elapsed;
 
     // Shooting..
     if (elapsed - lastShoot >= SHIP_SHOOT_COOLDOWN) {

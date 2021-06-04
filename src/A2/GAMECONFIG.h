@@ -23,15 +23,8 @@ const int SHIP_SHOOT_COOLDOWN = 180; // MS seconds between shooting
 const float SHIP_ACCELERATION = 0.4f; // % increase * dt
 const float SHIP_DECELERATION = 0.4f; // % decrease * dt
 
-const int SHIP_EXHAUST_DROP_RATE = 60; // Drop exhaust every X ms
-const float SHIP_EXHAUST_START_SIZE = 2.5; // scale
-const float SHIP_EXHAUST_END_SIZE = 0.5; // scale
-const float SHIP_EXHAUST_LIFE = 150; // decay ms
-const float SHIP_EXHAUST_SPEED = 200; // decay ms
-
 const float SHIP_VERTICAL_SENSITIVITY = 0.03;
 const float SHIP_HORIZONTAL_SENSITIVITY = 0.03;
-const float SHIP_VERTICAL_VIEW_CLAMP = 10;
 
 // Controls
 const char SHIP_FORWARD_KEY = 'w';
@@ -46,8 +39,8 @@ const float CAMERA_POSITION_DAMP = 0.35; // Position delta 0-1
 const float CAMERA_ROTATION_DAMP = 0.05; // Radian  delta
 
 // WaveManagement
-const int ASTEROID_WAVE_CD = 2000; // Wait X ms before next wave
-const int ASTEROID_SPAWN_INCREMENT = 5; // Amount of asteroids to increase per wave
+const int ASTEROID_WAVE_CD = 5000; // Wait X ms before next wave
+const int ASTEROID_SPAWN_INCREMENT = 3; // Amount of asteroids to increase per wave
 const int ASTEROID_CLEAR_RATE = 1000; // Clear asteroids out of range every X ms
 
 // Misc
@@ -68,13 +61,12 @@ const float ASTEROID_MIN_ROTATION = 0; // Min speed of asteroid rotation
 const float ASTEROID_MAX_ROTATION = 2; // Max speed of asteroid rotation
 const float ASTEROID_RADIUS_VARIATION_RANGE = 30; // The range += the that radius can vary per point
 const Vector3 ASTEROID_COLOUR = Vector3(0.3, 0.3, 0.3);
-const bool ASTEROID_SOLID = true;
 
 // 4.2 Bouncies 2 (Toggle) - Still works for A2 lol
 const bool ASTEROID_COLLISION = true;
 
 // Asteroid destroyed particles
-const int ASTEROID_PARTICLE_DESTROY_COUNT = 40;
+const int ASTEROID_PARTICLE_DESTROY_COUNT = 120;
 const int ASTEROID_PARTICLE_VELOCITY_RANGE = 340;
 const int ASTEROID_PARTICLE_LIFESPAN = 2000;
 const int ASTEROID_PARTICLE_LIFESPAN_VARIATION = 700;

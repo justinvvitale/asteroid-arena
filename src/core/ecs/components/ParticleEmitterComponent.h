@@ -23,9 +23,10 @@ typedef struct Particle {
     float lifeSpan;
     float startScale;
     float endScale;
-    Mesh mesh;
+    Vector3 colour;
+    std::string texture;
 
-    Particle(Vector3 vel, float lifeSpanMs, float startScale, float endScale, Mesh meshIn) {
+    Particle(Vector3 vel, float lifeSpanMs, float startScale, float endScale, const std::string& texture, Vector3 colour = DEFAULT_COLOUR) {
         this->velocity = vel;
         this->life = lifeSpanMs;
         this->scale = startScale;
@@ -34,7 +35,8 @@ typedef struct Particle {
         this->startScale = startScale;
         this->endScale = endScale;
 
-        this->mesh = std::move(meshIn);
+        this->texture = texture;
+        this->colour = colour;
     }
 } Particle;
 
@@ -44,12 +46,12 @@ private:
     std::list<Particle*> particleBuffer = std::list<Particle*>();
 
     // Offset based off forward vector
-    float offset = 0;
+    Vector3 offset;
 
 public:
     ParticleEmitterComponent();
 
-    ParticleEmitterComponent(float offset);
+    explicit ParticleEmitterComponent(Vector3 offset);
 
     void emit(Particle* particle);
 
@@ -59,7 +61,7 @@ public:
 
     std::list<Particle*> takeParticles();
 
-    float getOffset() const;
+    Vector3 getOffset() const;
 };
 
 

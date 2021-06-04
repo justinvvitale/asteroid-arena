@@ -8,6 +8,7 @@
 #include "../GameState.h"
 #include "../../core/ecs/components/ParticleEmitterComponent.h"
 #include "../../core/ecs/systems/ParticleSystem.h"
+#include "../../core/audio/AudioPlayer.h"
 
 void AsteroidWaveScript::start() {
     scoreScript = dynamic_cast<ScoreScript*>(Game::getEntity("score")->getComponentOfType(ComponentType::CScript));
@@ -26,6 +27,7 @@ void AsteroidWaveScript::update() {
             scoreScript->wave++;
             scoreScript->isCD = false;
             asteroidSpawnAmount += ASTEROID_SPAWN_INCREMENT;
+            AudioPlayer::playOnce("wavestart");
 
             // Spawn wave
             for (int i = 0; i < asteroidSpawnAmount; i++) {
@@ -35,6 +37,10 @@ void AsteroidWaveScript::update() {
     } else if (asteroids.empty()) {
         cdStartTime = elapsed;
         scoreScript->isCD = true;
+
+        if(scoreScript->wave > 0){
+            AudioPlayer::playOnce("wavefinish");
+        }
     }
 
     // Cleanup when off screen
@@ -64,8 +70,17 @@ void AsteroidWaveScript::update() {
 Vector3 AsteroidWaveScript::getPositionOutOfArena(float payloadSize) {
     float halfArena = ARENA_SIZE/2;
 
+    // Brute force, performant enough for assignment but ideally I would calculate a point outside of cuboid area using actual math :?
+    Vector3 result = Vector3(0,0,0);
+    while(isInsideCube(result, ARENA_SIZE, payloadSize)){
+        float wiggleRoom = payloadSize + 500;
+        float range = wiggleRoom + halfArena;
+        result.x = getRandomNumber(-range,range);
+        result.y = getRandomNumber(-range,range);
+        result.z = getRandomNumber(-range,range);
+    }
 
-    return {randomSign(halfArena) + payloadSize + getRandomNumber(50,800), randomSign(halfArena) + getRandomNumber(50,800), randomSign(halfArena) + getRandomNumber(50,800)};
+    return result;
 }
 
 void AsteroidWaveScript::spawnAsteroid() {
@@ -141,12 +156,14 @@ void AsteroidWaveScript::destroyAsteroid(Entity* asteroid, bool scored) {
     for (int i = 0; i < ASTEROID_PARTICLE_DESTROY_COUNT; i++) {
         Vector3 vel = Vector3(
                 (float) getRandomNumber(-ASTEROID_PARTICLE_VELOCITY_RANGE, ASTEROID_PARTICLE_VELOCITY_RANGE),
-                (float) getRandomNumber(-ASTEROID_PARTICLE_VELOCITY_RANGE, ASTEROID_PARTICLE_VELOCITY_RANGE), 0);
+                (float) getRandomNumber(-ASTEROID_PARTICLE_VELOCITY_RANGE, ASTEROID_PARTICLE_VELOCITY_RANGE),
+                (float) getRandomNumber(-ASTEROID_PARTICLE_VELOCITY_RANGE, ASTEROID_PARTICLE_VELOCITY_RANGE)
+                );
 
-//        ParticleSystem::emit(new Particle(vel, (float)ASTEROID_PARTICLE_LIFESPAN +
-//                                                               (float)getRandomNumber(-ASTEROID_PARTICLE_LIFESPAN_VARIATION,
-//                                                               ASTEROID_PARTICLE_LIFESPAN_VARIATION), 1, 4,
-//                                          MeshHelper::getHexagonMesh(3, ASTEROID_COLOUR)), asteroid->getPosition());
+        ParticleSystem::emit(new Particle(vel, (float)ASTEROID_PARTICLE_LIFESPAN +
+                                                               (float)getRandomNumber(-ASTEROID_PARTICLE_LIFESPAN_VARIATION,
+                                                               ASTEROID_PARTICLE_LIFESPAN_VARIATION), 5, 20, "chunk"),
+                             asteroid->getPosition());
     }
 
     if (scored) {

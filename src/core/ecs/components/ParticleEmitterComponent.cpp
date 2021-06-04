@@ -8,7 +8,7 @@ ParticleEmitterComponent::ParticleEmitterComponent() : Component(ComponentType::
 
 }
 
-ParticleEmitterComponent::ParticleEmitterComponent(float offset) : Component(ComponentType::CParticle) {
+ParticleEmitterComponent::ParticleEmitterComponent(Vector3 offset) : Component(ComponentType::CParticle) {
     this->offset = offset;
 }
 
@@ -29,17 +29,11 @@ bool ParticleEmitterComponent::hasBufferedParticles() {
     return !particleBuffer.empty();
 }
 
-float ParticleEmitterComponent::getOffset() const {
+Vector3 ParticleEmitterComponent::getOffset() const {
     return offset;
 }
 
 Vector3 ParticleEmitterComponent::getEmitOffset() {
-    Vector3 offsetVec = Vector3::zero();
-
-    if (offset != 0) {
-//        offsetVec = (VectorUtil::GetForwardVector(this->getEntity()->getRotation()) * offset); TODO
-    }
-
-    return offsetVec;
+    return offset;
 }
 

@@ -28,6 +28,10 @@ public:
 
         player->addComponent(new ColliderComponent( sphere, SHIP_COLLIDER_SIZE));
 
+        // exhausts (Not used but required for other particles)
+        player->addComponent(new ParticleEmitterComponent(Vector3(0,0,-1)));
+
+
         player->addComponent(controllerScript);
         player->addComponent(meshComp);
         return player;

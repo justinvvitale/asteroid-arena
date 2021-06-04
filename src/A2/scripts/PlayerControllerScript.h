@@ -12,11 +12,10 @@
 class PlayerControllerScript : public ScriptComponent {
 private:
     int lastShoot = -1;
-    float lastParticleEmit = -1;
     float velocity = 0;
 
     CameraComponent* camera;
-    ParticleEmitterComponent* emitter;
+
 protected:
     void start() override;
 
