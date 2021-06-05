@@ -19,7 +19,7 @@ public:
 
         entity->setPosition(initialPosition);
 
-        Renderer::loadTexture("bullet", "data/texture/bullet.png");
+        Renderer::loadTexture("bullet", "data/texture/bullet.png", true);
         MeshComponent* meshRenderer = new MeshComponent();
         meshRenderer->setMesh(CustomRenderMesh(Bullet, "", 2));
         entity->addComponent(meshRenderer);

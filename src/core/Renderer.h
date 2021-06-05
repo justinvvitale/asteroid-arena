@@ -22,9 +22,9 @@ private:
     static bool hasGlLoaded;
 
     static std::unordered_map<std::string, int> textures;
-    std::queue<std::pair<std::string, std::string>> static textureLoadQueue;
+    std::queue<std::pair<std::string, std::pair<std::string, bool>>> static textureLoadQueue;
 
-    static unsigned int loadTextureGl(const std::string& file);
+    static unsigned int loadTextureGl(const std::string& file, bool isTransparent = false);
 
 public:
     // Admin
@@ -60,7 +60,7 @@ public:
     // Helpers (General)
 
     static unsigned int getTextureId(const std::string& name);
-    static void loadTexture(const std::string& name, const std::string& path);
+    static void loadTexture(const std::string& name, const std::string& path, bool isTransparent = false);
 
     // Helpers (Drawing)
     static void drawCharacter(char chr);

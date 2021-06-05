@@ -3,17 +3,20 @@
 //
 
 #include "AsteroidScript.h"
+
+#include <utility>
 #include "../GAMECONFIG.h"
 #include "../../core/ecs/components/RigidbodyComponent.h"
-#include "../../core/Game.h"
 #include "../../core/audio/AudioPlayer.h"
 #include "../../core/ecs/components/ColliderComponent.h"
+#include "../entities/AsteroidEntity.h"
 
-AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, bool canSplit) {
+AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, std::string texture, bool canSplit) {
     this->mgr = mgr;
     this->health = health;
     this->radius = radius;
     this->speed = speed;
+    this->texture = std::move(texture);
 
     this->canSplit = canSplit;
 }
@@ -21,7 +24,8 @@ AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radi
 void AsteroidScript::start() {
     lastSecondCheck = Game::elapsedSeconds;
     MeshComponent* meshRenderer = new MeshComponent();
-    meshRenderer->setMesh(CustomRenderMesh(CustomRender::CustomSphere, "asteroid" + std::to_string(getRandomNumber(1,4)),  radius, 10));
+    meshRenderer->setMesh(AsteroidEntity::getModel(radius, getRandomNumber(ASTEROID_STACK_MIN, ASTEROID_STACK_MAX),
+                                                   getRandomNumber(ASTEROID_SECTOR_MIN, ASTEROID_SECTOR_MAX), texture));
 
     this->getEntity()->addComponent(new ColliderComponent(sphere, radius));
 
@@ -101,4 +105,8 @@ bool AsteroidScript::isPrimed() const {
 
 void AsteroidScript::resetPrimed() {
     this->primed = false;
+}
+
+const std::string& AsteroidScript::getTexture() const {
+    return texture;
 }

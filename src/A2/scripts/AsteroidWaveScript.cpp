@@ -3,6 +3,8 @@
 //
 
 #include "AsteroidWaveScript.h"
+
+#include <utility>
 #include "../entities/AsteroidEntity.h"
 #include "../../core/Game.h"
 #include "../GameState.h"
@@ -86,21 +88,23 @@ Vector3 AsteroidWaveScript::getPositionOutOfArena(float payloadSize) {
 void AsteroidWaveScript::spawnAsteroid() {
     // Fetch and calculate variables
     float speed = getRandomNumber(ASTEROID_MIN_SPEED, ASTEROID_MAX_SPEED);
-    float radius = ASTEROID_MIN_RADIUS + (float)(rand() % static_cast<int>(ASTEROID_MAX_RADIUS - ASTEROID_MIN_RADIUS + 1));
+    float radius = getRandomNumber(ASTEROID_MIN_RADIUS, ASTEROID_MAX_RADIUS);
     Vector3 position = getPositionOutOfArena(radius); // Set rotation to either left/right and to config values
     Vector3 rotation = Vector3(getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION), getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION), getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION));
     Vector3 force = VectorUtil::Normalize(shipRef->getPosition() - position) * speed;
 
     // Spawn configured asteroid
     spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * radius, position, speed, radius, rand() % 2 ? rotation : rotation.opposite(),
-                  force, true);
+                  force,
+                  "asteroid" + std::to_string(getRandomNumber(1,4)),
+                  true);
 }
 
 void AsteroidWaveScript::spawnAsteroid(float health, Vector3 position, float speed, float radius, Vector3 rotation,
-                                       Vector3 force, bool canSplit) {
+                                       Vector3 force, std::string texture, bool canSplit) {
     // Create entity and add script
     Entity* ast = AsteroidEntity::getEntity();
-    AsteroidScript* asteroidScript = new AsteroidScript(this, health, radius, speed, canSplit);
+    AsteroidScript* asteroidScript = new AsteroidScript(this, health, radius, speed, std::move(texture), canSplit);
 
     ast->addComponent(asteroidScript);
 
@@ -142,10 +146,10 @@ void AsteroidWaveScript::splitAsteroid(Entity* asteroid, bool scored) {
 
     spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * brokenRadius,
                   posL , speed,
-                  brokenRadius, rigid->getSpin() * 1.2f, forceL, false);
+                  brokenRadius, rigid->getSpin() * 1.2f, forceL, script->getTexture(), false);
     spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * brokenRadius,
                   posR, speed,
-                  brokenRadius, rigid->getSpin() * 1.2f, forceR, false);
+                  brokenRadius, rigid->getSpin() * 1.2f, forceR, script->getTexture(), false);
 
 
     destroyAsteroid(asteroid, scored);

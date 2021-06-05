@@ -19,6 +19,7 @@ private:
 
     float radius;
     float speed;
+    std::string texture;
 
     bool canSplit;
 
@@ -32,13 +33,15 @@ public:
 
     bool isPrimed() const;
 
+    const std::string& getTexture() const;
+
 protected:
     void start() override;
 
     void update() override;
 
 public:
-    AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, bool canSplit);
+    AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, std::string texture, bool canSplit);
 
     void onCollision(Entity* other) override;
 

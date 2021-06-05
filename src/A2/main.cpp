@@ -38,8 +38,8 @@ int main(int argc, char** argv) {
     Renderer::loadTexture("asteroid4", "data/texture/asteroid4.jpg");
 
     // Misc textures
-    Renderer::loadTexture("fireball", "data/texture/fireball.png");
-    Renderer::loadTexture("chunk", "data/texture/chunk.png");
+    Renderer::loadTexture("fireball", "data/texture/fireball.png", true);
+    Renderer::loadTexture("chunk", "data/texture/chunk.png", true);
 
     // Run Game
     Game::start(argc, argv, "I3D Assignment 2 - S3718796", getScene);

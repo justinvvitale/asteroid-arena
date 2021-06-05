@@ -51,16 +51,16 @@ const int SCORE_AMOUNT_ASTEROID_KILL = 1;
 
 // Asteroids
 const float ASTEROID_HEALTH_MULTIPLIER = 0.2; // Multiplier * Radius = health
-const float ASTEROID_SEGMENTS_MIN = 6; // How many points an asteroid should have MIN. 360 = full circle
-const float ASTEROID_SEGMENTS_MAX = 20; // How many points an asteroid should have MAX. 360 = full circle
-const float ASTEROID_MIN_RADIUS = 100; // Min size of asteroid  (All these are inclusive)
-const float ASTEROID_MAX_RADIUS = 100; // Max size of asteroid
+const int ASTEROID_STACK_MIN = 5; // How many stacks min
+const int ASTEROID_STACK_MAX = 20; // How stacks max
+const int ASTEROID_SECTOR_MIN = 5; // How many sectors min
+const int ASTEROID_SECTOR_MAX = 20; // How sectors max
+const float ASTEROID_MIN_RADIUS = 25; // Min size of asteroid  (All these are inclusive)
+const float ASTEROID_MAX_RADIUS = 150; // Max size of asteroid
 const float ASTEROID_MIN_SPEED = 200; // Min speed of asteroid
 const float ASTEROID_MAX_SPEED = 400; // Max speed of asteroid
 const float ASTEROID_MIN_ROTATION = 0; // Min speed of asteroid rotation
 const float ASTEROID_MAX_ROTATION = 2; // Max speed of asteroid rotation
-const float ASTEROID_RADIUS_VARIATION_RANGE = 30; // The range += the that radius can vary per point
-const Vector3 ASTEROID_COLOUR = Vector3(0.3, 0.3, 0.3);
 
 // 4.2 Bouncies 2 (Toggle) - Still works for A2 lol
 const bool ASTEROID_COLLISION = true;

@@ -25,7 +25,6 @@ enum CustomRender{
     None,
     Sphere,
     WireSphere,
-    CustomSphere,
     Cube,
     Bullet,
     Arena
@@ -50,6 +49,8 @@ typedef struct Mesh {
 
     Vector4 ambient = Vector4(0,0,0,0);
     Vector4 diffuse = Vector4(0,0,0,0);
+    Vector4 specular = Vector4(0,0,0,0);
+
 
 } Mesh;
 
