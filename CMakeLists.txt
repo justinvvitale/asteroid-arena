@@ -121,7 +121,7 @@ add_executable(I3D
         src/core/external/tiny_obj_loader.h
         src/core/external/stb_image.h
         # Unsorted
-        src/A2/entities/CameraEntity.h src/A2/scripts/DelayDestroy.cpp src/A2/scripts/DelayDestroy.h src/core/audio/AudioPlayer.h)
+        src/A2/entities/CameraEntity.h src/A2/scripts/ArenaDestroy.cpp src/A2/scripts/ArenaDestroy.h src/core/audio/AudioPlayer.h)
 
 file(COPY src/A2/data DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY freeglut.dll DESTINATION ${CMAKE_BINARY_DIR})

@@ -8,7 +8,7 @@
 #include "../../core/ecs/components/RigidbodyComponent.h"
 #include "../../core/Renderer.h"
 #include "../../core/ecs/components/ColliderComponent.h"
-#include "../scripts/DelayDestroy.h"
+#include "../scripts/ArenaDestroy.h"
 
 class BulletEntity {
 private:
@@ -26,7 +26,7 @@ public:
 
         entity->addComponent(new ColliderComponent(sphere, 0.5));
 
-        entity->addComponent(new DelayDestroy(SHIP_BULLET_LIFE_MS));
+        entity->addComponent(new ArenaDestroy());
 
         RigidbodyComponent* rb = new RigidbodyComponent();
         rb->addForce(force);

@@ -26,7 +26,7 @@ void PlayerControllerScript::update() {
 
     // Clamp values
     // Not needed anymore but good reference
-    //InputRegistry::mouseAngleV = Clamp(InputRegistry::mouseAngleV, -SHIP_VERTICAL_VIEW_CLAMP, SHIP_VERTICAL_VIEW_CLAMP);
+    // InputRegistry::mouseAngleV = Clamp(InputRegistry::mouseAngleV, -SHIP_VERTICAL_VIEW_CLAMP, SHIP_VERTICAL_VIEW_CLAMP);
     float inverter = (rot * Vector3::up()).y;
 
     Vector3 eulerMods = Vector3::zero();
@@ -82,7 +82,7 @@ void PlayerControllerScript::update() {
     if (elapsed - lastShoot >= SHIP_SHOOT_COOLDOWN) {
         if (InputRegistry::isPrimaryMousePressed()) {
             AudioPlayer::playOnce("shoot");
-            Game::getEngine()->getScene()->addEntity(BulletEntity::getEntity(pos + forwardVec * 20,
+            Game::getEngine()->getScene()->addEntity(BulletEntity::getEntity(pos + forwardVec * 10,
                                                                              forwardVec *
                                                                              SHIP_MAX_SPEED * SHIP_SHOOT_VELOCITY));
             lastShoot = elapsed;
@@ -110,8 +110,8 @@ void PlayerControllerScript::update() {
     camera->rotOffset = Rotation::Rotation::FromEuler(Vector3(0,(180 + horizontalAngleOffset) * DEG_TO_RAD,0));
     camera->posOffset = Vector3(0,-2,8);
 
-    camera->getEntity()->setRotation(Rotation::RotateTowards(camera->getEntity()->getRotation(), rot.Inverse(), CAMERA_ROTATION_DAMP));
-    camera->getEntity()->setPosition(VectorUtil::Lerp(camera->getEntity()->getPosition(), pos.opposite(),  CAMERA_POSITION_DAMP));
+    camera->getEntity()->setRotation(Rotation::RotateTowards(camera->getEntity()->getRotation(), rot.Inverse(), CAMERA_ROTATION_DAMP * Game::dt));
+    camera->getEntity()->setPosition(VectorUtil::Lerp(camera->getEntity()->getPosition(), pos.opposite(),  CAMERA_POSITION_DAMP * Game::dt));
 }
 
 void PlayerControllerScript::onCollision(Entity* other) {

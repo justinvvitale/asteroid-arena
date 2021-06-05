@@ -35,8 +35,8 @@ const char SHIP_VIEW_RIGHT = 'd';
 const char SHIP_VIEW_BEHIND = 's';
 
 // Camera
-const float CAMERA_POSITION_DAMP = 0.35; // Position delta 0-1
-const float CAMERA_ROTATION_DAMP = 0.05; // Radian  delta
+const float CAMERA_POSITION_DAMP = 22; // Position delta 0-1
+const float CAMERA_ROTATION_DAMP = 5; // Radian  delta
 
 // WaveManagement
 const int ASTEROID_WAVE_CD = 5000; // Wait X ms before next wave
