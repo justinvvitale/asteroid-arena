@@ -16,12 +16,12 @@ typedef struct Vertex {
 
 } Vertex;
 
-enum FaceType{
+enum FaceType {
     triangle = 3,
     quad = 4
 };
 
-enum CustomRender{
+enum CustomRender {
     None,
     Sphere,
     WireSphere,
@@ -36,7 +36,7 @@ typedef struct Face {
 
     Vector3 colour = Vector3::identity();
 
-    explicit Face(FaceType type = triangle){
+    explicit Face(FaceType type = triangle) {
         this->type = type;
     }
 } Face;
@@ -47,16 +47,16 @@ typedef struct Mesh {
     std::string texture;
 
 
-    Vector4 ambient = Vector4(0,0,0,0);
-    Vector4 diffuse = Vector4(0,0,0,0);
-    Vector4 specular = Vector4(0,0,0,0);
+    Vector4 ambient = Vector4(0, 0, 0, 0);
+    Vector4 diffuse = Vector4(0, 0, 0, 0);
+    Vector4 specular = Vector4(0, 0, 0, 0);
 
 
 } Mesh;
 
 class MeshHelper {
 public:
-    static Vector3 calculateNormal(Vector3 p1, Vector3 p2, Vector3 p3){
+    static Vector3 calculateNormal(Vector3 p1, Vector3 p2, Vector3 p3) {
         return VectorUtil::Cross(p2 - p1, p3 - p1);
     }
 

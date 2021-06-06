@@ -40,15 +40,15 @@ void MediatorScript::update() {
                 Game::paused = true;
 
                 // Particle Explosion
-                for(int i = 0; i < 100; i++){
+                for (int i = 0; i < 100; i++) {
                     Vector3 vel = Vector3(
                             (float) getRandomNumber(-200, 200),
                             (float) getRandomNumber(-200, 200),
                             (float) getRandomNumber(-200, 200));
 
-                    ParticleSystem::emit(new Particle(vel, (float)2000 +
-                                                           (float)getRandomNumber(-1000,
-                                                                                  1000), 20, 8, "fireball"),
+                    ParticleSystem::emit(new Particle(vel, (float) 2000 +
+                                                           (float) getRandomNumber(-1000,
+                                                                                   1000), 20, 8, "fireball"),
                                          Game::getEntity("player")->getPosition());
                 }
 

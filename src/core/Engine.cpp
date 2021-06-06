@@ -67,7 +67,7 @@ void Engine::render() {
     }
 
     // Camera (Render)
-    if(camera != nullptr){
+    if (camera != nullptr) {
         camera->render();
     }
 

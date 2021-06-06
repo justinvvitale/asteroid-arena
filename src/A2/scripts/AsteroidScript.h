@@ -41,7 +41,8 @@ protected:
     void update() override;
 
 public:
-    AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, std::string texture, bool canSplit);
+    AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, std::string texture,
+                   bool canSplit);
 
     void onCollision(Entity* other) override;
 

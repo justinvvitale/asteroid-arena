@@ -15,7 +15,7 @@ void ArenaScript::start() {
 }
 
 void ArenaScript::update() {
-    if(!Game::paused){
+    if (!Game::paused) {
         Vector3 playerPos = Game::getEntity("player")->getPosition();
 
         // I don't like this system, should be re-factored and decoupled from game engine.
@@ -26,7 +26,7 @@ void ArenaScript::update() {
         meshComponent->setMesh(customRender);
 
         // Kill check (Player)
-        if(!isInsideCube(playerPos, ARENA_SIZE)){
+        if (!isInsideCube(playerPos, ARENA_SIZE)) {
             Game::state = GameState::Dead;
         }
     }

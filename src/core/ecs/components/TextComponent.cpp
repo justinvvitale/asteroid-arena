@@ -8,7 +8,8 @@
 
 TextComponent::TextComponent() : Component(ComponentType::CText) {}
 
-TextComponent::TextComponent(std::string text, Vector3 pos, float size, TextOrigin origin) : Component(ComponentType::CText) {
+TextComponent::TextComponent(std::string text, Vector3 pos, float size, TextOrigin origin) : Component(
+        ComponentType::CText) {
     this->text = std::move(text);
 
     this->origin = origin;

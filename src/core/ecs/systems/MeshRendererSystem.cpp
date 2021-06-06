@@ -70,7 +70,7 @@ void MeshRendererSystem::debugRender(Entity* entity) {
                 Vector3 offset = dynamic_cast<ParticleEmitterComponent*>(emitComp)->getOffset();
 
                 Renderer::move(offset);
-                    Renderer::renderCustom(CustomRender::WireSphere, 0.5);
+                Renderer::renderCustom(CustomRender::WireSphere, 0.5);
                 Renderer::move(offset.opposite());
             }
         }
@@ -101,8 +101,8 @@ void MeshRendererSystem::debugRender(Entity* entity) {
                         break;
                 }
 
-             // Move to origin
-              Renderer::move(offset.opposite());
+                // Move to origin
+                Renderer::move(offset.opposite());
             }
         }
 

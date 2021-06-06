@@ -32,7 +32,7 @@ void CameraComponent::render() {
 CameraComponent::~CameraComponent() {
     CameraComponent* camera = Game::getEngine()->camera;
 
-    if(camera == this){
+    if (camera == this) {
         camera = nullptr;
     }
 }

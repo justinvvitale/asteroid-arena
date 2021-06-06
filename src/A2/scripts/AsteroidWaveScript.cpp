@@ -40,7 +40,7 @@ void AsteroidWaveScript::update() {
         cdStartTime = elapsed;
         scoreScript->isCD = true;
 
-        if(scoreScript->wave > 0){
+        if (scoreScript->wave > 0) {
             AudioPlayer::playOnce("wavefinish");
         }
     }
@@ -70,16 +70,16 @@ void AsteroidWaveScript::update() {
 }
 
 Vector3 AsteroidWaveScript::getPositionOutOfArena(float payloadSize) {
-    float halfArena = ARENA_SIZE/2;
+    float halfArena = ARENA_SIZE / 2;
 
     // Brute force, performant enough for assignment but ideally I would calculate a point outside of cuboid area using actual math :?
-    Vector3 result = Vector3(0,0,0);
-    while(isInsideCube(result, ARENA_SIZE, payloadSize)){
+    Vector3 result = Vector3(0, 0, 0);
+    while (isInsideCube(result, ARENA_SIZE, payloadSize)) {
         float wiggleRoom = payloadSize + 500;
         float range = wiggleRoom + halfArena;
-        result.x = getRandomNumber(-range,range);
-        result.y = getRandomNumber(-range,range);
-        result.z = getRandomNumber(-range,range);
+        result.x = getRandomNumber(-range, range);
+        result.y = getRandomNumber(-range, range);
+        result.z = getRandomNumber(-range, range);
     }
 
     return result;
@@ -90,13 +90,16 @@ void AsteroidWaveScript::spawnAsteroid() {
     float speed = getRandomNumber(ASTEROID_MIN_SPEED, ASTEROID_MAX_SPEED);
     float radius = getRandomNumber(ASTEROID_MIN_RADIUS, ASTEROID_MAX_RADIUS);
     Vector3 position = getPositionOutOfArena(radius); // Set rotation to either left/right and to config values
-    Vector3 rotation = Vector3(getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION), getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION), getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION));
+    Vector3 rotation = Vector3(getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION),
+                               getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION),
+                               getRandomNumber(ASTEROID_MIN_ROTATION, ASTEROID_MAX_ROTATION));
     Vector3 force = VectorUtil::Normalize(shipRef->getPosition() - position) * speed;
 
     // Spawn configured asteroid
-    spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * radius, position, speed, radius, rand() % 2 ? rotation : rotation.opposite(),
+    spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * radius, position, speed, radius,
+                  rand() % 2 ? rotation : rotation.opposite(),
                   force,
-                  "asteroid" + std::to_string(getRandomNumber(1,4)),
+                  "asteroid" + std::to_string(getRandomNumber(1, 4)),
                   true);
 }
 
@@ -142,10 +145,10 @@ void AsteroidWaveScript::splitAsteroid(Entity* asteroid, bool scored) {
 
     Vector3 playerPos = asteroid->getWorldPosition();
     Vector3 forceL = VectorUtil::Normalize(posL - playerPos) * speed;
-    Vector3 forceR  = VectorUtil::Normalize(posR - playerPos) * speed;
+    Vector3 forceR = VectorUtil::Normalize(posR - playerPos) * speed;
 
     spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * brokenRadius,
-                  posL , speed,
+                  posL, speed,
                   brokenRadius, rigid->getSpin() * 1.2f, forceL, script->getTexture(), false);
     spawnAsteroid(ASTEROID_HEALTH_MULTIPLIER * brokenRadius,
                   posR, speed,
@@ -162,11 +165,12 @@ void AsteroidWaveScript::destroyAsteroid(Entity* asteroid, bool scored) {
                 (float) getRandomNumber(-ASTEROID_PARTICLE_VELOCITY_RANGE, ASTEROID_PARTICLE_VELOCITY_RANGE),
                 (float) getRandomNumber(-ASTEROID_PARTICLE_VELOCITY_RANGE, ASTEROID_PARTICLE_VELOCITY_RANGE),
                 (float) getRandomNumber(-ASTEROID_PARTICLE_VELOCITY_RANGE, ASTEROID_PARTICLE_VELOCITY_RANGE)
-                );
+        );
 
-        ParticleSystem::emit(new Particle(vel, (float)ASTEROID_PARTICLE_LIFESPAN +
-                                                               (float)getRandomNumber(-ASTEROID_PARTICLE_LIFESPAN_VARIATION,
-                                                               ASTEROID_PARTICLE_LIFESPAN_VARIATION), 5, 20, "chunk"),
+        ParticleSystem::emit(new Particle(vel, (float) ASTEROID_PARTICLE_LIFESPAN +
+                                               (float) getRandomNumber(-ASTEROID_PARTICLE_LIFESPAN_VARIATION,
+                                                                       ASTEROID_PARTICLE_LIFESPAN_VARIATION), 5, 20,
+                                          "chunk"),
                              asteroid->getPosition());
     }
 

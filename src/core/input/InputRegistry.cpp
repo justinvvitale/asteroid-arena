@@ -7,7 +7,9 @@
 #if __APPLE__
 #   include <GLUT/glut.h>
 #else
+
 #   include <GL/glut.h>
+
 #endif
 
 // Initialize to nothing, should be set by init
@@ -17,10 +19,11 @@ float InputRegistry::mouseAngleH = 0;
 float InputRegistry::mouseAngleV = 0;
 
 Vector2 InputRegistry::centerPoint = Vector2::zero();
+
 void InputRegistry::init() {
     keyState = new std::set<unsigned char>();
-    centerPoint.x = glutGet(GLUT_WINDOW_WIDTH)/2;
-    centerPoint.y = glutGet(GLUT_WINDOW_HEIGHT)/2;
+    centerPoint.x = glutGet(GLUT_WINDOW_WIDTH) / 2;
+    centerPoint.y = glutGet(GLUT_WINDOW_HEIGHT) / 2;
 }
 
 // Call backs
@@ -48,7 +51,7 @@ std::vector<unsigned char> InputRegistry::getPressed() {
 }
 
 void InputRegistry::mouse(int button, int state, int x, int y) {
-    if(button == GLUT_LEFT_BUTTON ){
+    if (button == GLUT_LEFT_BUTTON) {
         primaryPressed = state == GLUT_DOWN ? true : false;
     }
 }

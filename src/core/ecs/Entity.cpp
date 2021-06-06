@@ -41,7 +41,7 @@ void Entity::setPosition(const Vector3& pos) {
 }
 
 void Entity::setPosition(float x, float y, float z) {
-    Entity::position = Vector3(x,y,z);
+    Entity::position = Vector3(x, y, z);
 }
 
 
@@ -49,7 +49,7 @@ Rotation Entity::getRotation() const {
     return rotation;
 }
 
-Vector3 Entity::getForwardVector()  {
+Vector3 Entity::getForwardVector() {
     return rotation * Vector3::forward();
 }
 
@@ -181,7 +181,7 @@ void Entity::removeComponent(Component* component) {
 
 std::list<Entity*> Entity::getHierarchicalEntities() {
     std::list<Entity*> entities = std::list<Entity*>();
-    for(Entity* child : getChildren()){
+    for (Entity* child : getChildren()) {
         std::list<Entity*> childOfChild = child->getHierarchicalEntities();
         entities.insert(entities.begin(), childOfChild.begin(), childOfChild.end());
     }

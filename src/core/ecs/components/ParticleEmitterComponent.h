@@ -26,7 +26,8 @@ typedef struct Particle {
     Vector3 colour;
     std::string texture;
 
-    Particle(Vector3 vel, float lifeSpanMs, float startScale, float endScale, const std::string& texture, Vector3 colour = DEFAULT_COLOUR) {
+    Particle(Vector3 vel, float lifeSpanMs, float startScale, float endScale, const std::string& texture,
+             Vector3 colour = DEFAULT_COLOUR) {
         this->velocity = vel;
         this->life = lifeSpanMs;
         this->scale = startScale;

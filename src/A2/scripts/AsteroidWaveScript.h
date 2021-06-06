@@ -19,7 +19,7 @@ private:
     int cdStartTime = -1;
     int lastClearTime = -1;
 
-    static Vector3 getPositionOutOfArena(float payloadSize) ;
+    static Vector3 getPositionOutOfArena(float payloadSize);
 
     void spawnAsteroid();
 

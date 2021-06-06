@@ -21,12 +21,12 @@ void CollisionSystem::process(std::list<Component*> items) {
         colliders.push_back(collider);
     }
 
-    const int colliderCount = (int)colliders.size();
+    const int colliderCount = (int) colliders.size();
 
     int colliderOffset = 0;
-    for(int x = 0; x < colliderCount; x++){
+    for (int x = 0; x < colliderCount; x++) {
         colliderOffset++;
-        for(int y = colliderOffset; y < colliderCount; y++){
+        for (int y = colliderOffset; y < colliderCount; y++) {
             ColliderComponent* col1 = colliders[x];
             ColliderComponent* col2 = colliders[y];
 
@@ -47,17 +47,18 @@ void CollisionSystem::process(std::list<Component*> items) {
                 }
             }
         }
-    }}
+    }
+}
 
 bool CollisionSystem::isCollided(ColliderComponent col1, ColliderComponent col2) {
-    if(col1.getCollisionType() == sphere && col2.getCollisionType() == sphere){
+    if (col1.getCollisionType() == sphere && col2.getCollisionType() == sphere) {
         Vector3 col1Pos = col1.getEntity()->getPosition();
         Vector3 col2Pos = col2.getEntity()->getPosition();
 
         float dist = VectorUtil::Distance(col1Pos, col2Pos);
 
         // We've collided
-        if(dist < col1.getSize() + col2.getSize()){
+        if (dist < col1.getSize() + col2.getSize()) {
             return true;
         }
 

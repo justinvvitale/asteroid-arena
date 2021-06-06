@@ -87,17 +87,17 @@ void Game::init() {
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, sceneAmbient);
 
     // Directional light
-    GLfloat qaAmbientLight[]	= { 0,0,0,1};
+    GLfloat qaAmbientLight[] = {0, 0, 0, 1};
 
     float directionStrength = 0.5;
-    GLfloat qaDiffuseLight[]	= {directionStrength, directionStrength, directionStrength, directionStrength};
-    GLfloat qaSpecularLight[]	= {directionStrength, directionStrength, directionStrength, directionStrength};
+    GLfloat qaDiffuseLight[] = {directionStrength, directionStrength, directionStrength, directionStrength};
+    GLfloat qaSpecularLight[] = {directionStrength, directionStrength, directionStrength, directionStrength};
     glLightfv(GL_LIGHT0, GL_AMBIENT, qaAmbientLight);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight);
     glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight);
 
     // Set directional position
-    GLfloat light1Pos[]	= {0,1,0,0};
+    GLfloat light1Pos[] = {0, 1, 0, 0};
     glLightfv(GL_LIGHT0, GL_POSITION, light1Pos);
 
 
@@ -109,7 +109,7 @@ void Game::init() {
     glEnable(GL_NORMALIZE);
 
     glEnable(GL_COLOR_MATERIAL);
-    glColorMaterial (GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
     glutSetCursor(GLUT_CURSOR_NONE);
 
@@ -131,14 +131,14 @@ void Game::reshape(int w, int h) {
 
     float aspectRatio = (GLfloat) w / (GLfloat) h;
 
-    gluPerspective(45.0, aspectRatio, 1.0, 100000000000.0 );
+    gluPerspective(45.0, aspectRatio, 1.0, 100000000000.0);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
 
 void Game::display() {
-    if(engine == nullptr) return;
+    if (engine == nullptr) return;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glLoadIdentity();
@@ -154,7 +154,7 @@ void Game::display() {
 }
 
 void Game::idle() {
-    if(engine == nullptr) return;
+    if (engine == nullptr) return;
 
     if (restartRequested) {
         performEntityCleanup();
@@ -185,7 +185,7 @@ void Game::idle() {
         performEntityCleanup();
     }
 
-    if(InputRegistry::isPressed(27)){
+    if (InputRegistry::isPressed(27)) {
         exit(0);
     }
 

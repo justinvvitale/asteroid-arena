@@ -107,39 +107,39 @@ void Renderer::TextureStart(std::string name) {
 
 void Renderer::renderParticle(const Particle* particle) {
     push();
-        move(particle->position);
-        drawTransparentQuad(particle->texture, particle->scale, Vector3::zero(), particle->colour);
+    move(particle->position);
+    drawTransparentQuad(particle->texture, particle->scale, Vector3::zero(), particle->colour);
     pop();
 }
 
 void Renderer::drawTransparentQuad(const std::string& texture, float size, Vector3 offset, Vector3 colour) {
     push();
-        Entity* player = Game::getEntity("player");
-        rotate(Rotation::LookRotation(player->getForwardVector().opposite()));
+    Entity* player = Game::getEntity("player");
+    rotate(Rotation::LookRotation(player->getForwardVector().opposite()));
 
-        glColor4f(colour.x, colour.y, colour.z,1);
+    glColor4f(colour.x, colour.y, colour.z, 1);
 
-        glAlphaFunc(GL_GREATER, 0.5);
-        glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.5);
+    glEnable(GL_ALPHA_TEST);
 
-        glDisable(GL_LIGHTING);
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(texture));
+    glDisable(GL_LIGHTING);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, Renderer::getTextureId(texture));
 
-        glBegin(GL_QUADS);
-            glTexCoord2f(0.0, 1.0);
-            glVertex2f(-size, size);
-            glTexCoord2f(0.0, 0.0);
-            glVertex2f(-size, -size);
-            glTexCoord2f(1.0, 0.0);
-            glVertex2f(size, -size);
-            glTexCoord2f(1.0, 1.0);
-            glVertex2f(size, size);
-        glEnd();
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0, 1.0);
+    glVertex2f(-size, size);
+    glTexCoord2f(0.0, 0.0);
+    glVertex2f(-size, -size);
+    glTexCoord2f(1.0, 0.0);
+    glVertex2f(size, -size);
+    glTexCoord2f(1.0, 1.0);
+    glVertex2f(size, size);
+    glEnd();
 
-        glDisable(GL_TEXTURE_2D);
-        glEnable(GL_LIGHTING);
-        glDisable(GL_ALPHA_TEST);
+    glDisable(GL_TEXTURE_2D);
+    glEnable(GL_LIGHTING);
+    glDisable(GL_ALPHA_TEST);
     pop();
 
     glColor4f(DEFAULT_COLOUR.x, DEFAULT_COLOUR.y, DEFAULT_COLOUR.z, 1);
@@ -245,7 +245,8 @@ void Renderer::scale(float scale) {
 unsigned int Renderer::loadTextureGl(const std::string& file, bool isTransparent) {
     stbi_set_flip_vertically_on_load(true);
     int width, height, components;
-    unsigned char* data = stbi_load(file.c_str(), &width, &height, &components, isTransparent ? STBI_rgb_alpha : STBI_rgb);
+    unsigned char* data = stbi_load(file.c_str(), &width, &height, &components,
+                                    isTransparent ? STBI_rgb_alpha : STBI_rgb);
 
     if (data == nullptr) {
         std::cout << "(Error) Unable to load texture: " + file << std::endl;
@@ -293,7 +294,7 @@ void Renderer::renderCustom(CustomRender customRender, float param1, float param
 
             float distTop = halfArena - playerPos.y;
             float distBottom = halfArena + playerPos.y;
-            float distNear =  halfArena - playerPos.z;
+            float distNear = halfArena - playerPos.z;
             float distFar = halfArena + playerPos.z;
             float distLeft = halfArena + playerPos.x;
             float distRight = halfArena - playerPos.x;
@@ -311,13 +312,13 @@ void Renderer::renderCustom(CustomRender customRender, float param1, float param
             glDisable(GL_LIGHTING);
 
             int index = 0;
-            for(auto directionVector : VectorUtil::DirectionVectors()){
+            for (auto directionVector : VectorUtil::DirectionVectors()) {
                 push();
 
                 // Set colour for warns
-                if(warns[index]){
+                if (warns[index]) {
                     glColor3f(ARENA_WARN_COLOUR.x, ARENA_WARN_COLOUR.y, ARENA_WARN_COLOUR.z);
-                }else{
+                } else {
                     glColor3f(ARENA_COLOUR.x, ARENA_COLOUR.y, ARENA_COLOUR.z);
                 }
 
@@ -330,17 +331,17 @@ void Renderer::renderCustom(CustomRender customRender, float param1, float param
 
                 // Render mesh
                 glBegin(GL_LINES);
-                    // Horizontal lines
-                    for(float x = -sizeH; x <= sizeH; x += sizing ){
-                        glVertex3f(x, -sizeH, 0.0f);
-                        glVertex3f(x, sizeH, 0.0f);
-                    }
+                // Horizontal lines
+                for (float x = -sizeH; x <= sizeH; x += sizing) {
+                    glVertex3f(x, -sizeH, 0.0f);
+                    glVertex3f(x, sizeH, 0.0f);
+                }
 
-                    // Vertical lines
-                    for(float y = -sizeH; y <= sizeH; y += sizing ){
-                        glVertex3f(-sizeH, y, 0.0f);
-                        glVertex3f(sizeH, y, 0.0f);
-                    }
+                // Vertical lines
+                for (float y = -sizeH; y <= sizeH; y += sizing) {
+                    glVertex3f(-sizeH, y, 0.0f);
+                    glVertex3f(sizeH, y, 0.0f);
+                }
                 glEnd();
 
                 glColor3f(ARENA_COLOUR.x, ARENA_COLOUR.y, ARENA_COLOUR.z);
@@ -368,7 +369,9 @@ void Renderer::loadTexture(const std::string& name, const std::string& path, boo
         std::cout << "Loaded texture " << name << " and assigned ID " << id << std::endl;
         textures[name] = id;
     } else {
-        textureLoadQueue.emplace(std::pair<std::string, std::pair<std::string, bool>>(name, std::pair<std::string, bool>(path, isTransparent)));
+        textureLoadQueue.emplace(std::pair<std::string, std::pair<std::string, bool>>(name,
+                                                                                      std::pair<std::string, bool>(path,
+                                                                                                                   isTransparent)));
     }
 }
 

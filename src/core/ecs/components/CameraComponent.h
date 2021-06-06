@@ -12,7 +12,9 @@
 class CameraComponent : public Component {
 public:
     CameraComponent();
+
     ~CameraComponent();
+
     void tick() override;
 
     MeshComponent* meshComponent;

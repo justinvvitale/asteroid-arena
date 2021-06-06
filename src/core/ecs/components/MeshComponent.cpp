@@ -15,19 +15,21 @@ void MeshComponent::tick() {
 }
 
 void MeshComponent::render() {
-    if(!isCustomRender){
+    if (!isCustomRender) {
         Renderer::scale(this->scale);
-            Renderer::renderMesh(mesh);
+        Renderer::renderMesh(mesh);
         Renderer::scale(-scale);
 
-    }else{
+    } else {
         // Render if textures (If any)
-        if(!customRenderMesh.texture.empty()){
+        if (!customRenderMesh.texture.empty()) {
             Renderer::TextureStart(customRenderMesh.texture);
-                Renderer::renderCustom(customRenderMesh.customRender, customRenderMesh.param1, customRenderMesh.param2, customRenderMesh.param3);
+            Renderer::renderCustom(customRenderMesh.customRender, customRenderMesh.param1, customRenderMesh.param2,
+                                   customRenderMesh.param3);
             Renderer::TextureEnd();
-        }else{
-            Renderer::renderCustom(customRenderMesh.customRender, customRenderMesh.param1, customRenderMesh.param2, customRenderMesh.param3);
+        } else {
+            Renderer::renderCustom(customRenderMesh.customRender, customRenderMesh.param1, customRenderMesh.param2,
+                                   customRenderMesh.param3);
         }
     }
 }

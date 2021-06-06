@@ -30,12 +30,12 @@ public:
         float stackStep = PI / stackCount;
         float sectorAngle, stackAngle;
 
-        for(int i = 0; i <= stackCount; ++i){
+        for (int i = 0; i <= stackCount; ++i) {
             stackAngle = PI / 2 - i * stackStep;
             xy = radius * cosf(stackAngle);
             curZ = radius * sinf(stackAngle);
 
-            for(int j = 0; j <= sectorCount; ++j){
+            for (int j = 0; j <= sectorCount; ++j) {
                 sectorAngle = j * sectorStep;
 
                 Vertex* vert = new Vertex();
@@ -51,23 +51,22 @@ public:
                 vert->normal.z = curZ * length;
 
                 // Tex coordinates
-                vert->texCoord.x = (float)j / sectorCount;
-                vert->texCoord.y = (float)i / stackCount;
+                vert->texCoord.x = (float) j / sectorCount;
+                vert->texCoord.y = (float) i / stackCount;
 
                 mesh.vertices.push_back(vert);
             }
         }
 
         int curStack, nextStack;
-        for(int i = 0; i < stackCount; ++i)
-        {
+        for (int i = 0; i < stackCount; ++i) {
             curStack = i * (sectorCount + 1);
             nextStack = curStack + sectorCount + 1;
 
-            for(int j = 0; j < sectorCount; ++j, ++curStack, ++nextStack){
+            for (int j = 0; j < sectorCount; ++j, ++curStack, ++nextStack) {
 
                 // Special case for pivot points
-                if(i != 0){
+                if (i != 0) {
                     Face face = Face();
                     face.vertices[0] = mesh.vertices[curStack];
                     face.vertices[1] = mesh.vertices[nextStack];
@@ -76,7 +75,7 @@ public:
                     mesh.faces.push_back(face);
                 }
 
-                if(i != (stackCount-1)){
+                if (i != (stackCount - 1)) {
                     Face face = Face();
                     face.vertices[0] = mesh.vertices[curStack + 1];
                     face.vertices[1] = mesh.vertices[nextStack];
@@ -89,7 +88,7 @@ public:
 
         mesh.texture = texture;
         // Show a specular highlight.
-        mesh.specular = Vector4(0.2,0.2,0.2,1);
+        mesh.specular = Vector4(0.2, 0.2, 0.2, 1);
 
         return mesh;
     }

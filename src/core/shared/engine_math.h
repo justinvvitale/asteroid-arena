@@ -144,14 +144,14 @@ class VectorUtil {
 public:
     // Core functions
 
-    static std::list<std::pair<Direction, Vector3>> DirectionVectors(){
-        auto list =  std::list<std::pair<Direction, Vector3>>();
-        list.emplace_back(Up, Vector3(0,1,0));
-        list.emplace_back(Down, Vector3(0,-1,0));
-        list.emplace_back(Left, Vector3(-1,0,0));
-        list.emplace_back(Right, Vector3(1,0,0));
-        list.emplace_back(Near, Vector3(0,0,1));
-        list.emplace_back(Far, Vector3(0,0,-1));
+    static std::list<std::pair<Direction, Vector3>> DirectionVectors() {
+        auto list = std::list<std::pair<Direction, Vector3>>();
+        list.emplace_back(Up, Vector3(0, 1, 0));
+        list.emplace_back(Down, Vector3(0, -1, 0));
+        list.emplace_back(Left, Vector3(-1, 0, 0));
+        list.emplace_back(Right, Vector3(1, 0, 0));
+        list.emplace_back(Near, Vector3(0, 0, 1));
+        list.emplace_back(Far, Vector3(0, 0, -1));
 
         return list;
     }

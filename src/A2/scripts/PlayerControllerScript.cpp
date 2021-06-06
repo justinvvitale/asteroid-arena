@@ -38,12 +38,12 @@ void PlayerControllerScript::update() {
 
     rot = Rotation::FromEuler(eulerMods);
 
-    if (InputRegistry::isPressed(SHIP_MOVE_UP)){
-        pos.y -= 100 *  Game::dt;
+    if (InputRegistry::isPressed(SHIP_MOVE_UP)) {
+        pos.y -= 100 * Game::dt;
     }
 
-    if (InputRegistry::isPressed(SHIP_MOVE_DOWN)){
-        pos.y += 100 *  Game::dt;
+    if (InputRegistry::isPressed(SHIP_MOVE_DOWN)) {
+        pos.y += 100 * Game::dt;
     }
 
     if (Game::state != 1) {
@@ -95,11 +95,11 @@ void PlayerControllerScript::update() {
     //spaceship. This could simply consist of switching the camera to a side or rear view
     //while an appropriate key is pressed down. The ship should not be rendered while the
     //camera is displaying one of these camera views.
-    if(InputRegistry::isPressed(SHIP_VIEW_LEFT)){
+    if (InputRegistry::isPressed(SHIP_VIEW_LEFT)) {
         horizontalAngleOffset -= 90;
-    }else if(InputRegistry::isPressed(SHIP_VIEW_RIGHT)){
+    } else if (InputRegistry::isPressed(SHIP_VIEW_RIGHT)) {
         horizontalAngleOffset += 90;
-    }else if(InputRegistry::isPressed(SHIP_VIEW_BEHIND)){
+    } else if (InputRegistry::isPressed(SHIP_VIEW_BEHIND)) {
         horizontalAngleOffset -= 180;
     }
 
@@ -107,17 +107,19 @@ void PlayerControllerScript::update() {
     // What a bloody hack job, atleast it works...
     // I hate rotations :(
     // Update: Improved it lol
-    camera->rotOffset = Rotation::Rotation::FromEuler(Vector3(0,(180 + horizontalAngleOffset) * DEG_TO_RAD,0));
-    camera->posOffset = Vector3(0,-2,8);
+    camera->rotOffset = Rotation::Rotation::FromEuler(Vector3(0, (180 + horizontalAngleOffset) * DEG_TO_RAD, 0));
+    camera->posOffset = Vector3(0, -2, 8);
 
-    camera->getEntity()->setRotation(Rotation::RotateTowards(camera->getEntity()->getRotation(), rot.Inverse(), CAMERA_ROTATION_DAMP * Game::dt));
-    camera->getEntity()->setPosition(VectorUtil::Lerp(camera->getEntity()->getPosition(), pos.opposite(),  CAMERA_POSITION_DAMP * Game::dt));
+    camera->getEntity()->setRotation(Rotation::RotateTowards(camera->getEntity()->getRotation(), rot.Inverse(),
+                                                             CAMERA_ROTATION_DAMP * Game::dt));
+    camera->getEntity()->setPosition(
+            VectorUtil::Lerp(camera->getEntity()->getPosition(), pos.opposite(), CAMERA_POSITION_DAMP * Game::dt));
 }
 
 void PlayerControllerScript::onCollision(Entity* other) {
 
     // Die on asteroid touch
-    if(other->getTag() == "asteroid"){
+    if (other->getTag() == "asteroid") {
         Game::state = GameState::Dead;
     }
 }

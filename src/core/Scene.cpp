@@ -10,7 +10,7 @@ void Scene::addEntity(Entity* entity) {
     sceneEntities.push_back(entity);
 
     // Check for tags (Down the tree)
-    for(Entity* hEntity : entity->getHierarchicalEntities()){
+    for (Entity* hEntity : entity->getHierarchicalEntities()) {
         std::string tag = hEntity->getTag();
         if (!tag.empty()) {
             this->taggedEntities[tag] = hEntity;

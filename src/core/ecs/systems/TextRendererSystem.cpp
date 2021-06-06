@@ -12,6 +12,7 @@ void TextRendererSystem::process(std::list<Component*> items) {
     for (Component* component : items) {
         TextComponent* textComponent = (TextComponent*) component;
 
-        Renderer::renderText(textComponent->getOrigin(), textComponent->getOffset(), textComponent->getText(), textComponent->getSize());
+        Renderer::renderText(textComponent->getOrigin(), textComponent->getOffset(), textComponent->getText(),
+                             textComponent->getSize());
     }
 }

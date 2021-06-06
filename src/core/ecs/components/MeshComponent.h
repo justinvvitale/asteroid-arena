@@ -17,8 +17,10 @@ typedef struct CustomRenderMesh {
     float param2 = 0;
     float param3 = 0;
 
-    explicit CustomRenderMesh()= default;;
-    explicit CustomRenderMesh(CustomRender customRender, std::string  texture = "", float param1 = 0, float param2 = 0, float param3 = 0)
+    explicit CustomRenderMesh() = default;;
+
+    explicit CustomRenderMesh(CustomRender customRender, std::string texture = "", float param1 = 0, float param2 = 0,
+                              float param3 = 0)
             : customRender(customRender), texture(std::move(texture)), param1(param1), param2(param2), param3(param3) {}
 } CustomRenderMesh;
 

@@ -25,7 +25,8 @@ private:
 public:
     TextComponent();
 
-    explicit TextComponent(std::string text = "", Vector3 pos = Vector3::zero(), float size = 1, TextOrigin origin = TextOrigin::centre);
+    explicit TextComponent(std::string text = "", Vector3 pos = Vector3::zero(), float size = 1,
+                           TextOrigin origin = TextOrigin::centre);
 
     const Vector3& getOffset() const;
 

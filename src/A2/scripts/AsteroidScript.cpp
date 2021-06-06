@@ -11,7 +11,8 @@
 #include "../../core/ecs/components/ColliderComponent.h"
 #include "../entities/AsteroidEntity.h"
 
-AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, std::string texture, bool canSplit) {
+AsteroidScript::AsteroidScript(AsteroidWaveScript* mgr, float health, float radius, float speed, std::string texture,
+                               bool canSplit) {
     this->mgr = mgr;
     this->health = health;
     this->radius = radius;
@@ -40,7 +41,8 @@ void AsteroidScript::update() {
     }
 
     // Prime once hasn't collided and been alive for atleast 3 seconds
-    if (!primed && (!canSplit || isInsideCube(this->getEntity()->getPosition(), ARENA_SIZE, this->radius) && alive >= 2)) {
+    if (!primed &&
+        (!canSplit || isInsideCube(this->getEntity()->getPosition(), ARENA_SIZE, this->radius) && alive >= 2)) {
         this->primed = true;
     }
 
@@ -50,8 +52,7 @@ void AsteroidScript::update() {
         Vector3 vel = Vector3(rigid->getVelocity());
         rigid->clearVelocity();
 
-        Vector3 asteroidPosition = this->getEntity()->getPosition();
-        // TODO more accurate bounce
+        // TODO more accurate bounce (maybe)
         rigid->addForce(vel.opposite());
 
         resetPrimed();

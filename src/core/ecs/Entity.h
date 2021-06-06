@@ -50,6 +50,7 @@ public:
     Entity* getParent();
 
     std::list<Entity*> getChildren();
+
     std::list<Entity*> getHierarchicalEntities();
 
     void addChild(Entity* entity);
@@ -62,6 +63,7 @@ public:
     Vector3 getWorldPosition();
 
     void setPosition(const Vector3& pos);
+
     void setPosition(float x, float y, float z);
 
     Vector3 getForwardVector();

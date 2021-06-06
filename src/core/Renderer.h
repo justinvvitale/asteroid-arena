@@ -35,7 +35,8 @@ public:
 
     static void renderMesh(const Mesh& mesh);
 
-    static void renderCustom(CustomRender customRender, float param1 = 50, float param2 = 50, float param3 = 50, Vector3 colour = Vector3::identity());
+    static void renderCustom(CustomRender customRender, float param1 = 50, float param2 = 50, float param3 = 50,
+                             Vector3 colour = Vector3::identity());
 
     static void renderParticle(const Particle* particle);
 
@@ -60,12 +61,14 @@ public:
     // Helpers (General)
 
     static unsigned int getTextureId(const std::string& name);
+
     static void loadTexture(const std::string& name, const std::string& path, bool isTransparent = false);
 
     // Helpers (Drawing)
     static void drawCharacter(char chr);
 
-    static void drawTransparentQuad(const std::string& texture, float size, Vector3 offset = Vector3::zero(), Vector3 colour = Vector3(1,1,1));
+    static void drawTransparentQuad(const std::string& texture, float size, Vector3 offset = Vector3::zero(),
+                                    Vector3 colour = Vector3(1, 1, 1));
 
     static void TextureStart(std::string name);
 
