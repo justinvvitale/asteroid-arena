@@ -35,7 +35,7 @@ const char SHIP_VIEW_BEHIND = 's';
 
 // Camera
 const bool CAMERA_LERP_POSITION = true; // Smooth camera follow (DISABLE IF TOO JITTERY)
-const float CAMERA_POSITION_DAMP = 22; // Position delta 0-1
+const float CAMERA_POSITION_DAMP = 0.30; // Position delta 0-1
 const float CAMERA_ROTATION_DAMP = 5; // Radian  delta
 
 // WaveManagement

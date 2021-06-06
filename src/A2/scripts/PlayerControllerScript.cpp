@@ -114,7 +114,7 @@ void PlayerControllerScript::update() {
                                                              CAMERA_ROTATION_DAMP * Game::dt));
     if(CAMERA_LERP_POSITION){
         camera->getEntity()->setPosition(
-                VectorUtil::Lerp(camera->getEntity()->getPosition(), pos.opposite(), CAMERA_POSITION_DAMP * Game::dt));
+                VectorUtil::Lerp(camera->getEntity()->getPosition(), pos.opposite(), CAMERA_POSITION_DAMP));
     }else{
         camera->getEntity()->setPosition(pos.opposite());
     }
