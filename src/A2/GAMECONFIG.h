@@ -16,7 +16,6 @@ const float SHIP_COLLIDER_SIZE = 1.4f; // How large the collider sphere is
 
 const float SHIP_MAX_SPEED = 700;
 const float SHIP_BULLET_DAMAGE = 10; // How much damage each bullet does to thins it hit (with health)
-const float SHIP_BULLET_LIFE_MS = 10000; // How long a bullet is in the world before being destroyed (ms)
 const float SHIP_SHOOT_VELOCITY = 2; // Speed which bullets shoot
 const int SHIP_SHOOT_COOLDOWN = 180; // MS seconds between shooting
 
@@ -35,6 +34,7 @@ const char SHIP_VIEW_RIGHT = 'd';
 const char SHIP_VIEW_BEHIND = 's';
 
 // Camera
+const bool CAMERA_LERP_POSITION = true; // Smooth camera follow (DISABLE IF TOO JITTERY)
 const float CAMERA_POSITION_DAMP = 22; // Position delta 0-1
 const float CAMERA_ROTATION_DAMP = 5; // Radian  delta
 

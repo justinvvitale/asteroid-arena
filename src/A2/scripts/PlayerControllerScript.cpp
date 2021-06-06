@@ -112,8 +112,13 @@ void PlayerControllerScript::update() {
 
     camera->getEntity()->setRotation(Rotation::RotateTowards(camera->getEntity()->getRotation(), rot.Inverse(),
                                                              CAMERA_ROTATION_DAMP * Game::dt));
-    camera->getEntity()->setPosition(
-            VectorUtil::Lerp(camera->getEntity()->getPosition(), pos.opposite(), CAMERA_POSITION_DAMP * Game::dt));
+    if(CAMERA_LERP_POSITION){
+        camera->getEntity()->setPosition(
+                VectorUtil::Lerp(camera->getEntity()->getPosition(), pos.opposite(), CAMERA_POSITION_DAMP * Game::dt));
+    }else{
+        camera->getEntity()->setPosition(pos.opposite());
+    }
+
 }
 
 void PlayerControllerScript::onCollision(Entity* other) {
