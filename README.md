@@ -17,7 +17,7 @@ Please note that the code quality is not the best, it wasn't marked.
 
 Final mark for subject was 90/100
 
-## The ECS breakdown:
+## The ECS breakdown
 * Entity
     * Represents an object in the game, everything is an entity (E.g the ship). It's a data holder and has a position & rotation. An entity has many components and can have nested entities in a hierarchical fashion. 
 * Component
