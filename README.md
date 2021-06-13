@@ -1,4 +1,4 @@
-# Interactive 3D Graphics and Animation 
+# Asteroid Arena
 
 OpenGl ECS game engine + implementations as part of the I3D course.
 
