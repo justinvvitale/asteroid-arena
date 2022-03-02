@@ -39,10 +39,10 @@ Heavily inspired by Unity's structure
 
 ## Gameplay
 ### A1 
-[![A1 Video](https://img.youtube.com/vi/t7iieoqE3ok/0.jpg)](https://www.youtube.com/watch?v=t7iieoqE3ok)
+[![A1 Video](https://img.youtube.com/vi/sAsnf0w9VhE/0.jpg)](https://www.youtube.com/watch?v=sAsnf0w9VhE)
 
 ### A2 
-[![A2 Video](https://img.youtube.com/vi/D6NsQCRa_hc/0.jpg)](https://www.youtube.com/watch?v=D6NsQCRa_hc)
+[![A2 Video](https://img.youtube.com/vi/XLHCKEyYiGY/0.jpg)](https://www.youtube.com/watch?v=XLHCKEyYiGY)
 
 ## Statistics
 **27** CPP files
